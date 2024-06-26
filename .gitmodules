@@ -1,0 +1,6 @@
+[submodule "ThirdParty/soci"]
+	path = ThirdParty/soci
+	url = https://github.com/SOCI/soci
+[submodule "ThirdParty/WorLibrary"]
+	path = ThirdParty/WorLibrary
+	url = https://github.com/WorHyako/WorLibrary.git
