@@ -10,6 +10,15 @@ add_subdirectory(Scopes)
 
 add_subdirectory(Dialogs)
 
+set_target_properties(Mss_Actions
+        Mss_Actions
+        Mss_Components
+        Mss_Controls
+        Mss_Dialogs
+        Mss_Scopes
+        PROPERTIES
+        AUTOMOC ON)
+
 add_library(Mss_Gui INTERFACE)
 add_library(Mss::Gui ALIAS Mss_Gui)
 

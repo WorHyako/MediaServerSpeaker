@@ -10,8 +10,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
 
-set(CMAKE_AUTOMOC ON)
-
 add_subdirectory(ThirdParty)
 
 ################
@@ -33,4 +31,5 @@ target_include_directories(MediaServerSpeaker
 target_link_libraries(MediaServerSpeaker
         PRIVATE
         Mss::Gui
+        Wor::Lib
         Soci::core)

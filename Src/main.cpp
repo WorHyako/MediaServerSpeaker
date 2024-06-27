@@ -10,5 +10,4 @@ int main(int argc, char **argv) {
     auto window = new Dialogs::MainWindow();
 
     return QApplication::exec();
-    return 1;
 }

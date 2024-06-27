@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
      * Scope 1
      */
     auto scope = new Scopes::QuickButtonScope(root);
-    _mainLayout->addWidget(scope, 0, 0, 1, 1);
+    _mainLayout->addWidget(scope, 1, 0, 1, 1);
     scope->show();
 
     _mainLayout->setColumnStretch(0, 1);

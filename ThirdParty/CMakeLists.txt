@@ -14,6 +14,17 @@ set(SOCI_POSTGRESQL OFF)
 set(SOCI_DB2 OFF)
 add_subdirectory(soci)
 
+#####################
+#   nlohmann/json   #
+#####################
+set(JSON_BuildTests OFF)
+set(JSON_CI OFF)
+set(JSON_GlobalUDLs OFF)
+set(JSON_Install OFF)
+set(JSON_SystemInclude OFF)
+set(JSON_SystemInclude OFF)
+add_subdirectory(nlohmann-json)
+
 ##################
 #   WorLibrary   #
 ##################
@@ -24,6 +35,18 @@ set(WORLIBRARY_MATH ON)
 set(WORLIBRARY_NETWORK ON)
 set(WORLIBRARY_CURRENCY ON)
 add_subdirectory(WorLibrary)
+
+add_library(WorLibrary INTERFACE)
+add_library(Wor::Lib ALIAS WorLibrary)
+
+target_link_libraries(WorLibrary
+        INTERFACE
+        Wor::Converter
+        Wor::Currency
+        Wor::Json
+        Wor::Math
+        Wor::Network
+        Wor::Sql)
 
 ##########
 #   Qt   #
