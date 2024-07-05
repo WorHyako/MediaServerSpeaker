@@ -1,0 +1,14 @@
+{
+  "tabs": [
+    {
+      "tab1": {
+        "command": "select tab1",
+        "icon": "tab1/icon.jpg"
+      },
+      "tab2": {
+        "command": "select tab2",
+        "icon": "tab2/icon.jpg"
+      }
+    }
+  ]
+}
