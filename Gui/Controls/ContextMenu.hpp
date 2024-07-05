@@ -4,7 +4,7 @@
 
 #include <memory>
 
-namespace MSS::Gui::Controls {
+namespace Mss::Gui::Controls {
 
     /**
      * @brief

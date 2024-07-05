@@ -4,7 +4,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 
-using namespace MSS::Gui::Components;
+using namespace Mss::Gui::Components;
 
 WidgetTransformComponent::WidgetTransformComponent(QWidget *parent) :
         _parent(parent),
@@ -47,4 +47,12 @@ void WidgetTransformComponent::doTransform(QMouseEvent *e) noexcept {
 
 void WidgetTransformComponent::stopTransform(QMouseEvent *e) noexcept {
     _lastMousePressPosition = { -1, -1 };
+}
+
+void WidgetTransformComponent::setCanResize(bool canResize) noexcept {
+    _canResize = canResize;
+}
+
+void WidgetTransformComponent::setCanMove(bool canMove) noexcept {
+    _canMove = canMove;
 }

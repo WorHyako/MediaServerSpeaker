@@ -2,7 +2,7 @@
 
 #include <QDialog>
 
-namespace MSS::Gui::Dialogs {
+namespace Mss::Gui::Dialogs {
 
     /**
      * @brief

@@ -4,7 +4,7 @@
 
 class QGridLayout;
 
-namespace MSS::Gui::Scopes {
+namespace Mss::Gui::Scopes {
 
     /**
      * @brief

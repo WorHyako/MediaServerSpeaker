@@ -6,8 +6,8 @@
 
 #include <QMouseEvent>
 
-using namespace MSS::Gui::Controls;
-using namespace MSS::Gui;
+using namespace Mss::Gui::Controls;
+using namespace Mss::Gui;
 
 Button::Button(QWidget *parent)
         : QPushButton(parent),
@@ -15,8 +15,6 @@ Button::Button(QWidget *parent)
           _isContextMenuEnable(true),
           _contextMenu(nullptr) {
     _contextMenu = new ContextMenu(this);
-
-    QPushButton::show();
 }
 
 void Button::mouseMoveEvent(QMouseEvent *e) {

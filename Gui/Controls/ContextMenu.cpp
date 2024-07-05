@@ -3,13 +3,12 @@
 
 #include <QHideEvent>
 
-using namespace MSS::Gui::Controls;
-using namespace MSS::Gui;
+using namespace Mss::Gui::Controls;
+using namespace Mss::Gui;
 
 ContextMenu::ContextMenu(QWidget *parent)
         : QMenu(parent) {
     QMenu::resize(100, 100);
-    QMenu::hide();
 }
 
 void ContextMenu::setActions(const std::vector<QAction *> &actions) noexcept {

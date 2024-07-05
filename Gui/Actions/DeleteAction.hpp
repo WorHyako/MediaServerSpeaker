@@ -4,7 +4,7 @@
 
 #include <QAction>
 
-namespace MSS::Gui::Actions {
+namespace Mss::Gui::Actions {
 
     /**
      * @brief

@@ -6,7 +6,12 @@
 
 namespace Mss::Gui::Actions {
 
-    class AddControlAction
+    /**
+     * @brief
+     *
+     * @author
+     */
+    class LoadAction
             : public QAction,
               protected IAction {
     Q_OBJECT
@@ -17,12 +22,12 @@ namespace Mss::Gui::Actions {
          *
          * @param parent
          */
-        explicit AddControlAction(QObject *parent = nullptr, QWidget *caller = nullptr);
+        explicit LoadAction(QObject *parent = nullptr, QWidget *caller = nullptr);
 
         /**
          * @brief Dtor.
          */
-        ~AddControlAction() override = default;
+        ~LoadAction() override = default;
 
     public slots:
 

@@ -4,7 +4,7 @@
 #include <QTextEdit>
 #include <QPushButton>
 
-using namespace MSS::Gui::Dialogs;
+using namespace Mss::Gui::Dialogs;
 
 RenamingDialog::RenamingDialog(QWidget *parent,
                                const std::string &lastName)

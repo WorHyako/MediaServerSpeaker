@@ -2,12 +2,13 @@
 
 #include "Controls/ContextMenu.hpp"
 #include "Actions/AddControlAction.hpp"
+#include "Actions/LoadAction.hpp"
 
 #include <QGridLayout>
 #include <QPainter>
 #include <QMouseEvent>
 
-using namespace MSS::Gui::Scopes;
+using namespace Mss::Gui::Scopes;
 
 ManagementScope::ManagementScope(QWidget *parent)
         : QWidget(parent),
@@ -26,7 +27,8 @@ void ManagementScope::mousePressEvent(QMouseEvent *e) {
     if (e->button() == Qt::MouseButton::RightButton) {
         auto menu = new Controls::ContextMenu;
         auto addNewAction = new Actions::AddControlAction(menu, this);
-        menu->addAction(addNewAction);
+        auto loadAction = new Actions::LoadAction(menu, this);
+        menu->addActions({ addNewAction, loadAction });
         menu->popup(mapToGlobal(e->pos()));
     }
 

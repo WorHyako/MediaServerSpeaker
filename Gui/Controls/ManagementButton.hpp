@@ -2,7 +2,7 @@
 
 #include "Button.hpp"
 
-namespace MSS::Gui::Controls {
+namespace Mss::Gui::Controls {
 
     /**
      * @brief
@@ -19,7 +19,7 @@ namespace MSS::Gui::Controls {
          *
          * @param parent
          */
-        explicit ManagementButton(QWidget *parent);
+        explicit ManagementButton(QWidget *parent = nullptr);
 
         /**
          * @brief Dtor.
@@ -46,8 +46,5 @@ namespace MSS::Gui::Controls {
          * @param e
          */
         void mouseReleaseEvent(QMouseEvent *e) override;
-
-    private:
-        bool _isResizable;
     };
 }

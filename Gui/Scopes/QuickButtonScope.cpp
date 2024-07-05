@@ -5,7 +5,7 @@
 #include <QGridLayout>
 #include <QPainter>
 
-using namespace MSS::Gui::Scopes;
+using namespace Mss::Gui::Scopes;
 
 namespace {
 
@@ -30,7 +30,6 @@ namespace {
 
         return { row, column };
     }
-
 }
 
 QuickButtonScope::QuickButtonScope(QWidget *parent)
@@ -52,6 +51,7 @@ QuickButtonScope::QuickButtonScope(QWidget *parent)
     addButton->setContextMenuEnable(false);
     addButton->setText("+");
     connect(addButton, SIGNAL(pressed()), this, SLOT(addButton()));
+    addButton->show();
 
     auto trash = _layout->itemAtPosition(0, 0)->widget();
     trash = _layout->replaceWidget(trash, addButton)->widget();
@@ -81,5 +81,6 @@ void QuickButtonScope::addButton() noexcept {
     trash = _layout->replaceWidget(trash, addButton)->widget();
     trash->deleteLater();
 
+    newButton->show();
     _buttonsCount++;
 }

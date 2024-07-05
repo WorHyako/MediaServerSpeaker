@@ -6,14 +6,14 @@ class QWidget;
 
 class QMouseEvent;
 
-namespace MSS::Gui::Components {
+namespace Mss::Gui::Components {
 
     /**
      * @brief
      *
      * @author
      */
-    class WidgetTransformComponent{
+    class WidgetTransformComponent {
     public:
         /**
          * @brief Ctor.
@@ -26,6 +26,24 @@ namespace MSS::Gui::Components {
          * @brief Dtor.
          */
         virtual ~WidgetTransformComponent() = default;
+
+#pragma region Mutators
+
+        /**
+         * @brief
+         *
+         * @param canMove
+         */
+        void setCanMove(bool canMove) noexcept;
+
+        /**
+         * @brief
+         *
+         * @param canMove
+         */
+        void setCanResize(bool canResize) noexcept;
+
+#pragma endregion Mutators
 
     public slots:
 

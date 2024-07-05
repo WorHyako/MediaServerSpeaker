@@ -4,7 +4,7 @@
 
 #include <QWidget>
 
-using namespace MSS::Gui::Actions;
+using namespace Mss::Gui::Actions;
 
 AddControlAction::AddControlAction(QObject *parent, QWidget *caller)
         : QAction(parent),

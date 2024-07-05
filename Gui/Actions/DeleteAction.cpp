@@ -2,7 +2,7 @@
 
 #include <QWidget>
 
-using namespace MSS::Gui::Actions;
+using namespace Mss::Gui::Actions;
 
 DeleteAction::DeleteAction(QObject *parent, QWidget *caller)
         : QAction(parent),

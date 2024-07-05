@@ -4,7 +4,7 @@
 
 #include "Components/WidgetTransformComponent.hpp"
 
-namespace MSS::Gui::Controls {
+namespace Mss::Gui::Controls {
 
     class ContextMenu;
 
@@ -15,7 +15,7 @@ namespace MSS::Gui::Controls {
      */
     class Button
             : public QPushButton,
-              protected Components::WidgetTransformComponent {
+              public Components::WidgetTransformComponent {
     Q_OBJECT
 
     public:

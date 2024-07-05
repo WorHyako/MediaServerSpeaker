@@ -4,8 +4,8 @@
 
 #include <QAbstractButton>
 
-using namespace MSS::Gui::Actions;
-using namespace MSS::Gui;
+using namespace Mss::Gui::Actions;
+using namespace Mss::Gui;
 
 RenameAction::RenameAction(QObject *parent, QWidget *caller)
         : QAction(parent),

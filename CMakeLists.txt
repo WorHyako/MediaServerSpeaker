@@ -17,13 +17,18 @@ add_subdirectory(ThirdParty)
 ################
 add_subdirectory(Gui)
 
+####################
+#   Mss::Backend   #
+####################
+add_subdirectory(Backend)
+
 ##########################
 #   MediaServerSpeaker   #
 ##########################
 add_executable(MediaServerSpeaker)
 
 target_sources(MediaServerSpeaker
-        PRIVATE Src/main.cpp)
+        PRIVATE main.cpp)
 
 target_include_directories(MediaServerSpeaker
         PRIVATE Include)
@@ -31,5 +36,7 @@ target_include_directories(MediaServerSpeaker
 target_link_libraries(MediaServerSpeaker
         PRIVATE
         Mss::Gui
-        Wor::Lib
         Soci::core)
+
+file(GLOB Resources Resources/*)
+file(COPY ${Resources} DESTINATION ${CMAKE_BINARY_DIR}/Resources)

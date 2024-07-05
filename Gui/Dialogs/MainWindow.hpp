@@ -4,7 +4,7 @@
 
 class QGridLayout;
 
-namespace MSS::Gui::Dialogs {
+namespace Mss::Gui::Dialogs {
 
     /**
      * @brief

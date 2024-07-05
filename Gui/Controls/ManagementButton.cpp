@@ -3,12 +3,11 @@
 #include <QMouseEvent>
 #include <QTextBlock>
 
-using namespace MSS::Gui::Controls;
-using namespace MSS::Gui;
+using namespace Mss::Gui::Controls;
+using namespace Mss::Gui;
 
 ManagementButton::ManagementButton(QWidget *parent)
-        : Button(parent),
-          _isResizable(true) {
+        : Button(parent) {
     Components::WidgetTransformComponent::_canResize = true;
     Components::WidgetTransformComponent::_canMove = true;
 

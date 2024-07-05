@@ -1,11 +1,12 @@
 #include "Dialogs/MainWindow.hpp"
 
 #include "Scopes/QuickButtonScope.hpp"
-#include "Scopes/ManagementScope.hpp"
+#include "Scopes/ControlTab.hpp"
+#include "Scopes/QuickTitlesScope.hpp"
 
 #include <QGridLayout>
 
-using namespace MSS::Gui::Dialogs;
+using namespace Mss::Gui::Dialogs;
 
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent),
@@ -20,11 +21,11 @@ MainWindow::MainWindow(QWidget *parent)
     _mainLayout = new QGridLayout(root);
 
     /**
-     * Scope 1
+     * QuickButtons Scope
      */
-    auto scope = new Scopes::QuickButtonScope(root);
-    _mainLayout->addWidget(scope, 1, 0, 1, 1);
-    scope->show();
+    auto quickButtonScope = new Scopes::QuickButtonScope(root);
+    _mainLayout->addWidget(quickButtonScope, 1, 0, 1, 1);
+    quickButtonScope->show();
 
     _mainLayout->setColumnStretch(0, 1);
     _mainLayout->setColumnStretch(1, 2);
@@ -32,14 +33,12 @@ MainWindow::MainWindow(QWidget *parent)
     /**
      * Empty widget
      */
-//    _mainLayout->addWidget(new QWidget(root), 1, 0);
+     auto quickTitlesScope = new Scopes::QuickTitlesScope(root);
+    _mainLayout->addWidget(quickTitlesScope, 0, 0, 1, 1);
 
     /**
-     * Scope 2
+     * Management scope
      */
-    auto scope2 = new Scopes::ManagementScope(root);
-    _mainLayout->addWidget(scope2, 0, 1, 2, 1);
-    scope2->show();
-
-    window()->show();
+    auto tabControl = new Scopes::ControlTab(root);
+    _mainLayout->addWidget(tabControl, 0, 1, 2, 1);
 }
