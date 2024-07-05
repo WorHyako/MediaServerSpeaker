@@ -1,7 +1,6 @@
 #include "LoadAction.hpp"
 
 #include "Config/ControlsConfig.hpp"
-#include "Controls/ManagementButton.hpp"
 
 #include <QWidget>
 

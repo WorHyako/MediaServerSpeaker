@@ -1,7 +1,6 @@
 #include "Controls/ContextMenu.hpp"
-#include "Actions/RenameAction.hpp"
 
-#include <QHideEvent>
+#include "Actions/RenameAction.hpp"
 
 using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;

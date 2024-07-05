@@ -1,7 +1,6 @@
 #include "Controls/ManagementButton.hpp"
 
 #include <QMouseEvent>
-#include <QTextBlock>
 
 using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;
