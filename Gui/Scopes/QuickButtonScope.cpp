@@ -1,7 +1,8 @@
+#include "precompile_header.hpp"
+
 #include "Scopes/QuickButtonScope.hpp"
 
 #include "Controls/ManagementButton.hpp"
-#include "Config/ControlCreator.hpp"
 #include "Config/ControlsConfig.hpp"
 #include "ContextMenu/ScopeContextMenu.hpp"
 
@@ -55,7 +56,7 @@ QuickButtonScope::QuickButtonScope(QWidget *parent) noexcept
 void QuickButtonScope::paintEvent(QPaintEvent *e) {
     QPainter painter(this);
     painter.setPen(QColor(0xaa, 0xaa, 0xaa));
-    painter.drawRoundedRect(0, 0, width(), height(), 5, 5);
+    painter.drawRoundedRect(0, 0, QWidget::width(), QWidget::height(), 5, 5);
 
     QWidget::paintEvent(e);
 }
@@ -63,7 +64,7 @@ void QuickButtonScope::paintEvent(QPaintEvent *e) {
 void QuickButtonScope::mousePressEvent(QMouseEvent *e) {
     if (e->button() == Qt::MouseButton::RightButton) {
         auto menu = new ContextMenu::ScopeContextMenu(ControlType::QuickButton, this);
-        menu->popup(mapToGlobal(e->pos()));
+        menu->popup(QWidget::mapToGlobal(e->pos()));
     }
 
     QWidget::mousePressEvent(e);
@@ -93,8 +94,8 @@ void QuickButtonScope::addControl(QWidget *control) noexcept {
 }
 
 void QuickButtonScope::removeControl(QWidget *control) noexcept {
-    control->hide();
-    control->setParent(nullptr);
+//    control->hide();
+//    control->setParent(nullptr);
     control->deleteLater();
 }
 

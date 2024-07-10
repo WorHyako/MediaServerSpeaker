@@ -49,5 +49,33 @@ namespace Mss::Gui::Controls {
          * @param e
          */
         void mouseReleaseEvent(QMouseEvent *e) override;
+
+        /**
+         * @brief
+         *
+         * @param text
+         */
+        void setText(std::string text) noexcept override;
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+        std::string getText() const noexcept override;
+
+        /**
+         * @brief
+         *
+         * @param command
+         */
+        void setCommand(std::string command) noexcept override;
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+        std::string getCommand() const noexcept override;
     };
 }

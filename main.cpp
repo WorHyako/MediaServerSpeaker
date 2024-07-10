@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
     command->addItem({"key2", "value2"});
     command->removeItem("key");
     std::cout << command->str();
-    return -1;
+//    return -1;
 
     QApplication app(argc, argv);
 

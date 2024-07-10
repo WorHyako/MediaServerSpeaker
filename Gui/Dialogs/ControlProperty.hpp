@@ -9,7 +9,7 @@ namespace Mss::Gui::Dialogs {
      *
      * @author WorHyako
      */
-    class RenamingDialog
+    class ControlProperty
             : public QDialog {
     Q_OBJECT
 
@@ -19,13 +19,12 @@ namespace Mss::Gui::Dialogs {
          *
          * @param parent
          */
-        explicit RenamingDialog(QWidget *parent = nullptr,
-                                const std::string &lastName = "") noexcept;
+        explicit ControlProperty(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.
          */
-        ~RenamingDialog() override = default;
+        ~ControlProperty() override = default;
 
     signals:
 

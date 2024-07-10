@@ -20,8 +20,6 @@ namespace Mss::Gui::ContextMenu {
      */
     class ScopeContextMenu
             : public QMenu {
-    Q_OBJECT
-
     public:
         /**
          * @brief Ctor.

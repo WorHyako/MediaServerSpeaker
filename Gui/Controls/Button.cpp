@@ -1,8 +1,7 @@
 #include "Controls/Button.hpp"
 
-#include "Actions/RenameAction.hpp"
+#include "ContextMenu/ControlContextMenu.hpp"
 
-#include <QMenu>
 #include <QMouseEvent>
 
 using namespace Mss::Gui::Controls;
@@ -26,11 +25,9 @@ void Button::mousePressEvent(QMouseEvent *e) {
             std::printf("Left ");
             break;
         case Qt::MouseButton::RightButton: {
-            auto menu = new QMenu(this);
-            auto renameAction = new Actions::RenameAction(menu, this);
-            auto deleteAction = new QAction("Delete");
-            menu->addActions({ renameAction, deleteAction });
-            menu->popup(mapToGlobal(e->pos()));
+            auto menu = Config::ControlCreator<ContextMenu::ControlContextMenu>::create(this);
+            menu->popup(QWidget::mapToGlobal(e->pos()));
+            std::ignore = menu.release();
             std::printf("Right ");
             break;
         }
@@ -50,3 +47,17 @@ void Button::mouseReleaseEvent(QMouseEvent *e) {
     QPushButton::mouseReleaseEvent(e);
 }
 
+void Button::setText(std::string text) noexcept {
+    QPushButton::setText(text.c_str());
+}
+
+std::string Button::getText() const noexcept {
+    return QPushButton::text().toStdString();
+}
+
+void Button::setCommand(std::string command) noexcept {
+}
+
+std::string Button::getCommand() const noexcept {
+    return {};
+}

@@ -1,8 +1,9 @@
+#include "precompile_header.hpp"
+
 #include "Scopes/ManagementScope.hpp"
 
 #include "ContextMenu/ScopeContextMenu.hpp"
 #include "Controls/ManagementButton.hpp"
-#include "Config/ControlCreator.hpp"
 #include "Config/ControlsConfig.hpp"
 
 #include <QGridLayout>
@@ -20,7 +21,7 @@ ManagementScope::ManagementScope(QWidget *parent) noexcept
 void ManagementScope::paintEvent(QPaintEvent *e) {
     QPainter painter(this);
     painter.setPen(QColor(0xaa, 0xaa, 0xaa));
-    painter.drawRoundedRect(0, 0, width(), height(), 5, 5);
+    painter.drawRoundedRect(0, 0, QWidget::width(), QWidget::height(), 5, 5);
 
     QWidget::paintEvent(e);
 }
@@ -30,7 +31,7 @@ void ManagementScope::mousePressEvent(QMouseEvent *e) {
         auto menu = new ContextMenu::ScopeContextMenu(ControlType::ManagementButton |
                                                       ControlType::Button,
                                                       this);
-        menu->popup(mapToGlobal(e->pos()));
+        menu->popup(QWidget::mapToGlobal(e->pos()));
     }
 
     QWidget::mousePressEvent(e);
@@ -40,15 +41,14 @@ void ManagementScope::addControl(ControlType controlType) noexcept {
     std::unique_ptr<QWidget> control;
     switch (controlType) {
         case ControlType::Button:
-            control = Config::ControlCreator<Controls::Button>::create();
+            control = Config::ControlCreator<Controls::Button>::create(this);
             break;
         case ControlType::ManagementButton:
-            control = Config::ControlCreator<Controls::ManagementButton>::create();
+            control = Config::ControlCreator<Controls::ManagementButton>::create(this);
             break;
         default:
             return;
     }
-    control->setParent(this);
     control->show();
     std::ignore = control.release();
 }
