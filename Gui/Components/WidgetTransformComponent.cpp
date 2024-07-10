@@ -6,11 +6,11 @@
 
 using namespace Mss::Gui::Components;
 
-WidgetTransformComponent::WidgetTransformComponent(QWidget *parent) :
-        _parent(parent),
-        _lastMousePressPosition({ -1, -1 }),
-        _canResize(false),
-        _canMove(false) {
+WidgetTransformComponent::WidgetTransformComponent(QWidget *parent) noexcept
+        : _parent(parent),
+          _lastMousePressPosition({ -1, -1 }),
+          _canResize(false),
+          _canMove(false) {
 }
 
 void WidgetTransformComponent::doTransform(QMouseEvent *e) noexcept {

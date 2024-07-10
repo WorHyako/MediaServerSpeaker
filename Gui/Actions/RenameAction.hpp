@@ -11,7 +11,7 @@ namespace Mss::Gui::Actions {
      *
      * @author WorHyako
      */
-    class RenameAction
+    class RenameAction final
             : public QAction,
               protected IAction {
     Q_OBJECT

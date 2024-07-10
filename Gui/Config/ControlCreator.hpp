@@ -17,7 +17,7 @@ namespace Mss::Gui::Config {
         /**
          * @brief Ctor.
          */
-        ControlCreator() = delete;
+        ControlCreator() noexcept = delete;
 
         /**
          * @brief
@@ -37,7 +37,7 @@ namespace Mss::Gui::Config {
     template<typename TControlType>
     void ControlCreator<TControlType>::log() noexcept {
         /**
-         * Place to log creation in future
+         * Place to log creation process in future
          */
     }
 

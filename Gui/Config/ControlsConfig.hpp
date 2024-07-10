@@ -18,7 +18,7 @@ namespace Mss::Gui::Config {
         /**
          *
          */
-        ControlTab = 0b1,
+        ManagementScope = 0b1,
         /**
          *
          */
@@ -32,6 +32,38 @@ namespace Mss::Gui::Config {
          */
         All = 0b111,
     };
+
+    /**
+     * @brief
+     *
+     * @param a
+     *
+     * @param b
+     *
+     * @return
+     *
+     * @author WorHyako
+     */
+    [[nodiscard]]
+    inline ScopeType operator|(ScopeType a, ScopeType b) {
+        return static_cast<ScopeType>(static_cast<int>(a) | static_cast<int>(b));
+    }
+
+    /**
+     * @brief
+     *
+     * @param a
+     *
+     * @param b
+     *
+     * @return
+     *
+     * @author WorHyako
+     */
+    [[nodiscard]]
+    inline bool operator&(ScopeType a, ScopeType b) {
+        return static_cast<bool>(static_cast<int>(a) & static_cast<int>(b));
+    }
 
     using WorQWidgetPtr = std::unique_ptr<QWidget>;
     using WorQWidgetPtrVec = std::vector<WorQWidgetPtr>;

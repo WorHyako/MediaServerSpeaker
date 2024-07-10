@@ -2,9 +2,7 @@
 
 #include <vector>
 
-#include <QWidget>
-
-class QGridLayout;
+#include "IScope.hpp"
 
 namespace Mss::Gui::Scopes {
 
@@ -14,7 +12,8 @@ namespace Mss::Gui::Scopes {
      * @author WorHyako
      */
     class QuickButtonScope
-            : public QWidget {
+            : public QWidget,
+              public IScope {
     Q_OBJECT
 
     public:
@@ -23,7 +22,7 @@ namespace Mss::Gui::Scopes {
          *
          * @param parent
          */
-        explicit QuickButtonScope(QWidget *parent = nullptr);
+        explicit QuickButtonScope(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.
@@ -37,16 +36,47 @@ namespace Mss::Gui::Scopes {
          */
         void paintEvent(QPaintEvent *e) override;
 
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mousePressEvent(QMouseEvent *e) override;
+
     private slots:
 
         /**
          * @brief
+         *
+         * @param control
          */
-        void addButton() noexcept;
+        void addControl(ControlType controlType) noexcept override;
+
+        /**
+         * @brief
+         *
+         * @param control
+         */
+        void addControl(QWidget *control) noexcept override;
+
+        /**
+         * @brief
+         *
+         * @param control
+         */
+        void removeControl(QWidget *control) noexcept override;
+
+        /**
+         * @brief
+         */
+        void loadControls() noexcept override;
+
+        /**
+         * @brief
+         */
+        void saveControls() noexcept override;
 
     private:
-        QGridLayout *_layout;
-
         std::uint8_t _buttonsCount;
     };
 }

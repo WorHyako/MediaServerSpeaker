@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QTabWidget>
+#include <QWidget>
 
 namespace Mss::Gui::Scopes {
 
@@ -9,19 +9,21 @@ namespace Mss::Gui::Scopes {
      *
      * @author WorHyako
      */
-    class ControlTab final
-            : public QTabWidget {
+    class TabPage
+            : public QWidget {
+    Q_OBJECT
+
     public:
         /**
          * @brief Ctor.
          *
          * @param parent
          */
-        explicit ControlTab(QWidget *parent = nullptr) noexcept;
+        explicit TabPage(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.
          */
-        ~ControlTab() override = default;
+        ~TabPage() override = default;
     };
 }

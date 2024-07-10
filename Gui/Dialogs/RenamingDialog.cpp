@@ -7,7 +7,7 @@
 using namespace Mss::Gui::Dialogs;
 
 RenamingDialog::RenamingDialog(QWidget *parent,
-                               const std::string &lastName)
+                               const std::string &lastName) noexcept
         : QDialog(parent) {
     auto grid = new QGridLayout(this);
     grid->setAlignment(Qt::AlignAbsolute);

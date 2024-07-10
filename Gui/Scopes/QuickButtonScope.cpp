@@ -1,9 +1,13 @@
 #include "Scopes/QuickButtonScope.hpp"
 
 #include "Controls/ManagementButton.hpp"
+#include "Config/ControlCreator.hpp"
+#include "Config/ControlsConfig.hpp"
+#include "ContextMenu/ScopeContextMenu.hpp"
 
 #include <QGridLayout>
 #include <QPainter>
+#include <QMouseEvent>
 
 using namespace Mss::Gui::Scopes;
 
@@ -32,30 +36,20 @@ namespace {
     }
 }
 
-QuickButtonScope::QuickButtonScope(QWidget *parent)
+QuickButtonScope::QuickButtonScope(QWidget *parent) noexcept
         : QWidget(parent),
-          _layout(nullptr),
           _buttonsCount(0) {
     QWidget::move(1, 1);
     QWidget::resize(300, 200);
 
-    _layout = new QGridLayout(this);
-    _layout->setSpacing(2);
+    auto layout = new QGridLayout(this);
+    QWidget::setLayout(layout);
+    layout->setSpacing(2);
 
     for (std::uint8_t i = 0; i < ::rowMax * ::columnMax; i++) {
         auto [row, column] = ::calculateButtonPosition(i);
-        _layout->addWidget(new QWidget, row, column);
+        layout->addWidget(new QWidget, row, column);
     }
-
-    auto addButton = new Controls::ManagementButton(this);
-    addButton->setContextMenuEnable(false);
-    addButton->setText("+");
-    connect(addButton, SIGNAL(pressed()), this, SLOT(addButton()));
-    addButton->show();
-
-    auto trash = _layout->itemAtPosition(0, 0)->widget();
-    trash = _layout->replaceWidget(trash, addButton)->widget();
-    trash->deleteLater();
 }
 
 void QuickButtonScope::paintEvent(QPaintEvent *e) {
@@ -66,21 +60,56 @@ void QuickButtonScope::paintEvent(QPaintEvent *e) {
     QWidget::paintEvent(e);
 }
 
-void QuickButtonScope::addButton() noexcept {
+void QuickButtonScope::mousePressEvent(QMouseEvent *e) {
+    if (e->button() == Qt::MouseButton::RightButton) {
+        auto menu = new ContextMenu::ScopeContextMenu(ControlType::QuickButton, this);
+        menu->popup(mapToGlobal(e->pos()));
+    }
+
+    QWidget::mousePressEvent(e);
+}
+
+void QuickButtonScope::addControl(ControlType controlType) noexcept {
+    auto control = Config::ControlCreator<Controls::Button>::create();
+    addControl(control.release());
+}
+
+void QuickButtonScope::addControl(QWidget *control) noexcept {
     if (_buttonsCount >= (::rowMax * ::columnMax - 1)) {
+        control->deleteLater();
         return;
     }
-    auto newButton = new Controls::ManagementButton(this);
-    newButton->setText(QString::number(_buttonsCount));
+    auto layout = QWidget::layout();
+    if (!layout) {
+        return;
+    }
+    auto nextCell = layout->itemAt(_buttonsCount)->widget();
 
-    auto addButton = _layout->itemAt(_buttonsCount)->widget();
+    nextCell = layout->replaceWidget(nextCell, control)->widget();
+    nextCell->deleteLater();
 
-    addButton = _layout->replaceWidget(addButton, newButton)->widget();
-
-    auto trash = _layout->itemAt(_buttonsCount + 1)->widget();
-    trash = _layout->replaceWidget(trash, addButton)->widget();
-    trash->deleteLater();
-
-    newButton->show();
+    control->show();
     _buttonsCount++;
+}
+
+void QuickButtonScope::removeControl(QWidget *control) noexcept {
+    control->hide();
+    control->setParent(nullptr);
+    control->deleteLater();
+}
+
+void QuickButtonScope::loadControls() noexcept {
+    const auto &parentTab = dynamic_cast<QWidget *>(QWidget::parent());
+    if (!parentTab) {
+        return;
+    }
+    const auto &tabName = parentTab->accessibleName().toStdString();
+    auto controls = Config::load(tabName, Config::ScopeType::QuickButtons);
+    std::for_each(std::begin(controls), std::end(controls), [this](auto &each) {
+        addControl(each.release());
+    });
+}
+
+void QuickButtonScope::saveControls() noexcept {
+
 }

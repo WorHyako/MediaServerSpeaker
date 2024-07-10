@@ -15,7 +15,7 @@ RenameAction::RenameAction(QObject *parent, QWidget *caller)
 }
 
 void RenameAction::execute() const noexcept {
-    auto button = dynamic_cast<QAbstractButton*>(_caller);
+    auto button = dynamic_cast<QAbstractButton*>(IAction::_caller);
     if (!button) {
         return;
     }

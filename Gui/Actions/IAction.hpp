@@ -10,7 +10,7 @@ namespace Mss::Gui::Actions {
      * @author WorHyako
      */
     class IAction {
-    protected:
+    public:
         /**
          * @brief Ctor.
          *
@@ -29,6 +29,7 @@ namespace Mss::Gui::Actions {
          */
         virtual void execute() const noexcept = 0;
 
+    protected:
         QWidget *_caller;
     };
 }

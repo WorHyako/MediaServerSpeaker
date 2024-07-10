@@ -6,8 +6,6 @@
 
 namespace Mss::Gui::Controls {
 
-    class ContextMenu;
-
     /**
      * @brief
      *
@@ -16,15 +14,13 @@ namespace Mss::Gui::Controls {
     class Button
             : public QPushButton,
               public Components::WidgetTransformComponent {
-    Q_OBJECT
-
     public:
         /**
          * @brief Ctor.
          *
          * @param parent
          */
-        explicit Button(QWidget *parent = nullptr);
+        explicit Button(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.
@@ -61,7 +57,5 @@ namespace Mss::Gui::Controls {
 
     protected:
         bool _isContextMenuEnable;
-
-        ContextMenu *_contextMenu;
     };
 }

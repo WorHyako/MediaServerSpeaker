@@ -7,18 +7,21 @@ namespace Mss::Gui::Controls {
     /**
      * @brief
      *
-     * @author
+     * @author WorHyako
      */
     class QuickTitle
             : public Button {
-Q_OBJECT
-
     public:
         /**
          * @brief Ctor.
          *
          * @param parent
          */
-        explicit QuickTitle(QWidget* parent = nullptr);
+        explicit QuickTitle(QWidget* parent = nullptr) noexcept;
+
+        /**
+         * @brief Dtor.
+         */
+        ~QuickTitle() override = default;
     };
 }

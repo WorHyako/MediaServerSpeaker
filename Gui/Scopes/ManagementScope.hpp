@@ -1,8 +1,6 @@
 #pragma once
 
-#include <QWidget>
-
-class QGridLayout;
+#include "IScope.hpp"
 
 namespace Mss::Gui::Scopes {
 
@@ -11,8 +9,9 @@ namespace Mss::Gui::Scopes {
      *
      * @author WorHyako
      */
-    class ManagementScope
-            : public QWidget {
+    class ManagementScope final
+            : public QWidget,
+              public IScope {
     Q_OBJECT
 
     public:
@@ -21,7 +20,7 @@ namespace Mss::Gui::Scopes {
          *
          * @param parent
          */
-        explicit ManagementScope(QWidget* parent = nullptr);
+        explicit ManagementScope(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.
@@ -42,7 +41,37 @@ namespace Mss::Gui::Scopes {
          */
         void mousePressEvent(QMouseEvent *e) override;
 
-    private:
-        QGridLayout* _layout;
+    public slots:
+
+        /**
+         * @brief
+         *
+         * @param control
+         */
+        void addControl(ControlType controlType) noexcept override;
+
+        /**
+         * @brief
+         *
+         * @param control
+         */
+        void addControl(QWidget *control) noexcept override;
+
+        /**
+         * @brief
+         *
+         * @param control
+         */
+        void removeControl(QWidget *control) noexcept override;
+
+        /**
+         * @brief
+         */
+        void loadControls() noexcept override;
+
+        /**
+         * @brief
+         */
+        void saveControls() noexcept override;
     };
 }

@@ -20,7 +20,7 @@ namespace Mss::Gui::Dialogs {
          * @param parent
          */
         explicit RenamingDialog(QWidget *parent = nullptr,
-                                const std::string &lastName = "");
+                                const std::string &lastName = "") noexcept;
 
         /**
          * @brief Dtor.
