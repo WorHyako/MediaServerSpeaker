@@ -10,8 +10,7 @@ using namespace Mss::Gui;
 
 Button::Button(QWidget *parent) noexcept
         : QPushButton(parent),
-          Components::WidgetTransformComponent(this),
-          _isContextMenuEnable(true) {
+          Components::WidgetTransformComponent(this) {
 }
 
 void Button::mouseMoveEvent(QMouseEvent *e) {
@@ -26,16 +25,15 @@ void Button::mousePressEvent(QMouseEvent *e) {
         case Qt::MouseButton::LeftButton:
             std::printf("Left ");
             break;
-        case Qt::MouseButton::RightButton:
-            if (_isContextMenuEnable) {
-                auto menu = new QMenu(this);
-                auto renameAction = new Actions::RenameAction(menu, this);
-                auto deleteAction = new QAction("Delete");
-                menu->addActions({ renameAction, deleteAction });
-                menu->popup(mapToGlobal(e->pos()));
-            }
+        case Qt::MouseButton::RightButton: {
+            auto menu = new QMenu(this);
+            auto renameAction = new Actions::RenameAction(menu, this);
+            auto deleteAction = new QAction("Delete");
+            menu->addActions({ renameAction, deleteAction });
+            menu->popup(mapToGlobal(e->pos()));
             std::printf("Right ");
             break;
+        }
         default:
             std::printf("Some ");
             break;
@@ -52,6 +50,3 @@ void Button::mouseReleaseEvent(QMouseEvent *e) {
     QPushButton::mouseReleaseEvent(e);
 }
 
-void Button::setContextMenuEnable(bool contextMenuEnable) noexcept {
-    _isContextMenuEnable = contextMenuEnable;
-}

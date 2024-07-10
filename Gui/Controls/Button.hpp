@@ -2,6 +2,7 @@
 
 #include <QPushButton>
 
+#include "IControl.hpp"
 #include "Components/WidgetTransformComponent.hpp"
 
 namespace Mss::Gui::Controls {
@@ -13,7 +14,8 @@ namespace Mss::Gui::Controls {
      */
     class Button
             : public QPushButton,
-              public Components::WidgetTransformComponent {
+              public Components::WidgetTransformComponent,
+              public IControl {
     public:
         /**
          * @brief Ctor.
@@ -47,15 +49,5 @@ namespace Mss::Gui::Controls {
          * @param e
          */
         void mouseReleaseEvent(QMouseEvent *e) override;
-
-        /**
-         * @brief
-         *
-         * @param contextMenuEnable
-         */
-        void setContextMenuEnable(bool contextMenuEnable) noexcept;
-
-    protected:
-        bool _isContextMenuEnable;
     };
 }

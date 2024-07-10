@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Button.hpp"
+#include "IControl.hpp"
 
 namespace Mss::Gui::Controls {
 
