@@ -1,5 +1,10 @@
 #pragma once
 
+#include <string>
+#include <vector>
+
+#include "Command/ICommand.hpp"
+
 namespace Mss::Gui::Controls {
 
     /**
@@ -9,6 +14,11 @@ namespace Mss::Gui::Controls {
      */
     class IControl {
     public:
+        /**
+         * @brief Dtor.
+         */
+        virtual ~IControl() = default;
+
         /**
          * @brief
          *
@@ -30,13 +40,13 @@ namespace Mss::Gui::Controls {
          * @return
          */
         [[nodiscard]]
-        virtual std::string getCommand() const noexcept = 0;
+        virtual const Backend::Command::ICommand* getCommand() const noexcept = 0;
 
         /**
          * @brief
          *
          * @param command
          */
-        virtual void setCommand(std::string command) noexcept = 0;
+        virtual void setCommand(Backend::Command::ICommand* command) noexcept = 0;
     };
 }

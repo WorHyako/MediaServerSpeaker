@@ -10,8 +10,13 @@ namespace Mss::Backend::Command {
      *
      * @author WorHyako
      */
-    class CommandItem {
+    class CommandItem final {
     public:
+        /**
+         * @brief Ctor.
+         */
+        CommandItem() noexcept = default;
+
         /**
          * @brief
          *
@@ -19,7 +24,12 @@ namespace Mss::Backend::Command {
          *
          * @param value
          */
-        CommandItem(std::string key = {}, std::string value = {}) noexcept;
+        CommandItem(std::string key, std::string value) noexcept;
+
+        /**
+         * @brief Copy ctor.
+         */
+        CommandItem(const CommandItem &) noexcept = default;
 
         /**
          * @brief
@@ -46,6 +56,8 @@ namespace Mss::Backend::Command {
         bool empty() const noexcept;
 
     private:
-        std::pair<std::string, std::string> _item;
+        std::string _key;
+
+        std::string _value;
     };
 }

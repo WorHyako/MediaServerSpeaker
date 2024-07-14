@@ -1,74 +1,32 @@
 #pragma once
 
-#include "ICommand.hpp"
-
-#include "pugixml.hpp"
+#include "BaseCommand.hpp"
 
 namespace Mss::Backend::Command {
+
+    template<class CommandType>
+    class CommandBuilder;
 
     /**
      * @brief
      *
      * @author WorHyako
      */
-    class ActionCommand
-            : public ICommand {
+    class ActionCommand final
+            : public BaseCommand {
     public:
+        /**
+         * @brief Dtor.
+         */
+        ~ActionCommand() override = default;
+
+    protected:
         /**
          * @brief Ctor.
          */
-        ActionCommand() noexcept;
+        ActionCommand() noexcept = default;
 
-        /**
-         * @brief
-         *
-         * @param socketName
-         *
-         * @return
-         */
-        [[nodiscard]]
-        bool execute(std::string socketName) const noexcept override;
-
-        /**
-         * @brief
-         */
-        void clean() noexcept override;
-
-        /**
-         * @brief
-         */
-        void markCommandTag() noexcept override;
-
-        /**
-         * @brief
-         *
-         * @param item
-         */
-        void addItem(CommandItem item) noexcept override;
-
-        /**
-         * @brief
-         *
-         * @param item
-         */
-        void removeItem(CommandItem item) noexcept override;
-
-        /**
-         * @brief
-         *
-         * @param key
-         */
-        void removeItem(std::string key) noexcept override;
-
-        /**
-         * @brief
-         *
-         * @return
-         */
-        [[nodiscard]]
-        std::string str() const noexcept override;
-
-    private:
-        pugi::xml_document _command;
+    public:
+        friend CommandBuilder<ActionCommand>;
     };
 }

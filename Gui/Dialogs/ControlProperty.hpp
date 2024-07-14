@@ -1,6 +1,18 @@
 #pragma once
 
+#include <memory>
+
 #include <QDialog>
+#include <QString>
+
+#include "Command/BaseCommand.hpp"
+
+class QVBoxLayout;
+class QHBoxLayout;
+
+namespace Mss::Gui::Controls {
+    class IControl;
+}
 
 namespace Mss::Gui::Dialogs {
 
@@ -26,13 +38,50 @@ namespace Mss::Gui::Dialogs {
          */
         ~ControlProperty() override = default;
 
+    private:
+        /**
+         * @brief
+         *
+         * @param item
+         */
+        void addCommandItemHLayout(const Backend::Command::CommandItem &item = {}) noexcept;
+
+        /**
+         * @brief
+         *
+         * @param hLayout
+         */
+        void removeCommandItemHLayout(QHBoxLayout *hLayout) noexcept;
+
+        /**
+         * @brief
+         */
+        void applyChanged() noexcept;
+
+        Controls::IControl *_control;
+
+        QVBoxLayout *_commandLayout;
+
+        std::unique_ptr<Backend::Command::BaseCommand> _testCommand;
+
     signals:
 
         /**
          * @brief
          *
-         * @param newName
+         * @param commandStr
          */
-        void renameAccepted(const std::string &newName);
+        void fullCommandChanged(const QString &commandStr);
+
+    public slots:
+
+        /**
+         * @brief
+         *
+         * @param idx
+         *
+         * @param item
+         */
+        void refreshCommand(std::uint16_t idx, const Backend::Command::CommandItem &item);
     };
 }

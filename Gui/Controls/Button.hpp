@@ -2,7 +2,7 @@
 
 #include <QPushButton>
 
-#include "IControl.hpp"
+#include "BaseControl.hpp"
 #include "Components/WidgetTransformComponent.hpp"
 
 namespace Mss::Gui::Controls {
@@ -15,7 +15,7 @@ namespace Mss::Gui::Controls {
     class Button
             : public QPushButton,
               public Components::WidgetTransformComponent,
-              public IControl {
+              public BaseControl {
     public:
         /**
          * @brief Ctor.
@@ -62,20 +62,7 @@ namespace Mss::Gui::Controls {
          *
          * @return
          */
+        [[nodiscard]]
         std::string getText() const noexcept override;
-
-        /**
-         * @brief
-         *
-         * @param command
-         */
-        void setCommand(std::string command) noexcept override;
-
-        /**
-         * @brief
-         *
-         * @return
-         */
-        std::string getCommand() const noexcept override;
     };
 }
