@@ -18,7 +18,12 @@ Q_OBJECT
          *
          * @param parent
          */
-        explicit QuickTitlesScope(QWidget* parent = nullptr);
+        explicit QuickTitlesScope(QWidget* parent = nullptr) noexcept;
+
+        /**
+         * @brief Dtor.
+         */
+        ~QuickTitlesScope() override = default;
 
         /**
          * @brief

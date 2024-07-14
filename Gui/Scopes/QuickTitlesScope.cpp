@@ -4,7 +4,7 @@
 
 using namespace Mss::Gui::Scopes;
 
-QuickTitlesScope::QuickTitlesScope(QWidget *parent)
+QuickTitlesScope::QuickTitlesScope(QWidget *parent) noexcept
         : QStackedWidget(parent) {
 }
 

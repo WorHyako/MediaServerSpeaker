@@ -20,7 +20,7 @@ namespace Mss::Gui::Components {
          *
          * @param parent
          */
-        explicit WidgetTransformComponent(QWidget *parent);
+        explicit WidgetTransformComponent(QWidget *parent) noexcept;
 
         /**
          * @brief Dtor.

@@ -1,20 +1,19 @@
 #include "Controls/Button.hpp"
 
-#include "Controls/ContextMenu.hpp"
-#include "Actions/RenameAction.hpp"
-#include "Actions/DeleteAction.hpp"
+#include "ContextMenu/ControlContextMenu.hpp"
+#include "Command/ActionCommand.hpp"
+#include "Command/CommandBuilder.hpp"
 
 #include <QMouseEvent>
 
 using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;
+using namespace Mss::Backend;
 
-Button::Button(QWidget *parent)
+Button::Button(QWidget *parent) noexcept
         : QPushButton(parent),
-          Components::WidgetTransformComponent(this),
-          _isContextMenuEnable(true),
-          _contextMenu(nullptr) {
-    _contextMenu = new ContextMenu(this);
+          Components::WidgetTransformComponent(this) {
+    BaseControl::_command = std::move(Command::CommandBuilder<Command::ActionCommand>::build());
 }
 
 void Button::mouseMoveEvent(QMouseEvent *e) {
@@ -27,24 +26,22 @@ void Button::mousePressEvent(QMouseEvent *e) {
     const auto button = e->button();
     switch (button) {
         case Qt::MouseButton::LeftButton:
+            std::ignore = BaseControl::_command->execute("127.0.0.1");
             std::printf("Left ");
             break;
-        case Qt::MouseButton::RightButton:
-            if (_isContextMenuEnable && _contextMenu) {
-                _contextMenu->clear();
-                auto renameAction = new Actions::RenameAction(_contextMenu, this);
-                auto deleteAction = new Actions::DeleteAction(_contextMenu, this);
-                _contextMenu->addActions({ renameAction, deleteAction });
-                _contextMenu->popup(mapToGlobal(e->pos()));
-            }
+        case Qt::MouseButton::RightButton: {
+            auto menu = Config::ControlCreator<ContextMenu::ControlContextMenu>::create(this);
+            menu->popup(QWidget::mapToGlobal(e->pos()));
+            std::ignore = menu.release();
             std::printf("Right ");
             break;
+        }
         default:
             std::printf("Some ");
             break;
     }
 
-    std::printf("mouse button was pressed on Button with text: %s.\n", QPushButton::text().toStdString().c_str());
+    std::printf("Mouse button was pressed on Button with text: %s.\n", QPushButton::text().toStdString().c_str());
 
     QPushButton::mousePressEvent(e);
 }
@@ -55,6 +52,10 @@ void Button::mouseReleaseEvent(QMouseEvent *e) {
     QPushButton::mouseReleaseEvent(e);
 }
 
-void Button::setContextMenuEnable(bool contextMenuEnable) noexcept {
-    _isContextMenuEnable = contextMenuEnable;
+void Button::setText(std::string text) noexcept {
+    QPushButton::setText(text.c_str());
+}
+
+std::string Button::getText() const noexcept {
+    return QPushButton::text().toStdString();
 }

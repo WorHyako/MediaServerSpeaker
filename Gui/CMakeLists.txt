@@ -48,3 +48,6 @@ target_include_directories(Mss_Gui
 set_target_properties(Mss_Gui
         PROPERTIES
         AUTOMOC ON)
+
+target_precompile_headers(Mss_Gui
+        PRIVATE precompile_header.hpp)

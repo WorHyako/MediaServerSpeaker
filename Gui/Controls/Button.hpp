@@ -2,11 +2,10 @@
 
 #include <QPushButton>
 
+#include "BaseControl.hpp"
 #include "Components/WidgetTransformComponent.hpp"
 
 namespace Mss::Gui::Controls {
-
-    class ContextMenu;
 
     /**
      * @brief
@@ -15,16 +14,15 @@ namespace Mss::Gui::Controls {
      */
     class Button
             : public QPushButton,
-              public Components::WidgetTransformComponent {
-    Q_OBJECT
-
+              public Components::WidgetTransformComponent,
+              public BaseControl {
     public:
         /**
          * @brief Ctor.
          *
          * @param parent
          */
-        explicit Button(QWidget *parent = nullptr);
+        explicit Button(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.
@@ -55,13 +53,16 @@ namespace Mss::Gui::Controls {
         /**
          * @brief
          *
-         * @param contextMenuEnable
+         * @param text
          */
-        void setContextMenuEnable(bool contextMenuEnable) noexcept;
+        void setText(std::string text) noexcept override;
 
-    protected:
-        bool _isContextMenuEnable;
-
-        ContextMenu *_contextMenu;
+        /**
+         * @brief
+         *
+         * @return
+         */
+        [[nodiscard]]
+        std::string getText() const noexcept override;
     };
 }

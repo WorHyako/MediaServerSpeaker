@@ -21,14 +21,11 @@ namespace Mss::Gui::Dialogs {
          *
          * @param parent
          */
-        explicit MainWindow(QWidget *parent = nullptr);
+        explicit MainWindow(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.
          */
         ~MainWindow() override = default;
-
-    private:
-        QGridLayout *_mainLayout;
     };
 }

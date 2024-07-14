@@ -2,6 +2,8 @@
 
 #include <memory>
 
+class QWidget;
+
 namespace Mss::Gui::Config {
 
     /**
@@ -17,7 +19,7 @@ namespace Mss::Gui::Config {
         /**
          * @brief Ctor.
          */
-        ControlCreator() = delete;
+        ControlCreator() noexcept = delete;
 
         /**
          * @brief
@@ -25,7 +27,7 @@ namespace Mss::Gui::Config {
          * @return
          */
         [[nodiscard]]
-        static std::unique_ptr<TControlType> create() noexcept;
+        static std::unique_ptr<TControlType> create(QWidget *parent = nullptr) noexcept;
 
     private:
         /**
@@ -37,13 +39,13 @@ namespace Mss::Gui::Config {
     template<typename TControlType>
     void ControlCreator<TControlType>::log() noexcept {
         /**
-         * Place to log creation in future
+         * Place to log creation process in future
          */
     }
 
     template<typename TControlType>
-    std::unique_ptr<TControlType> ControlCreator<TControlType>::create() noexcept {
+    std::unique_ptr<TControlType> ControlCreator<TControlType>::create(QWidget *parent) noexcept {
         log();
-        return std::make_unique<TControlType>();
+        return std::make_unique<TControlType>(parent);
     }
 }

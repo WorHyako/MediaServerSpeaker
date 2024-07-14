@@ -1,19 +1,22 @@
 #include "ControlTab.hpp"
 
-#include "ManagementScope.hpp"
+#include "TabPage.hpp"
 
 using namespace Mss::Gui::Scopes;
 
-ControlTab::ControlTab(QWidget *parent)
+ControlTab::ControlTab(QWidget *parent) noexcept
         : QTabWidget(parent) {
     QTabWidget::setTabPosition(QTabWidget::South);
 
-    auto scope = new ManagementScope;
-    QTabWidget::addTab(scope, "1");
+    auto page1 = new TabPage;
+    page1->setAccessibleName("tab1");
+    QTabWidget::addTab(page1, "tab1");
 
-    auto scope2 = new ManagementScope;
-    QTabWidget::addTab(scope2, "2");
+    auto page2 = new TabPage;
+    page2->setAccessibleName("tab2");
+    QTabWidget::addTab(page2, "tab2");
+    auto page3 = new TabPage;
 
-    auto scope3 = new ManagementScope;
-    QTabWidget::addTab(scope3, "3");
+    page3->setAccessibleName("tab3");
+    QTabWidget::addTab(page3, "tab3");
 }

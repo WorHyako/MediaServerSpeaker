@@ -10,7 +10,8 @@ target_sources(Mss_Backend
 target_link_libraries(Mss_Backend
         PUBLIC
         Qt6::Widgets
-        Wor::Lib)
+        Wor::Lib
+        pugixml::pugixml)
 
 target_include_directories(Mss_Backend
         PUBLIC .)

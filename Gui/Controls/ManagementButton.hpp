@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Button.hpp"
+#include "IControl.hpp"
 
 namespace Mss::Gui::Controls {
 
@@ -11,15 +12,13 @@ namespace Mss::Gui::Controls {
      */
     class ManagementButton
             : public Button {
-    Q_OBJECT
-
     public:
         /**
          * @brief Ctor.
          *
          * @param parent
          */
-        explicit ManagementButton(QWidget *parent = nullptr);
+        explicit ManagementButton(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.

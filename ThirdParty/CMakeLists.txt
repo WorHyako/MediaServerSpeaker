@@ -14,6 +14,12 @@ set(SOCI_POSTGRESQL OFF)
 set(SOCI_DB2 OFF)
 add_subdirectory(soci)
 
+###############
+#   pugixml   #
+###############
+set(PUGIXML_INSTALL OFF)
+add_subdirectory(pugixml)
+
 #####################
 #   nlohmann/json   #
 #####################

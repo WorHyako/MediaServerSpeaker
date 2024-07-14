@@ -82,7 +82,7 @@ namespace {
         Config::WorQWidgetPtrVec controls;
         controls.reserve(config.size());
 
-        for (const auto &each : config) {
+        std::for_each(std::begin(config), std::end(config), [&filePath, &controls](auto &each) {
             auto button = ManagementButtonCreator::create();
             try {
                 std::string text = each[::jsonTextKey];
@@ -102,10 +102,10 @@ namespace {
                             filePath.c_str());
                 std::printf("Error: %s\n Bad object dump: %s\n",
                             e.what(), std::string(each.dump()).c_str());
-                continue;
+                return;
             }
             controls.push_back(std::move(button));
-        }
+        });
         return controls;
     }
 
@@ -119,7 +119,7 @@ namespace {
     Config::WorQWidgetPtrVec loadQButtons() noexcept {
         using QuickButtonCreator = Config::ControlCreator<Controls::Button>;
 
-        std::string filePath(tabPath + '/' + std::string(::managementButtonConfigFile));
+        std::string filePath(tabPath + '/' + std::string(::quickButtonConfigFile));
 
         const auto json = ::loadConfigFile(filePath);
         if (json.empty()) {
@@ -130,7 +130,7 @@ namespace {
         Config::WorQWidgetPtrVec controls;
         controls.reserve(config.size());
 
-        for (const auto &each : config) {
+        std::for_each(std::begin(config), std::end(config), [&filePath, &controls](auto &each) {
             auto button = QuickButtonCreator::create();
             try {
                 std::string text = each[::jsonTextKey];
@@ -140,10 +140,10 @@ namespace {
                             filePath.c_str());
                 std::printf("Error: %s\n Bad object dump: %s\n",
                             e.what(), std::string(each.dump()).c_str());
-                continue;
+                return;
             }
             controls.push_back(std::move(button));
-        }
+        });
         return controls;
     }
 }
@@ -158,7 +158,7 @@ Config::WorQWidgetPtrVec Config::load(const std::string &tabName, ScopeType scop
 
     WorQWidgetPtrVec controls;
 
-    if (static_cast<std::uint8_t>(scope) && static_cast<std::uint8_t>(ScopeType::ControlTab)) {
+    if (scope & ScopeType::ManagementScope) {
         auto &&mButtons = ::loadMButtons();
 
         controls.insert(controls.cend(),
@@ -167,7 +167,7 @@ Config::WorQWidgetPtrVec Config::load(const std::string &tabName, ScopeType scop
         mButtons.clear();
     }
 
-    if (static_cast<std::uint8_t>(scope) && static_cast<std::uint8_t>(ScopeType::QuickButtons)) {
+    if (scope & ScopeType::QuickButtons) {
         auto &&qButtons = ::loadQButtons();
 
         controls.insert(controls.cend(),

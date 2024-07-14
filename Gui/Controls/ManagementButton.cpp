@@ -5,7 +5,7 @@
 using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;
 
-ManagementButton::ManagementButton(QWidget *parent)
+ManagementButton::ManagementButton(QWidget *parent) noexcept
         : Button(parent) {
     Components::WidgetTransformComponent::_canResize = true;
     Components::WidgetTransformComponent::_canMove = true;
