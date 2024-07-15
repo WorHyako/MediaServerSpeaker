@@ -1,9 +1,9 @@
-#include "precompile_header.hpp"
-
 #include "Scopes/QuickButtonScope.hpp"
 
 #include "Controls/ManagementButton.hpp"
-#include "Config/ControlsConfig.hpp"
+#include "Controls/Config.hpp"
+#include "Controls/ControlCreator.hpp"
+
 #include "ContextMenu/ScopeContextMenu.hpp"
 
 #include <QGridLayout>
@@ -71,7 +71,7 @@ void QuickButtonScope::mousePressEvent(QMouseEvent *e) {
 }
 
 void QuickButtonScope::addControl(ControlType controlType) noexcept {
-    auto control = Config::ControlCreator<Controls::Button>::create();
+    auto control = Controls::ControlCreator<Controls::Button>::create();
     addControl(control.release());
 }
 
@@ -105,7 +105,7 @@ void QuickButtonScope::loadControls() noexcept {
         return;
     }
     const auto &tabName = parentTab->accessibleName().toStdString();
-    auto controls = Config::load(tabName, Config::ScopeType::QuickButtons);
+    auto controls = Controls::Config<QuickButtonScope>::load(tabName);
     std::for_each(std::begin(controls), std::end(controls), [this](auto &each) {
         addControl(each.release());
     });

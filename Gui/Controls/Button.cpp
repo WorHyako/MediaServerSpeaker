@@ -1,7 +1,10 @@
 #include "Controls/Button.hpp"
 
+#include "Controls/ControlCreator.hpp"
+
 #include "ContextMenu/ControlContextMenu.hpp"
-#include "Command/ActionCommand.hpp"
+
+#include "Command/BaseCommand.hpp"
 #include "Command/CommandBuilder.hpp"
 
 #include <QMouseEvent>
@@ -13,7 +16,7 @@ using namespace Mss::Backend;
 Button::Button(QWidget *parent) noexcept
         : QPushButton(parent),
           Components::WidgetTransformComponent(this) {
-    BaseControl::_command = std::move(Command::CommandBuilder<Command::ActionCommand>::build());
+    BaseControl::_command = std::move(Command::CommandBuilder<Command::BaseCommand>::build());
 }
 
 void Button::mouseMoveEvent(QMouseEvent *e) {
@@ -23,14 +26,13 @@ void Button::mouseMoveEvent(QMouseEvent *e) {
 }
 
 void Button::mousePressEvent(QMouseEvent *e) {
-    const auto button = e->button();
-    switch (button) {
+    switch (e->button()) {
         case Qt::MouseButton::LeftButton:
             std::ignore = BaseControl::_command->execute("127.0.0.1");
             std::printf("Left ");
             break;
         case Qt::MouseButton::RightButton: {
-            auto menu = Config::ControlCreator<ContextMenu::ControlContextMenu>::create(this);
+            auto menu = ControlCreator<ContextMenu::ControlContextMenu>::create(this);
             menu->popup(QWidget::mapToGlobal(e->pos()));
             std::ignore = menu.release();
             std::printf("Right ");

@@ -4,12 +4,18 @@
 
 class QWidget;
 
-namespace Mss::Gui::Config {
+namespace Mss::Gui::Controls {
 
     /**
      * @brief
      *
+     *
      * @tparam TControlType
+     *
+     * @usage
+     * @code
+     *
+     * @endcode
      *
      * @author WorHyako
      */

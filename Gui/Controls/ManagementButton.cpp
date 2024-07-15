@@ -1,5 +1,9 @@
 #include "Controls/ManagementButton.hpp"
 
+#include "ContextMenu/ControlContextMenu.hpp"
+
+#include "Controls/ControlCreator.hpp"
+
 #include <QMouseEvent>
 
 using namespace Mss::Gui::Controls;
@@ -23,7 +27,10 @@ void ManagementButton::mousePressEvent(QMouseEvent *e) {
     switch (button) {
         case Qt::MouseButton::LeftButton:
             break;
-        case Qt::MouseButton::RightButton:
+        case Qt::MouseButton::RightButton: {
+            auto menu = Controls::ControlCreator<ContextMenu::ControlContextMenu>::create(this);
+            menu->popup(QWidget::mapToGlobal(e->pos()));
+        }
             break;
         default:
             break;

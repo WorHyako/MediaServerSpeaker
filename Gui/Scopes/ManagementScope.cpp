@@ -1,10 +1,10 @@
-#include "precompile_header.hpp"
-
 #include "Scopes/ManagementScope.hpp"
 
 #include "ContextMenu/ScopeContextMenu.hpp"
+
 #include "Controls/ManagementButton.hpp"
-#include "Config/ControlsConfig.hpp"
+#include "Controls/Config.hpp"
+#include "Controls/ControlCreator.hpp"
 
 #include <QGridLayout>
 #include <QPainter>
@@ -13,6 +13,9 @@
 #include <memory>
 
 using namespace Mss::Gui::Scopes;
+
+//extern template Mss::Gui::Controls::WorQWidgetPtrVec
+//        Mss::Gui::Controls::Config<ManagementScope>::load(const std::string &);
 
 ManagementScope::ManagementScope(QWidget *parent) noexcept
         : QWidget(parent) {
@@ -41,10 +44,10 @@ void ManagementScope::addControl(ControlType controlType) noexcept {
     std::unique_ptr<QWidget> control;
     switch (controlType) {
         case ControlType::Button:
-            control = Config::ControlCreator<Controls::Button>::create(this);
+            control = Controls::ControlCreator<Controls::Button>::create(this);
             break;
         case ControlType::ManagementButton:
-            control = Config::ControlCreator<Controls::ManagementButton>::create(this);
+            control = Controls::ControlCreator<Controls::ManagementButton>::create(this);
             break;
         default:
             return;
@@ -70,7 +73,7 @@ void ManagementScope::loadControls() noexcept {
         return;
     }
     const auto &tabName = parentTab->accessibleName().toStdString();
-    auto controls = Config::load(tabName, Config::ScopeType::ManagementScope);
+    auto controls = Controls::Config<ManagementScope>::load(tabName);
 
     std::for_each(std::begin(controls), std::end(controls), [this](auto &each) {
         addControl(each.release());

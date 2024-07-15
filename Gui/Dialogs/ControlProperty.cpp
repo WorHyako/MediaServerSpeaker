@@ -1,10 +1,12 @@
 #include "Dialogs/ControlProperty.hpp"
 
 #include "Controls/IControl.hpp"
+#include "Style/TextStyle.hpp"
 
 #include <QGridLayout>
 #include <QTextEdit>
 #include <QPushButton>
+#include <QStyle>
 
 using namespace Mss::Gui::Dialogs;
 using namespace Mss::Backend::Command;
@@ -108,16 +110,18 @@ void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
     _testCommand->addItem(item);
 
     auto keyText = new QTextEdit(item.key().c_str());
-    keyText->setFixedHeight(50);
+//    keyText->setFixedHeight(50);
     connect(keyText, &QTextEdit::textChanged, [keyText, hLayout, this]() {
         auto idx = _commandLayout->indexOf(hLayout);
         auto value = _testCommand->getItems()[idx].value();
         emit refreshCommand(idx, { keyText->toPlainText().toStdString(), value });
     });
+
+    keyText->setStyleSheet(Style::textStyle.c_str());
     hLayout->addWidget(keyText);
 
     auto valueText = new QTextEdit(item.value().c_str());
-    valueText->setFixedHeight(50);
+//    valueText->setFixedHeight(50);
     connect(valueText, &QTextEdit::textChanged, [valueText, hLayout, this]() {
         auto idx = _commandLayout->indexOf(hLayout);
         auto key = _testCommand->getItems()[idx].key();

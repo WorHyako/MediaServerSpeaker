@@ -11,6 +11,20 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
 
 ##################
+#   Mss System   #
+##################
+add_library(Mss_System)
+add_library(Mss::System ALIAS Mss_System)
+
+file(GLOB_RECURSE Sources Project/*.cpp)
+
+target_sources(Mss_System
+        PRIVATE ${Sources})
+
+target_include_directories(Mss_System
+        PUBLIC Project)
+
+##################
 #   ThirdParty   #
 ##################
 add_subdirectory(ThirdParty)

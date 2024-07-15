@@ -1,7 +1,6 @@
-#include "precompile_header.hpp"
-
 #include "Components/WidgetTransformComponent.hpp"
 
+#include <QWidget>
 #include <QMouseEvent>
 #include <QPoint>
 
