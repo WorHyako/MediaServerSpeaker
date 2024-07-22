@@ -8,7 +8,7 @@
 
 class QWidget;
 
-namespace Mss::Gui::Controls {
+namespace Mss::Gui::Controls::Config {
 
     using WorQWidgetPtr = std::unique_ptr<QWidget>;
     using WorQWidgetPtrVec = std::vector<WorQWidgetPtr>;
@@ -16,52 +16,60 @@ namespace Mss::Gui::Controls {
     /**
      * @brief
      *
-     * @usage
-     * @code
+     * @tparam  ScopeType
      *
-     * @endcode
+     * @param   tabName
      *
-     * @tparam      ScopeType
+     * @return
      *
-     * @author      WorHyako
+     * @author WorHyako
      */
     template<class TScopeType>
-    class Config final {
-    public:
-        /**
-         * @brief
-         *
-         * @tparam  ScopeType
-         *
-         * @param   tabName
-         *
-         * @return
-         */
-        [[nodiscard]]
-        static WorQWidgetPtrVec load(const std::string &tabName) noexcept;
+    [[nodiscard]]
+    WorQWidgetPtrVec load(const std::string &tabName) noexcept;
 
-        /**
-         * @brief
-         *
-         * @tparam ControlType
-         *
-         * @param json
-         *
-         * @return
-         */
-        template<class TControlType>
-        [[nodiscard]]
-        static WorQWidgetPtrVec loadControls(const nlohmann::json &json) noexcept;
+    /**
+     * @brief
+     *
+     * @param tabName
+     *
+     * @param owner
+     *
+     * @return
+     *
+     * @author WorHyako
+     */
+    template<class TScopeType>
+    [[nodiscard]]
+    bool save(const std::string &tabName, const QWidget *owner) noexcept;
 
-    private:
-        /**
-         * @brief
-         *
-         * @param configName
-         *
-         * @return
-         */
-        [[nodiscard]]
-        static inline nlohmann::json loadConfigFile(const std::string &configName);
-    };
+    /**
+     * @brief
+     *
+     * @tparam ControlType
+     *
+     * @param json
+     *
+     * @return
+     *
+     * @author WorHyako
+     */
+    template<class TControlType>
+    [[nodiscard]]
+    WorQWidgetPtrVec loadControls(const nlohmann::json &json) noexcept;
+
+    /**
+     * @brief
+     *
+     * @tparam TControlType
+     *
+     * @param controls
+     *
+     * @return
+     *
+     * @author WorHyako
+     */
+    template<class TControlType>
+    [[nodiscard]]
+    nlohmann::json saveControls(WorQWidgetPtrVec controls) noexcept;
 }

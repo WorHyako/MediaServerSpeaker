@@ -10,7 +10,7 @@ using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;
 
 ManagementButton::ManagementButton(QWidget *parent) noexcept
-        : Button(parent) {
+        : QuickButton(parent) {
     Components::WidgetTransformComponent::_canResize = true;
     Components::WidgetTransformComponent::_canMove = true;
 
@@ -19,7 +19,7 @@ ManagementButton::ManagementButton(QWidget *parent) noexcept
 
 void ManagementButton::mouseMoveEvent(QMouseEvent *e) {
 
-    Button::mouseMoveEvent(e);
+    QuickButton::mouseMoveEvent(e);
 }
 
 void ManagementButton::mousePressEvent(QMouseEvent *e) {
@@ -36,10 +36,10 @@ void ManagementButton::mousePressEvent(QMouseEvent *e) {
             break;
     }
 
-    Button::mousePressEvent(e);
+    QuickButton::mousePressEvent(e);
 }
 
 void ManagementButton::mouseReleaseEvent(QMouseEvent *e) {
 
-    Button::mouseReleaseEvent(e);
+    QuickButton::mouseReleaseEvent(e);
 }

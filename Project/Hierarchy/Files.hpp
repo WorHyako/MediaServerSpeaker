@@ -22,7 +22,7 @@ namespace Mss::System {
      * @author WorHyako
      */
     [[nodiscard]]
-    std::string_view getQuickButtonConfigName() noexcept;
+    std::string_view getQuickScopeConfigName() noexcept;
 
     /**
      * @brief
@@ -32,7 +32,7 @@ namespace Mss::System {
      * @author WorHyako
      */
     [[nodiscard]]
-    std::string_view getQuickTitleConfigName() noexcept;
+    std::string_view getTitlesScopeConfigName() noexcept;
 
     /**
      * @brief
@@ -42,5 +42,5 @@ namespace Mss::System {
      * @author WorHyako
      */
     [[nodiscard]]
-    std::string_view getManagementButtonConfigName() noexcept;
+    std::string_view getManagementScopeConfigName() noexcept;
 }

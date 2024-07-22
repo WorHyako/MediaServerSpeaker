@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Button.hpp"
+#include "QuickButton.hpp"
 #include "IControl.hpp"
 
 namespace Mss::Gui::Controls {
@@ -11,7 +11,7 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class ManagementButton
-            : public Button {
+            : public QuickButton {
     public:
         /**
          * @brief Ctor.

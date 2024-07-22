@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include <QPoint>
+
 #include "Command/ICommand.hpp"
 
 namespace Mss::Gui::Controls {
@@ -18,6 +20,54 @@ namespace Mss::Gui::Controls {
          * @brief Dtor.
          */
         virtual ~IControl() = default;
+
+    public:
+#pragma region Accessors/Mutators
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+//        [[nodiscard]]
+//        virtual bool getCanMove() const noexcept = 0;
+
+        /**
+         * @brief
+         *
+         * @param canMove
+         */
+//        virtual void setCanMove(bool canMove) noexcept = 0;
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+//        [[nodiscard]]
+//        virtual bool getCanResize() const noexcept = 0;
+
+        /**
+         * @brief
+         *
+         * @param canResize
+         */
+//        virtual void setCanResize(bool canResize) noexcept = 0;
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+//        [[nodiscard]]
+//        virtual QPoint getPosition() const noexcept = 0;
+
+        /**
+         * @brief
+         *
+         * @param position
+         */
+//        virtual void setPosition(QPoint position) noexcept = 0;
 
         /**
          * @brief
@@ -40,13 +90,16 @@ namespace Mss::Gui::Controls {
          * @return
          */
         [[nodiscard]]
-        virtual const Backend::Command::ICommand* getCommand() const noexcept = 0;
+        virtual const Backend::Command::ICommand *getCommand() const noexcept = 0;
 
         /**
          * @brief
          *
          * @param command
          */
-        virtual void setCommand(Backend::Command::ICommand* command) noexcept = 0;
+        virtual void setCommand(Backend::Command::ICommand *command) noexcept = 0;
+
+#pragma endregion Accessors/Mutators
+
     };
 }

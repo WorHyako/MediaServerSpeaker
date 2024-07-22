@@ -12,30 +12,42 @@ namespace {
     constexpr std::string_view jsonPositionKey = "position";
 
     constexpr std::string_view jsonSizeKey = "size";
+
+    constexpr std::string_view jsonManagementButtonKey = "Management Button";
+
+    constexpr std::string_view jsonQuickButtonKey = "Quick Button";
 }
 
 using namespace Mss;
 
 std::string_view System::getJsonHeadKey() noexcept {
-    return jsonHeadKey;
+    return ::jsonHeadKey;
 }
 
 std::string_view System::getJsonTextKey() noexcept {
-    return jsonTextKey;
+    return ::jsonTextKey;
 }
 
 std::string_view System::getJsonCanMoveKey() noexcept {
-    return jsonCanMoveKey;
+    return ::jsonCanMoveKey;
 }
 
 std::string_view System::getJsonCanResizeKey() noexcept {
-    return jsonCanResizeKey;
+    return ::jsonCanResizeKey;
 }
 
 std::string_view System::getJsonPositionKey() noexcept {
-    return jsonPositionKey;
+    return ::jsonPositionKey;
 }
 
 std::string_view System::getJsonSizeKey() noexcept {
-    return jsonSizeKey;
+    return ::jsonSizeKey;
+}
+
+std::string_view System::getManagementButtonKey() noexcept {
+    return ::jsonManagementButtonKey;
+}
+
+std::string_view System::getQuickButtonKey() noexcept {
+    return ::jsonQuickButtonKey;
 }

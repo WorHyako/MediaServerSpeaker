@@ -1,6 +1,6 @@
 #include "Scopes/QuickButtonScope.hpp"
 
-#include "Controls/ManagementButton.hpp"
+#include "Controls/QuickButton.hpp"
 #include "Controls/Config.hpp"
 #include "Controls/ControlCreator.hpp"
 
@@ -71,7 +71,7 @@ void QuickButtonScope::mousePressEvent(QMouseEvent *e) {
 }
 
 void QuickButtonScope::addControl(ControlType controlType) noexcept {
-    auto control = Controls::ControlCreator<Controls::Button>::create();
+    auto control = Controls::ControlCreator<Controls::QuickButton>::create();
     addControl(control.release());
 }
 
@@ -104,9 +104,9 @@ void QuickButtonScope::loadControls() noexcept {
     if (!parentTab) {
         return;
     }
-    const auto &tabName = parentTab->accessibleName().toStdString();
-    auto controls = Controls::Config<QuickButtonScope>::load(tabName);
-    std::for_each(std::begin(controls), std::end(controls), [this](auto &each) {
+    auto tabName = parentTab->accessibleName().toStdString();
+    auto controls = Controls::Config::load<QuickButtonScope>(tabName);
+    std::for_each(std::begin(controls), std::end(controls), [this](std::unique_ptr<QWidget> &each) {
         addControl(each.release());
     });
 }

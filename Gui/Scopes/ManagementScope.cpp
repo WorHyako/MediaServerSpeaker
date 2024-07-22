@@ -14,9 +14,6 @@
 
 using namespace Mss::Gui::Scopes;
 
-//extern template Mss::Gui::Controls::WorQWidgetPtrVec
-//        Mss::Gui::Controls::Config<ManagementScope>::load(const std::string &);
-
 ManagementScope::ManagementScope(QWidget *parent) noexcept
         : QWidget(parent) {
 }
@@ -44,7 +41,7 @@ void ManagementScope::addControl(ControlType controlType) noexcept {
     std::unique_ptr<QWidget> control;
     switch (controlType) {
         case ControlType::Button:
-            control = Controls::ControlCreator<Controls::Button>::create(this);
+            control = Controls::ControlCreator<Controls::QuickButton>::create(this);
             break;
         case ControlType::ManagementButton:
             control = Controls::ControlCreator<Controls::ManagementButton>::create(this);
@@ -52,8 +49,7 @@ void ManagementScope::addControl(ControlType controlType) noexcept {
         default:
             return;
     }
-    control->show();
-    std::ignore = control.release();
+    addControl(control.release());
 }
 
 void ManagementScope::addControl(QWidget *control) noexcept {
@@ -62,7 +58,6 @@ void ManagementScope::addControl(QWidget *control) noexcept {
 }
 
 void ManagementScope::removeControl(QWidget *control) noexcept {
-    control->hide();
     control->setParent(nullptr);
     control->deleteLater();
 }
@@ -73,7 +68,7 @@ void ManagementScope::loadControls() noexcept {
         return;
     }
     const auto &tabName = parentTab->accessibleName().toStdString();
-    auto controls = Controls::Config<ManagementScope>::load(tabName);
+    auto controls = Controls::Config::load<ManagementScope>(tabName);
 
     std::for_each(std::begin(controls), std::end(controls), [this](auto &each) {
         addControl(each.release());
@@ -81,5 +76,10 @@ void ManagementScope::loadControls() noexcept {
 }
 
 void ManagementScope::saveControls() noexcept {
-
+    const auto &parentTab = dynamic_cast<QWidget *>(QWidget::parent());
+    if (!parentTab) {
+        return;
+    }
+    const auto &tabName = parentTab->accessibleName().toStdString();
+    auto saveRes = Controls::Config::save<ManagementScope>(tabName, this);
 }

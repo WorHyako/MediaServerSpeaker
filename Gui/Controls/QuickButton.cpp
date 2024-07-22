@@ -1,4 +1,4 @@
-#include "Controls/Button.hpp"
+#include "Controls/QuickButton.hpp"
 
 #include "Controls/ControlCreator.hpp"
 
@@ -13,19 +13,19 @@ using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;
 using namespace Mss::Backend;
 
-Button::Button(QWidget *parent) noexcept
+QuickButton::QuickButton(QWidget *parent) noexcept
         : QPushButton(parent),
           Components::WidgetTransformComponent(this) {
     BaseControl::_command = std::move(Command::CommandBuilder<Command::BaseCommand>::build());
 }
 
-void Button::mouseMoveEvent(QMouseEvent *e) {
+void QuickButton::mouseMoveEvent(QMouseEvent *e) {
     emit Components::WidgetTransformComponent::doTransform(e);
 
     QPushButton::mouseMoveEvent(e);
 }
 
-void Button::mousePressEvent(QMouseEvent *e) {
+void QuickButton::mousePressEvent(QMouseEvent *e) {
     switch (e->button()) {
         case Qt::MouseButton::LeftButton:
             std::ignore = BaseControl::_command->execute("127.0.0.1");
@@ -48,16 +48,16 @@ void Button::mousePressEvent(QMouseEvent *e) {
     QPushButton::mousePressEvent(e);
 }
 
-void Button::mouseReleaseEvent(QMouseEvent *e) {
+void QuickButton::mouseReleaseEvent(QMouseEvent *e) {
     emit Components::WidgetTransformComponent::stopTransform(e);
 
     QPushButton::mouseReleaseEvent(e);
 }
 
-void Button::setText(std::string text) noexcept {
+void QuickButton::setText(std::string text) noexcept {
     QPushButton::setText(text.c_str());
 }
 
-std::string Button::getText() const noexcept {
+std::string QuickButton::getText() const noexcept {
     return QPushButton::text().toStdString();
 }

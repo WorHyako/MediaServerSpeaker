@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Controls/Button.hpp"
+#include "Controls/BaseControl.hpp"
+
+#include <QWidget>
 
 namespace Mss::Gui::Controls {
 
@@ -10,7 +12,8 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class QuickTitle
-            : public Button {
+            : public BaseControl,
+              public QWidget {
     public:
         /**
          * @brief Ctor.

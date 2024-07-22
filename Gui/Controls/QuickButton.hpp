@@ -12,7 +12,7 @@ namespace Mss::Gui::Controls {
      *
      * @author WorHyako
      */
-    class Button
+    class QuickButton
             : public QPushButton,
               public Components::WidgetTransformComponent,
               public BaseControl {
@@ -22,12 +22,12 @@ namespace Mss::Gui::Controls {
          *
          * @param parent
          */
-        explicit Button(QWidget *parent = nullptr) noexcept;
+        explicit QuickButton(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.
          */
-        ~Button() override = default;
+        ~QuickButton() override = default;
 
         /**
          * @brief

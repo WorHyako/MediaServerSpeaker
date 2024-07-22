@@ -63,4 +63,24 @@ namespace Mss::System {
      */
     [[nodiscard]]
     std::string_view getJsonSizeKey() noexcept;
+
+    /**
+     * @brief
+     *
+     * @return
+     *
+     * @author  WorHyako
+     */
+    [[nodiscard]]
+    std::string_view getManagementButtonKey() noexcept;
+
+    /**
+     * @brief
+     *
+     * @return
+     *
+     * @author  WorHyako
+     */
+    [[nodiscard]]
+    std::string_view getQuickButtonKey() noexcept;
 }
