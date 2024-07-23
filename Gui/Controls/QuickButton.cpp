@@ -14,15 +14,16 @@ using namespace Mss::Gui;
 using namespace Mss::Backend;
 
 QuickButton::QuickButton(QWidget *parent) noexcept
-        : QPushButton(parent),
-          Components::WidgetTransformComponent(this) {
+        : BaseControl(parent),
+          _button(nullptr) {
+    _button = new QPushButton(this);
+    _button->show();
+
     BaseControl::_command = std::move(Command::CommandBuilder<Command::BaseCommand>::build());
 }
 
 void QuickButton::mouseMoveEvent(QMouseEvent *e) {
-    emit Components::WidgetTransformComponent::doTransform(e);
-
-    QPushButton::mouseMoveEvent(e);
+    BaseControl::mouseMoveEvent(e);
 }
 
 void QuickButton::mousePressEvent(QMouseEvent *e) {
@@ -43,21 +44,20 @@ void QuickButton::mousePressEvent(QMouseEvent *e) {
             break;
     }
 
-    std::printf("Mouse button was pressed on Button with text: %s.\n", QPushButton::text().toStdString().c_str());
+    std::printf("Mouse button was pressed on Button with text: %s.\n", _button->text().toStdString().c_str());
 
-    QPushButton::mousePressEvent(e);
+    BaseControl::mousePressEvent(e);
 }
 
 void QuickButton::mouseReleaseEvent(QMouseEvent *e) {
-    emit Components::WidgetTransformComponent::stopTransform(e);
 
-    QPushButton::mouseReleaseEvent(e);
+    BaseControl::mouseReleaseEvent(e);
 }
 
 void QuickButton::setText(std::string text) noexcept {
-    QPushButton::setText(text.c_str());
+    _button->setText(text.c_str());
 }
 
 std::string QuickButton::getText() const noexcept {
-    return QPushButton::text().toStdString();
+    return _button->text().toStdString();
 }

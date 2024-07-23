@@ -1,6 +1,7 @@
 #include "Dialogs/ControlProperty.hpp"
 
-#include "Controls/IControl.hpp"
+#include "Controls/BaseControl.hpp"
+
 #include "Style/TextStyle.hpp"
 
 #include <QGridLayout>
@@ -15,7 +16,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
         : QDialog(parent),
           _commandLayout(nullptr),
           _control(nullptr) {
-    _control = dynamic_cast<Controls::IControl *>(parent);
+    _control = dynamic_cast<Controls::BaseControl *>(parent);
     if (!_control) {
         QDialog::deleteLater();
         return;
@@ -39,7 +40,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 
         auto button = new QPushButton("Apply");
         connect(button, &QPushButton::pressed, [text, this]() {
-            _control->setText(text->toPlainText().toStdString());
+//            _control->setText(text->toPlainText().toStdString());
         });
         hLayout->addWidget(button);
 

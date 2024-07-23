@@ -3,6 +3,7 @@
 #include "ContextMenu/ScopeContextMenu.hpp"
 
 #include "Controls/ManagementButton.hpp"
+#include "Controls/QuickButton.hpp"
 #include "Controls/Config.hpp"
 #include "Controls/ControlCreator.hpp"
 

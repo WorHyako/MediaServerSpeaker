@@ -4,6 +4,8 @@
 
 #include "IScope.hpp"
 
+#include <QWidget>
+
 namespace Mss::Gui::Scopes {
 
     /**

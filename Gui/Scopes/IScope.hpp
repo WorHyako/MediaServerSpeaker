@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QWidget>
-
 #include <memory>
+
+class QWidget;
 
 namespace Mss::Gui::Scopes {
 

@@ -2,8 +2,6 @@
 
 #include "Controls/BaseControl.hpp"
 
-#include <QWidget>
-
 namespace Mss::Gui::Controls {
 
     /**
@@ -12,15 +10,14 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class QuickTitle
-            : public BaseControl,
-              public QWidget {
+            : public BaseControl {
     public:
         /**
          * @brief Ctor.
          *
          * @param parent
          */
-        explicit QuickTitle(QWidget* parent = nullptr) noexcept;
+        explicit QuickTitle(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.

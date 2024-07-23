@@ -1,7 +1,10 @@
 #pragma once
 
-#include "QuickButton.hpp"
-#include "IControl.hpp"
+#include "MovableBaseControl.hpp"
+
+#include "Components/WidgetTransformComponent.hpp"
+
+#include <QPushButton>
 
 namespace Mss::Gui::Controls {
 
@@ -11,7 +14,7 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class ManagementButton
-            : public QuickButton {
+            : public MovableBaseControl {
     public:
         /**
          * @brief Ctor.
@@ -45,5 +48,28 @@ namespace Mss::Gui::Controls {
          * @param e
          */
         void mouseReleaseEvent(QMouseEvent *e) override;
+
+    public:
+#pragma region Accessors/Mutators
+
+        /**
+         * @brief
+         *
+         * @param text
+         */
+        void setText(std::string text) noexcept override;
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+        [[nodiscard]]
+        std::string getText() const noexcept override;
+
+#pragma endregion Accessors/Mutators
+
+    private:
+        QPushButton *_button;
     };
 }

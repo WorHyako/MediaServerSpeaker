@@ -10,11 +10,11 @@ namespace Mss::Backend::Command {
     /**
      * @brief
      *
-     * @tparam CommandType
+     * @tparam TCommandType
      *
      * @author WorHyako
      */
-    template<class CommandType>
+    template<class TCommandType>
     class CommandBuilder {
     public:
         /**
@@ -30,7 +30,7 @@ namespace Mss::Backend::Command {
          * @return
          */
         [[nodiscard]]
-        static std::unique_ptr<CommandType> build(std::vector<CommandItem> items = {}) noexcept;
+        static std::unique_ptr<TCommandType> build(std::vector<CommandItem> items = {}) noexcept;
 
         /**
          * @brief
@@ -38,9 +38,9 @@ namespace Mss::Backend::Command {
         static void log() noexcept;
     };
 
-    template<class CommandType>
-    std::unique_ptr<CommandType> CommandBuilder<CommandType>::build(std::vector<CommandItem> items) noexcept {
-        std::unique_ptr<CommandType> command(new CommandType);
+    template<class TCommandType>
+    std::unique_ptr<TCommandType> CommandBuilder<TCommandType>::build(std::vector<CommandItem> items) noexcept {
+        std::unique_ptr<TCommandType> command(new TCommandType);
         std::for_each(std::begin(items), std::end(items), [&command](const auto &each) {
             command->addItem(std::move(each));
         });
@@ -50,7 +50,6 @@ namespace Mss::Backend::Command {
 
     template<class CommandType>
     void CommandBuilder<CommandType>::log() noexcept {
-
     }
 }
 

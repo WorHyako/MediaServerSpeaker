@@ -8,10 +8,11 @@
 #include "Command/BaseCommand.hpp"
 
 class QVBoxLayout;
+
 class QHBoxLayout;
 
 namespace Mss::Gui::Controls {
-    class IControl;
+    class BaseControl;
 }
 
 namespace Mss::Gui::Dialogs {
@@ -38,6 +39,26 @@ namespace Mss::Gui::Dialogs {
          */
         ~ControlProperty() override = default;
 
+    signals:
+
+        /**
+         * @brief
+         *
+         * @param commandStr
+         */
+        void fullCommandChanged(const QString &commandStr);
+
+    public slots:
+
+        /**
+         * @brief
+         *
+         * @param idx
+         *
+         * @param item
+         */
+        void refreshCommand(std::uint16_t idx, const Backend::Command::CommandItem &item);
+
     private:
         /**
          * @brief
@@ -58,30 +79,10 @@ namespace Mss::Gui::Dialogs {
          */
         void applyChanged() noexcept;
 
-        Controls::IControl *_control;
+        Controls::BaseControl *_control;
 
         QVBoxLayout *_commandLayout;
 
         std::unique_ptr<Backend::Command::BaseCommand> _testCommand;
-
-    signals:
-
-        /**
-         * @brief
-         *
-         * @param commandStr
-         */
-        void fullCommandChanged(const QString &commandStr);
-
-    public slots:
-
-        /**
-         * @brief
-         *
-         * @param idx
-         *
-         * @param item
-         */
-        void refreshCommand(std::uint16_t idx, const Backend::Command::CommandItem &item);
     };
 }

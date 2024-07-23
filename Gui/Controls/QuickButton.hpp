@@ -3,7 +3,6 @@
 #include <QPushButton>
 
 #include "BaseControl.hpp"
-#include "Components/WidgetTransformComponent.hpp"
 
 namespace Mss::Gui::Controls {
 
@@ -13,9 +12,7 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class QuickButton
-            : public QPushButton,
-              public Components::WidgetTransformComponent,
-              public BaseControl {
+            : public BaseControl {
     public:
         /**
          * @brief Ctor.
@@ -50,6 +47,9 @@ namespace Mss::Gui::Controls {
          */
         void mouseReleaseEvent(QMouseEvent *e) override;
 
+    public:
+#pragma region Accessors/Mutators
+
         /**
          * @brief
          *
@@ -64,5 +64,10 @@ namespace Mss::Gui::Controls {
          */
         [[nodiscard]]
         std::string getText() const noexcept override;
+
+#pragma endregion Accessors/Mutators
+
+    protected:
+        QPushButton *_button;
     };
 }

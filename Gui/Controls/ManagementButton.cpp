@@ -5,25 +5,38 @@
 #include "Controls/ControlCreator.hpp"
 
 #include <QMouseEvent>
+#include <QGridLayout>
 
 using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;
 
 ManagementButton::ManagementButton(QWidget *parent) noexcept
-        : QuickButton(parent) {
+        : MovableBaseControl(parent),
+          _button(nullptr) {
     Components::WidgetTransformComponent::_canResize = true;
     Components::WidgetTransformComponent::_canMove = true;
 
-    QPushButton::resize(200, 100);
+    QWidget::resize(200, 200);
+
+    auto layout = new QVBoxLayout;
+    QWidget::setLayout(layout);
+
+    _button = new QPushButton("Button");
+    _button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    layout->addWidget(_button);
 }
 
 void ManagementButton::mouseMoveEvent(QMouseEvent *e) {
+    emit Components::WidgetTransformComponent::doTransform(e);
 
-    QuickButton::mouseMoveEvent(e);
+    MovableBaseControl::mouseMoveEvent(e);
 }
 
 void ManagementButton::mousePressEvent(QMouseEvent *e) {
     const auto button = e->button();
+    if (e->modifiers() == Qt::Modifier::CTRL) {
+        return;
+    }
     switch (button) {
         case Qt::MouseButton::LeftButton:
             break;
@@ -36,10 +49,19 @@ void ManagementButton::mousePressEvent(QMouseEvent *e) {
             break;
     }
 
-    QuickButton::mousePressEvent(e);
+    MovableBaseControl::mousePressEvent(e);
 }
 
 void ManagementButton::mouseReleaseEvent(QMouseEvent *e) {
+    emit Components::WidgetTransformComponent::stopTransform(e);
 
-    QuickButton::mouseReleaseEvent(e);
+    MovableBaseControl::mouseReleaseEvent(e);
+}
+
+void ManagementButton::setText(std::string text) noexcept {
+    _button->setText(text.c_str());
+}
+
+std::string ManagementButton::getText() const noexcept {
+    return _button->text().toStdString();
 }

@@ -1,5 +1,3 @@
-#include "precompile_header.hpp"
-
 #include "ControlContextMenu.hpp"
 
 #include "Controls/ControlCreator.hpp"

@@ -132,10 +132,6 @@ WorQWidgetPtrVec Config::loadControls<QuickButton>(const nlohmann::json &json) n
         try {
             std::string text = each.at(Mss::System::getJsonTextKey());
             button->setText(text);
-            bool canMove = each.at(Mss::System::getJsonCanMoveKey());
-            button->setCanMove(canMove);
-            bool canResize = each.at(Mss::System::getJsonCanResizeKey());
-            button->setCanResize(canResize);
             int xPos = each.at(Mss::System::getJsonPositionKey()).at("x");
             int yPos = each.at(Mss::System::getJsonPositionKey()).at("y");
             button->move(xPos, yPos);

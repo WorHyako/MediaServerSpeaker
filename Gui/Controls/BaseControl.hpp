@@ -1,10 +1,10 @@
 #pragma once
 
-#include "IControl.hpp"
+#include <QWidget>
 
 #include "Command/ICommand.hpp"
 
-#include "Components/WidgetTransformComponent.hpp"
+#include "Components/CommandComponent.hpp"
 
 namespace Mss::Gui::Controls {
 
@@ -14,12 +14,13 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class BaseControl
-            : public IControl {
+            : public QWidget,
+              public Components::CommandComponent {
     protected:
         /**
          * @brief Ctor.
          */
-        BaseControl() = default;
+        explicit BaseControl(QWidget *parent) noexcept;
 
     public:
         /**
@@ -27,8 +28,14 @@ namespace Mss::Gui::Controls {
          */
         ~BaseControl() override = default;
 
-    public:
-#pragma region Accessors/Mutators
+#pragma endregion Accessors/Mutators
+
+        /**
+         * @brief
+         *
+         * @param text
+         */
+        virtual void setText(std::string text) noexcept = 0;
 
         /**
          * @brief
@@ -36,17 +43,9 @@ namespace Mss::Gui::Controls {
          * @return
          */
         [[nodiscard]]
-        const Backend::Command::ICommand *getCommand() const noexcept override;
-
-        /**
-         *
-         * @param command
-         */
-        void setCommand(Backend::Command::ICommand *command) noexcept override;
+        virtual std::string getText() const noexcept = 0;
 
 #pragma endregion Accessors/Mutators
 
-    protected:
-        std::unique_ptr<Backend::Command::ICommand> _command;
     };
 }
