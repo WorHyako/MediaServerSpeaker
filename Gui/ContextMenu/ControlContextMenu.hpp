@@ -11,6 +11,8 @@ namespace Mss::Gui::ContextMenu {
      */
     class ControlContextMenu
             : public QMenu {
+    Q_OBJECT
+
     public:
         /**
          * @brief Ctor.
@@ -25,5 +27,17 @@ namespace Mss::Gui::ContextMenu {
          * @brief Dtor.
          */
         ~ControlContextMenu() override = default;
+
+    private slots:
+
+        /**
+         * @brief
+         */
+        void configure();
+
+        /**
+         * @brief
+         */
+        void reset();
     };
 }

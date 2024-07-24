@@ -2,10 +2,8 @@
 
 #include "ContextMenu/ScopeContextMenu.hpp"
 
-#include "Controls/ManagementButton.hpp"
-#include "Controls/QuickButton.hpp"
+#include "Controls/MovableBaseControl.hpp"
 #include "Controls/Config.hpp"
-#include "Controls/ControlCreator.hpp"
 
 #include <QGridLayout>
 #include <QPainter>
@@ -30,27 +28,12 @@ void ManagementScope::paintEvent(QPaintEvent *e) {
 void ManagementScope::mousePressEvent(QMouseEvent *e) {
     if (e->button() == Qt::MouseButton::RightButton) {
         auto menu = new ContextMenu::ScopeContextMenu(ControlType::ManagementButton |
-                                                      ControlType::Button,
+                                                      ControlType::ManagementTextableButton,
                                                       this);
         menu->popup(QWidget::mapToGlobal(e->pos()));
     }
 
     QWidget::mousePressEvent(e);
-}
-
-void ManagementScope::addControl(ControlType controlType) noexcept {
-    std::unique_ptr<QWidget> control;
-    switch (controlType) {
-        case ControlType::Button:
-            control = Controls::ControlCreator<Controls::QuickButton>::create(this);
-            break;
-        case ControlType::ManagementButton:
-            control = Controls::ControlCreator<Controls::ManagementButton>::create(this);
-            break;
-        default:
-            return;
-    }
-    addControl(control.release());
 }
 
 void ManagementScope::addControl(QWidget *control) noexcept {
@@ -63,14 +46,39 @@ void ManagementScope::removeControl(QWidget *control) noexcept {
     control->deleteLater();
 }
 
+void ManagementScope::removeAllControls() noexcept {
+    auto children = QWidget::children();
+    std::for_each(std::begin(children), std::end(children), [](QObject *each) {
+        auto control = dynamic_cast<Controls::MovableBaseControl *>(each);
+        if (!control) {
+            return;
+        }
+        each->deleteLater();
+    });
+}
+
 void ManagementScope::loadControls() noexcept {
     const auto &parentTab = dynamic_cast<QWidget *>(QWidget::parent());
     if (!parentTab) {
         return;
     }
+    /**
+     * TODO: first thread
+     */
+    auto currentControls = QWidget::children();
+    std::for_each(std::begin(currentControls), std::end(currentControls), [](QObject *each) {
+        each->deleteLater();
+    });
+
+    /**
+     * TODO: second thread
+     */
     const auto &tabName = parentTab->accessibleName().toStdString();
     auto controls = Controls::Config::load<ManagementScope>(tabName);
 
+    /**
+     * TODO: finish
+     */
     std::for_each(std::begin(controls), std::end(controls), [this](auto &each) {
         addControl(each.release());
     });

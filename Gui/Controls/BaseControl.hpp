@@ -2,9 +2,9 @@
 
 #include <QWidget>
 
-#include "Command/ICommand.hpp"
-
 #include "Components/CommandComponent.hpp"
+
+#include "ContextMenu/ControlContextMenu.hpp"
 
 namespace Mss::Gui::Controls {
 
@@ -22,12 +22,14 @@ namespace Mss::Gui::Controls {
          */
         explicit BaseControl(QWidget *parent) noexcept;
 
-    public:
         /**
          * @brief Dtor.
          */
         ~BaseControl() override = default;
 
+        std::unique_ptr<ContextMenu::ControlContextMenu> _menu;
+
+    public:
 #pragma endregion Accessors/Mutators
 
         /**

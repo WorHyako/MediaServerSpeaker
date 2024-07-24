@@ -32,17 +32,8 @@ namespace Mss::System {
      * @author  WorHyako
      */
     [[nodiscard]]
-    std::string_view getJsonCanMoveKey() noexcept;
+    std::string_view getJsonCommandKey() noexcept;
 
-    /**
-     * @brief
-     *
-     * @return
-     *
-     * @author  WorHyako
-     */
-    [[nodiscard]]
-    std::string_view getJsonCanResizeKey() noexcept;
 
     /**
      * @brief
@@ -73,6 +64,16 @@ namespace Mss::System {
      */
     [[nodiscard]]
     std::string_view getManagementButtonKey() noexcept;
+
+    /**
+     * @brief
+     *
+     * @return
+     *
+     * @author  WorHyako
+     */
+    [[nodiscard]]
+    std::string_view getManagementTextableButtonKey() noexcept;
 
     /**
      * @brief

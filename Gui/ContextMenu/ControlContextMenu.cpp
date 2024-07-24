@@ -8,6 +8,15 @@ using namespace Mss::Gui::ContextMenu;
 
 ControlContextMenu::ControlContextMenu(QWidget *parent) noexcept
         : QMenu(parent) {
+    connect(this, SIGNAL(aboutToShow()), this, SLOT(configure()));
+    connect(this, SIGNAL(aboutToHide()), this, SLOT(reset()));
+}
+
+void ControlContextMenu::configure() {
+    auto parent = dynamic_cast<QWidget *>(QMenu::parent());
+    if (!parent) {
+        return;
+    }
     auto propertyDialog = Controls::ControlCreator<Dialogs::ControlProperty>::create(parent);
     connect(propertyDialog.get(), SIGNAL(finished(int)), propertyDialog.get(), SLOT(deleteLater()));
 
@@ -20,4 +29,8 @@ ControlContextMenu::ControlContextMenu(QWidget *parent) noexcept
     QMenu::addActions({ propertyAction, deleteAction });
 
     std::ignore = propertyDialog.release();
+}
+
+void ControlContextMenu::reset() {
+    QMenu::clear();
 }

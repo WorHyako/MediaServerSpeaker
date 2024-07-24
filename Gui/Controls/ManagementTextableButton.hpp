@@ -2,8 +2,7 @@
 
 #include "MovableBaseControl.hpp"
 
-#include "Components/WidgetTransformComponent.hpp"
-
+#include <QTextEdit>
 #include <QPushButton>
 
 namespace Mss::Gui::Controls {
@@ -13,7 +12,7 @@ namespace Mss::Gui::Controls {
      *
      * @author WorHyako
      */
-    class ManagementButton
+    class ManagementTextableButton
             : public MovableBaseControl {
     public:
         /**
@@ -21,12 +20,7 @@ namespace Mss::Gui::Controls {
          *
          * @param parent
          */
-        explicit ManagementButton(QWidget *parent = nullptr) noexcept;
-
-        /**
-         * @brief Dtor.
-         */
-        ~ManagementButton() override = default;
+        explicit ManagementTextableButton(QWidget* parent = nullptr) noexcept;
 
     public:
 #pragma region Accessors/Mutators
@@ -49,6 +43,8 @@ namespace Mss::Gui::Controls {
 #pragma endregion Accessors/Mutators
 
     private:
-        QPushButton *_button;
+        QTextEdit* _textEdit;
+
+        QPushButton* _button;
     };
 }

@@ -70,11 +70,6 @@ void QuickButtonScope::mousePressEvent(QMouseEvent *e) {
     QWidget::mousePressEvent(e);
 }
 
-void QuickButtonScope::addControl(ControlType controlType) noexcept {
-    auto control = Controls::ControlCreator<Controls::QuickButton>::create();
-    addControl(control.release());
-}
-
 void QuickButtonScope::addControl(QWidget *control) noexcept {
     if (_buttonsCount >= (::rowMax * ::columnMax - 1)) {
         control->deleteLater();
@@ -94,9 +89,11 @@ void QuickButtonScope::addControl(QWidget *control) noexcept {
 }
 
 void QuickButtonScope::removeControl(QWidget *control) noexcept {
-//    control->hide();
-//    control->setParent(nullptr);
     control->deleteLater();
+}
+
+void QuickButtonScope::removeAllControls() noexcept {
+
 }
 
 void QuickButtonScope::loadControls() noexcept {

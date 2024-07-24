@@ -19,5 +19,26 @@ namespace Mss::Gui::Controls {
          * @brief Ctor.
          */
         explicit MovableBaseControl(QWidget *parent) noexcept;
+
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mouseMoveEvent(QMouseEvent *e) override;
+
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mouseReleaseEvent(QMouseEvent *e) override;
+
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mousePressEvent(QMouseEvent *e) override;
     };
 }

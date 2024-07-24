@@ -20,6 +20,13 @@ namespace Mss::Backend::Command {
         /**
          * @brief
          *
+         * @param commandStr
+         */
+        void set(const std::string& commandStr) noexcept override;
+
+        /**
+         * @brief
+         *
          * @param item
          */
         void addItem(CommandItem item) noexcept override;

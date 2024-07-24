@@ -50,13 +50,6 @@ namespace Mss::Gui::Scopes {
          *
          * @param control
          */
-        void addControl(ControlType controlType) noexcept override;
-
-        /**
-         * @brief
-         *
-         * @param control
-         */
         void addControl(QWidget *control) noexcept override;
 
         /**
@@ -65,6 +58,11 @@ namespace Mss::Gui::Scopes {
          * @param control
          */
         void removeControl(QWidget *control) noexcept override;
+
+        /**
+         * @brief
+         */
+        void removeAllControls() noexcept override;
 
         /**
          * @brief

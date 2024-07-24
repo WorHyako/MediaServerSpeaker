@@ -16,7 +16,7 @@ namespace Mss::Gui::Components {
         /**
          * @brief Ctor.
          */
-        CommandComponent() noexcept = default;
+        CommandComponent() noexcept;
 
     protected:
         std::unique_ptr<Backend::Command::ICommand> _command;

@@ -15,6 +15,7 @@ WidgetTransformComponent::WidgetTransformComponent(QWidget *parent) noexcept
 void WidgetTransformComponent::doTransform(QMouseEvent *e) noexcept {
     if (_lastMousePressPosition == QPoint(-1, -1)) {
         _lastMousePressPosition = e->pos();
+        return;
     }
     const auto parentOwner = _parent->parentWidget();
     const auto deltaPosition = e->pos() - _lastMousePressPosition;

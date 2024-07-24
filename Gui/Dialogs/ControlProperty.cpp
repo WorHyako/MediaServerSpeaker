@@ -1,6 +1,6 @@
 #include "Dialogs/ControlProperty.hpp"
 
-#include "Controls/BaseControl.hpp"
+#include "Controls/MovableBaseControl.hpp"
 
 #include "Style/TextStyle.hpp"
 
@@ -16,7 +16,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
         : QDialog(parent),
           _commandLayout(nullptr),
           _control(nullptr) {
-    _control = dynamic_cast<Controls::BaseControl *>(parent);
+    _control = dynamic_cast<Controls::MovableBaseControl *>(parent);
     if (!_control) {
         QDialog::deleteLater();
         return;
@@ -36,13 +36,12 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
         auto hLayout = new QHBoxLayout;
 
         auto text = new QTextEdit;
+        text->setText(_control->getText().c_str());
         hLayout->addWidget(text);
 
-        auto button = new QPushButton("Apply");
-        connect(button, &QPushButton::pressed, [text, this]() {
-//            _control->setText(text->toPlainText().toStdString());
+        connect(text, &QTextEdit::textChanged, [this, text]() {
+            _control->setText(text->toPlainText().toStdString());
         });
-        hLayout->addWidget(button);
 
         vLayout->addLayout(hLayout);
     }
@@ -70,7 +69,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     /**
      * Buttons layout for command items
      */
-    auto buttonsLayout = new QHBoxLayout();
+    auto buttonsLayout = new QHBoxLayout;
 
     auto addCommandItemButton = new QPushButton("Add");
     connect(addCommandItemButton, &QPushButton::pressed, [this]() {
@@ -91,13 +90,22 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     /**
      * Common buttons
      */
+    auto hCommonLayout = new QHBoxLayout;
     auto okButton = new QPushButton("Ok");
     connect(okButton, &QPushButton::pressed, [this]() {
         applyChanged();
 
         emit this->close();
     });
-    vLayout->addWidget(okButton);
+    hCommonLayout->addWidget(okButton);
+
+    auto cancelButton = new QPushButton("Cancel");
+    connect(cancelButton, &QPushButton::pressed, [this]() {
+        emit this->close();
+    });
+    hCommonLayout->addWidget(cancelButton);
+
+    vLayout->addLayout(hCommonLayout);
 }
 
 void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {

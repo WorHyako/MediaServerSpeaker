@@ -56,7 +56,7 @@ namespace Mss::Gui::Controls::Config {
      */
     template<class TControlType>
     [[nodiscard]]
-    WorQWidgetPtrVec loadControls(const nlohmann::json &json) noexcept;
+    WorQWidgetPtrVec parseConfig(const nlohmann::json &json) noexcept;
 
     /**
      * @brief
@@ -71,5 +71,5 @@ namespace Mss::Gui::Controls::Config {
      */
     template<class TControlType>
     [[nodiscard]]
-    nlohmann::json saveControls(WorQWidgetPtrVec controls) noexcept;
+    nlohmann::json makeConfig(WorQWidgetPtrVec controls) noexcept;
 }

@@ -47,6 +47,7 @@ namespace Mss::Gui::Controls {
         /**
          * Place to log creation process in future
          */
+        std::printf("Object %s was created.\n", typeid(TControlType).name());
     }
 
     template<typename TControlType>
