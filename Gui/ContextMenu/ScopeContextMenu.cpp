@@ -1,6 +1,30 @@
 #include "ScopeContextMenu.hpp"
 
+#include "Controls/ControlCreator.hpp"
+#include "Controls/ManagementButton.hpp"
+#include "Controls/QuickButton.hpp"
+#include "Controls/ManagementTextableButton.hpp"
+
 using namespace Mss::Gui::ContextMenu;
+using namespace Mss::Gui::Controls;
+
+namespace {
+
+    /**
+     * @brief
+     *
+     * @tparam  TControlType
+     *
+     * @param   scope
+     *
+     * @author  WorHyako
+     */
+    template<class TControlType>
+    void addToScope(Mss::Gui::Scopes::IScope *scope) {
+        auto control = ControlCreator<TControlType>::create();
+        scope->addControl(control.release());
+    }
+}
 
 ScopeContextMenu::ScopeContextMenu(Scopes::ControlType controlType, QWidget *parent) noexcept
         : QMenu(parent) {
@@ -12,18 +36,19 @@ ScopeContextMenu::ScopeContextMenu(Scopes::ControlType controlType, QWidget *par
     }
 
     QList<QAction *> addActionList;
-    if (controlType & Scopes::ControlType::Button) {
-        auto addButton = new QAction("Button");
+    if (controlType & Scopes::ControlType::ManagementTextableButton) {
+        auto addButton = new QAction("Management Textable Button");
         connect(addButton, &QAction::triggered, [scope]() {
-            scope->addControl(Scopes::ControlType::Button);
+            ::addToScope<ManagementTextableButton>(scope);
         });
+
         addActionList.emplace_back(addButton);
     }
 
     if (controlType & Scopes::ControlType::ManagementButton) {
         auto addMButton = new QAction("Management button");
         connect(addMButton, &QAction::triggered, [scope]() {
-            scope->addControl(Scopes::ControlType::ManagementButton);
+            ::addToScope<ManagementButton>(scope);
         });
         addActionList.emplace_back(addMButton);
     }
@@ -31,7 +56,7 @@ ScopeContextMenu::ScopeContextMenu(Scopes::ControlType controlType, QWidget *par
     if (controlType & Scopes::ControlType::QuickButton) {
         auto addMButton = new QAction("Quick button");
         connect(addMButton, &QAction::triggered, [scope]() {
-            scope->addControl(Scopes::ControlType::QuickButton);
+            ::addToScope<QuickButton>(scope);
         });
         addActionList.emplace_back(addMButton);
     }
@@ -49,5 +74,10 @@ ScopeContextMenu::ScopeContextMenu(Scopes::ControlType controlType, QWidget *par
         scope->saveControls();
     });
 
-    QMenu::addActions({ loadAction, saveAction });
+    auto clearAction = new QAction("Clear");
+    connect(clearAction, &QAction::triggered, [scope]() {
+        scope->removeAllControls();
+    });
+
+    QMenu::addActions({ loadAction, saveAction, clearAction });
 }

@@ -11,6 +11,7 @@ target_link_libraries(Mss_Backend
         PUBLIC
         Qt6::Widgets
         Wor::Lib
+        Mss::System
         pugixml::pugixml)
 
 target_include_directories(Mss_Backend

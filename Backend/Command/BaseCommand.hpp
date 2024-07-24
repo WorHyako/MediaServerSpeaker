@@ -20,6 +20,13 @@ namespace Mss::Backend::Command {
         /**
          * @brief
          *
+         * @param commandStr
+         */
+        void set(const std::string& commandStr) noexcept override;
+
+        /**
+         * @brief
+         *
          * @param item
          */
         void addItem(CommandItem item) noexcept override;
@@ -128,15 +135,11 @@ namespace Mss::Backend::Command {
          */
         [[nodiscard]]
         std::int16_t indexOf(std::string key) const noexcept override;
+
     protected:
 
         std::string _tag;
 
         std::vector<CommandItem> _items;
-
-        /**
-         * TODO: change to xml_node
-         */
-//        pugi::xml_document _command;
     };
 }

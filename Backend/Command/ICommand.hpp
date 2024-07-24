@@ -26,6 +26,13 @@ namespace Mss::Backend::Command {
         /**
          * @brief
          *
+         * @param commandStr
+         */
+        virtual void set(const std::string& commandStr) noexcept = 0;
+
+        /**
+         * @brief
+         *
          * @param socketName
          *
          * @return

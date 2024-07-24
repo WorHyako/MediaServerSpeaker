@@ -1,9 +1,7 @@
-#include "precompile_header.hpp"
-
 #include "Components/WidgetTransformComponent.hpp"
 
+#include <QWidget>
 #include <QMouseEvent>
-#include <QPoint>
 
 using namespace Mss::Gui::Components;
 
@@ -17,6 +15,7 @@ WidgetTransformComponent::WidgetTransformComponent(QWidget *parent) noexcept
 void WidgetTransformComponent::doTransform(QMouseEvent *e) noexcept {
     if (_lastMousePressPosition == QPoint(-1, -1)) {
         _lastMousePressPosition = e->pos();
+        return;
     }
     const auto parentOwner = _parent->parentWidget();
     const auto deltaPosition = e->pos() - _lastMousePressPosition;
@@ -29,7 +28,6 @@ void WidgetTransformComponent::doTransform(QMouseEvent *e) noexcept {
 
         _parent->resize({ newSize.x() > 50 && newSize.x() < maxSize.x() ? newSize.x() : currentSize.x(),
                           newSize.y() > 50 && newSize.y() < maxSize.y() ? newSize.y() : currentSize.y() });
-
 
     } else if (_canMove && e->modifiers().testFlag(Qt::KeyboardModifier::ControlModifier)) {
         const auto currentPos = _parent->pos();

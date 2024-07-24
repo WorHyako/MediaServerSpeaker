@@ -1,10 +1,13 @@
 #include "Dialogs/ControlProperty.hpp"
 
-#include "Controls/IControl.hpp"
+#include "Controls/MovableBaseControl.hpp"
+
+#include "Style/TextStyle.hpp"
 
 #include <QGridLayout>
 #include <QTextEdit>
 #include <QPushButton>
+#include <QStyle>
 
 using namespace Mss::Gui::Dialogs;
 using namespace Mss::Backend::Command;
@@ -13,7 +16,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
         : QDialog(parent),
           _commandLayout(nullptr),
           _control(nullptr) {
-    _control = dynamic_cast<Controls::IControl *>(parent);
+    _control = dynamic_cast<Controls::MovableBaseControl *>(parent);
     if (!_control) {
         QDialog::deleteLater();
         return;
@@ -33,13 +36,12 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
         auto hLayout = new QHBoxLayout;
 
         auto text = new QTextEdit;
+        text->setText(_control->getText().c_str());
         hLayout->addWidget(text);
 
-        auto button = new QPushButton("Apply");
-        connect(button, &QPushButton::pressed, [text, this]() {
+        connect(text, &QTextEdit::textChanged, [this, text]() {
             _control->setText(text->toPlainText().toStdString());
         });
-        hLayout->addWidget(button);
 
         vLayout->addLayout(hLayout);
     }
@@ -67,7 +69,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     /**
      * Buttons layout for command items
      */
-    auto buttonsLayout = new QHBoxLayout();
+    auto buttonsLayout = new QHBoxLayout;
 
     auto addCommandItemButton = new QPushButton("Add");
     connect(addCommandItemButton, &QPushButton::pressed, [this]() {
@@ -88,13 +90,22 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     /**
      * Common buttons
      */
+    auto hCommonLayout = new QHBoxLayout;
     auto okButton = new QPushButton("Ok");
     connect(okButton, &QPushButton::pressed, [this]() {
         applyChanged();
 
         emit this->close();
     });
-    vLayout->addWidget(okButton);
+    hCommonLayout->addWidget(okButton);
+
+    auto cancelButton = new QPushButton("Cancel");
+    connect(cancelButton, &QPushButton::pressed, [this]() {
+        emit this->close();
+    });
+    hCommonLayout->addWidget(cancelButton);
+
+    vLayout->addLayout(hCommonLayout);
 }
 
 void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
@@ -108,16 +119,18 @@ void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
     _testCommand->addItem(item);
 
     auto keyText = new QTextEdit(item.key().c_str());
-    keyText->setFixedHeight(50);
+//    keyText->setFixedHeight(50);
     connect(keyText, &QTextEdit::textChanged, [keyText, hLayout, this]() {
         auto idx = _commandLayout->indexOf(hLayout);
         auto value = _testCommand->getItems()[idx].value();
         emit refreshCommand(idx, { keyText->toPlainText().toStdString(), value });
     });
+
+    keyText->setStyleSheet(Style::textStyle.c_str());
     hLayout->addWidget(keyText);
 
     auto valueText = new QTextEdit(item.value().c_str());
-    valueText->setFixedHeight(50);
+//    valueText->setFixedHeight(50);
     connect(valueText, &QTextEdit::textChanged, [valueText, hLayout, this]() {
         auto idx = _commandLayout->indexOf(hLayout);
         auto key = _testCommand->getItems()[idx].key();

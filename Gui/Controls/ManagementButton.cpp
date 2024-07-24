@@ -1,38 +1,35 @@
 #include "Controls/ManagementButton.hpp"
 
+#include "Controls/ControlCreator.hpp"
+
 #include <QMouseEvent>
+#include <QVBoxLayout>
 
 using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;
 
 ManagementButton::ManagementButton(QWidget *parent) noexcept
-        : Button(parent) {
+        : MovableBaseControl(parent),
+          _button(nullptr) {
     Components::WidgetTransformComponent::_canResize = true;
     Components::WidgetTransformComponent::_canMove = true;
 
-    QPushButton::resize(200, 100);
+    QWidget::resize(200, 200);
+
+    _button = new QPushButton("Event name", this);
+    _button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    auto layout = new QVBoxLayout;
+    QWidget::setLayout(layout);
+
+    layout->addWidget(_button);
 }
 
-void ManagementButton::mouseMoveEvent(QMouseEvent *e) {
 
-    Button::mouseMoveEvent(e);
+void ManagementButton::setText(std::string text) noexcept {
+    _button->setText(text.c_str());
 }
 
-void ManagementButton::mousePressEvent(QMouseEvent *e) {
-    const auto button = e->button();
-    switch (button) {
-        case Qt::MouseButton::LeftButton:
-            break;
-        case Qt::MouseButton::RightButton:
-            break;
-        default:
-            break;
-    }
-
-    Button::mousePressEvent(e);
-}
-
-void ManagementButton::mouseReleaseEvent(QMouseEvent *e) {
-
-    Button::mouseReleaseEvent(e);
+std::string ManagementButton::getText() const noexcept {
+    return _button->text().toStdString();
 }

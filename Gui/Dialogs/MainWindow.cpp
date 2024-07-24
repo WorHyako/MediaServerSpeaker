@@ -2,8 +2,6 @@
 
 #include "Scopes/ControlTab.hpp"
 
-#include <QGridLayout>
-
 using namespace Mss::Gui::Dialogs;
 
 MainWindow::MainWindow(QWidget *parent) noexcept

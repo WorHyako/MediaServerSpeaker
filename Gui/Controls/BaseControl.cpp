@@ -1,12 +1,11 @@
 #include "BaseControl.hpp"
 
+#include "ControlCreator.hpp"
+
 using namespace Mss::Gui::Controls;
 using namespace Mss::Backend::Command;
 
-const ICommand* BaseControl::getCommand() const noexcept {
-    return _command.get();
-}
-
-void BaseControl::setCommand(ICommand* command) noexcept{
-    _command.reset(command);
+BaseControl::BaseControl(QWidget *parent) noexcept
+        : QWidget(parent),
+          _menu(Controls::ControlCreator<ContextMenu::ControlContextMenu>::create(this)) {
 }

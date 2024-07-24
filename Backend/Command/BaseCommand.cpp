@@ -100,3 +100,20 @@ std::int16_t BaseCommand::indexOf(std::string key) const noexcept {
                                      ? std::distance(std::begin(_items), foundItem)
                                      : -1);
 }
+
+void BaseCommand::set(const std::string &commandStr) noexcept {
+    pugi::xml_document doc;
+    pugi::xml_parse_result res = doc.load_string(commandStr.c_str());
+    if (res.status != pugi::xml_parse_status::status_ok) {
+        return;
+    }
+    pugi::xml_node root = doc.first_child();
+    _tag = root.name();
+
+    std::uint16_t t = std::distance(root.attributes().begin(), root.attributes().end());
+    _items.clear();
+    _items.reserve(t);
+    std::for_each(root.attributes_begin(), root.attributes_end(), [&items = _items](const pugi::xml_attribute& each){
+        items.emplace_back(each.name(), each.value());
+    });
+}

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QWidget>
-
 #include <memory>
+
+class QWidget;
 
 namespace Mss::Gui::Scopes {
 
@@ -16,7 +16,7 @@ namespace Mss::Gui::Scopes {
         /**
          * @see Gui::Controls::Button
          */
-        Button = 0b1,
+        ManagementTextableButton = 0b1,
         /**
          * @see
          */
@@ -81,16 +81,14 @@ namespace Mss::Gui::Scopes {
         /**
          * @brief
          *
-         * @param controlType
-         */
-        virtual void addControl(ControlType controlType) noexcept = 0;
-
-        /**
-         * @brief
-         *
          * @param control
          */
         virtual void removeControl(QWidget *control) noexcept = 0;
+
+        /**
+         * @brief
+         */
+        virtual void removeAllControls() noexcept = 0;
 
         /**
          * @brief

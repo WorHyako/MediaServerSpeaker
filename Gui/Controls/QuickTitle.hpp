@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Controls/Button.hpp"
+#include "Controls/BaseControl.hpp"
 
 namespace Mss::Gui::Controls {
 
@@ -10,14 +10,14 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class QuickTitle
-            : public Button {
+            : public BaseControl {
     public:
         /**
          * @brief Ctor.
          *
          * @param parent
          */
-        explicit QuickTitle(QWidget* parent = nullptr) noexcept;
+        explicit QuickTitle(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.

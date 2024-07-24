@@ -40,6 +40,7 @@ target_sources(Mss_Gui
 target_link_libraries(Mss_Gui
         PUBLIC
         Qt6::Widgets
+#        Mss::System
         Mss::Backend)
 
 target_include_directories(Mss_Gui
@@ -49,5 +50,5 @@ set_target_properties(Mss_Gui
         PROPERTIES
         AUTOMOC ON)
 
-target_precompile_headers(Mss_Gui
-        PRIVATE precompile_header.hpp)
+#target_precompile_headers(Mss_Gui
+#        PRIVATE precompile_header.hpp)

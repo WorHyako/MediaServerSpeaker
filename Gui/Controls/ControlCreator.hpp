@@ -4,12 +4,18 @@
 
 class QWidget;
 
-namespace Mss::Gui::Config {
+namespace Mss::Gui::Controls {
 
     /**
      * @brief
      *
+     *
      * @tparam TControlType
+     *
+     * @usage
+     * @code
+     *
+     * @endcode
      *
      * @author WorHyako
      */
@@ -41,6 +47,7 @@ namespace Mss::Gui::Config {
         /**
          * Place to log creation process in future
          */
+        std::printf("Object %s was created.\n", typeid(TControlType).name());
     }
 
     template<typename TControlType>
