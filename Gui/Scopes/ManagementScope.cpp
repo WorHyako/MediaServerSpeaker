@@ -48,12 +48,12 @@ void ManagementScope::removeControl(QWidget *control) noexcept {
 
 void ManagementScope::removeAllControls() noexcept {
     auto children = QWidget::children();
-    std::for_each(std::begin(children), std::end(children), [](QObject *each) {
+    std::for_each(std::begin(children), std::end(children), [this](QObject *each) {
         auto control = dynamic_cast<Controls::MovableBaseControl *>(each);
         if (!control) {
             return;
         }
-        each->deleteLater();
+        removeControl(control);
     });
 }
 
@@ -65,10 +65,7 @@ void ManagementScope::loadControls() noexcept {
     /**
      * TODO: first thread
      */
-    auto currentControls = QWidget::children();
-    std::for_each(std::begin(currentControls), std::end(currentControls), [](QObject *each) {
-        each->deleteLater();
-    });
+    removeAllControls();
 
     /**
      * TODO: second thread

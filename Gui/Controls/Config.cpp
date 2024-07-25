@@ -2,11 +2,13 @@
 
 #include "Scopes/ManagementScope.hpp"
 #include "Scopes/QuickButtonScope.hpp"
+#include "Scopes/QuickTitlesScope.hpp"
 
 #include "Controls/ControlCreator.hpp"
 #include "Controls/ManagementButton.hpp"
 #include "Controls/ManagementTextableButton.hpp"
 #include "Controls/QuickButton.hpp"
+#include "Controls/QuickTitle.hpp"
 
 #include "Hierarchy/Files.hpp"
 #include "Json/JsonContentKeys.hpp"

@@ -2,6 +2,9 @@
 
 #include "Controls/BaseControl.hpp"
 
+#include <QTextEdit>
+#include <QPushButton>
+
 namespace Mss::Gui::Controls {
 
     /**
@@ -23,5 +26,31 @@ namespace Mss::Gui::Controls {
          * @brief Dtor.
          */
         ~QuickTitle() override = default;
+
+    private:
+        QTextEdit *_textEdit;
+
+        QPushButton *_button;
+
+    public:
+#pragma region Accessors/Mutators
+
+        /**
+         * @brief
+         *
+         * @param text
+         */
+        void setText(std::string text) noexcept override;
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+        [[nodiscard]]
+        std::string getText() const noexcept override;
+
+#pragma endregion Accessors/Mutators
+
     };
 }

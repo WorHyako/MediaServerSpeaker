@@ -1,6 +1,9 @@
 #pragma once
 
-#include <QStackedWidget>
+#include "IScope.hpp"
+
+#include <QWidget>
+#include <QStackedLayout>
 
 namespace Mss::Gui::Scopes {
 
@@ -10,15 +13,17 @@ namespace Mss::Gui::Scopes {
      * @author
      */
     class QuickTitlesScope
-            : public QStackedWidget {
-Q_OBJECT
+            : public QWidget,
+              public IScope {
+    Q_OBJECT
+
     public:
         /**
          * @brief Ctor.
          *
          * @param parent
          */
-        explicit QuickTitlesScope(QWidget* parent = nullptr) noexcept;
+        explicit QuickTitlesScope(QWidget *parent = nullptr) noexcept;
 
         /**
          * @brief Dtor.
@@ -30,6 +35,45 @@ Q_OBJECT
          *
          * @param e
          */
+        void mousePressEvent(QMouseEvent *e) override;
+
+        /**
+         * @brief
+         *
+         * @param e
+         */
         void paintEvent(QPaintEvent *e) override;
+
+        /**
+         * @brief
+         *
+         * @param control
+         */
+        void addControl(QWidget *control) noexcept override;
+
+        /**
+         * @brief
+         *
+         * @param control
+         */
+        void removeControl(QWidget *control) noexcept override;
+
+        /**
+         * @brief
+         */
+        void removeAllControls() noexcept override;
+
+        /**
+         * @brief
+         */
+        void loadControls() noexcept override;
+
+        /**
+         * @brief
+         */
+        void saveControls() noexcept override;
+
+    private:
+//        QStackedW* _stackedWidget;
     };
 }

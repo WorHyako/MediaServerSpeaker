@@ -16,6 +16,14 @@ namespace Mss::Gui::Controls {
     class BaseControl
             : public QWidget,
               public Components::CommandComponent {
+    public:
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mousePressEvent(QMouseEvent *e) override;
+
     protected:
         /**
          * @brief Ctor.

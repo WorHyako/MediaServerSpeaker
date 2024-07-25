@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QObject>
 #include <QPoint>
 
 class QWidget;
@@ -14,10 +13,7 @@ namespace Mss::Gui::Components {
      *
      * @author
      */
-    class WidgetTransformComponent
-            : public QObject {
-    Q_OBJECT
-
+    class WidgetTransformComponent {
     public:
         /**
          * @brief Ctor.
@@ -29,9 +25,9 @@ namespace Mss::Gui::Components {
         /**
          * @brief Dtor.
          */
-        ~WidgetTransformComponent() override = default;
+        virtual ~WidgetTransformComponent() = default;
 
-    public slots:
+    public:
 
         /**
          * @brief
@@ -50,11 +46,11 @@ namespace Mss::Gui::Components {
     protected:
         QWidget *_parent;
 
+        QPoint _lastMousePressPosition;
+
         bool _canResize;
 
         bool _canMove;
-
-        QPoint _lastMousePressPosition;
 
     public:
 #pragma region Accessors/Mutators
