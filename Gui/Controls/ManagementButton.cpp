@@ -17,7 +17,9 @@ ManagementButton::ManagementButton(QWidget *parent) noexcept
     QWidget::resize(200, 200);
 
     _button = new QPushButton("Event name", this);
+
     _button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    _button->setAttribute(Qt::WA_TransparentForMouseEvents);
 
     auto layout = new QVBoxLayout;
     QWidget::setLayout(layout);

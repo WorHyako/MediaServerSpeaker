@@ -41,7 +41,7 @@ namespace Mss::Gui::Components {
          *
          * @param e
          */
-        void stopTransform(QMouseEvent *e) noexcept;
+        void stopTransform(QMouseEvent *) noexcept;
 
     protected:
         QWidget *_parent;
