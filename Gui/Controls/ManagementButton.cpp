@@ -25,6 +25,7 @@ ManagementButton::ManagementButton(QWidget *parent) noexcept
     layout->addWidget(_button);
 }
 
+#pragma region Accessors/Mutators
 
 void ManagementButton::setText(std::string text) noexcept {
     _button->setText(text.c_str());
@@ -33,3 +34,5 @@ void ManagementButton::setText(std::string text) noexcept {
 std::string ManagementButton::getText() const noexcept {
     return _button->text().toStdString();
 }
+
+#pragma endregion Accessors/Mutators

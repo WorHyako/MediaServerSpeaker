@@ -20,7 +20,12 @@ namespace Mss::Gui::Controls {
          *
          * @param parent
          */
-        explicit ManagementTextableButton(QWidget* parent = nullptr) noexcept;
+        explicit ManagementTextableButton(QWidget *parent = nullptr) noexcept;
+
+    private:
+        QTextEdit *_textEdit;
+
+        QPushButton *_button;
 
     public:
 #pragma region Accessors/Mutators
@@ -42,9 +47,5 @@ namespace Mss::Gui::Controls {
 
 #pragma endregion Accessors/Mutators
 
-    private:
-        QTextEdit* _textEdit;
-
-        QPushButton* _button;
     };
 }

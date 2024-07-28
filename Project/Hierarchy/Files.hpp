@@ -2,6 +2,14 @@
 
 #include <string_view>
 
+namespace Mss::Gui::Scopes {
+    class QuickTitlesScope;
+
+    class QuickButtonScope;
+
+    class ManagementScope;
+}
+
 namespace Mss::System {
 
     /**
@@ -17,30 +25,11 @@ namespace Mss::System {
     /**
      * @brief
      *
-     * @return
-     *
-     * @author WorHyako
-     */
-    [[nodiscard]]
-    std::string_view getQuickScopeConfigName() noexcept;
-
-    /**
-     * @brief
+     * @tparam TScopeType
      *
      * @return
-     *
-     * @author WorHyako
      */
+    template<class TScopeType>
     [[nodiscard]]
-    std::string_view getTitlesScopeConfigName() noexcept;
-
-    /**
-     * @brief
-     *
-     * @return
-     *
-     * @author WorHyako
-     */
-    [[nodiscard]]
-    std::string_view getManagementScopeConfigName() noexcept;
+    std::string_view getConfigName() noexcept;
 }

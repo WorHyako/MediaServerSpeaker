@@ -2,16 +2,16 @@
 
 #include "ContextMenu/ScopeContextMenu.hpp"
 
-#include "Controls/MovableBaseControl.hpp"
+#include "Controls/ManagementButton.hpp"
+#include "Controls/ManagementTextableButton.hpp"
 #include "Controls/Config.hpp"
 
 #include <QGridLayout>
 #include <QPainter>
 #include <QMouseEvent>
 
-#include <memory>
-
 using namespace Mss::Gui::Scopes;
+using namespace Mss::Gui::Controls;
 
 ManagementScope::ManagementScope(QWidget *parent) noexcept
         : QWidget(parent) {
@@ -48,12 +48,12 @@ void ManagementScope::removeControl(QWidget *control) noexcept {
 
 void ManagementScope::removeAllControls() noexcept {
     auto children = QWidget::children();
-    std::for_each(std::begin(children), std::end(children), [](QObject *each) {
-        auto control = dynamic_cast<Controls::MovableBaseControl *>(each);
+    std::for_each(std::begin(children), std::end(children), [this](QObject *each) {
+        auto control = dynamic_cast<MovableBaseControl *>(each);
         if (!control) {
             return;
         }
-        each->deleteLater();
+        removeControl(control);
     });
 }
 
@@ -65,16 +65,30 @@ void ManagementScope::loadControls() noexcept {
     /**
      * TODO: first thread
      */
-    auto currentControls = QWidget::children();
-    std::for_each(std::begin(currentControls), std::end(currentControls), [](QObject *each) {
-        each->deleteLater();
-    });
+    removeAllControls();
 
     /**
      * TODO: second thread
      */
-    const auto &tabName = parentTab->accessibleName().toStdString();
-    auto controls = Controls::Config::load<ManagementScope>(tabName);
+    auto tabName = parentTab->accessibleName().toStdString();
+
+    Config <ManagementScope> config(tabName);
+    if (!config.loadConfig()) {
+        return;
+    }
+
+    auto mbControls = config.loadFromConfig<ManagementButton>();
+    auto mtbControls = config.loadFromConfig<ManagementTextableButton>();
+
+    WorQWidgetPtrVec controls;
+
+    controls.reserve(std::size(mbControls) + std::size(mtbControls));
+    controls.insert(std::cend(controls),
+                    std::make_move_iterator(std::begin(mbControls)),
+                    std::make_move_iterator(std::end(mbControls)));
+    controls.insert(std::cend(controls),
+                    std::make_move_iterator(std::begin(mtbControls)),
+                    std::make_move_iterator(std::end(mtbControls)));
 
     /**
      * TODO: finish
@@ -89,6 +103,11 @@ void ManagementScope::saveControls() noexcept {
     if (!parentTab) {
         return;
     }
-    const auto &tabName = parentTab->accessibleName().toStdString();
-    auto saveRes = Controls::Config::save<ManagementScope>(tabName, this);
+    auto tabName = parentTab->accessibleName().toStdString();
+    Config <ManagementScope> config(tabName);
+    config.addToConfig<ManagementButton>(this);
+    config.addToConfig<ManagementTextableButton>(this);
+    if (!config.saveConfig()) {
+        std::printf("Saving failed\n");
+    }
 }

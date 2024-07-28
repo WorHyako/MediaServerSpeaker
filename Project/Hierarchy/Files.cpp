@@ -3,25 +3,38 @@
 namespace {
     constexpr std::string_view resourceFolder = "Resources/";
 
-    constexpr std::string_view quickButtonConfigFile = "QuickScope.json";
+    constexpr std::string_view quickButtonScopeConfigFile = "QuickScope.json";
 
-    constexpr std::string_view quickTitleConfigFile = "TitlesScope.json";
+    constexpr std::string_view quickTitleScopeConfigFile = "TitlesScope.json";
 
-    constexpr std::string_view managementButtonConfigFile = "ManagementScope.json";
+    constexpr std::string_view managementScopeConfigFile = "ManagementScope.json";
+}
+
+using namespace Mss;
+
+namespace Mss::Gui::Scopes {
+    class QuickTitlesScope;
+
+    class QuickButtonScope;
+
+    class ManagementScope;
 }
 
 std::string_view Mss::System::getResourcePath() noexcept {
     return resourceFolder;
 }
 
-std::string_view Mss::System::getQuickScopeConfigName() noexcept {
-    return quickButtonConfigFile;
+template<>
+std::string_view System::getConfigName<Mss::Gui::Scopes::QuickTitlesScope>() noexcept {
+    return ::quickTitleScopeConfigFile;
 }
 
-std::string_view Mss::System::getTitlesScopeConfigName() noexcept {
-    return quickTitleConfigFile;
+template<>
+std::string_view System::getConfigName<Mss::Gui::Scopes::QuickButtonScope>() noexcept {
+    return ::quickButtonScopeConfigFile;
 }
 
-std::string_view Mss::System::getManagementScopeConfigName() noexcept {
-    return managementButtonConfigFile;
+template<>
+std::string_view System::getConfigName<Mss::Gui::Scopes::ManagementScope>() noexcept {
+    return ::managementScopeConfigFile;
 }

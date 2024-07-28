@@ -33,12 +33,5 @@ namespace Mss::Gui::Controls {
          * @param e
          */
         void mouseReleaseEvent(QMouseEvent *e) override;
-
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mousePressEvent(QMouseEvent *e) override;
     };
 }

@@ -3,6 +3,7 @@
 #include "Controls/ControlCreator.hpp"
 #include "Controls/ManagementButton.hpp"
 #include "Controls/QuickButton.hpp"
+#include "Controls/QuickTitle.hpp"
 #include "Controls/ManagementTextableButton.hpp"
 
 using namespace Mss::Gui::ContextMenu;
@@ -57,6 +58,14 @@ ScopeContextMenu::ScopeContextMenu(Scopes::ControlType controlType, QWidget *par
         auto addMButton = new QAction("Quick button");
         connect(addMButton, &QAction::triggered, [scope]() {
             ::addToScope<QuickButton>(scope);
+        });
+        addActionList.emplace_back(addMButton);
+    }
+
+    if (controlType & Scopes::ControlType::QuickTitle) {
+        auto addMButton = new QAction("Quick title");
+        connect(addMButton, &QAction::triggered, [scope]() {
+            ::addToScope<QuickTitle>(scope);
         });
         addActionList.emplace_back(addMButton);
     }

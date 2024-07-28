@@ -33,19 +33,8 @@ namespace Mss::Gui::Controls {
          */
         void mouseMoveEvent(QMouseEvent *e) override;
 
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mousePressEvent(QMouseEvent *e) override;
-
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mouseReleaseEvent(QMouseEvent *e) override;
+    protected:
+        QPushButton *_button;
 
     public:
 #pragma region Accessors/Mutators
@@ -67,7 +56,5 @@ namespace Mss::Gui::Controls {
 
 #pragma endregion Accessors/Mutators
 
-    protected:
-        QPushButton *_button;
     };
 }

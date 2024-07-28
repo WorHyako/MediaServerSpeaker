@@ -10,6 +10,8 @@ CommandComponent::CommandComponent() noexcept {
     _command = CommandBuilder<BaseCommand>::build();
 }
 
+#pragma region Accessors/Mutators
+
 const ICommand *CommandComponent::getCommand() const noexcept {
     return _command.get();
 }
@@ -17,3 +19,5 @@ const ICommand *CommandComponent::getCommand() const noexcept {
 void CommandComponent::setCommand(ICommand *command) noexcept {
     _command.reset(command);
 }
+
+#pragma endregion Accessors/Mutators

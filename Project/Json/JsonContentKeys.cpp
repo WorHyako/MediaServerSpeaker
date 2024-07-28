@@ -16,9 +16,21 @@ namespace {
     constexpr std::string_view jsonManagementTextableButtonKey = "Management Textable Button";
 
     constexpr std::string_view jsonQuickButtonKey = "Quick Button";
+
+    constexpr std::string_view jsonQuickTitleKey = "Quick Title";
 }
 
 using namespace Mss;
+
+namespace Mss::Gui::Controls {
+    class ManagementButton;
+
+    class ManagementTextableButton;
+
+    class QuickTitle;
+
+    class QuickButton;
+}
 
 std::string_view System::getJsonHeadKey() noexcept {
     return ::jsonHeadKey;
@@ -40,14 +52,22 @@ std::string_view System::getJsonSizeKey() noexcept {
     return ::jsonSizeKey;
 }
 
-std::string_view System::getManagementButtonKey() noexcept {
+template<>
+std::string_view System::getControlKey<Mss::Gui::Controls::ManagementButton>() noexcept {
     return ::jsonManagementButtonKey;
 }
 
-std::string_view System::getManagementTextableButtonKey() noexcept {
+template<>
+std::string_view System::getControlKey<Mss::Gui::Controls::ManagementTextableButton>() noexcept {
     return ::jsonManagementTextableButtonKey;
 }
 
-std::string_view System::getQuickButtonKey() noexcept {
+template<>
+std::string_view System::getControlKey<Mss::Gui::Controls::QuickButton>() noexcept {
     return ::jsonQuickButtonKey;
+}
+
+template<>
+std::string_view System::getControlKey<Mss::Gui::Controls::QuickTitle>() noexcept {
+    return ::jsonQuickTitleKey;
 }

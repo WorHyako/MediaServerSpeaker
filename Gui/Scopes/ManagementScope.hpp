@@ -43,8 +43,6 @@ namespace Mss::Gui::Scopes {
          */
         void mousePressEvent(QMouseEvent *e) override;
 
-    public slots:
-
         /**
          * @brief
          *
