@@ -1,6 +1,6 @@
 #include "QuickTitlesScope.hpp"
 
-#include "Controls/BaseControl.hpp"
+#include "Controls/QuickTitle.hpp"
 #include "Controls/Config.hpp"
 
 #include "ContextMenu/ScopeContextMenu.hpp"
@@ -10,10 +10,10 @@
 #include <QVBoxLayout>
 
 using namespace Mss::Gui::Scopes;
+using namespace Mss::Gui::Controls;
 
 QuickTitlesScope::QuickTitlesScope(QWidget *parent) noexcept
         : QWidget(parent) {
-
     auto layout = new QVBoxLayout;
 
     layout->setAlignment(Qt::AlignmentFlag::AlignTop);
@@ -53,7 +53,7 @@ void QuickTitlesScope::removeControl(QWidget *control) noexcept {
 void QuickTitlesScope::removeAllControls() noexcept {
     auto children = QWidget::children();
     std::for_each(std::begin(children), std::end(children), [this](QObject *each) {
-        auto control = dynamic_cast<Controls::BaseControl *>(each);
+        auto control = dynamic_cast<BaseControl *>(each);
         if (!control) {
             return;
         }
@@ -75,14 +75,19 @@ void QuickTitlesScope::loadControls() noexcept {
      * TODO: second thread
      */
     const auto &tabName = parentTab->accessibleName().toStdString();
-//    auto controls = Controls::Config::load<QuickTitlesScope>(tabName);
+    Config <QuickTitlesScope> config(tabName);
+    if (!config.loadConfig()) {
+        return;
+    }
+
+    auto controls = config.loadFromConfig<QuickTitle>();
 
     /**
      * TODO: finish
      */
-//    std::for_each(std::begin(controls), std::end(controls), [this](auto &each) {
-//        addControl(each.release());
-//    });
+    std::for_each(std::begin(controls), std::end(controls), [this](auto &each) {
+        addControl(each.release());
+    });
 }
 
 void QuickTitlesScope::saveControls() noexcept {
@@ -91,5 +96,9 @@ void QuickTitlesScope::saveControls() noexcept {
         return;
     }
     const auto &tabName = parentTab->accessibleName().toStdString();
-//    auto saveRes = Controls::Config::save<QuickTitlesScope>(tabName, this);
+    Config <QuickTitlesScope> config(tabName);
+    config.addToConfig<QuickTitle>(this);
+    if (!config.saveConfig()) {
+        std::printf("Fail in saving process.\n");
+    }
 }

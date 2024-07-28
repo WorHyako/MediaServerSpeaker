@@ -1,7 +1,5 @@
 #pragma once
 
-#include <vector>
-
 #include "IScope.hpp"
 
 #include <QWidget>
@@ -77,6 +75,13 @@ namespace Mss::Gui::Scopes {
         void saveControls() noexcept override;
 
     private:
+        /**
+         * @brief
+         *
+         * @param idx
+         */
+        void moveAllLeftSince(std::uint8_t idx) noexcept;
+
         std::uint8_t _buttonsCount;
     };
 }

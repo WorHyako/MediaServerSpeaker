@@ -7,6 +7,17 @@ namespace Mss::System {
     /**
      * @brief
      *
+     * @tparam TControlType
+     *
+     * @return
+     */
+    template<class TControlType>
+    [[nodiscard]]
+    constexpr std::string_view getControlKey() noexcept;
+
+    /**
+     * @brief
+     *
      * @return
      *
      * @author  WorHyako
@@ -34,7 +45,6 @@ namespace Mss::System {
     [[nodiscard]]
     std::string_view getJsonCommandKey() noexcept;
 
-
     /**
      * @brief
      *
@@ -54,34 +64,4 @@ namespace Mss::System {
      */
     [[nodiscard]]
     std::string_view getJsonSizeKey() noexcept;
-
-    /**
-     * @brief
-     *
-     * @return
-     *
-     * @author  WorHyako
-     */
-    [[nodiscard]]
-    std::string_view getManagementButtonKey() noexcept;
-
-    /**
-     * @brief
-     *
-     * @return
-     *
-     * @author  WorHyako
-     */
-    [[nodiscard]]
-    std::string_view getManagementTextableButtonKey() noexcept;
-
-    /**
-     * @brief
-     *
-     * @return
-     *
-     * @author  WorHyako
-     */
-    [[nodiscard]]
-    std::string_view getQuickButtonKey() noexcept;
 }

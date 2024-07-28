@@ -48,6 +48,8 @@ void WidgetTransformComponent::stopTransform(QMouseEvent *e) noexcept {
     _lastMousePressPosition = { -1, -1 };
 }
 
+#pragma region Accessors/Mutators
+
 void WidgetTransformComponent::setCanResize(bool canResize) noexcept {
     _canResize = canResize;
 }
@@ -55,3 +57,5 @@ void WidgetTransformComponent::setCanResize(bool canResize) noexcept {
 void WidgetTransformComponent::setCanMove(bool canMove) noexcept {
     _canMove = canMove;
 }
+
+#pragma endregion Accessors/Mutators

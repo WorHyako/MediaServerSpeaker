@@ -28,6 +28,9 @@ namespace Mss::Gui::Controls {
          */
         ~ManagementButton() override = default;
 
+    private:
+        QPushButton *_button;
+
     public:
 #pragma region Accessors/Mutators
 
@@ -48,7 +51,5 @@ namespace Mss::Gui::Controls {
 
 #pragma endregion Accessors/Mutators
 
-    private:
-        QPushButton *_button;
     };
 }
