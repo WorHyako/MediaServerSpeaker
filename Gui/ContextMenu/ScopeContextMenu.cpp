@@ -1,10 +1,12 @@
 #include "ScopeContextMenu.hpp"
 
-#include "Controls/ControlCreator.hpp"
 #include "Controls/ManagementButton.hpp"
 #include "Controls/QuickButton.hpp"
 #include "Controls/QuickTitle.hpp"
+#include "Controls/Table.hpp"
 #include "Controls/ManagementTextableButton.hpp"
+
+#include "Controls/ControlCreator.hpp"
 
 using namespace Mss::Gui::ContextMenu;
 using namespace Mss::Gui::Controls;
@@ -36,6 +38,9 @@ ScopeContextMenu::ScopeContextMenu(Scopes::ControlType controlType, QWidget *par
         return;
     }
 
+    /**
+     * TODO: change to template parameters pack
+     */
     QList<QAction *> addActionList;
     if (controlType & Scopes::ControlType::ManagementTextableButton) {
         auto addButton = new QAction("Management Textable Button");
@@ -66,6 +71,14 @@ ScopeContextMenu::ScopeContextMenu(Scopes::ControlType controlType, QWidget *par
         auto addMButton = new QAction("Quick title");
         connect(addMButton, &QAction::triggered, [scope]() {
             ::addToScope<QuickTitle>(scope);
+        });
+        addActionList.emplace_back(addMButton);
+    }
+
+    if (controlType & Scopes::ControlType::Table) {
+        auto addMButton = new QAction("Table");
+        connect(addMButton, &QAction::triggered, [scope]() {
+            ::addToScope<Table>(scope);
         });
         addActionList.emplace_back(addMButton);
     }

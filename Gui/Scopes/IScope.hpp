@@ -14,21 +14,29 @@ namespace Mss::Gui::Scopes {
     enum class ControlType
             : std::uint8_t {
         /**
-         * @see Gui::Controls::Button
+         * @see Gui::Controls::ManagementTextableButton
          */
         ManagementTextableButton = 0b1,
+
         /**
-         * @see
+         * @see Gui::Controls::ManagementButton
          */
         ManagementButton = 0b10,
+
         /**
-         * @see
+         * @see Gui::Controls::QuickButton
          */
         QuickButton = 0b100,
+
         /**
-         * @see
+         * @see Gui::Controls::QuickTitle
          */
-        QuickTitle = 0b1000
+        QuickTitle = 0b1000,
+
+        /**
+         * @see Gui::Controls::Table
+         */
+        Table = 0b10000
     };
 
     /**

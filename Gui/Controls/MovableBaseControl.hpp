@@ -33,5 +33,12 @@ namespace Mss::Gui::Controls {
          * @param e
          */
         void mouseReleaseEvent(QMouseEvent *e) override;
+
+        /**
+         * @brief
+         *
+         * @param enable
+         */
+        void editMode(bool enable) noexcept;
     };
 }

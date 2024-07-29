@@ -2,7 +2,7 @@
 
 #include "Controls/MovableBaseControl.hpp"
 
-#include "Style/TextStyle.hpp"
+#include "Style/WorStyle.hpp"
 
 #include <QGridLayout>
 #include <QTextEdit>
@@ -23,6 +23,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     }
     QDialog::setWindowTitle(parent->accessibleName());
 
+    QDialog::setStyleSheet(Style::getWorStyle().c_str());
     auto vLayout = new QVBoxLayout(this);
     QDialog::setLayout(vLayout);
     vLayout->setSpacing(5);
@@ -126,7 +127,7 @@ void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
         emit refreshCommand(idx, { keyText->toPlainText().toStdString(), value });
     });
 
-    keyText->setStyleSheet(Style::textStyle.c_str());
+    keyText->setStyleSheet(Style::getTextEditStyle().data());
     hLayout->addWidget(keyText);
 
     auto valueText = new QTextEdit(item.value().c_str());

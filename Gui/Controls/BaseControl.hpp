@@ -18,14 +18,6 @@ namespace Mss::Gui::Controls {
               public Components::CommandComponent {
     public:
         /**
-         * @brief
-         *
-         * @param e
-         */
-        void mousePressEvent(QMouseEvent *e) override;
-
-    protected:
-        /**
          * @brief Ctor.
          */
         explicit BaseControl(QWidget *parent) noexcept;
@@ -35,7 +27,17 @@ namespace Mss::Gui::Controls {
          */
         ~BaseControl() override = default;
 
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mousePressEvent(QMouseEvent *e) override;
+
+    protected:
         std::unique_ptr<ContextMenu::ControlContextMenu> _menu;
+
+        std::string _socketName;
 
     public:
 #pragma endregion Accessors/Mutators

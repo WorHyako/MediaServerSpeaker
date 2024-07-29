@@ -28,7 +28,6 @@ namespace Mss::Gui::Components {
         virtual ~WidgetTransformComponent() = default;
 
     public:
-
         /**
          * @brief
          *
@@ -43,14 +42,12 @@ namespace Mss::Gui::Components {
          */
         void stopTransform(QMouseEvent *) noexcept;
 
-    protected:
+    private:
         QWidget *_parent;
 
         QPoint _lastMousePressPosition;
 
-        bool _canResize;
-
-        bool _canMove;
+        bool _canTransform;
 
     public:
 #pragma region Accessors/Mutators
@@ -58,16 +55,9 @@ namespace Mss::Gui::Components {
         /**
          * @brief
          *
-         * @param canMove
+         * @param canTransform
          */
-        void setCanMove(bool canMove) noexcept;
-
-        /**
-         * @brief
-         *
-         * @param canMove
-         */
-        void setCanResize(bool canResize) noexcept;
+        void setCanTransform(bool canTransform) noexcept;
 
 #pragma endregion Accessors/Mutators
     };

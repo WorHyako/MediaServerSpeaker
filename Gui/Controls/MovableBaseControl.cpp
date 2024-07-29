@@ -20,3 +20,15 @@ void MovableBaseControl::mouseReleaseEvent(QMouseEvent *e) {
 
     BaseControl::mouseReleaseEvent(e);
 }
+
+void MovableBaseControl::editMode(bool enable) noexcept {
+    auto children = QWidget::children();
+    std::for_each(std::begin(children), std::end(children), [&enable, this](QObject *each) {
+        auto child = dynamic_cast<QWidget *>(each);
+        if (!child) {
+            return;
+        }
+        child->setAttribute(Qt::WA_TransparentForMouseEvents, enable);
+        Components::WidgetTransformComponent::setCanTransform(enable);
+    });
+}

@@ -1,6 +1,5 @@
 #include "ManagementTextableButton.hpp"
 
-#include <QMouseEvent>
 #include <QHBoxLayout>
 
 using namespace Mss::Gui::Controls;
@@ -9,13 +8,10 @@ ManagementTextableButton::ManagementTextableButton(QWidget *parent) noexcept
         : MovableBaseControl(parent),
           _textEdit(nullptr),
           _button(nullptr) {
-    Components::WidgetTransformComponent::_canResize = true;
-    Components::WidgetTransformComponent::_canMove = true;
-
     QWidget::resize(200, 200);
 
     auto layout = new QVBoxLayout;
-    layout->setSpacing(3);
+    layout->setSpacing(8);
     QWidget::setLayout(layout);
 
     _button = new QPushButton("Event name");

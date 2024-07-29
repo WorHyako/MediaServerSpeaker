@@ -2,7 +2,6 @@
 
 #include "Controls/ControlCreator.hpp"
 
-#include <QMouseEvent>
 #include <QVBoxLayout>
 
 using namespace Mss::Gui::Controls;
@@ -11,15 +10,14 @@ using namespace Mss::Gui;
 ManagementButton::ManagementButton(QWidget *parent) noexcept
         : MovableBaseControl(parent),
           _button(nullptr) {
-    Components::WidgetTransformComponent::_canResize = true;
-    Components::WidgetTransformComponent::_canMove = true;
-
     QWidget::resize(200, 200);
 
     _button = new QPushButton("Event name", this);
-
     _button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    _button->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+    connect(_button, &QPushButton::pressed, [this]() {
+        std::ignore = Components::CommandComponent::_command->execute(BaseControl::_socketName);
+    });
 
     auto layout = new QVBoxLayout;
     QWidget::setLayout(layout);

@@ -9,8 +9,7 @@ using namespace Mss::Gui::Components;
 WidgetTransformComponent::WidgetTransformComponent(QWidget *parent) noexcept
         : _parent(parent),
           _lastMousePressPosition({ -1, -1 }),
-          _canResize(false),
-          _canMove(false) {
+          _canTransform(false) {
 }
 
 void WidgetTransformComponent::doTransform(QMouseEvent *e) noexcept {
@@ -23,7 +22,7 @@ void WidgetTransformComponent::doTransform(QMouseEvent *e) noexcept {
     const auto deltaPosition = mouseNewPos - _lastMousePressPosition;
     _lastMousePressPosition = mouseNewPos;
 
-    if (_canResize && e->modifiers().testFlag(Qt::KeyboardModifier::AltModifier)) {
+    if (_canTransform && e->modifiers().testFlag(Qt::KeyboardModifier::AltModifier)) {
         const QPoint currentSize = { _parent->width(), _parent->height() };
         const QPoint newSize = currentSize + deltaPosition;
 
@@ -32,7 +31,7 @@ void WidgetTransformComponent::doTransform(QMouseEvent *e) noexcept {
         _parent->resize({ newSize.x() > 50 && newSize.x() < maxSize.x() ? newSize.x() : currentSize.x(),
                           newSize.y() > 50 && newSize.y() < maxSize.y() ? newSize.y() : currentSize.y() });
 
-    } else if (_canMove && e->modifiers().testFlag(Qt::KeyboardModifier::ControlModifier)) {
+    } else if (_canTransform && e->modifiers().testFlag(Qt::KeyboardModifier::ControlModifier)) {
         const auto currentPos = _parent->pos();
         const auto newPos = currentPos + deltaPosition;
 
@@ -51,12 +50,8 @@ void WidgetTransformComponent::stopTransform(QMouseEvent *) noexcept {
 
 #pragma region Accessors/Mutators
 
-void WidgetTransformComponent::setCanResize(bool canResize) noexcept {
-    _canResize = canResize;
-}
-
-void WidgetTransformComponent::setCanMove(bool canMove) noexcept {
-    _canMove = canMove;
+void WidgetTransformComponent::setCanTransform(bool canTransform) noexcept {
+    _canTransform = canTransform;
 }
 
 #pragma endregion Accessors/Mutators
