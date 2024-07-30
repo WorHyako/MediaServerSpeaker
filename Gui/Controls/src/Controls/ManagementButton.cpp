@@ -3,6 +3,7 @@
 #include "Creators/ControlCreator.hpp"
 
 #include <QVBoxLayout>
+#include <QPushButton>
 
 using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;
@@ -16,7 +17,7 @@ ManagementButton::ManagementButton(QWidget *parent) noexcept
     _button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     connect(_button, &QPushButton::pressed, [this]() {
-        std::ignore = Components::CommandComponent::_command->execute(BaseControl::_socketName);
+        std::ignore = Components::CommandComponent::getCommand()->execute(BaseControl::_socketName);
     });
 
     auto layout = new QVBoxLayout;

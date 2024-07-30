@@ -2,8 +2,9 @@
 
 #include "BaseControl.hpp"
 
-#include <QTextEdit>
-#include <QPushButton>
+class QTextEdit;
+
+class QPushButton;
 
 namespace Mss::Gui::Controls {
 

@@ -120,7 +120,6 @@ void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
     _testCommand->addItem(item);
 
     auto keyText = new QTextEdit(item.key().c_str());
-//    keyText->setFixedHeight(50);
     connect(keyText, &QTextEdit::textChanged, [keyText, hLayout, this]() {
         auto idx = _commandLayout->indexOf(hLayout);
         auto value = _testCommand->getItems()[idx].value();
@@ -131,7 +130,6 @@ void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
     hLayout->addWidget(keyText);
 
     auto valueText = new QTextEdit(item.value().c_str());
-//    valueText->setFixedHeight(50);
     connect(valueText, &QTextEdit::textChanged, [valueText, hLayout, this]() {
         auto idx = _commandLayout->indexOf(hLayout);
         auto key = _testCommand->getItems()[idx].key();

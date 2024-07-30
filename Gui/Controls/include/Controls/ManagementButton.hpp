@@ -2,9 +2,7 @@
 
 #include "MovableBaseControl.hpp"
 
-#include "Components/WidgetTransformComponent.hpp"
-
-#include <QPushButton>
+class QPushButton;
 
 namespace Mss::Gui::Controls {
 

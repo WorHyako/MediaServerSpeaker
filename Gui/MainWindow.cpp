@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) noexcept
 
     auto editMode = settings->addAction("Edit mode");
     editMode->setCheckable(true);
-    connect(editMode, &QAction::toggled, [this](bool toggled){
-        emit editModeChanged(toggled);
+    connect(editMode, &QAction::toggled, [tabs](bool toggled){
+        emit tabs->editModeChanged(toggled);
     });
 }

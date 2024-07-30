@@ -15,6 +15,9 @@ ManagementTextableButton::ManagementTextableButton(QWidget *parent) noexcept
     QWidget::setLayout(layout);
 
     _button = new QPushButton("Event name");
+    connect(_button, &QPushButton::pressed, [this]() {
+        std::ignore = Components::CommandComponent::getCommand()->execute(BaseControl::_socketName);
+    });
     _button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     layout->addWidget(_button);
     std::ignore = layout->setStretchFactor(_button, 5);

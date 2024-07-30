@@ -11,7 +11,7 @@ namespace Mss::Gui::Components {
     /**
      * @brief
      *
-     * @author
+     * @author WorHyako
      */
     class WidgetTransformComponent {
     public:

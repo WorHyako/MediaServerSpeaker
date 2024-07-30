@@ -141,7 +141,5 @@ namespace Mss::Backend::Command {
          */
         [[nodiscard]]
         virtual std::int16_t indexOf(std::string key) const noexcept = 0;
-
-//        virtual std::vector<CommandItem>::iterator& getItemRef() noexcept = 0;
     };
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QPushButton>
-
 #include "BaseControl.hpp"
+
+class QPushButton;
 
 namespace Mss::Gui::Controls {
 

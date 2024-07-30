@@ -1,6 +1,8 @@
 #include "QuickTitle.hpp"
 
 #include <QHBoxLayout>
+#include <QTextEdit>
+#include <QPushButton>
 
 using namespace Mss::Gui::Controls;
 

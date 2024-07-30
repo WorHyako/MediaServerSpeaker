@@ -9,25 +9,12 @@
 #include <QGridLayout>
 #include <QPainter>
 #include <QMouseEvent>
-#include <QCheckBox>
 
 using namespace Mss::Gui::Scopes;
 using namespace Mss::Gui::Controls;
 
 ManagementScope::ManagementScope(QWidget *parent) noexcept
         : QWidget(parent) {
-    auto checkbox = new QCheckBox(this);
-    checkbox->move(100, 350);
-    connect(checkbox, &QCheckBox::toggled, [this](bool checked) {
-        auto children = QWidget::children();
-        std::for_each(std::begin(children), std::end(children), [&checked](QObject *each) {
-            auto child = dynamic_cast<MovableBaseControl *>(each);
-            if (!child) {
-                return;
-            }
-            child->editMode(checked);
-        });
-    });
 }
 
 void ManagementScope::paintEvent(QPaintEvent *e) {
@@ -124,4 +111,15 @@ void ManagementScope::saveControls() noexcept {
     if (!config.saveConfig()) {
         std::printf("Saving failed\n");
     }
+}
+
+void ManagementScope::editModeChange(bool toggled) {
+    auto children = QWidget::children();
+    std::for_each(std::begin(children), std::end(children), [&toggled](QObject *each) {
+        auto child = dynamic_cast<MovableBaseControl *>(each);
+        if (!child) {
+            return;
+        }
+        child->editMode(toggled);
+    });
 }

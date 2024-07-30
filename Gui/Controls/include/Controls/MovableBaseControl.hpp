@@ -21,6 +21,11 @@ namespace Mss::Gui::Controls {
         explicit MovableBaseControl(QWidget *parent) noexcept;
 
         /**
+         * @brief Dtor.
+         */
+        ~MovableBaseControl() override = default;
+
+        /**
          * @brief
          *
          * @param e

@@ -2,8 +2,9 @@
 
 #include "MovableBaseControl.hpp"
 
-#include <QPushButton>
-#include <QVBoxLayout>
+class QPushButton;
+
+class QVBoxLayout;
 
 namespace Mss::Gui::Controls {
 
@@ -21,6 +22,11 @@ namespace Mss::Gui::Controls {
          * @param parent
          */
         explicit Table(QWidget *parent = nullptr) noexcept;
+
+        /**
+         * @brief Dtor.
+         */
+        ~Table() override = default;
 
     public slots:
 

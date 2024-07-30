@@ -2,7 +2,8 @@
 
 #include <QVBoxLayout>
 #include <QPushButton>
-#include <QTextEdit>
+
+#include "TableRow.hpp"
 
 using namespace Mss::Gui::Controls;
 
@@ -37,31 +38,23 @@ Table::Table(QWidget *parent) noexcept
     layout->addLayout(buttonLayout);
 
     _button = new QPushButton("Table");
+    connect(_button, &QPushButton::pressed, [this](){
+        std::ignore = Components::CommandComponent::getCommand()->execute(BaseControl::_socketName);
+    });
     layout->addWidget(_button);
     layout->itemAt(2)->setAlignment(Qt::AlignmentFlag::AlignCenter);
 }
 
 void Table::addRow() noexcept {
-    auto hLayout = new QHBoxLayout;
+    auto row = new TableRow;
 
-    auto keyText = new QTextEdit("Key");
-    hLayout->addWidget(keyText);
-
-    auto valueText = new QTextEdit("Value");
-    hLayout->addWidget(valueText);
-
-    _rowsLayout->addLayout(hLayout);
+    _rowsLayout->addWidget(row);
 }
 
 void Table::removeRow() noexcept {
-    auto rowLayout = dynamic_cast<QLayout *>(_rowsLayout->children().last());
-
-    while (auto item = rowLayout->takeAt(0)) {
-        rowLayout->removeItem(item);
-        auto widget = item->widget();
-        widget->deleteLater();
-    }
-    _rowsLayout->removeItem(rowLayout);
+    auto idx = _rowsLayout->count() - 1;
+    auto row = _rowsLayout->itemAt(idx);
+    row->widget()->deleteLater();
 }
 
 #pragma region Accessors/Mutators

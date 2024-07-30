@@ -22,6 +22,11 @@ namespace Mss::Gui::Controls {
          */
         explicit ManagementTextableButton(QWidget *parent = nullptr) noexcept;
 
+        /**
+         * @brief Dtor.
+         */
+        ~ManagementTextableButton() override = default;
+
     private:
         QTextEdit *_textEdit;
 
