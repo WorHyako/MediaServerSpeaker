@@ -29,15 +29,15 @@ target_include_directories(Mss_System
 ##################
 add_subdirectory(ThirdParty)
 
-################
-#   Mss::Gui   #
-################
-add_subdirectory(Gui)
-
 ####################
 #   Mss::Backend   #
 ####################
 add_subdirectory(Backend)
+
+################
+#   Mss::Gui   #
+################
+add_subdirectory(Gui)
 
 ##########################
 #   MediaServerSpeaker   #

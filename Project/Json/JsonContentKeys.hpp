@@ -13,7 +13,7 @@ namespace Mss::System {
      */
     template<class TControlType>
     [[nodiscard]]
-    constexpr std::string_view getControlKey() noexcept;
+    std::string_view getControlKey() noexcept;
 
     /**
      * @brief

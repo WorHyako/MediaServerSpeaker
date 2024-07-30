@@ -1,8 +1,8 @@
-#include "Dialogs/MainWindow.hpp"
+#include "MainWindow.hpp"
 
 #include <QApplication>
 
-#include <iostream>
+#include "Style/WorStyle.hpp"
 
 using namespace Mss::Gui;
 
@@ -11,6 +11,8 @@ int main(int argc, char **argv) {
 
     auto window = new Dialogs::MainWindow();
     window->show();
+
+    app.setStyleSheet(Style::getWorStyle().c_str());
 
     return QApplication::exec();
 }
