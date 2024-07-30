@@ -71,5 +71,14 @@ namespace Mss::Gui::Scopes {
          * @brief
          */
         void saveControls() noexcept override;
+
+    public slots:
+
+        /**
+         * @brief
+         *
+         * @param toggled
+         */
+        void editModeChange(bool toggled);
     };
 }

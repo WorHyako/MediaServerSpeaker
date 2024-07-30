@@ -3,6 +3,7 @@
 #include "Creators/ControlCreator.hpp"
 
 #include <QVBoxLayout>
+#include <QPushButton>
 
 using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;

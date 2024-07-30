@@ -75,7 +75,7 @@ void QuickTitlesScope::loadControls() noexcept {
      * TODO: second thread
      */
     const auto &tabName = parentTab->accessibleName().toStdString();
-    Config <QuickTitlesScope> config(tabName);
+    Config<QuickTitlesScope> config(tabName);
     if (!config.loadConfig()) {
         return;
     }
@@ -96,9 +96,13 @@ void QuickTitlesScope::saveControls() noexcept {
         return;
     }
     const auto &tabName = parentTab->accessibleName().toStdString();
-    Config <QuickTitlesScope> config(tabName);
+    Config<QuickTitlesScope> config(tabName);
     config.addToConfig<QuickTitle>(this);
     if (!config.saveConfig()) {
         std::printf("Fail in saving process.\n");
     }
+}
+
+void QuickTitlesScope::editModeChange(bool toggled) {
+
 }

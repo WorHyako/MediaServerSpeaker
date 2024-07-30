@@ -25,5 +25,23 @@ namespace Mss::Gui::Scopes {
          * @brief Dtor.
          */
         ~TabPage() override = default;
+
+    public slots:
+
+        /**
+         * @brief
+         *
+         * @param toggled
+         */
+        void editModeChange(bool toggled);
+
+    signals:
+
+        /**
+         * @brief
+         *
+         * @param toggled
+         */
+        void editModeChanged(bool toggled);
     };
 }

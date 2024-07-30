@@ -11,6 +11,8 @@ namespace Mss::Gui::Scopes {
      */
     class ControlTab final
             : public QTabWidget {
+        Q_OBJECT
+
     public:
         /**
          * @brief Ctor.
@@ -23,5 +25,9 @@ namespace Mss::Gui::Scopes {
          * @brief Dtor.
          */
         ~ControlTab() override = default;
+
+    signals:
+
+        void editModeChanged(bool toggled);
     };
 }

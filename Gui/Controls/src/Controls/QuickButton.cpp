@@ -1,6 +1,7 @@
 #include "QuickButton.hpp"
 
 #include <QMouseEvent>
+#include <QPushButton>
 
 using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;

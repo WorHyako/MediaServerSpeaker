@@ -131,7 +131,7 @@ void QuickButtonScope::loadControls() noexcept {
      * TODO: second thread
      */
     const auto &tabName = parentTab->accessibleName().toStdString();
-    Config <QuickButtonScope> config(tabName);
+    Config<QuickButtonScope> config(tabName);
     if (!config.loadConfig()) {
         return;
     }
@@ -151,7 +151,7 @@ void QuickButtonScope::saveControls() noexcept {
         return;
     }
     const auto &tabName = parentTab->accessibleName().toStdString();
-    Config <QuickButtonScope> config(tabName);
+    Config<QuickButtonScope> config(tabName);
     config.addToConfig<QuickButton>(this);
     if (!config.saveConfig()) {
         std::printf("Error in saving process.\n");
@@ -165,4 +165,8 @@ void QuickButtonScope::moveAllLeftSince(std::uint8_t idx) noexcept {
         auto next = layout->takeAt(i + 1);
         auto temp = current;
     }
+}
+
+void QuickButtonScope::editModeChange(bool toggled) {
+
 }
