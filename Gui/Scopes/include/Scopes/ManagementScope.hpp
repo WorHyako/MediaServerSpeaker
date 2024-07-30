@@ -1,5 +1,4 @@
-#ifndef MSS_GUI_SCOPES_MANAGEMENTSCOPE_HPP
-#define MSS_GUI_SCOPES_MANAGEMENTSCOPE_HPP
+#pragma once
 
 #include "Interfaces/IScope.hpp"
 
@@ -74,5 +73,3 @@ namespace Mss::Gui::Scopes {
         void saveControls() noexcept override;
     };
 }
-
-#endif

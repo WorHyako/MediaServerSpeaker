@@ -1,5 +1,4 @@
-#ifndef MSS_GUI_CONTROL_MANAGEMENTBUTTON_HPP
-#define MSS_GUI_CONTROL_MANAGEMENTBUTTON_HPP
+#pragma once
 
 #include "MovableBaseControl.hpp"
 
@@ -54,4 +53,3 @@ namespace Mss::Gui::Controls {
 
     };
 }
-#endif

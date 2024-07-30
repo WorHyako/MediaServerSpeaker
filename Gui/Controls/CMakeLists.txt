@@ -1,11 +1,16 @@
 cmake_minimum_required(VERSION 3.23)
 
-qt_add_library(Mss_Controls SHARED)
+add_library(Mss_Controls)
 add_library(Mss::Controls ALIAS Mss_Controls)
 
 file(GLOB_RECURSE Sources src/*.cpp)
+file(GLOB_RECURSE Headers include/*.hpp)
+
 target_sources(Mss_Controls
-        PRIVATE ${Sources})
+        PRIVATE ${Sources}
+        PRIVATE FILE_SET headers
+        TYPE HEADERS
+        FILES ${Headers})
 
 set_target_properties(Mss_Controls
         PROPERTIES
@@ -26,6 +31,3 @@ target_link_libraries(Mss_Controls
         Mss::Style
         Mss::Backend
         Mss::Creators)
-
-add_library(Mss_Controls_shared SHARED $<TARGET_OBJECTS:Mss_Controls>)
-add_library(Mss_Controls_static STATIC $<TARGET_OBJECTS:Mss_Controls>)
