@@ -61,4 +61,3 @@ find_package(Qt6 REQUIRED GLOBAL COMPONENTS
         Core
         Widgets
         Gui)
-
