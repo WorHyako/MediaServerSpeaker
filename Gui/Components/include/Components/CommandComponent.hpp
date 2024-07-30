@@ -35,7 +35,7 @@ namespace Mss::Gui::Components {
          * @return
          */
         [[nodiscard]]
-        const Backend::Command::ICommand *getCommand() const noexcept;
+        Backend::Command::ICommand *getCommand() const noexcept;
 
         /**
          * @brief

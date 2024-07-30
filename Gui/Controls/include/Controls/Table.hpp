@@ -7,6 +7,10 @@ class QPushButton;
 class QVBoxLayout;
 
 namespace Mss::Gui::Controls {
+    class TableRow;
+}
+
+namespace Mss::Gui::Controls {
 
     /**
      * @brief
@@ -32,13 +36,30 @@ namespace Mss::Gui::Controls {
 
         /**
          * @brief
+         *
+         * @param keyValue
          */
-        void addRow() noexcept;
+        void keyValueChange(const QPair<QString, QString>& keyValue, TableRow *sender);
+
+        /**
+         * @brief
+         */
+        void addRow(const QPair<QString, QString> &pair = {}) noexcept;
 
         /**
          * @brief
          */
         void removeRow() noexcept;
+
+        /**
+         * @brief
+         */
+        void commandChanged() noexcept override;
+
+        /**
+         * @brief
+         */
+        void clear() noexcept;
 
     private:
         QPushButton *_button;

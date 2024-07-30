@@ -1,6 +1,8 @@
 #include "ManagementTextableButton.hpp"
 
 #include <QHBoxLayout>
+#include <QPushButton>
+#include <QTextEdit>
 
 using namespace Mss::Gui::Controls;
 
@@ -26,6 +28,11 @@ ManagementTextableButton::ManagementTextableButton(QWidget *parent) noexcept
     _textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     layout->addWidget(_textEdit);
     std::ignore = layout->setStretchFactor(_textEdit, 1);
+}
+
+void ManagementTextableButton::commandChanged() noexcept {
+    auto value = getCommand()->getItems()[0].value();
+    _textEdit->setText(value.c_str());
 }
 
 #pragma region Accessors/Mutators

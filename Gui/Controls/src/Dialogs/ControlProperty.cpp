@@ -15,7 +15,8 @@ using namespace Mss::Backend::Command;
 ControlProperty::ControlProperty(QWidget *parent) noexcept
         : QDialog(parent),
           _commandLayout(nullptr),
-          _control(nullptr) {
+          _control(nullptr),
+          _controlName() {
     _control = dynamic_cast<Controls::MovableBaseControl *>(parent);
     if (!_control) {
         QDialog::deleteLater();
@@ -36,12 +37,12 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
          */
         auto hLayout = new QHBoxLayout;
 
-        auto text = new QTextEdit;
-        text->setText(_control->getText().c_str());
-        hLayout->addWidget(text);
+        auto controlNameText = new QTextEdit;
+        controlNameText->setText(_control->getText().c_str());
+        hLayout->addWidget(controlNameText);
 
-        connect(text, &QTextEdit::textChanged, [this, text]() {
-            _control->setText(text->toPlainText().toStdString());
+        connect(controlNameText, &QTextEdit::textChanged, [this, controlNameText]() {
+            _controlName = controlNameText->toPlainText().toStdString();
         });
 
         vLayout->addLayout(hLayout);
@@ -95,14 +96,12 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     auto okButton = new QPushButton("Ok");
     connect(okButton, &QPushButton::pressed, [this]() {
         applyChanged();
-
-        emit this->close();
     });
     hCommonLayout->addWidget(okButton);
 
     auto cancelButton = new QPushButton("Cancel");
     connect(cancelButton, &QPushButton::pressed, [this]() {
-        emit this->close();
+        QDialog::close();
     });
     hCommonLayout->addWidget(cancelButton);
 
@@ -169,13 +168,18 @@ void ControlProperty::refreshCommand(std::uint16_t idx, const CommandItem &item)
 
     emit fullCommandChanged(_testCommand->str().c_str());
 
-    std::printf("***** Printing command items from ControlProperty: ****\n");
-    auto items = _testCommand->getItems();
-    std::for_each(std::begin(items), std::end(items), [](const CommandItem &each) {
-        std::printf("key: %s,\t value: %s\n", each.key().c_str(), each.value().c_str());
-    });
+//    std::printf("***** Printing command items from ControlProperty: ****\n");
+//    auto items = _testCommand->getItems();
+//    std::for_each(std::begin(items), std::end(items), [](const CommandItem &each) {
+//        std::printf("key: %s,\t value: %s\n", each.key().c_str(), each.value().c_str());
+//    });
 }
 
 void ControlProperty::applyChanged() noexcept {
     _control->setCommand(_testCommand.release());
+    emit _control->commandChanged();
+
+    _control->setText(_controlName);
+
+    QDialog::close();
 }

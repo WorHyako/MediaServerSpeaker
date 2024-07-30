@@ -12,7 +12,7 @@ CommandComponent::CommandComponent() noexcept {
 
 #pragma region Accessors/Mutators
 
-const ICommand *CommandComponent::getCommand() const noexcept {
+ICommand *CommandComponent::getCommand() const noexcept {
     return _command.get();
 }
 
