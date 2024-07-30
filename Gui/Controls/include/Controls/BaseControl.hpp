@@ -40,7 +40,7 @@ namespace Mss::Gui::Controls {
         std::string _socketName;
 
     public:
-#pragma endregion Accessors/Mutators
+#pragma region Accessors/Mutators
 
         /**
          * @brief

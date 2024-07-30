@@ -3,7 +3,6 @@
 #include "Interfaces/IScope.hpp"
 
 #include <QWidget>
-#include <QStackedLayout>
 
 namespace Mss::Gui::Scopes {
 
@@ -72,8 +71,5 @@ namespace Mss::Gui::Scopes {
          * @brief
          */
         void saveControls() noexcept override;
-
-    private:
-//        QStackedW* _stackedWidget;
     };
 }

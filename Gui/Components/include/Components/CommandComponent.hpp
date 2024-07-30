@@ -9,7 +9,7 @@ namespace Mss::Gui::Components {
     /**
      * @brief
      *
-     * @author
+     * @author WorHyako
      */
     class CommandComponent {
     public:
@@ -18,7 +18,12 @@ namespace Mss::Gui::Components {
          */
         CommandComponent() noexcept;
 
-    protected:
+        /**
+         * @brief Dtor.
+         */
+        virtual ~CommandComponent() = default;
+
+    private:
         std::unique_ptr<Backend::Command::ICommand> _command;
 
     public:
