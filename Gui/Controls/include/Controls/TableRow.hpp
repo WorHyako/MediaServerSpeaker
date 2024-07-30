@@ -11,30 +11,33 @@ namespace Mss::Gui::Controls {
      */
     class TableRow
             : public QWidget {
+    Q_OBJECT
+
     public:
         /**
          * @brief Ctor.
          *
-         * @param parent
-         */
-        explicit TableRow(QWidget *parent = nullptr);
-
-        /**
-         * @brief Ctor.
-         *
-         * @param key
-         *
-         * @param value
+         * @param keyValue
          *
          * @param parent
          */
-        TableRow(const QString& key, const QString& value, QWidget *parent = nullptr);
+        explicit TableRow(const QPair<QString, QString> &keyValue = {}, QWidget *parent = nullptr);
 
         /**
          * @brief Dtor.
          */
         ~TableRow() override = default;
 
+    signals:
+
+        /**
+         * @brief
+         *
+         * @param keyValue
+         */
+        void keyValueChanged(QPair<QString, QString> keyValue, TableRow *sender);
+
+    public:
 #pragma region Accessors/Mutators
 
         /**
@@ -50,7 +53,7 @@ namespace Mss::Gui::Controls {
          *
          * @param keyValue
          */
-        void setKeyValue(const QPair<QString, QString>& keyValue) noexcept;
+        void setKeyValue(const QPair<QString, QString> &keyValue) noexcept;
 
 #pragma endregion Accessors/Mutators
 

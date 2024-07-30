@@ -5,28 +5,30 @@
 
 using namespace Mss::Gui::Controls;
 
-TableRow::TableRow(QWidget *parent)
+TableRow::TableRow(const QPair<QString, QString> &keyValue, QWidget *parent)
         : QWidget(parent) {
     auto layout = new QHBoxLayout;
     QWidget::setLayout(layout);
 
-    auto keyText = new QTextEdit(tr("key"));
+    auto keyText = new QTextEdit(keyValue.first.isEmpty() ? tr("key") : keyValue.first);
     layout->addWidget(keyText);
 
-    auto valueText = new QTextEdit(tr("value"));
+    auto valueText = new QTextEdit(keyValue.second.isEmpty() ? tr("value") : keyValue.second);
     layout->addWidget(valueText);
-}
 
-TableRow::TableRow(const QString &key, const QString &value, QWidget *parent)
-        : QWidget(parent) {
-    auto layout = new QHBoxLayout;
-    QWidget::setLayout(layout);
+    connect(keyText, &QTextEdit::textChanged, [keyText, valueText, this]() {
+        auto key = keyText->toPlainText();
+        auto value = valueText->toPlainText();
 
-    auto keyText = new QTextEdit(key);
-    layout->addWidget(keyText);
+        emit keyValueChanged({ key, value }, this);
+    });
 
-    auto valueText = new QTextEdit(value);
-    layout->addWidget(valueText);
+    connect(valueText, &QTextEdit::textChanged, [keyText, valueText, this]() {
+        auto key = keyText->toPlainText();
+        auto value = valueText->toPlainText();
+
+        emit keyValueChanged({ key, value }, this);
+    });
 }
 
 #pragma region Accessors/Mutators

@@ -16,6 +16,8 @@ namespace Mss::Gui::Controls {
     class BaseControl
             : public QWidget,
               public Components::CommandComponent {
+        Q_OBJECT
+
     public:
         /**
          * @brief Ctor.
@@ -33,6 +35,9 @@ namespace Mss::Gui::Controls {
          * @param e
          */
         void mousePressEvent(QMouseEvent *e) override;
+
+    public slots:
+        virtual void commandChanged() noexcept {};
 
     protected:
         std::unique_ptr<Menus::ControlContextMenu> _menu;

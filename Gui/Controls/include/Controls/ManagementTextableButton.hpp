@@ -2,8 +2,8 @@
 
 #include "MovableBaseControl.hpp"
 
-#include <QTextEdit>
-#include <QPushButton>
+class QTextEdit;
+class QPushButton;
 
 namespace Mss::Gui::Controls {
 
@@ -31,6 +31,10 @@ namespace Mss::Gui::Controls {
         QTextEdit *_textEdit;
 
         QPushButton *_button;
+
+    public slots:
+
+        void commandChanged() noexcept override;
 
     public:
 #pragma region Accessors/Mutators

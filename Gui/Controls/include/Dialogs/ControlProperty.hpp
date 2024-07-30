@@ -83,6 +83,8 @@ namespace Mss::Gui::Controls::Dialogs {
 
         QVBoxLayout *_commandLayout;
 
+        std::string _controlName;
+
         std::unique_ptr<Backend::Command::BaseCommand> _testCommand;
     };
 }
