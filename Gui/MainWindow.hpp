@@ -2,6 +2,8 @@
 
 #include <QMainWindow>
 
+#include "WorLibrary/Network/TcpServer.hpp"
+
 class QGridLayout;
 
 namespace Mss::Gui::Dialogs {
@@ -28,6 +30,15 @@ namespace Mss::Gui::Dialogs {
          */
         ~MainWindow() override = default;
 
+        /**
+         * @brief
+         *
+         * @param ioService
+         *
+         * @param port
+         */
+        void initServer(boost::asio::io_service& ioService, std::uint16_t port) noexcept;
+
     signals:
 
         /**
@@ -36,5 +47,22 @@ namespace Mss::Gui::Dialogs {
          * @param value
          */
         void editModeChanged(bool value);
+
+    private:
+
+        std::unique_ptr<Wor::Network::TcpServer> _server;
+
+    public:
+#pragma region Accessors/Mutators
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+        [[nodiscard]]
+        const Wor::Network::TcpServer *getServer() const noexcept;
+
+#pragma endregion Accessors/Mutators
     };
 }

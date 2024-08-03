@@ -54,7 +54,7 @@ QuickButtonScope::QuickButtonScope(QWidget *parent) noexcept
     for (std::uint8_t i = 0; i < ::rowMax * ::columnMax; i++) {
         auto [row, column] = ::calculateButtonPosition(i);
         layout->addWidget(new QWidget, row, column);
-        std::printf("Kids count - %lli\n", layout->children().size());
+//        std::printf("Kids count - %lli\n", layout->children().size());
     }
 }
 
@@ -91,7 +91,7 @@ void QuickButtonScope::addControl(QWidget *control) noexcept {
     });
 
     _buttonsCount++;
-    std::printf("Kids count - %lli\n", layout->children().size());
+//    std::printf("Kids count - %lli\n", layout->children().size());
 }
 
 void QuickButtonScope::removeControl(QWidget *control) noexcept {
