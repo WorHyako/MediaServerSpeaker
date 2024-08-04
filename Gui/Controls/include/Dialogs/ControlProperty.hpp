@@ -85,6 +85,8 @@ namespace Mss::Gui::Controls::Dialogs {
 
         std::string _controlName;
 
+        std::string _sessionName;
+
         std::unique_ptr<Backend::Command::BaseCommand> _testCommand;
     };
 }

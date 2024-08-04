@@ -4,10 +4,9 @@
 
 #include "Style/WorStyle.hpp"
 
-#include <QGridLayout>
+#include <QVBoxLayout>
 #include <QTextEdit>
 #include <QPushButton>
-#include <QStyle>
 
 using namespace Mss::Gui::Controls::Dialogs;
 using namespace Mss::Backend::Command;
@@ -15,9 +14,8 @@ using namespace Mss::Backend::Command;
 ControlProperty::ControlProperty(QWidget *parent) noexcept
         : QDialog(parent),
           _commandLayout(nullptr),
-          _control(nullptr),
+          _control(dynamic_cast<Controls::MovableBaseControl *>(parent)),
           _controlName() {
-    _control = dynamic_cast<Controls::MovableBaseControl *>(parent);
     if (!_control) {
         QDialog::deleteLater();
         return;
@@ -29,7 +27,9 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     QDialog::setLayout(vLayout);
     vLayout->setSpacing(5);
     _testCommand = std::make_unique<BaseCommand>();
-    _testCommand->markTag(_control->getCommand()->getTag());
+    _testCommand->set(_control->command()->str());
+    _controlName = _control->text();
+//    _testCommand->tag(_control->command()->tag());
 
     {
         /**
@@ -38,7 +38,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
         auto hLayout = new QHBoxLayout;
 
         auto controlNameText = new QTextEdit;
-        controlNameText->setText(_control->getText().c_str());
+        controlNameText->setText(_controlName.c_str());
         hLayout->addWidget(controlNameText);
 
         connect(controlNameText, &QTextEdit::textChanged, [this, controlNameText]() {
@@ -48,12 +48,18 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
         vLayout->addLayout(hLayout);
     }
 
-    auto commandTag = new QTextEdit(_testCommand->getTag().c_str());
+    auto commandTag = new QTextEdit(_testCommand->tag().c_str());
     connect(commandTag, &QTextEdit::textChanged, [commandTag, this]() {
-        _testCommand->markTag(commandTag->toPlainText().toStdString());
+        _testCommand->tag(commandTag->toPlainText().toStdString());
         emit fullCommandChanged(_testCommand->str().c_str());
     });
     vLayout->addWidget(commandTag);
+
+    auto sessionName = new QTextEdit(_control->sessionName().c_str());
+    connect(sessionName, &QTextEdit::textChanged, [this, sessionName]() {
+        _sessionName = sessionName->toPlainText().toStdString();
+    });
+    vLayout->addWidget(sessionName);
 
     {
         /**
@@ -61,7 +67,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
          */
         _commandLayout = new QVBoxLayout(vLayout->widget());
 
-        auto controlItems = _control->getCommand()->getItems();
+        auto controlItems = _control->command()->items();
         std::for_each(std::begin(controlItems), std::end(controlItems), [this](const CommandItem &each) {
             addCommandItemHLayout(each);
         });
@@ -121,7 +127,7 @@ void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
     auto keyText = new QTextEdit(item.key().c_str());
     connect(keyText, &QTextEdit::textChanged, [keyText, hLayout, this]() {
         auto idx = _commandLayout->indexOf(hLayout);
-        auto value = _testCommand->getItems()[idx].value();
+        auto value = _testCommand->items()[idx].value();
         emit refreshCommand(idx, { keyText->toPlainText().toStdString(), value });
     });
 
@@ -131,7 +137,7 @@ void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
     auto valueText = new QTextEdit(item.value().c_str());
     connect(valueText, &QTextEdit::textChanged, [valueText, hLayout, this]() {
         auto idx = _commandLayout->indexOf(hLayout);
-        auto key = _testCommand->getItems()[idx].key();
+        auto key = _testCommand->items()[idx].key();
         emit refreshCommand(idx, { key, valueText->toPlainText().toStdString() });
     });
     hLayout->addWidget(valueText);
@@ -167,19 +173,14 @@ void ControlProperty::refreshCommand(std::uint16_t idx, const CommandItem &item)
     _testCommand->changeItem(idx, item);
 
     emit fullCommandChanged(_testCommand->str().c_str());
-
-//    std::printf("***** Printing command items from ControlProperty: ****\n");
-//    auto items = _testCommand->getItems();
-//    std::for_each(std::begin(items), std::end(items), [](const CommandItem &each) {
-//        std::printf("key: %s,\t value: %s\n", each.key().c_str(), each.value().c_str());
-//    });
 }
 
 void ControlProperty::applyChanged() noexcept {
-    _control->setCommand(_testCommand.release());
+    _control->command(_testCommand.release());
     emit _control->commandChanged();
 
-    _control->setText(_controlName);
+    _control->text(_controlName);
+    _control->sessionName(_sessionName);
 
     QDialog::close();
 }

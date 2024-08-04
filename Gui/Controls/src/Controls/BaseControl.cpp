@@ -9,8 +9,7 @@ using namespace Mss::Backend::Command;
 
 BaseControl::BaseControl(QWidget *parent) noexcept
         : QWidget(parent),
-          _menu(Controls::ControlCreator<Menus::ControlContextMenu>::create(this)),
-          _socketName("127.0.0.1") {
+          _menu(Controls::ControlCreator<Menus::ControlContextMenu>::create(this)) {
     QWidget::setObjectName("WorControl");
 }
 

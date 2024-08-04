@@ -44,7 +44,7 @@ namespace Mss::Gui::Controls {
          *
          * @param text
          */
-        void setText(std::string text) noexcept override;
+        void text(std::string text) noexcept override;
 
         /**
          * @brief
@@ -52,7 +52,7 @@ namespace Mss::Gui::Controls {
          * @return
          */
         [[nodiscard]]
-        std::string getText() const noexcept override;
+        std::string text() const noexcept override;
 
 #pragma endregion Accessors/Mutators
 

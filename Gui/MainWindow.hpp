@@ -32,12 +32,8 @@ namespace Mss::Gui::Dialogs {
 
         /**
          * @brief
-         *
-         * @param ioService
-         *
-         * @param port
          */
-        void initServer(boost::asio::io_service& ioService, std::uint16_t port) noexcept;
+        void startServer() noexcept;
 
     signals:
 
@@ -55,13 +51,13 @@ namespace Mss::Gui::Dialogs {
     public:
 #pragma region Accessors/Mutators
 
-        /**
-         * @brief
-         *
-         * @return
-         */
-        [[nodiscard]]
-        const Wor::Network::TcpServer *getServer() const noexcept;
+//        /**
+//         * @brief
+//         *
+//         * @return
+//         */
+//        [[nodiscard]]
+//        const Wor::Network::TcpServer *getServer() const noexcept;
 
 #pragma endregion Accessors/Mutators
     };

@@ -252,12 +252,12 @@ namespace Mss::Gui::Scopes {
                                                   Mss::Gui::Controls::BaseControl *control) const noexcept {
         try {
             std::string text = json.at(Mss::System::getJsonTextKey());
-            control->setText(text);
+            control->text(text);
 
             std::string commandStr = json.at(Mss::System::getJsonCommandKey());
             auto command = new Mss::Backend::Command::BaseCommand;
             command->set(commandStr);
-            control->setCommand(command);
+            control->command(command);
         } catch (const nlohmann::json::exception &e) {
             std::printf("Error: %s\n Bad object dump: %s\n",
                         e.what(), std::string(json.dump()).c_str());
@@ -282,17 +282,15 @@ namespace Mss::Gui::Scopes {
     }
 
     template<class TScopeType>
-    void
-    Config<TScopeType>::makeBaseParameters(nlohmann::json &json,
-                                           Mss::Gui::Controls::BaseControl *control) noexcept {
-        json[Mss::System::getJsonTextKey()] = control->getText();
-        json[Mss::System::getJsonCommandKey()] = control->getCommand()->str();
+    void Config<TScopeType>::makeBaseParameters(nlohmann::json &json,
+                                                Mss::Gui::Controls::BaseControl *control) noexcept {
+        json[Mss::System::getJsonTextKey()] = control->text();
+        json[Mss::System::getJsonCommandKey()] = control->command()->str();
     }
 
     template<class TScopeType>
-    void
-    Config<TScopeType>::makeMovableParameters(nlohmann::json &json,
-                                              Mss::Gui::Controls::BaseControl *control) noexcept {
+    void Config<TScopeType>::makeMovableParameters(nlohmann::json &json,
+                                                   Mss::Gui::Controls::BaseControl *control) noexcept {
         json[Mss::System::getJsonPositionKey()] = {{ "x", control->pos().x() },
                                                    { "y", control->pos().y() }};
         json[Mss::System::getJsonSizeKey()] = {{ "x", control->size().width() },

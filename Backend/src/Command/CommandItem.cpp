@@ -7,6 +7,8 @@ CommandItem::CommandItem(std::string key, std::string value) noexcept
           _value(std::move(value)) {
 }
 
+#pragma region Accessors/Mutators
+
 std::string CommandItem::key() const noexcept {
     return _key;
 }
@@ -18,3 +20,5 @@ std::string CommandItem::value() const noexcept {
 bool CommandItem::empty() const noexcept {
     return _value.empty();
 }
+
+#pragma endregion Accessors/Mutators

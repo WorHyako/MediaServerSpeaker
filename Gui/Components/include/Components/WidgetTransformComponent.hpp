@@ -25,9 +25,8 @@ namespace Mss::Gui::Components {
         /**
          * @brief Dtor.
          */
-        virtual ~WidgetTransformComponent() = default;
+        virtual ~WidgetTransformComponent() noexcept = default;
 
-    public:
         /**
          * @brief
          *
@@ -57,7 +56,7 @@ namespace Mss::Gui::Components {
          *
          * @param canTransform
          */
-        void setCanTransform(bool canTransform) noexcept;
+        void canTransform(bool canTransform) noexcept;
 
 #pragma endregion Accessors/Mutators
     };

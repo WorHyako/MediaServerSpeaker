@@ -24,8 +24,7 @@ target_link_libraries(Mss_Backend
 target_include_directories(Mss_Backend
         PUBLIC include
         PRIVATE
-        include/Command
-        include/Network)
+        include/Command)
 
 set_target_properties(Mss_Backend
         PROPERTIES

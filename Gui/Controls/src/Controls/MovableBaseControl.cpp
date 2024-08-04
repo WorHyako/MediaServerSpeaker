@@ -29,6 +29,6 @@ void MovableBaseControl::editMode(bool enable) noexcept {
             return;
         }
         child->setAttribute(Qt::WA_TransparentForMouseEvents, enable);
-        Components::WidgetTransformComponent::setCanTransform(enable);
+        Components::WidgetTransformComponent::canTransform(enable);
     });
 }

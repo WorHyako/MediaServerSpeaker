@@ -50,7 +50,7 @@ void WidgetTransformComponent::stopTransform(QMouseEvent *) noexcept {
 
 #pragma region Accessors/Mutators
 
-void WidgetTransformComponent::setCanTransform(bool canTransform) noexcept {
+void WidgetTransformComponent::canTransform(bool canTransform) noexcept {
     _canTransform = canTransform;
 }
 

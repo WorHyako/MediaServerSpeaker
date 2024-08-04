@@ -26,42 +26,12 @@ namespace Mss::Backend::Command {
         /**
          * @brief
          *
-         * @param commandStr
-         */
-        virtual void set(const std::string& commandStr) noexcept = 0;
-
-        /**
-         * @brief
-         *
          * @param socketName
          *
          * @return
          */
         [[nodiscard]]
         virtual bool execute(std::string socketName) const noexcept = 0;
-
-        /**
-         * @brief
-         *
-         * @return
-         */
-        [[nodiscard]]
-        virtual std::string str() const noexcept = 0;
-
-        /**
-         * @brief
-         *
-         * @param tag
-         */
-        virtual void markTag(std::string tag) noexcept = 0;
-
-        /**
-         * @brief
-         *
-         * @return
-         */
-        [[nodiscard]]
-        virtual std::string getTag() const noexcept = 0;
 
         /**
          * @brief
@@ -127,19 +97,54 @@ namespace Mss::Backend::Command {
         /**
          * @brief
          *
-         * @return
-         */
-        [[nodiscard]]
-        virtual std::vector<CommandItem> getItems() const noexcept = 0;
-
-        /**
-         * @brief
-         *
          * @param key
          *
          * @return
          */
         [[nodiscard]]
         virtual std::int16_t indexOf(std::string key) const noexcept = 0;
+
+    public:
+#pragma region Accessors/Mutators
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+        [[nodiscard]]
+        virtual std::vector<CommandItem> items() const noexcept = 0;
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+        [[nodiscard]]
+        virtual std::string str() const noexcept = 0;
+
+        /**
+         * @brief
+         *
+         * @param tag
+         */
+        virtual void tag(std::string tag) noexcept = 0;
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+        [[nodiscard]]
+        virtual std::string tag() const noexcept = 0;
+
+        /**
+         * @brief
+         *
+         * @param commandStr
+         */
+        virtual void set(const std::string& commandStr) noexcept = 0;
+
+#pragma endregion Accessors/Mutators
     };
 }

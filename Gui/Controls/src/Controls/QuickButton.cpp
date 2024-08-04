@@ -20,11 +20,11 @@ void QuickButton::mouseMoveEvent(QMouseEvent *e) {
 
 #pragma region Accessors/Mutators
 
-void QuickButton::setText(std::string text) noexcept {
+void QuickButton::text(std::string text) noexcept {
     _button->setText(text.c_str());
 }
 
-std::string QuickButton::getText() const noexcept {
+std::string QuickButton::text() const noexcept {
     return _button->text().toStdString();
 }
 

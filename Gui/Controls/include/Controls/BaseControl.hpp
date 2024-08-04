@@ -16,7 +16,7 @@ namespace Mss::Gui::Controls {
     class BaseControl
             : public QWidget,
               public Components::CommandComponent {
-        Q_OBJECT
+    Q_OBJECT
 
     public:
         /**
@@ -37,12 +37,11 @@ namespace Mss::Gui::Controls {
         void mousePressEvent(QMouseEvent *e) override;
 
     public slots:
+
         virtual void commandChanged() noexcept {};
 
     protected:
         std::unique_ptr<Menus::ControlContextMenu> _menu;
-
-        std::string _socketName;
 
     public:
 #pragma region Accessors/Mutators
@@ -52,7 +51,7 @@ namespace Mss::Gui::Controls {
          *
          * @param text
          */
-        virtual void setText(std::string text) noexcept = 0;
+        virtual void text(std::string text) noexcept = 0;
 
         /**
          * @brief
@@ -60,7 +59,7 @@ namespace Mss::Gui::Controls {
          * @return
          */
         [[nodiscard]]
-        virtual std::string getText() const noexcept = 0;
+        virtual std::string text() const noexcept = 0;
 
 #pragma endregion Accessors/Mutators
 
