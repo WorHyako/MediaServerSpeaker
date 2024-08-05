@@ -10,25 +10,27 @@ add_subdirectory(Creators)
 
 add_subdirectory(Scopes)
 
-add_library(Mss_Gui)
+add_subdirectory(Dialogs)
+
+add_library(Mss_Gui INTERFACE)
 add_library(Mss::Gui ALIAS Mss_Gui)
 
-target_sources(Mss_Gui
-        PRIVATE MainWindow.cpp)
+#target_sources(Mss_Gui
+#        PRIVATE MainWindow.cpp)
 
 target_link_libraries(Mss_Gui
-        PUBLIC
+        INTERFACE
         Qt6::Widgets
         Mss::Controls
         Mss::Backend
         Mss::Creators
         Mss::Scopes
-        INTERFACE
+        Mss::Dialogs
         Mss::Style)
 
-target_include_directories(Mss_Gui
-        PUBLIC .)
+#target_include_directories(Mss_Gui
+#        PUBLIC .)
 
-set_target_properties(Mss_Gui
-        PROPERTIES
-        AUTOMOC ON)
+#set_target_properties(Mss_Gui
+#        PROPERTIES
+#        AUTOMOC ON)

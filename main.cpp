@@ -1,11 +1,11 @@
-#include "MainWindow.hpp"
+#include "Dialogs/MainWindow.hpp"
 
 #include <QApplication>
 
 #include "Style/WorStyle.hpp"
 
-#include "WorLibrary/TemplateWrapper/Singleton.hpp"
-#include "WorLibrary/Network/TcpServer.hpp"
+#include "TemplateWrapper/Singleton.hpp"
+#include "Network/TcpServer.hpp"
 
 using namespace Mss::Gui;
 using namespace Wor;

@@ -2,7 +2,7 @@
 
 #include <QMainWindow>
 
-#include "WorLibrary/Network/TcpServer.hpp"
+#include "Network/TcpServer.hpp"
 
 class QGridLayout;
 

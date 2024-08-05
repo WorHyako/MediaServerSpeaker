@@ -3,13 +3,10 @@
 #include "Tabs/ControlTab.hpp"
 
 #include <QMenuBar>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QTextEdit>
 
 #include <memory>
 
-#include "WorLibrary/TemplateWrapper/Singleton.hpp"
+#include "TemplateWrapper/Singleton.hpp"
 
 using namespace Mss::Gui::Dialogs;
 
@@ -24,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) noexcept
 
     auto menuBar = QMainWindow::menuBar();
 
-    auto settings = menuBar->addMenu(tr("&Settings"));
+    auto settings = menuBar->addMenu(tr("Settings"));
     settings->addSeparator();
 
     auto editMode = settings->addAction("Edit mode");

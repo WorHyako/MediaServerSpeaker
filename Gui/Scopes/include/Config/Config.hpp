@@ -10,14 +10,12 @@
 
 #include "Hierarchy/Files.hpp"
 #include "Json/JsonContentKeys.hpp"
-
-#include "Creators/ControlCreator.hpp"
-
 #include "Command/BaseCommand.hpp"
 
-#include "WorLibrary/Json/JsonManager.hpp"
-
 #include "Controls/MovableBaseControl.hpp"
+#include "Creators/ControlCreator.hpp"
+
+#include "Json/JsonManager.hpp"
 
 namespace Mss::Gui::Scopes {
 

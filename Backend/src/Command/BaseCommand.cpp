@@ -2,8 +2,8 @@
 
 #include "pugixml.hpp"
 
-#include "WorLibrary/Network/TcpServer.hpp"
-#include "WorLibrary/TemplateWrapper/Singleton.hpp"
+#include "Network/TcpServer.hpp"
+#include "TemplateWrapper/Singleton.hpp"
 
 #include <sstream>
 
