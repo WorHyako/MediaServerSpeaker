@@ -15,6 +15,8 @@ namespace Mss::Gui::Controls {
      */
     class ManagementTextableButton
             : public MovableBaseControl {
+        Q_OBJECT
+
     public:
         /**
          * @brief Ctor.

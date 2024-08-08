@@ -6,6 +6,7 @@
 
 #include "TemplateWrapper/Singleton.hpp"
 #include "Network/TcpServer.hpp"
+#include "Network/Utils/IoService.hpp"
 
 using namespace Mss::Gui;
 using namespace Wor;
@@ -13,24 +14,34 @@ using namespace Wor;
 int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
-    boost::asio::io_service ioService;
-    auto& ser = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
-
     boost::asio::ip::tcp::endpoint localEndPoint;
     localEndPoint.port(33000);
     auto address = boost::asio::ip::address(boost::asio::ip::make_address_v4("127.0.0.1"));
     localEndPoint.address(address);
 
-    ser.init(ioService);
-    ser.bindTo(localEndPoint);
+    auto &ser = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
+
+    if (!ser.bindTo(localEndPoint)) {
+        ser.stop();
+        return 9;
+    }
+    if (ser.start(); !ser.isRunning()) {
+        return 9;
+    }
 
     auto window = new Dialogs::MainWindow();
-    window->startServer();
-    std::thread t1([&ioService]() { ioService.run(); });
     window->show();
 
+    Wor::Network::Utils::IoService::run();
+//    auto t1 = Wor::Network::Utils::IoService::isRunning();
+//    std::this_thread::sleep_for(std::chrono::seconds(2));
+//    Wor::Network::Utils::IoService::stop();
+//    auto t2 = Wor::Network::Utils::IoService::isRunning();
+//    std::this_thread::sleep_for(std::chrono::seconds(2));
+//    Wor::Network::Utils::IoService::run();
+//    std::this_thread::sleep_for(std::chrono::seconds(2));
+//    auto t3 = Wor::Network::Utils::IoService::isRunning();
     app.setStyleSheet(Style::getWorStyle().c_str());
-    t1.detach();
 
     return QApplication::exec();
 }

@@ -49,7 +49,7 @@ void BaseCommand::clean() noexcept {
 bool BaseCommand::execute(std::string sessionName) const noexcept {
     std::printf("Execute command: %s\n", str().c_str());
     auto &server = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
-    auto session = server.getSession(sessionName);
+    auto session = server.session(sessionName);
     if (!session) {
         return false;
     }

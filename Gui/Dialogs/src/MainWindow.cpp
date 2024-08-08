@@ -1,12 +1,12 @@
 #include "MainWindow.hpp"
 
+#include "Creators/ControlCreator.hpp"
 #include "Tabs/ControlTab.hpp"
+#include "SettingDialog.hpp"
 
 #include <QMenuBar>
 
 #include <memory>
-
-#include "TemplateWrapper/Singleton.hpp"
 
 using namespace Mss::Gui::Dialogs;
 
@@ -21,10 +21,18 @@ MainWindow::MainWindow(QWidget *parent) noexcept
 
     auto menuBar = QMainWindow::menuBar();
 
-    auto settings = menuBar->addMenu(tr("Settings"));
-    settings->addSeparator();
+    auto settingsMenu = menuBar->addMenu(tr("Preference"));
 
-    auto editMode = settings->addAction("Edit mode");
+    auto settings = settingsMenu->addAction("Edit...");
+    connect(settings, &QAction::triggered, [this](bool) {
+        auto settingsDialog = Controls::ControlCreator<Dialogs::SettingDialog>::create(this);
+        settingsDialog->show();
+        std::ignore = settingsDialog.release();
+    });
+
+    settingsMenu->addSeparator();
+
+    auto editMode = settingsMenu->addAction("Edit mode");
     editMode->setCheckable(true);
     connect(editMode, &QAction::toggled, [tabs](bool toggled) {
         emit
@@ -33,9 +41,4 @@ MainWindow::MainWindow(QWidget *parent) noexcept
 
     auto wid = new QWidget(this);
     wid->resize(400, 400);
-}
-
-void MainWindow::startServer() noexcept {
-    auto& ser = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
-    ser.start();
 }

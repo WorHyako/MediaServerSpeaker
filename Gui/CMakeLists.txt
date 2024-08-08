@@ -15,9 +15,6 @@ add_subdirectory(Dialogs)
 add_library(Mss_Gui INTERFACE)
 add_library(Mss::Gui ALIAS Mss_Gui)
 
-#target_sources(Mss_Gui
-#        PRIVATE MainWindow.cpp)
-
 target_link_libraries(Mss_Gui
         INTERFACE
         Qt6::Widgets
@@ -27,10 +24,3 @@ target_link_libraries(Mss_Gui
         Mss::Scopes
         Mss::Dialogs
         Mss::Style)
-
-#target_include_directories(Mss_Gui
-#        PUBLIC .)
-
-#set_target_properties(Mss_Gui
-#        PROPERTIES
-#        AUTOMOC ON)

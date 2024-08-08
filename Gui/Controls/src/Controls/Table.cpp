@@ -51,8 +51,8 @@ void Table::addRow(const QPair<QString, QString> &pair) noexcept {
 
     _rowsLayout->addWidget(row);
 
-    Components::CommandComponent::command()->addItem({ row->keyValue().first.toStdString(),
-                                                       row->keyValue().second.toStdString() });
+    Components::CommandComponent::command()->addItem({ row->keyValue().first.toUtf8().constData(),
+                                                       row->keyValue().second.toUtf8().constData() });
 }
 
 void Table::removeRow() noexcept {
@@ -82,7 +82,7 @@ void Table::clear() noexcept {
 void Table::keyValueChange(const QPair<QString, QString> &keyValue, TableRow *sender) {
     auto idx = _rowsLayout->indexOf(sender);
     auto command = Components::CommandComponent::command();
-    command->changeItem(idx, { keyValue.first.toStdString(), keyValue.second.toStdString() });
+    command->changeItem(idx, { keyValue.first.toUtf8().constData(), keyValue.second.toUtf8().constData() });
 }
 
 #pragma region Accessors/Mutators
@@ -92,7 +92,7 @@ void Table::text(std::string text) noexcept {
 }
 
 std::string Table::text() const noexcept {
-    return _button->text().toStdString();
+    return _button->text().toUtf8().constData();
 }
 
 #pragma endregion Accessors/Mutators

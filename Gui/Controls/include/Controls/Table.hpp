@@ -19,6 +19,8 @@ namespace Mss::Gui::Controls {
      */
     class Table
             : public MovableBaseControl {
+    Q_OBJECT
+
     public:
         /**
          * @brief Ctor.

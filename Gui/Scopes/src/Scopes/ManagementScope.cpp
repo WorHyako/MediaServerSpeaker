@@ -71,7 +71,7 @@ void ManagementScope::loadControls() noexcept {
     /**
      * TODO: second thread
      */
-    auto tabName = parentTab->accessibleName().toStdString();
+    std::string tabName(parentTab->accessibleName().toUtf8().constData());
 
     Config<ManagementScope> config(tabName);
     if (!config.loadConfig()) {
@@ -104,7 +104,7 @@ void ManagementScope::saveControls() noexcept {
     if (!parentTab) {
         return;
     }
-    auto tabName = parentTab->accessibleName().toStdString();
+    std::string tabName(parentTab->accessibleName().toUtf8().constData());
     Config<ManagementScope> config(tabName);
     config.addToConfig<ManagementButton>(this);
     config.addToConfig<ManagementTextableButton>(this);

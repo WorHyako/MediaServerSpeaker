@@ -130,7 +130,7 @@ void QuickButtonScope::loadControls() noexcept {
     /**
      * TODO: second thread
      */
-    const auto &tabName = parentTab->accessibleName().toStdString();
+    std::string tabName(parentTab->accessibleName().toUtf8().constData());
     Config<QuickButtonScope> config(tabName);
     if (!config.loadConfig()) {
         return;
@@ -150,7 +150,7 @@ void QuickButtonScope::saveControls() noexcept {
     if (!parentTab) {
         return;
     }
-    const auto &tabName = parentTab->accessibleName().toStdString();
+    std::string tabName(parentTab->accessibleName().toUtf8().constData());
     Config<QuickButtonScope> config(tabName);
     config.addToConfig<QuickButton>(this);
     if (!config.saveConfig()) {

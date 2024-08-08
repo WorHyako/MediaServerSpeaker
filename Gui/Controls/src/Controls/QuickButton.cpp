@@ -25,7 +25,7 @@ void QuickButton::text(std::string text) noexcept {
 }
 
 std::string QuickButton::text() const noexcept {
-    return _button->text().toStdString();
+    return _button->text().toUtf8().constData();
 }
 
 #pragma endregion Accessors/Mutators

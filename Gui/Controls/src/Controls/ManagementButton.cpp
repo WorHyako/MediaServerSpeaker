@@ -31,7 +31,7 @@ void ManagementButton::text(std::string text) noexcept {
 }
 
 std::string ManagementButton::text() const noexcept {
-    return _button->text().toStdString();
+    return _button->text().toUtf8().constData();
 }
 
 #pragma endregion Accessors/Mutators

@@ -29,7 +29,6 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     _testCommand = std::make_unique<BaseCommand>();
     _testCommand->set(_control->command()->str());
     _controlName = _control->text();
-//    _testCommand->tag(_control->command()->tag());
 
     {
         /**
@@ -42,7 +41,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
         hLayout->addWidget(controlNameText);
 
         connect(controlNameText, &QTextEdit::textChanged, [this, controlNameText]() {
-            _controlName = controlNameText->toPlainText().toStdString();
+            _controlName = controlNameText->toPlainText().toUtf8().constData();
         });
 
         vLayout->addLayout(hLayout);
@@ -50,14 +49,14 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 
     auto commandTag = new QTextEdit(_testCommand->tag().c_str());
     connect(commandTag, &QTextEdit::textChanged, [commandTag, this]() {
-        _testCommand->tag(commandTag->toPlainText().toStdString());
+        _testCommand->tag(commandTag->toPlainText().toUtf8().constData());
         emit fullCommandChanged(_testCommand->str().c_str());
     });
     vLayout->addWidget(commandTag);
 
     auto sessionName = new QTextEdit(_control->sessionName().c_str());
     connect(sessionName, &QTextEdit::textChanged, [this, sessionName]() {
-        _sessionName = sessionName->toPlainText().toStdString();
+        _sessionName = sessionName->toPlainText().toUtf8().constData();
     });
     vLayout->addWidget(sessionName);
 
@@ -128,7 +127,7 @@ void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
     connect(keyText, &QTextEdit::textChanged, [keyText, hLayout, this]() {
         auto idx = _commandLayout->indexOf(hLayout);
         auto value = _testCommand->items()[idx].value();
-        emit refreshCommand(idx, { keyText->toPlainText().toStdString(), value });
+        emit refreshCommand(idx, { keyText->toPlainText().toUtf8().constData(), value });
     });
 
     keyText->setStyleSheet(Style::getTextEditStyle().data());
@@ -138,7 +137,7 @@ void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
     connect(valueText, &QTextEdit::textChanged, [valueText, hLayout, this]() {
         auto idx = _commandLayout->indexOf(hLayout);
         auto key = _testCommand->items()[idx].key();
-        emit refreshCommand(idx, { key, valueText->toPlainText().toStdString() });
+        emit refreshCommand(idx, { key, valueText->toPlainText().toUtf8().constData() });
     });
     hLayout->addWidget(valueText);
 

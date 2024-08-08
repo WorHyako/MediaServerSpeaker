@@ -39,7 +39,7 @@ void QuickTitle::text(std::string text) noexcept {
 }
 
 std::string QuickTitle::text() const noexcept {
-    return _textEdit->toPlainText().toStdString();
+    return _textEdit->toPlainText().toUtf8().constData();
 }
 
 #pragma endregion Accessors/Mutators

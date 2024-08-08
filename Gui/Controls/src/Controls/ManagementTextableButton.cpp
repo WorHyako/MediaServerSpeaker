@@ -42,7 +42,7 @@ void ManagementTextableButton::text(std::string text) noexcept {
 }
 
 std::string ManagementTextableButton::text() const noexcept {
-    return _button->text().toStdString();
+    return _button->text().toUtf8().constData();
 }
 
 #pragma endregion Accessors/Mutators
