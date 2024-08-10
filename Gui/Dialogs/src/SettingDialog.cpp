@@ -76,7 +76,7 @@ SettingDialog::SettingDialog(QWidget *parent) noexcept
          */
         auto hLayout = new QHBoxLayout;
 
-        auto okButton = new QPushButton("Ok");
+        auto okButton = new QPushButton("Close");
         connect(okButton, &QPushButton::pressed, [this]() {
             this->close();
         });
@@ -94,12 +94,11 @@ void SettingDialog::refreshServerStatus() noexcept {
                             server.isRunning() ? "00ff00" : "ff0000");
 
     while (_sessionListLayout->count() > 0) {
-        auto c = _sessionListLayout->count();
         auto idx = _sessionListLayout->count() - 1;
         auto item = _sessionListLayout->itemAt(idx);
         _sessionListLayout->removeItem(item);
         auto itemChildren = item->layout()->children();
-        while(item->layout()->count() > 0) {
+        while (item->layout()->count() > 0) {
             auto itemChild = item->layout()->itemAt(0);
             item->layout()->removeItem(itemChild);
             itemChild->widget()->deleteLater();
@@ -112,7 +111,7 @@ void SettingDialog::refreshServerStatus() noexcept {
     }
 
     std::for_each(std::begin(sessionList), std::end(sessionList),
-                  [&sessionLayout = _sessionListLayout](const Wor::Network::TcpSession::ptr &session) {
+                  [&sessionLayout = _sessionListLayout](Wor::Network::TcpSession::ptr& session) {
                       auto hLayout = new QHBoxLayout;
 
                       QString endpointStr(session->endpoint().address().to_string().c_str()
@@ -120,10 +119,14 @@ void SettingDialog::refreshServerStatus() noexcept {
                                           + QString::number(session->endpoint().port()));
 
                       auto endPointText = new QLabel;
-//                      auto endPointText = new QTextEdit;
                       endPointText->setText(endpointStr);
-
                       hLayout->addWidget(endPointText);
+
+                      auto sessionName = new QTextEdit(session->name().c_str());
+                      connect(sessionName, &QTextEdit::textChanged, [sessionName, session](){
+                          session->name(sessionName->toPlainText().toUtf8().constData());
+                      });
+                      hLayout->addWidget(sessionName);
 
                       sessionLayout->addLayout(hLayout);
                   });

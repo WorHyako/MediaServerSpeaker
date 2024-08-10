@@ -38,7 +38,4 @@ MainWindow::MainWindow(QWidget *parent) noexcept
         emit
         tabs->editModeChanged(toggled);
     });
-
-    auto wid = new QWidget(this);
-    wid->resize(400, 400);
 }

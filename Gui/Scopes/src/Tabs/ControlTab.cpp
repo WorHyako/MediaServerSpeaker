@@ -17,5 +17,4 @@ ControlTab::ControlTab(QWidget *parent) noexcept
     connect(this, SIGNAL(editModeChanged(bool)), page2, SLOT(editModeChange(bool)));
     page2->setAccessibleName("tab2");
     QTabWidget::addTab(page2, "tab2");
-
 }

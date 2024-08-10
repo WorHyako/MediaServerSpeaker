@@ -21,7 +21,6 @@ TabPage::TabPage(QWidget *parent) noexcept
     auto quickButtonScope = new Scopes::QuickButtonScope(this);
     connect(this, SIGNAL(editModeChanged(bool)), quickButtonScope, SLOT(editModeChange(bool)));
     layout->addWidget(quickButtonScope, 1, 0, 1, 1);
-    quickButtonScope->show();
 
     /**
      * QuickTitles Scope

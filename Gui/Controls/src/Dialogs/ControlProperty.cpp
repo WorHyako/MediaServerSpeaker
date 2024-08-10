@@ -54,12 +54,6 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     });
     vLayout->addWidget(commandTag);
 
-    auto sessionName = new QTextEdit(_control->sessionName().c_str());
-    connect(sessionName, &QTextEdit::textChanged, [this, sessionName]() {
-        _sessionName = sessionName->toPlainText().toUtf8().constData();
-    });
-    vLayout->addWidget(sessionName);
-
     {
         /**
          * Command items layout command
@@ -93,6 +87,12 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     connect(this, SIGNAL(fullCommandChanged(QString)), fullCommand, SLOT(setText(QString)));
     fullCommand->setEnabled(false);
     vLayout->addWidget(fullCommand);
+
+    auto sessionName = new QTextEdit(_control->sessionName().c_str());
+    connect(sessionName, &QTextEdit::textChanged, [this, sessionName]() {
+        _sessionName = sessionName->toPlainText().toUtf8().constData();
+    });
+    vLayout->addWidget(sessionName);
 
     /**
      * Common buttons

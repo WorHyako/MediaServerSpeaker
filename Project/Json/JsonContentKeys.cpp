@@ -11,6 +11,8 @@ namespace {
 
     constexpr std::string_view jsonSizeKey = "size";
 
+    constexpr std::string_view jsonSessionNameKey = "sessionName";
+
     constexpr std::string_view jsonManagementButtonKey = "Management Button";
 
     constexpr std::string_view jsonManagementTextableButtonKey = "Management Textable Button";
@@ -32,42 +34,46 @@ namespace Mss::Gui::Controls {
     class QuickButton;
 }
 
-std::string_view System::getJsonHeadKey() noexcept {
+std::string_view System::jsonHeadKey() noexcept {
     return ::jsonHeadKey;
 }
 
-std::string_view System::getJsonTextKey() noexcept {
+std::string_view System::jsonTextKey() noexcept {
     return ::jsonTextKey;
 }
 
-std::string_view System::getJsonCommandKey() noexcept {
+std::string_view System::jsonCommandKey() noexcept {
     return ::jsonCommandKey;
 }
 
-std::string_view System::getJsonPositionKey() noexcept {
+std::string_view System::jsonPositionKey() noexcept {
     return ::jsonPositionKey;
 }
 
-std::string_view System::getJsonSizeKey() noexcept {
+std::string_view System::jsonSizeKey() noexcept {
     return ::jsonSizeKey;
 }
 
+std::string_view System::jsonSessionNameKey() noexcept {
+    return ::jsonSessionNameKey;
+}
+
 template<>
-std::string_view System::getControlKey<Mss::Gui::Controls::ManagementButton>() noexcept {
+std::string_view System::jsonControlKey<Mss::Gui::Controls::ManagementButton>() noexcept {
     return ::jsonManagementButtonKey;
 }
 
 template<>
-std::string_view System::getControlKey<Mss::Gui::Controls::ManagementTextableButton>() noexcept {
+std::string_view System::jsonControlKey<Mss::Gui::Controls::ManagementTextableButton>() noexcept {
     return ::jsonManagementTextableButtonKey;
 }
 
 template<>
-std::string_view System::getControlKey<Mss::Gui::Controls::QuickButton>() noexcept {
+std::string_view System::jsonControlKey<Mss::Gui::Controls::QuickButton>() noexcept {
     return ::jsonQuickButtonKey;
 }
 
 template<>
-std::string_view System::getControlKey<Mss::Gui::Controls::QuickTitle>() noexcept {
+std::string_view System::jsonControlKey<Mss::Gui::Controls::QuickTitle>() noexcept {
     return ::jsonQuickTitleKey;
 }
