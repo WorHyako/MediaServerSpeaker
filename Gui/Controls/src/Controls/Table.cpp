@@ -64,15 +64,6 @@ void Table::removeRow() noexcept {
     Components::CommandComponent::command()->removeItem();
 }
 
-void Table::commandChanged() noexcept {
-    clear();
-    auto commandItems = Components::CommandComponent::command()->items();
-    std::for_each(std::begin(commandItems), std::end(commandItems), [this](const Backend::Command::CommandItem &item) {
-        addRow({ item.key().c_str(), item.value().c_str() });
-    });
-    BaseControl::commandChanged();
-}
-
 void Table::clear() noexcept {
     while (_rowsLayout->count() > 0) {
         removeRow();
@@ -96,3 +87,15 @@ std::string Table::text() const noexcept {
 }
 
 #pragma endregion Accessors/Mutators
+
+#pragma region Callbacks
+
+void Table::commandChanged() noexcept {
+    clear();
+    auto commandItems = Components::CommandComponent::command()->items();
+    std::for_each(std::begin(commandItems), std::end(commandItems), [this](const Backend::Command::CommandItem &item) {
+        addRow({ item.key().c_str(), item.value().c_str() });
+    });
+}
+
+#pragma endregion Callbacks

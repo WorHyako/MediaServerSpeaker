@@ -26,13 +26,6 @@ namespace Mss::Gui::Controls {
          */
         ~QuickButton() override = default;
 
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mouseMoveEvent(QMouseEvent *e) override;
-
     protected:
         QPushButton *_button;
 
@@ -56,5 +49,17 @@ namespace Mss::Gui::Controls {
 
 #pragma endregion Accessors/Mutators
 
+#pragma region Callbacks
+    public:
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mouseMoveEvent(QMouseEvent *e) override;
+
+        void commandChanged() noexcept override;
+
+#pragma endregion Callbacks
     };
 }

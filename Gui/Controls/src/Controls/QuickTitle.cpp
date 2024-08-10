@@ -43,3 +43,11 @@ std::string QuickTitle::text() const noexcept {
 }
 
 #pragma endregion Accessors/Mutators
+
+#pragma region Callbacks
+
+void QuickTitle::commandChanged() noexcept {
+
+}
+
+#pragma endregion Callbacks

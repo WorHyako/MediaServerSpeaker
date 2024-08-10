@@ -14,10 +14,6 @@ QuickButton::QuickButton(QWidget *parent) noexcept
     _button->show();
 }
 
-void QuickButton::mouseMoveEvent(QMouseEvent *e) {
-    BaseControl::mouseMoveEvent(e);
-}
-
 #pragma region Accessors/Mutators
 
 void QuickButton::text(std::string text) noexcept {
@@ -29,3 +25,15 @@ std::string QuickButton::text() const noexcept {
 }
 
 #pragma endregion Accessors/Mutators
+
+#pragma region Callbacks
+
+void QuickButton::mouseMoveEvent(QMouseEvent *e) {
+    BaseControl::mouseMoveEvent(e);
+}
+
+void QuickButton::commandChanged() noexcept {
+
+}
+
+#pragma endregion Callbacks

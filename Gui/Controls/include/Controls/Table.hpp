@@ -56,11 +56,6 @@ namespace Mss::Gui::Controls {
         /**
          * @brief
          */
-        void commandChanged() noexcept override;
-
-        /**
-         * @brief
-         */
         void clear() noexcept;
 
     private:
@@ -87,6 +82,15 @@ namespace Mss::Gui::Controls {
         std::string text() const noexcept override;
 
 #pragma endregion Accessors/Mutators
+
+#pragma region Callbacks
+
+        /**
+         * @brief
+         */
+        void commandChanged() noexcept override;
+
+#pragma endregion Callbacks
 
     };
 }

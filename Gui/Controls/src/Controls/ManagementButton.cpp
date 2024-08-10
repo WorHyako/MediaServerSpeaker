@@ -35,3 +35,11 @@ std::string ManagementButton::text() const noexcept {
 }
 
 #pragma endregion Accessors/Mutators
+
+#pragma region Callbacks
+
+void ManagementButton::commandChanged() noexcept {
+
+}
+
+#pragma region Callbacks

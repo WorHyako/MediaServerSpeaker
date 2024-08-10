@@ -53,5 +53,14 @@ namespace Mss::Gui::Controls {
 
 #pragma endregion Accessors/Mutators
 
+#pragma region Callbacks
+
+        /**
+         * @brief
+         */
+        void commandChanged() noexcept override;
+
+#pragma endregion Callbacks
+
     };
 }

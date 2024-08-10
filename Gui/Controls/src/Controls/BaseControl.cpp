@@ -13,6 +13,8 @@ BaseControl::BaseControl(QWidget *parent) noexcept
     QWidget::setObjectName("WorControl");
 }
 
+#pragma region Callbacks
+
 void BaseControl::mousePressEvent(QMouseEvent *e) {
     const auto button = e->button();
     switch (button) {
@@ -25,3 +27,5 @@ void BaseControl::mousePressEvent(QMouseEvent *e) {
             break;
     }
 }
+
+#pragma endregion Callbacks

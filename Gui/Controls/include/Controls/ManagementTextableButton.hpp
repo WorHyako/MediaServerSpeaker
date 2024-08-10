@@ -15,7 +15,7 @@ namespace Mss::Gui::Controls {
      */
     class ManagementTextableButton
             : public MovableBaseControl {
-        Q_OBJECT
+    Q_OBJECT
 
     public:
         /**
@@ -34,10 +34,6 @@ namespace Mss::Gui::Controls {
         QTextEdit *_textEdit;
 
         QPushButton *_button;
-
-    public slots:
-
-        void commandChanged() noexcept override;
 
     public:
 #pragma region Accessors/Mutators
@@ -59,5 +55,11 @@ namespace Mss::Gui::Controls {
 
 #pragma endregion Accessors/Mutators
 
+#pragma region Callbacks
+    public slots:
+
+        void commandChanged() noexcept override;
+
+#pragma endregion Callbacks
     };
 }

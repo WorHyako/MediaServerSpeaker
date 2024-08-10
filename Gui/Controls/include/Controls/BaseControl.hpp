@@ -29,17 +29,6 @@ namespace Mss::Gui::Controls {
          */
         ~BaseControl() override = default;
 
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mousePressEvent(QMouseEvent *e) override;
-
-    public slots:
-
-        virtual void commandChanged() noexcept {};
-
     protected:
         std::unique_ptr<Menus::ControlContextMenu> _menu;
 
@@ -63,5 +52,19 @@ namespace Mss::Gui::Controls {
 
 #pragma endregion Accessors/Mutators
 
+#pragma region Callbacks
+    public:
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mousePressEvent(QMouseEvent *e) override;
+
+    public slots:
+
+        virtual void commandChanged() noexcept = 0;
+
+#pragma endregion Callbacks
     };
 }

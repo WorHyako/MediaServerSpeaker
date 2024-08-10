@@ -30,11 +30,6 @@ ManagementTextableButton::ManagementTextableButton(QWidget *parent) noexcept
     std::ignore = layout->setStretchFactor(_textEdit, 1);
 }
 
-void ManagementTextableButton::commandChanged() noexcept {
-    auto value = Components::CommandComponent::command()->items()[0].value();
-    _textEdit->setText(value.c_str());
-}
-
 #pragma region Accessors/Mutators
 
 void ManagementTextableButton::text(std::string text) noexcept {
@@ -46,3 +41,14 @@ std::string ManagementTextableButton::text() const noexcept {
 }
 
 #pragma endregion Accessors/Mutators
+
+#pragma region Callbacks
+
+void ManagementTextableButton::commandChanged() noexcept {
+    auto commandItems = Components::CommandComponent::command()->items();
+    _textEdit->setText(commandItems.empty()
+                       ? ""
+                       : commandItems[0].value().c_str());
+}
+
+#pragma endregion Callbacks
