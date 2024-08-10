@@ -34,12 +34,20 @@ QuickTitle::QuickTitle(QWidget *parent) noexcept
 
 #pragma region Accessors/Mutators
 
-void QuickTitle::setText(std::string text) noexcept {
+void QuickTitle::text(std::string text) noexcept {
     _textEdit->setText(text.c_str());
 }
 
-std::string QuickTitle::getText() const noexcept {
-    return _textEdit->toPlainText().toStdString();
+std::string QuickTitle::text() const noexcept {
+    return _textEdit->toPlainText().toUtf8().constData();
 }
 
 #pragma endregion Accessors/Mutators
+
+#pragma region Callbacks
+
+void QuickTitle::commandChanged() noexcept {
+
+}
+
+#pragma endregion Callbacks

@@ -52,8 +52,7 @@ target_include_directories(MediaServerSpeaker
 
 target_link_libraries(MediaServerSpeaker
         PRIVATE
-        Mss::Gui
-        Soci::core)
+        Mss::Gui)
 
 file(GLOB Resources Resources/*)
 file(COPY ${Resources} DESTINATION ${CMAKE_BINARY_DIR}/Resources)

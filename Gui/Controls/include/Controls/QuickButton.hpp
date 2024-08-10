@@ -26,13 +26,6 @@ namespace Mss::Gui::Controls {
          */
         ~QuickButton() override = default;
 
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mouseMoveEvent(QMouseEvent *e) override;
-
     protected:
         QPushButton *_button;
 
@@ -44,7 +37,7 @@ namespace Mss::Gui::Controls {
          *
          * @param text
          */
-        void setText(std::string text) noexcept override;
+        void text(std::string text) noexcept override;
 
         /**
          * @brief
@@ -52,9 +45,21 @@ namespace Mss::Gui::Controls {
          * @return
          */
         [[nodiscard]]
-        std::string getText() const noexcept override;
+        std::string text() const noexcept override;
 
 #pragma endregion Accessors/Mutators
 
+#pragma region Callbacks
+    public:
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mouseMoveEvent(QMouseEvent *e) override;
+
+        void commandChanged() noexcept override;
+
+#pragma endregion Callbacks
     };
 }

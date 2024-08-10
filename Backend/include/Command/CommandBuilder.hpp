@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 
 #include "CommandItem.hpp"
 #include "ICommand.hpp"
@@ -15,7 +16,7 @@ namespace Mss::Backend::Command {
      * @author WorHyako
      */
     template<class TCommandType>
-    class CommandBuilder {
+    class CommandBuilder final {
     public:
         /**
          * @brief Ctor.

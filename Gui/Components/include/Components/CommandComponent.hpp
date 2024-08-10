@@ -21,10 +21,20 @@ namespace Mss::Gui::Components {
         /**
          * @brief Dtor.
          */
-        virtual ~CommandComponent() = default;
+        virtual ~CommandComponent() noexcept = default;
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+        [[nodiscard]]
+        bool execute() const noexcept;
 
     private:
         std::unique_ptr<Backend::Command::ICommand> _command;
+
+        std::string _sessionName;
 
     public:
 #pragma region Accessors/Mutators
@@ -35,14 +45,29 @@ namespace Mss::Gui::Components {
          * @return
          */
         [[nodiscard]]
-        Backend::Command::ICommand *getCommand() const noexcept;
+        Backend::Command::ICommand *command() const noexcept;
 
         /**
          * @brief
          *
          * @param command
          */
-        void setCommand(Backend::Command::ICommand *command) noexcept;
+        void command(Backend::Command::ICommand *command) noexcept;
+
+        /**
+         * @brief
+         *
+         * @param sessionName
+         */
+        void sessionName(std::string sessionName) noexcept;
+
+        /**
+         * @brief
+         *
+         * @return
+         */
+        [[nodiscard]]
+        std::string sessionName() const noexcept;
 
 #pragma endregion Accessors/Mutators
     };

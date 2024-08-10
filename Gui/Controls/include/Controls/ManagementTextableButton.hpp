@@ -3,6 +3,7 @@
 #include "MovableBaseControl.hpp"
 
 class QTextEdit;
+
 class QPushButton;
 
 namespace Mss::Gui::Controls {
@@ -14,6 +15,8 @@ namespace Mss::Gui::Controls {
      */
     class ManagementTextableButton
             : public MovableBaseControl {
+    Q_OBJECT
+
     public:
         /**
          * @brief Ctor.
@@ -32,10 +35,6 @@ namespace Mss::Gui::Controls {
 
         QPushButton *_button;
 
-    public slots:
-
-        void commandChanged() noexcept override;
-
     public:
 #pragma region Accessors/Mutators
 
@@ -44,7 +43,7 @@ namespace Mss::Gui::Controls {
          *
          * @param text
          */
-        void setText(std::string text) noexcept override;
+        void text(std::string text) noexcept override;
 
         /**
          * @brief
@@ -52,9 +51,15 @@ namespace Mss::Gui::Controls {
          * @return
          */
         [[nodiscard]]
-        std::string getText() const noexcept override;
+        std::string text() const noexcept override;
 
 #pragma endregion Accessors/Mutators
 
+#pragma region Callbacks
+    public slots:
+
+        void commandChanged() noexcept override;
+
+#pragma endregion Callbacks
     };
 }

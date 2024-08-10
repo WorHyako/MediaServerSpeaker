@@ -54,7 +54,7 @@ QuickButtonScope::QuickButtonScope(QWidget *parent) noexcept
     for (std::uint8_t i = 0; i < ::rowMax * ::columnMax; i++) {
         auto [row, column] = ::calculateButtonPosition(i);
         layout->addWidget(new QWidget, row, column);
-        std::printf("Kids count - %lli\n", layout->children().size());
+//        std::printf("Kids count - %lli\n", layout->children().size());
     }
 }
 
@@ -91,7 +91,7 @@ void QuickButtonScope::addControl(QWidget *control) noexcept {
     });
 
     _buttonsCount++;
-    std::printf("Kids count - %lli\n", layout->children().size());
+//    std::printf("Kids count - %lli\n", layout->children().size());
 }
 
 void QuickButtonScope::removeControl(QWidget *control) noexcept {
@@ -130,7 +130,7 @@ void QuickButtonScope::loadControls() noexcept {
     /**
      * TODO: second thread
      */
-    const auto &tabName = parentTab->accessibleName().toStdString();
+    std::string tabName(parentTab->accessibleName().toUtf8().constData());
     Config<QuickButtonScope> config(tabName);
     if (!config.loadConfig()) {
         return;
@@ -150,7 +150,7 @@ void QuickButtonScope::saveControls() noexcept {
     if (!parentTab) {
         return;
     }
-    const auto &tabName = parentTab->accessibleName().toStdString();
+    std::string tabName(parentTab->accessibleName().toUtf8().constData());
     Config<QuickButtonScope> config(tabName);
     config.addToConfig<QuickButton>(this);
     if (!config.saveConfig()) {

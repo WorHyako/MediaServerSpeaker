@@ -13,7 +13,7 @@ namespace Mss::System {
      */
     template<class TControlType>
     [[nodiscard]]
-    std::string_view getControlKey() noexcept;
+    std::string_view jsonControlKey() noexcept;
 
     /**
      * @brief
@@ -23,7 +23,7 @@ namespace Mss::System {
      * @author  WorHyako
      */
     [[nodiscard]]
-    std::string_view getJsonHeadKey() noexcept;
+    std::string_view jsonHeadKey() noexcept;
 
     /**
      * @brief
@@ -33,7 +33,7 @@ namespace Mss::System {
      * @author  WorHyako
      */
     [[nodiscard]]
-    std::string_view getJsonTextKey() noexcept;
+    std::string_view jsonTextKey() noexcept;
 
     /**
      * @brief
@@ -43,7 +43,7 @@ namespace Mss::System {
      * @author  WorHyako
      */
     [[nodiscard]]
-    std::string_view getJsonCommandKey() noexcept;
+    std::string_view jsonCommandKey() noexcept;
 
     /**
      * @brief
@@ -53,7 +53,7 @@ namespace Mss::System {
      * @author  WorHyako
      */
     [[nodiscard]]
-    std::string_view getJsonPositionKey() noexcept;
+    std::string_view jsonPositionKey() noexcept;
 
     /**
      * @brief
@@ -63,5 +63,15 @@ namespace Mss::System {
      * @author  WorHyako
      */
     [[nodiscard]]
-    std::string_view getJsonSizeKey() noexcept;
+    std::string_view jsonSizeKey() noexcept;
+
+    /**
+     * @brief
+     *
+     * @return
+     *
+     * @author WorHyako
+     */
+    [[nodiscard]]
+    std::string_view jsonSessionNameKey() noexcept;
 }

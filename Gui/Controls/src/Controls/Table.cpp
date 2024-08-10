@@ -39,7 +39,7 @@ Table::Table(QWidget *parent) noexcept
 
     _button = new QPushButton("Table");
     connect(_button, &QPushButton::pressed, [this]() {
-        std::ignore = Components::CommandComponent::getCommand()->execute(BaseControl::_socketName);
+        std::ignore = Components::CommandComponent::command()->execute(Components::CommandComponent::sessionName());
     });
     layout->addWidget(_button);
     layout->itemAt(2)->setAlignment(Qt::AlignmentFlag::AlignCenter);
@@ -51,7 +51,8 @@ void Table::addRow(const QPair<QString, QString> &pair) noexcept {
 
     _rowsLayout->addWidget(row);
 
-    getCommand()->addItem({ row->getKeyValue().first.toStdString(), row->getKeyValue().second.toStdString() });
+    Components::CommandComponent::command()->addItem({ row->keyValue().first.toUtf8().constData(),
+                                                       row->keyValue().second.toUtf8().constData() });
 }
 
 void Table::removeRow() noexcept {
@@ -60,16 +61,7 @@ void Table::removeRow() noexcept {
     _rowsLayout->removeItem(row);
     row->widget()->deleteLater();
 
-    getCommand()->removeItem();
-}
-
-void Table::commandChanged() noexcept {
-    clear();
-    auto commandItems = Components::CommandComponent::getCommand()->getItems();
-    std::for_each(std::begin(commandItems), std::end(commandItems), [this](const Backend::Command::CommandItem &item) {
-        addRow({ item.key().c_str(), item.value().c_str() });
-    });
-    BaseControl::commandChanged();
+    Components::CommandComponent::command()->removeItem();
 }
 
 void Table::clear() noexcept {
@@ -80,18 +72,30 @@ void Table::clear() noexcept {
 
 void Table::keyValueChange(const QPair<QString, QString> &keyValue, TableRow *sender) {
     auto idx = _rowsLayout->indexOf(sender);
-    auto command = Components::CommandComponent::getCommand();
-    command->changeItem(idx, { keyValue.first.toStdString(), keyValue.second.toStdString() });
+    auto command = Components::CommandComponent::command();
+    command->changeItem(idx, { keyValue.first.toUtf8().constData(), keyValue.second.toUtf8().constData() });
 }
 
 #pragma region Accessors/Mutators
 
-void Table::setText(std::string text) noexcept {
+void Table::text(std::string text) noexcept {
     _button->setText(text.c_str());
 }
 
-std::string Table::getText() const noexcept {
-    return _button->text().toStdString();
+std::string Table::text() const noexcept {
+    return _button->text().toUtf8().constData();
 }
 
 #pragma endregion Accessors/Mutators
+
+#pragma region Callbacks
+
+void Table::commandChanged() noexcept {
+    clear();
+    auto commandItems = Components::CommandComponent::command()->items();
+    std::for_each(std::begin(commandItems), std::end(commandItems), [this](const Backend::Command::CommandItem &item) {
+        addRow({ item.key().c_str(), item.value().c_str() });
+    });
+}
+
+#pragma endregion Callbacks

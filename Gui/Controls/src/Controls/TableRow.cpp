@@ -33,7 +33,7 @@ TableRow::TableRow(const QPair<QString, QString> &keyValue, QWidget *parent)
 
 #pragma region Accessors/Mutators
 
-QPair<QString, QString> TableRow::getKeyValue() const noexcept {
+QPair<QString, QString> TableRow::keyValue() const noexcept {
     auto layout = QWidget::layout();
 
     auto keyWidget = layout->itemAt(0)->widget();
@@ -45,7 +45,7 @@ QPair<QString, QString> TableRow::getKeyValue() const noexcept {
     return { key, value };
 }
 
-void TableRow::setKeyValue(const QPair<QString, QString> &keyValue) noexcept {
+void TableRow::keyValue(const QPair<QString, QString> &keyValue) noexcept {
     auto layout = QWidget::layout();
 
     auto keyWidget = layout->itemAt(0)->widget();

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <utility>
 #include <string>
 
 namespace Mss::Backend::Command {
@@ -31,6 +30,14 @@ namespace Mss::Backend::Command {
          */
         CommandItem(const CommandItem &) noexcept = default;
 
+    private:
+        std::string _key;
+
+        std::string _value;
+
+    public:
+#pragma region Accessors/Mutators
+
         /**
          * @brief
          *
@@ -55,9 +62,6 @@ namespace Mss::Backend::Command {
         [[nodiscard]]
         bool empty() const noexcept;
 
-    private:
-        std::string _key;
-
-        std::string _value;
+#pragma endregion Accessors/Mutators
     };
 }

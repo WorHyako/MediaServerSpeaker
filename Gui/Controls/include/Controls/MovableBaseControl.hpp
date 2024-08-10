@@ -28,6 +28,15 @@ namespace Mss::Gui::Controls {
         /**
          * @brief
          *
+         * @param enable
+         */
+        void editMode(bool enable) noexcept;
+
+#pragma region Callbacks
+    public:
+        /**
+         * @brief
+         *
          * @param e
          */
         void mouseMoveEvent(QMouseEvent *e) override;
@@ -39,11 +48,6 @@ namespace Mss::Gui::Controls {
          */
         void mouseReleaseEvent(QMouseEvent *e) override;
 
-        /**
-         * @brief
-         *
-         * @param enable
-         */
-        void editMode(bool enable) noexcept;
+#pragma endregion Callbacks
     };
 }

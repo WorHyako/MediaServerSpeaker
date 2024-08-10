@@ -40,6 +40,7 @@ set(WORLIBRARY_SQL ON)
 set(WORLIBRARY_MATH ON)
 set(WORLIBRARY_NETWORK ON)
 set(WORLIBRARY_CURRENCY ON)
+set(WORLIBRARY_TEMPLATE ON)
 add_subdirectory(WorLibrary)
 
 add_library(WorLibrary INTERFACE)

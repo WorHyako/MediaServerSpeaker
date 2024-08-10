@@ -46,14 +46,14 @@ namespace Mss::Gui::Controls {
          * @return
          */
         [[nodiscard]]
-        QPair<QString, QString> getKeyValue() const noexcept;
+        QPair<QString, QString> keyValue() const noexcept;
 
         /**
          * @brief
          *
          * @param keyValue
          */
-        void setKeyValue(const QPair<QString, QString> &keyValue) noexcept;
+        void keyValue(const QPair<QString, QString> &keyValue) noexcept;
 
 #pragma endregion Accessors/Mutators
 
