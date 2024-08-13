@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MovableBaseControl.hpp"
+#include "Interfaces/IMovableControl.hpp"
 
 class QPushButton;
 
@@ -12,7 +12,7 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class ManagementButton
-            : public MovableBaseControl {
+            : public IMovableControl {
     public:
         /**
          * @brief Ctor.

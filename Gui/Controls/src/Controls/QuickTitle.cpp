@@ -7,7 +7,7 @@
 using namespace Mss::Gui::Controls;
 
 QuickTitle::QuickTitle(QWidget *parent) noexcept
-        : BaseControl(parent),
+        : IControl(parent),
           _button(nullptr),
           _textEdit(nullptr) {
     QWidget::resize(100, 50);

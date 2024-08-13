@@ -7,7 +7,7 @@ using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;
 
 ManagementButton::ManagementButton(QWidget *parent) noexcept
-        : MovableBaseControl(parent),
+        : IMovableControl(parent),
           _button(nullptr) {
     QWidget::resize(200, 200);
 

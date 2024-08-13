@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseControl.hpp"
+#include "Interfaces/IControl.hpp"
 
 #include "Components/WidgetTransformComponent.hpp"
 
@@ -11,26 +11,26 @@ namespace Mss::Gui::Controls {
      *
      * @author WorHyako
      */
-    class MovableBaseControl
-            : public BaseControl,
+    class IMovableControl
+            : public IControl,
               public Components::WidgetTransformComponent {
     public:
         /**
          * @brief Ctor.
          */
-        explicit MovableBaseControl(QWidget *parent) noexcept;
+        explicit IMovableControl(QWidget *parent) noexcept;
 
         /**
          * @brief Dtor.
          */
-        ~MovableBaseControl() override = default;
+        ~IMovableControl() override = default;
 
         /**
          * @brief
          *
          * @param enable
          */
-        void editMode(bool enable) noexcept;
+        void editMode(bool enable) noexcept override;
 
 #pragma region Callbacks
     public:

@@ -2,8 +2,6 @@
 
 #include "Interfaces/IScope.hpp"
 
-#include <QWidget>
-
 namespace Mss::Gui::Scopes {
 
     /**
@@ -12,8 +10,7 @@ namespace Mss::Gui::Scopes {
      * @author
      */
     class QuickTitlesScope
-            : public QWidget,
-              public IScope {
+            : public IScope {
     Q_OBJECT
 
     public:
@@ -28,20 +25,6 @@ namespace Mss::Gui::Scopes {
          * @brief Dtor.
          */
         ~QuickTitlesScope() override = default;
-
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mousePressEvent(QMouseEvent *e) override;
-
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void paintEvent(QPaintEvent *e) override;
 
         /**
          * @brief
@@ -72,6 +55,7 @@ namespace Mss::Gui::Scopes {
          */
         void saveControls() noexcept override;
 
+#pragma region Callbacks
     public slots:
 
         /**
@@ -80,5 +64,16 @@ namespace Mss::Gui::Scopes {
          * @param toggled
          */
         void editModeChange(bool toggled);
+
+    public:
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mousePressEvent(QMouseEvent *e) noexcept override;
+
+#pragma endregion Callbacks
+
     };
 }

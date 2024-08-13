@@ -1,45 +1,28 @@
 #include "Scopes/ManagementScope.hpp"
 
-#include "Menus/ScopeContextMenu.hpp"
-
 #include "Controls/ManagementButton.hpp"
 #include "Controls/ManagementTextableButton.hpp"
 #include "Config/Config.hpp"
-
-#include <QGridLayout>
-#include <QPainter>
-#include <QMouseEvent>
 
 using namespace Mss::Gui::Scopes;
 using namespace Mss::Gui::Controls;
 
 ManagementScope::ManagementScope(QWidget *parent) noexcept
-        : QWidget(parent) {
-}
-
-void ManagementScope::paintEvent(QPaintEvent *e) {
-    QPainter painter(this);
-    painter.setPen(QColor(0xaa, 0xaa, 0xaa));
-    painter.drawRoundedRect(0, 0, QWidget::width(), QWidget::height(), 5, 5);
-
-    QWidget::paintEvent(e);
-}
-
-void ManagementScope::mousePressEvent(QMouseEvent *e) {
-    if (e->button() == Qt::MouseButton::RightButton) {
-        auto menu = new Menus::ScopeContextMenu(ControlType::ManagementButton
-                                                | ControlType::ManagementTextableButton
-                                                | ControlType::Table,
-                                                this);
-        menu->popup(QWidget::mapToGlobal(e->pos()));
-    }
-
-    QWidget::mousePressEvent(e);
+        : IScope(parent) {
+    IScope::_controlsType = ControlType::ManagementButton
+                            | ControlType::ManagementTextableButton
+                            | ControlType::Table;
 }
 
 void ManagementScope::addControl(QWidget *control) noexcept {
-    control->setParent(this);
-    control->show();
+    auto worControl = dynamic_cast<IMovableControl *>(control);
+    if (!worControl) {
+        return;
+    }
+
+    worControl->editMode(_editMode);
+    worControl->setParent(this);
+    worControl->show();
 }
 
 void ManagementScope::removeControl(QWidget *control) noexcept {
@@ -50,7 +33,7 @@ void ManagementScope::removeControl(QWidget *control) noexcept {
 void ManagementScope::removeAllControls() noexcept {
     auto children = QWidget::children();
     std::for_each(std::begin(children), std::end(children), [this](QObject *each) {
-        auto control = dynamic_cast<MovableBaseControl *>(each);
+        auto control = dynamic_cast<IMovableControl *>(each);
         if (!control) {
             return;
         }
@@ -113,13 +96,17 @@ void ManagementScope::saveControls() noexcept {
     }
 }
 
+#pragma region Callbacks
+
 void ManagementScope::editModeChange(bool toggled) {
     auto children = QWidget::children();
-    std::for_each(std::begin(children), std::end(children), [&toggled](QObject *each) {
-        auto child = dynamic_cast<MovableBaseControl *>(each);
-        if (!child) {
-            return;
-        }
-        child->editMode(toggled);
-    });
+
+    IScope::editModeChange(toggled, children);
 }
+
+void ManagementScope::mousePressEvent(QMouseEvent *e) noexcept {
+
+    IScope::mousePressEvent(e);
+}
+
+#pragma endregion Callbacks

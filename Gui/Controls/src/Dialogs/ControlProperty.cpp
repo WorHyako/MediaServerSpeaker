@@ -1,6 +1,6 @@
 #include "ControlProperty.hpp"
 
-#include "MovableBaseControl.hpp"
+#include "Interfaces/IMovableControl.hpp"
 
 #include "Style/WorStyle.hpp"
 
@@ -14,7 +14,7 @@ using namespace Mss::Backend::Command;
 ControlProperty::ControlProperty(QWidget *parent) noexcept
         : QDialog(parent),
           _commandLayout(nullptr),
-          _control(dynamic_cast<Controls::MovableBaseControl *>(parent)),
+          _control(dynamic_cast<Controls::IMovableControl *>(parent)),
           _controlName() {
     if (!_control) {
         QDialog::deleteLater();
@@ -60,9 +60,9 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
          */
         _commandLayout = new QVBoxLayout(vLayout->widget());
 
-        auto controlItems = _control->command()->items();
+        auto controlItems = _testCommand->items();
         std::for_each(std::begin(controlItems), std::end(controlItems), [this](const CommandItem &each) {
-            addCommandItemHLayout(each);
+            addCommandItemHLayout(each, true);
         });
     }
     vLayout->addLayout(_commandLayout);
@@ -113,15 +113,15 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
     vLayout->addLayout(hCommonLayout);
 }
 
-void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
+void ControlProperty::addCommandItemHLayout(const CommandItem &item, bool existingItem) noexcept {
     auto hLayout = new QHBoxLayout();
-    {
-        auto idx = _testCommand->indexOf(item.key());
-        if (idx != -1) {
-            return;
-        }
+    if(!existingItem) {
+            auto idx = _testCommand->indexOf(item.key());
+            if (idx != -1) {
+                return;
+            }
+        _testCommand->addItem(item);
     }
-    _testCommand->addItem(item);
 
     auto keyText = new QTextEdit(item.key().c_str());
     connect(keyText, &QTextEdit::textChanged, [keyText, hLayout, this]() {

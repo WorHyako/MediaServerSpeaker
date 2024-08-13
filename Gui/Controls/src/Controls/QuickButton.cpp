@@ -8,7 +8,7 @@ using namespace Mss::Gui;
 using namespace Mss::Backend;
 
 QuickButton::QuickButton(QWidget *parent) noexcept
-        : BaseControl(parent),
+        : IControl(parent),
           _button(nullptr) {
     _button = new QPushButton(this);
     _button->show();
@@ -29,7 +29,7 @@ std::string QuickButton::text() const noexcept {
 #pragma region Callbacks
 
 void QuickButton::mouseMoveEvent(QMouseEvent *e) {
-    BaseControl::mouseMoveEvent(e);
+    IControl::mouseMoveEvent(e);
 }
 
 void QuickButton::commandChanged() noexcept {

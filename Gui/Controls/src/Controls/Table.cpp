@@ -8,7 +8,7 @@
 using namespace Mss::Gui::Controls;
 
 Table::Table(QWidget *parent) noexcept
-        : MovableBaseControl(parent),
+        : IMovableControl(parent),
           _button(nullptr),
           _rowsLayout(nullptr) {
     QWidget::resize(200, 300);

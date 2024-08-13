@@ -2,8 +2,6 @@
 
 #include "Interfaces/IScope.hpp"
 
-#include <QWidget>
-
 namespace Mss::Gui::Scopes {
 
     /**
@@ -12,8 +10,7 @@ namespace Mss::Gui::Scopes {
      * @author WorHyako
      */
     class QuickButtonScope
-            : public QWidget,
-              public IScope {
+            : public IScope {
     Q_OBJECT
 
     public:
@@ -29,21 +26,7 @@ namespace Mss::Gui::Scopes {
          */
         ~QuickButtonScope() override = default;
 
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void paintEvent(QPaintEvent *e) override;
-
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mousePressEvent(QMouseEvent *e) override;
-
-    private slots:
+    private:
 
         /**
          * @brief
@@ -74,6 +57,16 @@ namespace Mss::Gui::Scopes {
          */
         void saveControls() noexcept override;
 
+        /**
+         * @brief
+         *
+         * @param idx
+         */
+        void moveAllLeftSince(std::uint8_t idx) noexcept;
+
+        std::uint8_t _buttonsCount;
+
+#pragma region Callbacks
     public slots:
 
         /**
@@ -83,14 +76,13 @@ namespace Mss::Gui::Scopes {
          */
         void editModeChange(bool toggled);
 
-    private:
         /**
          * @brief
          *
-         * @param idx
+         * @param e
          */
-        void moveAllLeftSince(std::uint8_t idx) noexcept;
+        void mousePressEvent(QMouseEvent *e) noexcept override;
 
-        std::uint8_t _buttonsCount;
+#pragma endregion Callbacks
     };
 }

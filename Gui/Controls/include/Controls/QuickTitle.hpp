@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseControl.hpp"
+#include "Interfaces/IControl.hpp"
 
 class QTextEdit;
 
@@ -14,7 +14,7 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class QuickTitle
-            : public BaseControl {
+            : public IControl {
     public:
         /**
          * @brief Ctor.

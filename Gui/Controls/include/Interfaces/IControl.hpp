@@ -13,7 +13,7 @@ namespace Mss::Gui::Controls {
      *
      * @author WorHyako
      */
-    class BaseControl
+    class IControl
             : public QWidget,
               public Components::CommandComponent {
     Q_OBJECT
@@ -22,15 +22,19 @@ namespace Mss::Gui::Controls {
         /**
          * @brief Ctor.
          */
-        explicit BaseControl(QWidget *parent) noexcept;
+        explicit IControl(QWidget *parent) noexcept;
 
         /**
          * @brief Dtor.
          */
-        ~BaseControl() override = default;
+        ~IControl() override = default;
 
-    protected:
-        std::unique_ptr<Menus::ControlContextMenu> _menu;
+        /**
+         * @brief
+         *
+         * @param enable
+         */
+        virtual void editMode(bool enable) noexcept;
 
     public:
 #pragma region Accessors/Mutators
@@ -63,6 +67,9 @@ namespace Mss::Gui::Controls {
 
     public slots:
 
+        /**
+         * @brief
+         */
         virtual void commandChanged() noexcept = 0;
 
 #pragma endregion Callbacks

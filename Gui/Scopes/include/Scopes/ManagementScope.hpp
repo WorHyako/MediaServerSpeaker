@@ -12,8 +12,7 @@ namespace Mss::Gui::Scopes {
      * @author WorHyako
      */
     class ManagementScope final
-            : public QWidget,
-              public IScope {
+            : public IScope {
     Q_OBJECT
 
     public:
@@ -28,20 +27,6 @@ namespace Mss::Gui::Scopes {
          * @brief Dtor.
          */
         ~ManagementScope() override = default;
-
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void paintEvent(QPaintEvent *e) override;
-
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mousePressEvent(QMouseEvent *e) override;
 
         /**
          * @brief
@@ -72,6 +57,7 @@ namespace Mss::Gui::Scopes {
          */
         void saveControls() noexcept override;
 
+#pragma region Callbacks
     public slots:
 
         /**
@@ -80,5 +66,15 @@ namespace Mss::Gui::Scopes {
          * @param toggled
          */
         void editModeChange(bool toggled);
+
+    public:
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mousePressEvent(QMouseEvent *e) noexcept override;
+
+#pragma endregion Callbacks
     };
 }

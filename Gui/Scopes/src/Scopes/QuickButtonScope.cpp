@@ -1,13 +1,9 @@
 #include "QuickButtonScope.hpp"
 
 #include "Config.hpp"
-#include "ScopeContextMenu.hpp"
-
 #include "Controls/QuickButton.hpp"
 
 #include <QGridLayout>
-#include <QPainter>
-#include <QMouseEvent>
 #include <QSpacerItem>
 
 using namespace Mss::Gui::Scopes;
@@ -43,8 +39,9 @@ namespace {
 }
 
 QuickButtonScope::QuickButtonScope(QWidget *parent) noexcept
-        : QWidget(parent),
+        : IScope(parent),
           _buttonsCount(0) {
+    _controlsType = ControlType::QuickButton;
     QWidget::move(1, 1);
 
     auto layout = new QGridLayout;
@@ -56,23 +53,6 @@ QuickButtonScope::QuickButtonScope(QWidget *parent) noexcept
         layout->addWidget(new QWidget, row, column);
 //        std::printf("Kids count - %lli\n", layout->children().size());
     }
-}
-
-void QuickButtonScope::paintEvent(QPaintEvent *e) {
-    QPainter painter(this);
-    painter.setPen(QColor(0xaa, 0xaa, 0xaa));
-    painter.drawRoundedRect(0, 0, QWidget::width(), QWidget::height(), 5, 5);
-
-    QWidget::paintEvent(e);
-}
-
-void QuickButtonScope::mousePressEvent(QMouseEvent *e) {
-    if (e->button() == Qt::MouseButton::RightButton) {
-        auto menu = new Menus::ScopeContextMenu(ControlType::QuickButton, this);
-        menu->popup(QWidget::mapToGlobal(e->pos()));
-    }
-
-    QWidget::mousePressEvent(e);
 }
 
 void QuickButtonScope::addControl(QWidget *control) noexcept {
@@ -91,7 +71,6 @@ void QuickButtonScope::addControl(QWidget *control) noexcept {
     });
 
     _buttonsCount++;
-//    std::printf("Kids count - %lli\n", layout->children().size());
 }
 
 void QuickButtonScope::removeControl(QWidget *control) noexcept {
@@ -167,6 +146,14 @@ void QuickButtonScope::moveAllLeftSince(std::uint8_t idx) noexcept {
     }
 }
 
+#pragma region Callbacks
+
 void QuickButtonScope::editModeChange(bool toggled) {
 
 }
+
+void QuickButtonScope::mousePressEvent(QMouseEvent *e) noexcept {
+    IScope::mousePressEvent(e);
+}
+
+#pragma endregion Callbacks

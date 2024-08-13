@@ -12,7 +12,7 @@ class QVBoxLayout;
 class QHBoxLayout;
 
 namespace Mss::Gui::Controls {
-    class BaseControl;
+    class IControl;
 }
 
 namespace Mss::Gui::Controls::Dialogs {
@@ -65,7 +65,7 @@ namespace Mss::Gui::Controls::Dialogs {
          *
          * @param item
          */
-        void addCommandItemHLayout(const Backend::Command::CommandItem &item = {}) noexcept;
+        void addCommandItemHLayout(const Backend::Command::CommandItem &item = {}, bool existingItem = false) noexcept;
 
         /**
          * @brief
@@ -79,7 +79,7 @@ namespace Mss::Gui::Controls::Dialogs {
          */
         void applyChanged() noexcept;
 
-        Controls::BaseControl *_control;
+        Controls::IControl *_control;
 
         QVBoxLayout *_commandLayout;
 

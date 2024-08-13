@@ -28,6 +28,7 @@ namespace Mss::Gui::Dialogs {
          */
         ~MainWindow() override = default;
 
+#pragma region Callbacks
     signals:
 
         /**
@@ -36,5 +37,8 @@ namespace Mss::Gui::Dialogs {
          * @param value
          */
         void editModeChanged(bool value);
+
+#pragma endregion Callbacks
+
     };
 }

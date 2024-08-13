@@ -1,62 +1,38 @@
 {
-  "objects": [
-    {
-      "Management Button": [
+    "objects": [
         {
-          "position": {
-            "x": 174,
-            "y": 1
-          },
-          "size": {
-            "x": 83,
-            "y": 79
-          },
-          "text": "1",
-          "canMove": true,
-          "canResize": true
+            "Management Button": [
+                {
+                    "command": "<tag key=\"value\" />\n",
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "sessionName": "session_bla",
+                    "size": {
+                        "x": 200,
+                        "y": 200
+                    },
+                    "text": "Event name"
+                }
+            ]
         },
         {
-          "position": {
-            "x": 84,
-            "y": 73
-          },
-          "size": {
-            "x": 88,
-            "y": 83
-          },
-          "text": "2",
-          "canMove": true,
-          "canResize": true
-        },
-        {
-          "position": {
-            "x": 2,
-            "y": 147
-          },
-          "size": {
-            "x": 87,
-            "y": 80
-          },
-          "text": "3",
-          "canMove": true,
-          "canResize": true
+            "Management Textable Button": [
+                {
+                    "command": "<:anonymous key=\"value\" />\n",
+                    "position": {
+                        "x": 95,
+                        "y": 68
+                    },
+                    "sessionName": "session_bla_text",
+                    "size": {
+                        "x": 200,
+                        "y": 200
+                    },
+                    "text": "Event name"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "Quick Button": [
-        {
-          "position": {
-            "x": 0,
-            "y": 0
-          },
-          "size": {
-            "x": 65,
-            "y": 32
-          },
-          "text": ""
-        }
-      ]
-    }
-  ]
+    ]
 }

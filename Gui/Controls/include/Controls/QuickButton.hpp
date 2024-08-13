@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseControl.hpp"
+#include "Interfaces/IControl.hpp"
 
 class QPushButton;
 
@@ -12,7 +12,7 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class QuickButton
-            : public BaseControl {
+            : public IControl {
     public:
         /**
          * @brief Ctor.

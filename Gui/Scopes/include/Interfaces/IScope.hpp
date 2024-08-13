@@ -2,17 +2,27 @@
 
 #include <cstdint>
 
-class QWidget;
+#include <QWidget>
 
 namespace Mss::Gui::Scopes {
 
     /**
      * @brief
      *
+     * @usage
+     * @code
+     *
+     * @endcode
+     *
      * @author WorHyako
      */
     enum class ControlType
             : std::uint8_t {
+        /**
+         * No control
+         */
+        None = 0b0,
+
         /**
          * @see Gui::Controls::ManagementTextableButton
          */
@@ -76,14 +86,26 @@ namespace Mss::Gui::Scopes {
      *
      * @author WorHyako
      */
-    class IScope {
+    class IScope
+            : public QWidget {
+    Q_OBJECT
+
     public:
+        /**
+         * @brief Ctor.
+         */
+        explicit IScope(QWidget *parent = nullptr) noexcept;
+
+        /**
+         * @brief Dtor.
+         */
+        ~IScope() noexcept override = default;
+
         /**
          * @brief
          *
          * @param control
          */
-        [[maybe_unused]]
         virtual void addControl(QWidget *control) noexcept = 0;
 
         /**
@@ -107,5 +129,42 @@ namespace Mss::Gui::Scopes {
          * @brief
          */
         virtual void saveControls() noexcept = 0;
+
+    protected:
+        bool _editMode;
+
+        ControlType _controlsType;
+
+        /**
+         * @brief
+         *
+         * @param children
+         */
+        virtual void editModeChange(bool editMode, QObjectList children) noexcept;
+
+        /**
+         * @brief
+         *
+         * @param controlsType
+         */
+        virtual void openMenu(QMouseEvent *e, ControlType controlsType) noexcept;
+
+#pragma region Callbacks
+
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mousePressEvent(QMouseEvent *e) noexcept override;
+
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void paintEvent(QPaintEvent *e) noexcept override;
+
+#pragma endregion Callbacks
     };
 }

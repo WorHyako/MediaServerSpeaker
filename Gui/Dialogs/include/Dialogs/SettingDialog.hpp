@@ -15,8 +15,6 @@ namespace Mss::Gui::Dialogs {
      */
     class SettingDialog
             : public QDialog {
-    Q_OBJECT
-
     public:
         /**
          * @brief Ctor.

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MovableBaseControl.hpp"
+#include "Interfaces/IMovableControl.hpp"
 
 class QTextEdit;
 
@@ -14,7 +14,7 @@ namespace Mss::Gui::Controls {
      * @author WorHyako
      */
     class ManagementTextableButton
-            : public MovableBaseControl {
+            : public IMovableControl {
     Q_OBJECT
 
     public:
