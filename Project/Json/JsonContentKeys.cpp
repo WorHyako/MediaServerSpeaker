@@ -1,79 +1,79 @@
 #include "JsonContentKeys.hpp"
 
 namespace {
-    constexpr std::string_view jsonHeadKey = "objects";
+	constexpr std::string_view jsonHeadKey = "objects";
 
-    constexpr std::string_view jsonTextKey = "text";
+	constexpr std::string_view jsonTextKey = "text";
 
-    constexpr std::string_view jsonCommandKey = "command";
+	constexpr std::string_view jsonCommandKey = "command";
 
-    constexpr std::string_view jsonPositionKey = "position";
+	constexpr std::string_view jsonPositionKey = "position";
 
-    constexpr std::string_view jsonSizeKey = "size";
+	constexpr std::string_view jsonSizeKey = "size";
 
-    constexpr std::string_view jsonSessionNameKey = "sessionName";
+	constexpr std::string_view jsonSessionNameKey = "sessionName";
 
-    constexpr std::string_view jsonManagementButtonKey = "Management Button";
+	constexpr std::string_view jsonManagementButtonKey = "Management Button";
 
-    constexpr std::string_view jsonManagementTextableButtonKey = "Management Textable Button";
+	constexpr std::string_view jsonManagementTextableButtonKey = "Management Textable Button";
 
-    constexpr std::string_view jsonQuickButtonKey = "Quick Button";
+	constexpr std::string_view jsonQuickButtonKey = "Quick Button";
 
-    constexpr std::string_view jsonQuickTitleKey = "Quick Title";
+	constexpr std::string_view jsonQuickTitleKey = "Quick Title";
 }
 
 using namespace Mss;
 
 namespace Mss::Gui::Controls {
-    class ManagementButton;
+	class ManagementButton;
 
-    class ManagementTextableButton;
+	class ManagementTextableButton;
 
-    class QuickTitle;
+	class QuickTitle;
 
-    class QuickButton;
+	class QuickButton;
 }
 
 std::string_view System::jsonHeadKey() noexcept {
-    return ::jsonHeadKey;
+	return ::jsonHeadKey;
 }
 
 std::string_view System::jsonTextKey() noexcept {
-    return ::jsonTextKey;
+	return ::jsonTextKey;
 }
 
 std::string_view System::jsonCommandKey() noexcept {
-    return ::jsonCommandKey;
+	return ::jsonCommandKey;
 }
 
 std::string_view System::jsonPositionKey() noexcept {
-    return ::jsonPositionKey;
+	return ::jsonPositionKey;
 }
 
 std::string_view System::jsonSizeKey() noexcept {
-    return ::jsonSizeKey;
+	return ::jsonSizeKey;
 }
 
 std::string_view System::jsonSessionNameKey() noexcept {
-    return ::jsonSessionNameKey;
+	return ::jsonSessionNameKey;
 }
 
-template<>
+template <>
 std::string_view System::jsonControlKey<Mss::Gui::Controls::ManagementButton>() noexcept {
-    return ::jsonManagementButtonKey;
+	return ::jsonManagementButtonKey;
 }
 
-template<>
+template <>
 std::string_view System::jsonControlKey<Mss::Gui::Controls::ManagementTextableButton>() noexcept {
-    return ::jsonManagementTextableButtonKey;
+	return ::jsonManagementTextableButtonKey;
 }
 
-template<>
+template <>
 std::string_view System::jsonControlKey<Mss::Gui::Controls::QuickButton>() noexcept {
-    return ::jsonQuickButtonKey;
+	return ::jsonQuickButtonKey;
 }
 
-template<>
+template <>
 std::string_view System::jsonControlKey<Mss::Gui::Controls::QuickTitle>() noexcept {
-    return ::jsonQuickTitleKey;
+	return ::jsonQuickTitleKey;
 }

@@ -7,57 +7,56 @@ class QWidget;
 class QMouseEvent;
 
 namespace Mss::Gui::Components {
+	/**
+	 * @brief
+	 *
+	 * @author WorHyako
+	 */
+	class WidgetTransformComponent {
+	public:
+		/**
+		 * @brief Ctor.
+		 *
+		 * @param parent
+		 */
+		explicit WidgetTransformComponent(QWidget* parent) noexcept;
 
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class WidgetTransformComponent {
-    public:
-        /**
-         * @brief Ctor.
-         *
-         * @param parent
-         */
-        explicit WidgetTransformComponent(QWidget *parent) noexcept;
+		/**
+		 * @brief Dtor.
+		 */
+		virtual ~WidgetTransformComponent() noexcept = default;
 
-        /**
-         * @brief Dtor.
-         */
-        virtual ~WidgetTransformComponent() noexcept = default;
+		/**
+		 * @brief
+		 *
+		 * @param e
+		 */
+		void doTransform(QMouseEvent* e) noexcept;
 
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void doTransform(QMouseEvent *e) noexcept;
+		/**
+		 * @brief
+		 *
+		 * @param e
+		 */
+		void stopTransform(QMouseEvent*) noexcept;
 
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void stopTransform(QMouseEvent *) noexcept;
+	private:
+		QWidget* _parent;
 
-    private:
-        QWidget *_parent;
+		QPoint _lastMousePressPosition;
 
-        QPoint _lastMousePressPosition;
+		bool _canTransform;
 
-        bool _canTransform;
-
-    public:
+	public:
 #pragma region Accessors/Mutators
 
-        /**
-         * @brief
-         *
-         * @param canTransform
-         */
-        void canTransform(bool canTransform) noexcept;
+		/**
+		 * @brief
+		 *
+		 * @param canTransform
+		 */
+		void canTransform(bool canTransform) noexcept;
 
 #pragma endregion Accessors/Mutators
-    };
+	};
 }
