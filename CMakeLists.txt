@@ -47,12 +47,19 @@ add_executable(MediaServerSpeaker)
 target_sources(MediaServerSpeaker
         PRIVATE main.cpp)
 
-target_include_directories(MediaServerSpeaker
-        PRIVATE Include)
-
 target_link_libraries(MediaServerSpeaker
-        PRIVATE
-        Mss::Gui)
+        PRIVATE Mss::Gui)
 
 file(GLOB Resources Resources/*)
 file(COPY ${Resources} DESTINATION ${CMAKE_BINARY_DIR}/Resources)
+
+##############
+#   Bridge   #
+##############
+add_executable(bridge)
+target_sources(bridge
+        PRIVATE bridge/main.cpp)
+target_link_libraries(bridge
+        PUBLIC
+        pugixml::pugixml
+        Wor::Network)

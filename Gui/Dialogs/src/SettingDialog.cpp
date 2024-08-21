@@ -36,7 +36,8 @@ SettingDialog::SettingDialog(QWidget *parent) noexcept
         std::string buttonStyle("QPushButton {background-color: \"#%s\"; }",
                                 server.isRunning() ? "00ff00" : "ff0000");
 
-        connect(_serverConnectButton, &QPushButton::pressed, [addressText, portText, &server]() {
+        connect(_serverConnectButton, &QPushButton::pressed, [addressText, portText]() {
+            auto &server = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
             std::string address = addressText->toPlainText().toUtf8().constData();
             bool portConversation(false);
             auto port = portText->toPlainText().toInt(&portConversation);
