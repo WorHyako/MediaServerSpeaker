@@ -63,7 +63,7 @@ namespace Mss::Gui::Controls::Dialogs {
 		 *
 		 * @param item
 		 */
-		void addCommandItemHLayout(const Backend::Command::CommandItem &item = {}) noexcept;
+		void addCommandItemHLayout(const Backend::Command::CommandItem &item = {}, bool unique = true) noexcept;
 
 		/**
 		 * @brief

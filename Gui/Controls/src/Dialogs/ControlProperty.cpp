@@ -67,7 +67,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 		std::for_each(std::begin(controlItems),
 					  std::end(controlItems),
 					  [this](const CommandItem &each) {
-						  addCommandItemHLayout(each);
+						  addCommandItemHLayout(each, false);
 					  });
 	}
 	vLayout->addLayout(_commandLayout);
@@ -124,17 +124,19 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 	hCommonLayout->addWidget(cancelButton);
 
 	vLayout->addLayout(hCommonLayout);
+
+	emit fullCommandChanged(_testCommand->str().c_str());
 }
 
-void ControlProperty::addCommandItemHLayout(const CommandItem &item) noexcept {
+void ControlProperty::addCommandItemHLayout(const CommandItem &item, bool unique) noexcept {
 	auto hLayout = new QHBoxLayout();
-	{
+	if (unique) {
 		auto idx = _testCommand->indexOf(item.key());
 		if (idx != -1) {
 			return;
 		}
+		_testCommand->addItem(item);
 	}
-	_testCommand->addItem(item);
 
 	auto keyText = new QTextEdit(item.key().c_str());
 	connect(keyText,
@@ -177,11 +179,12 @@ void ControlProperty::removeCommandItemHLayout(QHBoxLayout *hLayout) noexcept {
 
 	_commandLayout->removeItem(hLayout);
 
-	auto layoutItem = hLayout->takeAt(0)->widget();
-	if (layoutItem) {
-		layoutItem->deleteLater();
+	while(hLayout->count() > 0) {
+		auto layoutItem = hLayout->takeAt(0)->widget();
+		if (layoutItem) {
+			layoutItem->deleteLater();
+		}
 	}
-
 	_commandLayout->update();
 
 	emit fullCommandChanged(_testCommand->str().c_str());
