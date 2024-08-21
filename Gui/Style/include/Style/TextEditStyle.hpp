@@ -3,16 +3,15 @@
 #include <string_view>
 
 namespace Mss::Gui::Style {
-
-    /**
-     * @brief
-     *
-     * @return
-     *
-     * @author WorHyako
-     */
-    constexpr std::string_view getTextEditStyle() noexcept {
-        return R"(
+	/**
+	 * @brief
+	 *
+	 * @return
+	 *
+	 * @author WorHyako
+	 */
+	constexpr std::string_view getTextEditStyle() noexcept {
+		return R"(
 QTextEdit {
     border: 2px solid #939393;
     background-color: "#A4A4A4";
@@ -20,5 +19,5 @@ QTextEdit {
     color: "#343434";
 }
 )";
-    }
+	}
 }

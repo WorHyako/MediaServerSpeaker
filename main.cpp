@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     auto address = boost::asio::ip::address(boost::asio::ip::make_address_v4("127.0.0.1"));
     localEndPoint.address(address);
 
-    auto &ser = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
+    auto &ser = TemplateWrapper::Singleton<Network::TcpServer>::get();
 
     if (!ser.bindTo(localEndPoint)) {
         ser.stop();
@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     auto window = new Dialogs::MainWindow();
     window->show();
 
-    Wor::Network::Utils::IoService::run();
+    Network::Utils::IoService::run();
 //    auto t1 = Wor::Network::Utils::IoService::isRunning();
 //    std::this_thread::sleep_for(std::chrono::seconds(2));
 //    Wor::Network::Utils::IoService::stop();

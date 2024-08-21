@@ -13,77 +13,84 @@ Table::Table(QWidget *parent) noexcept
           _rowsLayout(nullptr) {
     QWidget::resize(200, 300);
 
-    auto layout = new QVBoxLayout;
-    QWidget::setLayout(layout);
+	auto layout = new QVBoxLayout;
+	QWidget::setLayout(layout);
 
-    _rowsLayout = new QVBoxLayout;
-    layout->addLayout(_rowsLayout);
+	_rowsLayout = new QVBoxLayout;
+	layout->addLayout(_rowsLayout);
 
-    addRow();
+	addRow();
 
-    auto buttonLayout = new QHBoxLayout;
+	auto buttonLayout = new QHBoxLayout;
 
-    auto addButton = new QPushButton("Add");
-    connect(addButton, &QPushButton::clicked, [this]() {
-        addRow();
-    });
-    buttonLayout->addWidget(addButton);
+	auto addButton = new QPushButton("Add");
+	connect(addButton,
+			&QPushButton::clicked,
+			[this]() {
+				addRow();
+			});
+	buttonLayout->addWidget(addButton);
 
-    auto removeButton = new QPushButton("Remove");
-    connect(removeButton, &QPushButton::clicked, [this]() {
-        removeRow();
-    });
-    buttonLayout->addWidget(removeButton);
+	auto removeButton = new QPushButton("Remove");
+	connect(removeButton,
+			&QPushButton::clicked,
+			[this]() {
+				removeRow();
+			});
+	buttonLayout->addWidget(removeButton);
 
-    layout->addLayout(buttonLayout);
+	layout->addLayout(buttonLayout);
 
-    _button = new QPushButton("Table");
-    connect(_button, &QPushButton::pressed, [this]() {
-        std::ignore = Components::CommandComponent::command()->execute(Components::CommandComponent::sessionName());
-    });
-    layout->addWidget(_button);
-    layout->itemAt(2)->setAlignment(Qt::AlignmentFlag::AlignCenter);
+	_button = new QPushButton("Table");
+	connect(_button,
+			&QPushButton::pressed,
+			[this]() {
+				std::ignore = Components::CommandComponent::command()->execute(
+						Components::CommandComponent::sessionName());
+			});
+	layout->addWidget(_button);
+	layout->itemAt(2)->setAlignment(Qt::AlignmentFlag::AlignCenter);
 }
 
 void Table::addRow(const QPair<QString, QString> &pair) noexcept {
-    auto row = new TableRow(pair);
-    connect(row, &TableRow::keyValueChanged, this, &Table::keyValueChange);
+	auto row = new TableRow(pair);
+	connect(row, &TableRow::keyValueChanged, this, &Table::keyValueChange);
 
-    _rowsLayout->addWidget(row);
+	_rowsLayout->addWidget(row);
 
-    Components::CommandComponent::command()->addItem({ row->keyValue().first.toUtf8().constData(),
-                                                       row->keyValue().second.toUtf8().constData() });
+	Components::CommandComponent::command()->addItem({row->keyValue().first.toUtf8().constData(),
+													  row->keyValue().second.toUtf8().constData()});
 }
 
 void Table::removeRow() noexcept {
-    auto idx = _rowsLayout->count() - 1;
-    auto row = _rowsLayout->itemAt(idx);
-    _rowsLayout->removeItem(row);
-    row->widget()->deleteLater();
+	auto idx = _rowsLayout->count() - 1;
+	auto row = _rowsLayout->itemAt(idx);
+	_rowsLayout->removeItem(row);
+	row->widget()->deleteLater();
 
-    Components::CommandComponent::command()->removeItem();
+	Components::CommandComponent::command()->removeItem();
 }
 
 void Table::clear() noexcept {
-    while (_rowsLayout->count() > 0) {
-        removeRow();
-    }
+	while (_rowsLayout->count() > 0) {
+		removeRow();
+	}
 }
 
 void Table::keyValueChange(const QPair<QString, QString> &keyValue, TableRow *sender) {
-    auto idx = _rowsLayout->indexOf(sender);
-    auto command = Components::CommandComponent::command();
-    command->changeItem(idx, { keyValue.first.toUtf8().constData(), keyValue.second.toUtf8().constData() });
+	auto idx = _rowsLayout->indexOf(sender);
+	auto command = Components::CommandComponent::command();
+	command->changeItem(idx, {keyValue.first.toUtf8().constData(), keyValue.second.toUtf8().constData()});
 }
 
 #pragma region Accessors/Mutators
 
 void Table::text(std::string text) noexcept {
-    _button->setText(text.c_str());
+	_button->setText(text.c_str());
 }
 
 std::string Table::text() const noexcept {
-    return _button->text().toUtf8().constData();
+	return _button->text().toUtf8().constData();
 }
 
 #pragma endregion Accessors/Mutators
@@ -91,11 +98,13 @@ std::string Table::text() const noexcept {
 #pragma region Callbacks
 
 void Table::commandChanged() noexcept {
-    clear();
-    auto commandItems = Components::CommandComponent::command()->items();
-    std::for_each(std::begin(commandItems), std::end(commandItems), [this](const Backend::Command::CommandItem &item) {
-        addRow({ item.key().c_str(), item.value().c_str() });
-    });
+	clear();
+	auto commandItems = Components::CommandComponent::command()->items();
+	std::for_each(std::begin(commandItems),
+				  std::end(commandItems),
+				  [this](const Backend::Command::CommandItem &item) {
+					  addRow({item.key().c_str(), item.value().c_str()});
+				  });
 }
 
 #pragma endregion Callbacks

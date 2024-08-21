@@ -36,23 +36,23 @@ namespace Mss::Gui::Controls {
          */
         virtual void editMode(bool enable) noexcept;
 
-    public:
+	public:
 #pragma region Accessors/Mutators
 
-        /**
-         * @brief
-         *
-         * @param text
-         */
-        virtual void text(std::string text) noexcept = 0;
+		/**
+		 * @brief
+		 *
+		 * @param text
+		 */
+		virtual void text(std::string text) noexcept = 0;
 
-        /**
-         * @brief
-         *
-         * @return
-         */
-        [[nodiscard]]
-        virtual std::string text() const noexcept = 0;
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		virtual std::string text() const noexcept = 0;
 
 #pragma endregion Accessors/Mutators
 
@@ -73,5 +73,5 @@ namespace Mss::Gui::Controls {
         virtual void commandChanged() noexcept = 0;
 
 #pragma endregion Callbacks
-    };
+	};
 }

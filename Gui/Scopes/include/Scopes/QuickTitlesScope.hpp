@@ -13,18 +13,18 @@ namespace Mss::Gui::Scopes {
             : public IScope {
     Q_OBJECT
 
-    public:
-        /**
-         * @brief Ctor.
-         *
-         * @param parent
-         */
-        explicit QuickTitlesScope(QWidget *parent = nullptr) noexcept;
+	public:
+		/**
+		 * @brief Ctor.
+		 *
+		 * @param parent
+		 */
+		explicit QuickTitlesScope(QWidget *parent = nullptr) noexcept;
 
-        /**
-         * @brief Dtor.
-         */
-        ~QuickTitlesScope() override = default;
+		/**
+		 * @brief Dtor.
+		 */
+		~QuickTitlesScope() override = default;
 
         /**
          * @brief
@@ -33,27 +33,27 @@ namespace Mss::Gui::Scopes {
          */
         void addControl(QWidget *control) noexcept override;
 
-        /**
-         * @brief
-         *
-         * @param control
-         */
-        void removeControl(QWidget *control) noexcept override;
+		/**
+		 * @brief
+		 *
+		 * @param control
+		 */
+		void removeControl(QWidget *control) noexcept override;
 
-        /**
-         * @brief
-         */
-        void removeAllControls() noexcept override;
+		/**
+		 * @brief
+		 */
+		void removeAllControls() noexcept override;
 
-        /**
-         * @brief
-         */
-        void loadControls() noexcept override;
+		/**
+		 * @brief
+		 */
+		void loadControls() noexcept override;
 
-        /**
-         * @brief
-         */
-        void saveControls() noexcept override;
+		/**
+		 * @brief
+		 */
+		void saveControls() noexcept override;
 
 #pragma region Callbacks
     public slots:

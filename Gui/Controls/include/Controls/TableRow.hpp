@@ -4,58 +4,57 @@
 
 namespace Mss::Gui::Controls {
 
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class TableRow
-            : public QWidget {
-    Q_OBJECT
+	/**
+	 * @brief
+	 *
+	 * @author WorHyako
+	 */
+	class TableRow
+			: public QWidget {
+		Q_OBJECT
 
-    public:
-        /**
-         * @brief Ctor.
-         *
-         * @param keyValue
-         *
-         * @param parent
-         */
-        explicit TableRow(const QPair<QString, QString> &keyValue = {}, QWidget *parent = nullptr);
+	public:
+		/**
+		 * @brief Ctor.
+		 *
+		 * @param keyValue
+		 *
+		 * @param parent
+		 */
+		explicit TableRow(const QPair<QString, QString> &keyValue = {}, QWidget *parent = nullptr);
 
-        /**
-         * @brief Dtor.
-         */
-        ~TableRow() override = default;
+		/**
+		 * @brief Dtor.
+		 */
+		~TableRow() override = default;
 
-    signals:
+	signals:
+		/**
+		 * @brief
+		 *
+		 * @param keyValue
+		 */
+		void keyValueChanged(QPair<QString, QString> keyValue, TableRow *sender);
 
-        /**
-         * @brief
-         *
-         * @param keyValue
-         */
-        void keyValueChanged(QPair<QString, QString> keyValue, TableRow *sender);
-
-    public:
+	public:
 #pragma region Accessors/Mutators
 
-        /**
-         * @brief
-         *
-         * @return
-         */
-        [[nodiscard]]
-        QPair<QString, QString> keyValue() const noexcept;
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		QPair<QString, QString> keyValue() const noexcept;
 
-        /**
-         * @brief
-         *
-         * @param keyValue
-         */
-        void keyValue(const QPair<QString, QString> &keyValue) noexcept;
+		/**
+		 * @brief
+		 *
+		 * @param keyValue
+		 */
+		void keyValue(const QPair<QString, QString> &keyValue) noexcept;
 
 #pragma endregion Accessors/Mutators
 
-    };
+	};
 }

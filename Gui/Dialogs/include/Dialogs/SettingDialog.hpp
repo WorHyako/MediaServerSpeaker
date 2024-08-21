@@ -23,14 +23,14 @@ namespace Mss::Gui::Dialogs {
          */
         explicit SettingDialog(QWidget *parent = nullptr) noexcept;
 
-    private:
-        /**
-         * @brief
-         */
-        void refreshServerStatus() noexcept;
+	private:
+		/**
+		 * @brief
+		 */
+		void refreshServerStatus() noexcept;
 
-        QVBoxLayout* _sessionListLayout;
+		QVBoxLayout *_sessionListLayout;
 
-        QPushButton* _serverConnectButton;
-    };
+		QPushButton *_serverConnectButton;
+	};
 }

@@ -21,45 +21,46 @@ namespace Mss::Gui::Controls {
          */
         explicit QuickButton(QWidget *parent = nullptr) noexcept;
 
-        /**
-         * @brief Dtor.
-         */
-        ~QuickButton() override = default;
+		/**
+		 * @brief Dtor.
+		 */
+		~QuickButton() override = default;
 
-    protected:
-        QPushButton *_button;
+	protected:
+		QPushButton *_button;
 
-    public:
+	public:
 #pragma region Accessors/Mutators
 
-        /**
-         * @brief
-         *
-         * @param text
-         */
-        void text(std::string text) noexcept override;
+		/**
+		 * @brief
+		 *
+		 * @param text
+		 */
+		void text(std::string text) noexcept override;
 
-        /**
-         * @brief
-         *
-         * @return
-         */
-        [[nodiscard]]
-        std::string text() const noexcept override;
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		std::string text() const noexcept override;
 
 #pragma endregion Accessors/Mutators
 
 #pragma region Callbacks
-    public:
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mouseMoveEvent(QMouseEvent *e) override;
 
-        void commandChanged() noexcept override;
+	public:
+		/**
+		 * @brief
+		 *
+		 * @param e
+		 */
+		void mouseMoveEvent(QMouseEvent *e) override;
+
+		void commandChanged() noexcept override;
 
 #pragma endregion Callbacks
-    };
+	};
 }

@@ -11,31 +11,35 @@
 using namespace Mss::Gui::Dialogs;
 
 MainWindow::MainWindow(QWidget *parent) noexcept
-        : QMainWindow(parent) {
-    QMainWindow::setWindowTitle("Media Server Speaker");
-    QMainWindow::resize(500, 400);
-    QMainWindow::setMinimumSize(500, 400);
+	: QMainWindow(parent) {
+	QMainWindow::setWindowTitle("Media Server Speaker");
+	QMainWindow::resize(500, 400);
+	QMainWindow::setMinimumSize(500, 400);
 
-    auto tabs = new Scopes::ControlTab(this);
-    QMainWindow::setCentralWidget(tabs);
+	auto tabs = new Scopes::ControlTab(this);
+	QMainWindow::setCentralWidget(tabs);
 
-    auto menuBar = QMainWindow::menuBar();
+	auto menuBar = QMainWindow::menuBar();
 
-    auto settingsMenu = menuBar->addMenu(tr("Preference"));
+	auto settingsMenu = menuBar->addMenu(tr("Preference"));
 
-    auto settings = settingsMenu->addAction("Edit...");
-    connect(settings, &QAction::triggered, [this](bool) {
-        auto settingsDialog = Controls::ControlCreator<Dialogs::SettingDialog>::create(this);
-        settingsDialog->show();
-        std::ignore = settingsDialog.release();
-    });
+	auto settings = settingsMenu->addAction("Edit...");
+	connect(settings,
+			&QAction::triggered,
+			[this](bool) {
+				auto settingsDialog = Controls::ControlCreator<Dialogs::SettingDialog>::create(this);
+				settingsDialog->show();
+				std::ignore = settingsDialog.release();
+			});
 
-    settingsMenu->addSeparator();
+	settingsMenu->addSeparator();
 
-    auto editMode = settingsMenu->addAction("Edit mode");
-    editMode->setCheckable(true);
-    connect(editMode, &QAction::toggled, [tabs](bool toggled) {
-        emit
-        tabs->editModeChanged(toggled);
-    });
+	auto editMode = settingsMenu->addAction("Edit mode");
+	editMode->setCheckable(true);
+	connect(editMode,
+			&QAction::toggled,
+			[tabs](bool toggled) {
+				emit
+				tabs->editModeChanged(toggled);
+			});
 }

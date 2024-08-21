@@ -14,21 +14,21 @@ QuickTitlesScope::QuickTitlesScope(QWidget *parent) noexcept
     _controlsType = ControlType::QuickTitle;
     auto layout = new QVBoxLayout;
 
-    layout->setAlignment(Qt::AlignmentFlag::AlignTop);
-    layout->setSpacing(5);
+	layout->setAlignment(Qt::AlignmentFlag::AlignTop);
+	layout->setSpacing(5);
 
-    QWidget::setLayout(layout);
+	QWidget::setLayout(layout);
 }
 
 void QuickTitlesScope::addControl(QWidget *control) noexcept {
-    control->setFixedHeight(50);
+	control->setFixedHeight(50);
 
-    QWidget::layout()->addWidget(control);
+	QWidget::layout()->addWidget(control);
 }
 
 void QuickTitlesScope::removeControl(QWidget *control) noexcept {
-    QWidget::layout()->removeWidget(control);
-    control->deleteLater();
+	QWidget::layout()->removeWidget(control);
+	control->deleteLater();
 }
 
 void QuickTitlesScope::removeAllControls() noexcept {
@@ -43,45 +43,47 @@ void QuickTitlesScope::removeAllControls() noexcept {
 }
 
 void QuickTitlesScope::loadControls() noexcept {
-    const auto &parentTab = dynamic_cast<QWidget *>(QWidget::parent());
-    if (!parentTab) {
-        return;
-    }
-    /**
-     * TODO: first thread
-     */
-    removeAllControls();
+	const auto &parentTab = dynamic_cast<QWidget *>(QWidget::parent());
+	if (!parentTab) {
+		return;
+	}
+	/**
+	 * TODO: first thread
+	 */
+	removeAllControls();
 
-    /**
-     * TODO: second thread
-     */
-    std::string tabName(parentTab->accessibleName().toUtf8().constData());
-    Config<QuickTitlesScope> config(tabName);
-    if (!config.loadConfig()) {
-        return;
-    }
+	/**
+	 * TODO: second thread
+	 */
+	std::string tabName(parentTab->accessibleName().toUtf8().constData());
+	Config<QuickTitlesScope> config(tabName);
+	if (!config.loadConfig()) {
+		return;
+	}
 
-    auto controls = config.loadFromConfig<QuickTitle>();
+	auto controls = config.loadFromConfig<QuickTitle>();
 
-    /**
-     * TODO: finish
-     */
-    std::for_each(std::begin(controls), std::end(controls), [this](auto &each) {
-        addControl(each.release());
-    });
+	/**
+	 * TODO: finish
+	 */
+	std::for_each(std::begin(controls),
+				  std::end(controls),
+				  [this](auto &each) {
+					  addControl(each.release());
+				  });
 }
 
 void QuickTitlesScope::saveControls() noexcept {
-    const auto &parentTab = dynamic_cast<QWidget *>(QWidget::parent());
-    if (!parentTab) {
-        return;
-    }
-    std::string tabName(parentTab->accessibleName().toUtf8().constData());
-    Config<QuickTitlesScope> config(tabName);
-    config.addToConfig<QuickTitle>(this);
-    if (!config.saveConfig()) {
-        std::printf("Fail in saving process.\n");
-    }
+	const auto &parentTab = dynamic_cast<QWidget *>(QWidget::parent());
+	if (!parentTab) {
+		return;
+	}
+	std::string tabName(parentTab->accessibleName().toUtf8().constData());
+	Config<QuickTitlesScope> config(tabName);
+	config.addToConfig<QuickTitle>(this);
+	if (!config.saveConfig()) {
+		std::printf("Fail in saving process.\n");
+	}
 }
 
 #pragma region Callbacks
@@ -94,4 +96,4 @@ void QuickTitlesScope::mousePressEvent(QMouseEvent *e) noexcept {
     IScope::mousePressEvent(e);
 }
 
-#pragma region Callbacks
+#pragma endregion Callbacks

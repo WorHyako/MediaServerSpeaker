@@ -17,11 +17,11 @@ QuickButton::QuickButton(QWidget *parent) noexcept
 #pragma region Accessors/Mutators
 
 void QuickButton::text(std::string text) noexcept {
-    _button->setText(text.c_str());
+	_button->setText(text.c_str());
 }
 
 std::string QuickButton::text() const noexcept {
-    return _button->text().toUtf8().constData();
+	return _button->text().toUtf8().constData();
 }
 
 #pragma endregion Accessors/Mutators
