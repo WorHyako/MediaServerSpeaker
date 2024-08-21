@@ -1,25 +1,25 @@
 #pragma once
 
-#include "BaseControl.hpp"
+#include "Interfaces/IControl.hpp"
 
 class QPushButton;
 
 namespace Mss::Gui::Controls {
 
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class QuickButton
-			: public BaseControl {
-	public:
-		/**
-		 * @brief Ctor.
-		 *
-		 * @param parent
-		 */
-		explicit QuickButton(QWidget *parent = nullptr) noexcept;
+    /**
+     * @brief
+     *
+     * @author WorHyako
+     */
+    class QuickButton
+            : public IControl {
+    public:
+        /**
+         * @brief Ctor.
+         *
+         * @param parent
+         */
+        explicit QuickButton(QWidget *parent = nullptr) noexcept;
 
 		/**
 		 * @brief Dtor.

@@ -1,11 +1,8 @@
 #include "QuickTitlesScope.hpp"
 
 #include "Controls/QuickTitle.hpp"
-
 #include "Config.hpp"
-#include "ScopeContextMenu.hpp"
 
-#include <QPainter>
 #include <QMouseEvent>
 #include <QVBoxLayout>
 
@@ -13,30 +10,14 @@ using namespace Mss::Gui::Scopes;
 using namespace Mss::Gui::Controls;
 
 QuickTitlesScope::QuickTitlesScope(QWidget *parent) noexcept
-	: QWidget(parent) {
-	auto layout = new QVBoxLayout;
+        : IScope(parent) {
+    _controlsType = ControlType::QuickTitle;
+    auto layout = new QVBoxLayout;
 
 	layout->setAlignment(Qt::AlignmentFlag::AlignTop);
 	layout->setSpacing(5);
 
 	QWidget::setLayout(layout);
-}
-
-void QuickTitlesScope::mousePressEvent(QMouseEvent *e) {
-	if (e->button() == Qt::MouseButton::RightButton) {
-		auto menu = new Menus::ScopeContextMenu(ControlType::QuickTitle, this);
-		menu->popup(QWidget::mapToGlobal(e->pos()));
-	}
-
-	QWidget::mousePressEvent(e);
-}
-
-void QuickTitlesScope::paintEvent(QPaintEvent *e) {
-	QPainter painter(this);
-	painter.setPen(QColor(0xaa, 0xaa, 0xaa));
-	painter.drawRoundedRect(0, 0, width(), height(), 5, 5);
-
-	QWidget::paintEvent(e);
 }
 
 void QuickTitlesScope::addControl(QWidget *control) noexcept {
@@ -51,16 +32,14 @@ void QuickTitlesScope::removeControl(QWidget *control) noexcept {
 }
 
 void QuickTitlesScope::removeAllControls() noexcept {
-	auto children = QWidget::children();
-	std::for_each(std::begin(children),
-				  std::end(children),
-				  [this](QObject *each) {
-					  auto control = dynamic_cast<BaseControl *>(each);
-					  if (!control) {
-						  return;
-					  }
-					  removeControl(control);
-				  });
+    auto children = QWidget::children();
+    std::for_each(std::begin(children), std::end(children), [this](QObject *each) {
+        auto control = dynamic_cast<IControl *>(each);
+        if (!control) {
+            return;
+        }
+        removeControl(control);
+    });
 }
 
 void QuickTitlesScope::loadControls() noexcept {
@@ -107,6 +86,14 @@ void QuickTitlesScope::saveControls() noexcept {
 	}
 }
 
+#pragma region Callbacks
+
 void QuickTitlesScope::editModeChange(bool toggled) {
 
 }
+
+void QuickTitlesScope::mousePressEvent(QMouseEvent *e) noexcept {
+    IScope::mousePressEvent(e);
+}
+
+#pragma endregion Callbacks

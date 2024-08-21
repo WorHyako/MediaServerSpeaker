@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BaseControl.hpp"
+#include "Interfaces/IControl.hpp"
 
 class QTextEdit;
 
@@ -8,20 +8,20 @@ class QPushButton;
 
 namespace Mss::Gui::Controls {
 
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class QuickTitle
-			: public BaseControl {
-	public:
-		/**
-		 * @brief Ctor.
-		 *
-		 * @param parent
-		 */
-		explicit QuickTitle(QWidget *parent = nullptr) noexcept;
+    /**
+     * @brief
+     *
+     * @author WorHyako
+     */
+    class QuickTitle
+            : public IControl {
+    public:
+        /**
+         * @brief Ctor.
+         *
+         * @param parent
+         */
+        explicit QuickTitle(QWidget *parent = nullptr) noexcept;
 
 		/**
 		 * @brief Dtor.

@@ -7,10 +7,10 @@
 using namespace Mss::Gui::Controls;
 
 ManagementTextableButton::ManagementTextableButton(QWidget *parent) noexcept
-	: MovableBaseControl(parent),
-	  _textEdit(nullptr),
-	  _button(nullptr) {
-	QWidget::resize(200, 200);
+        : IMovableControl(parent),
+          _textEdit(nullptr),
+          _button(nullptr) {
+    QWidget::resize(200, 200);
 
 	auto layout = new QVBoxLayout;
 	layout->setSpacing(8);

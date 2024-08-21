@@ -12,7 +12,7 @@ class QVBoxLayout;
 class QHBoxLayout;
 
 namespace Mss::Gui::Controls {
-	class BaseControl;
+    class IControl;
 }
 
 namespace Mss::Gui::Controls::Dialogs {
@@ -77,7 +77,7 @@ namespace Mss::Gui::Controls::Dialogs {
 		 */
 		void applyChanged() noexcept;
 
-		Controls::BaseControl *_control;
+        Controls::IControl *_control;
 
 		QVBoxLayout *_commandLayout;
 

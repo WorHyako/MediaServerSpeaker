@@ -28,12 +28,17 @@ namespace Mss::Gui::Dialogs {
 		 */
 		~MainWindow() override = default;
 
-	signals:
-		/**
-		 * @brief
-		 *
-		 * @param value
-		 */
-		void editModeChanged(bool value);
-	};
+#pragma region Callbacks
+    signals:
+
+        /**
+         * @brief
+         *
+         * @param value
+         */
+        void editModeChanged(bool value);
+
+#pragma endregion Callbacks
+
+    };
 }

@@ -8,10 +8,10 @@
 using namespace Mss::Gui::Controls;
 
 Table::Table(QWidget *parent) noexcept
-	: MovableBaseControl(parent),
-	  _button(nullptr),
-	  _rowsLayout(nullptr) {
-	QWidget::resize(200, 300);
+        : IMovableControl(parent),
+          _button(nullptr),
+          _rowsLayout(nullptr) {
+    QWidget::resize(200, 300);
 
 	auto layout = new QVBoxLayout;
 	QWidget::setLayout(layout);

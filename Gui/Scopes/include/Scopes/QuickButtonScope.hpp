@@ -2,19 +2,16 @@
 
 #include "Interfaces/IScope.hpp"
 
-#include <QWidget>
-
 namespace Mss::Gui::Scopes {
 
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class QuickButtonScope
-			: public QWidget,
-			  public IScope {
-		Q_OBJECT
+    /**
+     * @brief
+     *
+     * @author WorHyako
+     */
+    class QuickButtonScope
+            : public IScope {
+    Q_OBJECT
 
 	public:
 		/**
@@ -29,27 +26,14 @@ namespace Mss::Gui::Scopes {
 		 */
 		~QuickButtonScope() override = default;
 
-		/**
-		 * @brief
-		 *
-		 * @param e
-		 */
-		void paintEvent(QPaintEvent *e) override;
+    private:
 
-		/**
-		 * @brief
-		 *
-		 * @param e
-		 */
-		void mousePressEvent(QMouseEvent *e) override;
-
-	private slots:
-		/**
-		 * @brief
-		 *
-		 * @param control
-		 */
-		void addControl(QWidget *control) noexcept override;
+        /**
+         * @brief
+         *
+         * @param control
+         */
+        void addControl(QWidget *control) noexcept override;
 
 		/**
 		 * @brief
@@ -73,22 +57,32 @@ namespace Mss::Gui::Scopes {
 		 */
 		void saveControls() noexcept override;
 
-	public slots:
-		/**
-		 * @brief
-		 *
-		 * @param toggled
-		 */
-		void editModeChange(bool toggled);
+        /**
+         * @brief
+         *
+         * @param idx
+         */
+        void moveAllLeftSince(std::uint8_t idx) noexcept;
 
-	private:
-		/**
-		 * @brief
-		 *
-		 * @param idx
-		 */
-		void moveAllLeftSince(std::uint8_t idx) noexcept;
+        std::uint8_t _buttonsCount;
 
-		std::uint8_t _buttonsCount;
-	};
+#pragma region Callbacks
+    public slots:
+
+        /**
+         * @brief
+         *
+         * @param toggled
+         */
+        void editModeChange(bool toggled);
+
+        /**
+         * @brief
+         *
+         * @param e
+         */
+        void mousePressEvent(QMouseEvent *e) noexcept override;
+
+#pragma endregion Callbacks
+    };
 }

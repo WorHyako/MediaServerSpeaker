@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MovableBaseControl.hpp"
+#include "Interfaces/IMovableControl.hpp"
 
 class QPushButton;
 
@@ -12,14 +12,14 @@ namespace Mss::Gui::Controls {
 
 namespace Mss::Gui::Controls {
 
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class Table
-			: public MovableBaseControl {
-		Q_OBJECT
+    /**
+     * @brief
+     *
+     * @author WorHyako
+     */
+    class Table
+            : public IMovableControl {
+    Q_OBJECT
 
 	public:
 		/**

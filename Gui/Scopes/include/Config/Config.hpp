@@ -12,7 +12,7 @@
 #include "Json/JsonContentKeys.hpp"
 #include "Command/BaseCommand.hpp"
 
-#include "Controls/MovableBaseControl.hpp"
+#include "Interfaces/IMovableControl.hpp"
 #include "Creators/ControlCreator.hpp"
 
 #include "Json/JsonManager.hpp"
@@ -22,8 +22,8 @@ namespace Mss::Gui::Scopes {
 	using WorQWidgetPtr = std::unique_ptr<QWidget>;
 	using WorQWidgetPtrVec = std::vector<WorQWidgetPtr>;
 
-	using WorBaseControl = Mss::Gui::Controls::BaseControl;
-	using WorMovableBaseControl = Mss::Gui::Controls::MovableBaseControl;
+    using WorBaseControl = Mss::Gui::Controls::IControl;
+    using WorMovableBaseControl = Mss::Gui::Controls::IMovableControl;
 
 	/**
 	 *  @brief

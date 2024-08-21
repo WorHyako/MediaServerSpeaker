@@ -1,6 +1,6 @@
 #include "ControlProperty.hpp"
 
-#include "MovableBaseControl.hpp"
+#include "Interfaces/IMovableControl.hpp"
 
 #include "Style/WorStyle.hpp"
 
@@ -12,14 +12,14 @@ using namespace Mss::Gui::Controls::Dialogs;
 using namespace Mss::Backend::Command;
 
 ControlProperty::ControlProperty(QWidget *parent) noexcept
-	: QDialog(parent),
-	  _commandLayout(nullptr),
-	  _control(dynamic_cast<MovableBaseControl *>(parent)) {
-	if (!_control) {
-		QDialog::deleteLater();
-		return;
-	}
-	QDialog::setWindowTitle(parent->accessibleName());
+        : QDialog(parent),
+          _commandLayout(nullptr),
+          _control(dynamic_cast<Controls::IMovableControl *>(parent)) {
+    if (!_control) {
+        QDialog::deleteLater();
+        return;
+    }
+    QDialog::setWindowTitle(parent->accessibleName());
 
 	QDialog::setStyleSheet(Style::getWorStyle().c_str());
 	auto vLayout = new QVBoxLayout(this);
@@ -63,7 +63,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 		 */
 		_commandLayout = new QVBoxLayout(vLayout->widget());
 
-		auto controlItems = _control->command()->items();
+		auto controlItems = _testCommand->items();
 		std::for_each(std::begin(controlItems),
 					  std::end(controlItems),
 					  [this](const CommandItem &each) {

@@ -7,10 +7,10 @@
 using namespace Mss::Gui::Controls;
 
 QuickTitle::QuickTitle(QWidget *parent) noexcept
-	: BaseControl(parent),
-	  _button(nullptr),
-	  _textEdit(nullptr) {
-	QWidget::resize(100, 50);
+        : IControl(parent),
+          _button(nullptr),
+          _textEdit(nullptr) {
+    QWidget::resize(100, 50);
 
 	auto layout = new QHBoxLayout;
 	layout->setSpacing(3);

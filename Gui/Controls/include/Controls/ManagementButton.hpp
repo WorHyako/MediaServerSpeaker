@@ -1,25 +1,25 @@
 #pragma once
 
-#include "MovableBaseControl.hpp"
+#include "Interfaces/IMovableControl.hpp"
 
 class QPushButton;
 
 namespace Mss::Gui::Controls {
 
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class ManagementButton
-			: public MovableBaseControl {
-	public:
-		/**
-		 * @brief Ctor.
-		 *
-		 * @param parent
-		 */
-		explicit ManagementButton(QWidget *parent = nullptr) noexcept;
+    /**
+     * @brief
+     *
+     * @author WorHyako
+     */
+    class ManagementButton
+            : public IMovableControl {
+    public:
+        /**
+         * @brief Ctor.
+         *
+         * @param parent
+         */
+        explicit ManagementButton(QWidget *parent = nullptr) noexcept;
 
 		/**
 		 * @brief Dtor.
@@ -53,7 +53,7 @@ namespace Mss::Gui::Controls {
 
 		void commandChanged() noexcept override;
 
-#pragma region Callbacks
+#pragma endregion Callbacks
 
 	};
 }
