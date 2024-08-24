@@ -4,7 +4,6 @@
 #include "Controls/QuickButton.hpp"
 
 #include <QGridLayout>
-#include <QSpacerItem>
 
 using namespace Mss::Gui::Scopes;
 using namespace Mss::Gui::Controls;
