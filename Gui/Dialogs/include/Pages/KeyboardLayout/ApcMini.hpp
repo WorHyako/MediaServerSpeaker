@@ -10,6 +10,8 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	 */
 	class ApcMini
 			: public QWidget {
+		Q_OBJECT
+
 	public:
 		/**
 		 * @brief Ctor.
@@ -22,5 +24,11 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 
 #pragma endregion Accessors/Mutators
 
+#pragma region Callbacks
+
+	signals:
+		void midiKeyPressed(std::uint8_t midiKeyIdx);
+
+#pragma endregion Callbacks
 	};
 }

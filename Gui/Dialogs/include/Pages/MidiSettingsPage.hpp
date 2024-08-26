@@ -2,6 +2,14 @@
 
 #include <QWidget>
 
+namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
+	class ApcMini;
+}
+
+namespace Mss::Gui::Dialogs::Pages {
+	class MidiProperty;
+}
+
 namespace Mss::Gui::Dialogs::Pages {
 	/**
 	 * @brief
@@ -19,8 +27,14 @@ namespace Mss::Gui::Dialogs::Pages {
 		explicit MidiSettingsPage(QWidget *parent = nullptr) noexcept;
 
 	private:
-		QWidget* _keyboardLayoutWidget;
+		KeyboardLayout::ApcMini *_keyboardLayoutWidget;
+
+		MidiProperty *_propertyWidget;
 
 		bool _editMode;
+
+#pragma region Callbacks
+
+#pragma endregion Callbacks
 	};
 }

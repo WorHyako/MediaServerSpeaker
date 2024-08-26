@@ -2,9 +2,6 @@
 
 #include "IMidiButton.hpp"
 
-#include "Midi/CallbackInfo/ApcMiniInCallbackInfo.hpp"
-#include "Midi/CallbackInfo/ApcMiniOutCallbackInfo.hpp"
-
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 
 	/**
@@ -22,17 +19,12 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 *
 		 * @param parent
 		 */
-		explicit ApcButton(const QString &buttonText = "", QWidget *parent = nullptr) noexcept;
+		explicit ApcMiniButton(const QString &buttonText = "", QWidget *parent = nullptr) noexcept;
 
 		/**
 		 * @brief Dtor.
 		 */
-		~ApcButton() noexcept override = default;
-
-	private:
-		std::uint8_t _color;
-
-		std::uint8_t _colorType;
+		~ApcMiniButton() noexcept override = default;
 
 #pragma region Accessors/Mutators
 
@@ -42,14 +34,37 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 *
 		 * @param midiKeyIdx
 		 */
-		void midiKeyIdx(std::uint8_t midiKeyIdx) noexcept;
+		void midiKeyIdx(std::uint8_t midiKeyIdx) noexcept override;
+
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		std::uint8_t midiKeyIdx() const noexcept override;
+
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		std::uint8_t activeColor() const noexcept override;
 
 		/**
 		 * @brief
 		 *
 		 * @param color
 		 */
-		void color(std::uint16_t color) noexcept override;
+		void activeColor(std::uint8_t color) noexcept override;
+
+		/**
+		 * @brief
+		 *
+		 * @param color
+		 */
+		void defaultColor(std::uint8_t color) noexcept override;
 
 		/**
 		 * @brief
@@ -57,7 +72,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 * @return
 		 */
 		[[nodiscard]]
-		std::string colorRgbStr() noexcept override;
+		std::uint8_t defaultColor() const noexcept override;
 
 		/**
 		 * @brief
@@ -65,7 +80,22 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 * @return
 		 */
 		[[nodiscard]]
-		std::uint8_t colorType() noexcept override;
+		std::uint8_t colorMode() const noexcept override;
+
+		/**
+		 * @brief
+		 *
+		 * @param colorMode
+		 */
+		void colorMode(std::uint8_t colorMode) noexcept override;
+
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		std::string colorRgbStr() const noexcept override;
 
 #pragma endregion Accessors/Mutators
 
@@ -74,9 +104,9 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		/**
 		 * @brief
 		 *
-		 * @param event
+		 * @param e
 		 */
-		void mousePressEvent(QMouseEvent *event) noexcept override;
+		void mousePressEvent(QMouseEvent *e) noexcept override;
 
 #pragma endregion Callbacks
 	};

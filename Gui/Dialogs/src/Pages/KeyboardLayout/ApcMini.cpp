@@ -1,8 +1,8 @@
-#include "Pages/KeyboardLayout/AkaiApcMini.hpp"
+#include "Pages/KeyboardLayout/ApcMini.hpp"
 
 #include <QGridLayout>
 
-#include "Pages/KeyboardLayout/AkaiApcButton.hpp"
+#include "Pages/KeyboardLayout/ApcMiniButton.hpp"
 
 #include "TemplateWrapper/Singleton.hpp"
 #include "Midi/MidiKeyboard.hpp"
@@ -25,14 +25,14 @@ namespace {
 	}
 }
 
-AkaiApcMini::AkaiApcMini(QWidget *parent) noexcept
+ApcMini::ApcMini(QWidget *parent) noexcept
 	: QWidget(parent) {
 	auto gridLayout = new QGridLayout;
 	QWidget::setLayout(gridLayout);
 
 	for (int row = 0; row < 8; row++) {
 		for (int column = 0; column < 8; column++) {
-			auto button = new AkaiApcButton(QString::number(column + row * 8));
+			auto button = new ApcMiniButton(QString::number(column + row * 8));
 			button->setAutoFillBackground(true);
 			button->setStyleSheet("background-color: rgb(100, 100, 100);");
 			gridLayout->addWidget(button, row, column);
@@ -43,8 +43,13 @@ AkaiApcMini::AkaiApcMini(QWidget *parent) noexcept
 		auto pos = ::positionAtIdx(i);
 
 		auto item = gridLayout->itemAtPosition(pos.first, pos.second);
-		auto button = reinterpret_cast<AkaiApcButton *>(item->widget());
+		auto button = reinterpret_cast<ApcMiniButton *>(item->widget());
 		button->setText(QString::number(i));
+		connect(button,
+				&ApcMiniButton::clicked,
+				[this, idx = button->midiKeyIdx()]() {
+					emit midiKeyPressed(idx);
+				});
 		button->midiKeyIdx(i);
 	}
 }
