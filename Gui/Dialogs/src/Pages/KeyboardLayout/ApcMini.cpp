@@ -8,6 +8,7 @@
 #include "Midi/MidiKeyboard.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages::KeyboardLayout;
+using namespace Wor::Midi;
 
 namespace {
 	/**
@@ -44,31 +45,6 @@ AkaiApcMini::AkaiApcMini(QWidget *parent) noexcept
 		auto item = gridLayout->itemAtPosition(pos.first, pos.second);
 		auto button = reinterpret_cast<AkaiApcButton *>(item->widget());
 		button->setText(QString::number(i));
-
-		connect(button,
-				&AkaiApcButton::clicked,
-				[idx = i, button]() {
-					auto &midiIn = Wor::TemplateWrapper::Singleton<Wor::Midi::MidiKeyboard>::get();
-					static int color = 1;
-					switch (color) {
-						case 0:
-							color = 1;
-							button->setStyleSheet("background-color: rgb(0, 200, 0);");
-							break;
-						case 1:
-							color = 3;
-							button->setStyleSheet("background-color: rgb(200, 0, 0);");
-							break;
-						case 3:
-							color = 5;
-							button->setStyleSheet("background-color: rgb(255, 79, 0);");
-							break;
-						case 5:
-							color = 0;
-							button->setStyleSheet("background-color: rgb(100, 100, 100);");
-					}
-
-					midiIn.send(idx, color);
-				});
+		button->midiKeyIdx(i);
 	}
 }

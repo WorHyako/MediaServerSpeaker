@@ -8,7 +8,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	 *
 	 * @author WorHyako
 	 */
-	class AkaiApcMini
+	class ApcMini
 			: public QWidget {
 	public:
 		/**
@@ -16,6 +16,11 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 *
 		 * @param parent
 		 */
-		explicit AkaiApcMini(QWidget *parent = nullptr) noexcept;
+		explicit ApcMini(QWidget *parent = nullptr) noexcept;
+
+#pragma region Accessors/Mutators
+
+#pragma endregion Accessors/Mutators
+
 	};
 }
