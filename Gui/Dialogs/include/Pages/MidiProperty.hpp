@@ -26,9 +26,11 @@ namespace Mss::Gui::Dialogs::Pages {
 
 		QComboBox *_activeColorComboBox;
 
+		QComboBox *_activeColorModeComboBox;
+
 		QComboBox *_defaultColorComboBox;
 
-		QComboBox *_colorModeComboBox;
+		QComboBox *_defaultColorModeComboBox;
 
 		QTextEdit *_idText;
 

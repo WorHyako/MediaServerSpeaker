@@ -28,32 +28,8 @@ ApcMiniButton::ApcMiniButton(const QString &buttonText, QWidget *parent) noexcep
 
 #pragma region Accessors/Mutators
 
-void ApcMiniButton::midiKeyIdx(std::uint8_t midiKeyIdx) noexcept {
-	_midiKeyIdx = midiKeyIdx;
-}
-
-std::uint8_t ApcMiniButton::midiKeyIdx() const noexcept {
-	return _midiKeyIdx;
-}
-
-void ApcMiniButton::activeColor(std::uint8_t color) noexcept {
-	_activeColor = color;
-}
-
-std::uint8_t ApcMiniButton::activeColor() const noexcept {
-	return _activeColor;
-}
-
-void ApcMiniButton::defaultColor(std::uint8_t color) noexcept {
-	_defaultColor = color;
-}
-
-std::uint8_t ApcMiniButton::defaultColor() const noexcept {
-	return _defaultColor;
-}
-
 std::string ApcMiniButton::colorRgbStr() const noexcept {
-	switch (static_cast<ApcMiniColor>(_isActive ? _activeColor : _defaultColor)) {
+	switch (static_cast<ApcMiniColor>(_isActive ? _activeColor.first : _defaultColor.first)) {
 		case ApcMiniColor::Red:
 			return ::redRgb;
 		case ApcMiniColor::Green:
@@ -63,14 +39,6 @@ std::string ApcMiniButton::colorRgbStr() const noexcept {
 		default:
 			return ::noneRgb;
 	}
-}
-
-std::uint8_t ApcMiniButton::colorMode() const noexcept {
-	return _colorMode;
-}
-
-void ApcMiniButton::colorMode(std::uint8_t colorMode) noexcept {
-	_colorMode = colorMode;
 }
 
 #pragma endregion Accessors/Mutators
@@ -84,8 +52,8 @@ void ApcMiniButton::mousePressEvent(QMouseEvent *e) noexcept {
 	}
 	CallbackInfo::ApcMiniOutCallbackInfo callbackInfo(
 			_midiKeyIdx,
-			static_cast<ApcMiniColor>(_isActive ? _activeColor : _defaultColor),
-			static_cast<ApcMiniColorMode>(_colorMode));
+			static_cast<ApcMiniColor>(_isActive ? _activeColor.first : _defaultColor.first),
+			static_cast<ApcMiniColorMode>(_isActive ? _activeColor.second : _defaultColor.second));
 	midiIn.send(callbackInfo);
 
 	_isActive = !_isActive;

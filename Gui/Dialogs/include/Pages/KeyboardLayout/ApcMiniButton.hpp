@@ -32,66 +32,6 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		/**
 		 * @brief
 		 *
-		 * @param midiKeyIdx
-		 */
-		void midiKeyIdx(std::uint8_t midiKeyIdx) noexcept override;
-
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		std::uint8_t midiKeyIdx() const noexcept override;
-
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		std::uint8_t activeColor() const noexcept override;
-
-		/**
-		 * @brief
-		 *
-		 * @param color
-		 */
-		void activeColor(std::uint8_t color) noexcept override;
-
-		/**
-		 * @brief
-		 *
-		 * @param color
-		 */
-		void defaultColor(std::uint8_t color) noexcept override;
-
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		std::uint8_t defaultColor() const noexcept override;
-
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		std::uint8_t colorMode() const noexcept override;
-
-		/**
-		 * @brief
-		 *
-		 * @param colorMode
-		 */
-		void colorMode(std::uint8_t colorMode) noexcept override;
-
-		/**
-		 * @brief
-		 *
 		 * @return
 		 */
 		[[nodiscard]]

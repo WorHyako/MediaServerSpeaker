@@ -4,6 +4,11 @@
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 
+	/**
+	 * @brief
+	 *
+	 * @author WorHyako
+	 */
 	class BaseMidiLayout
 			: public QWidget {
 		Q_OBJECT

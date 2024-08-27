@@ -11,6 +11,8 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	class BaseMidiButton
 			: public QPushButton {
 	public:
+		using ColorValue = std::pair<std::uint8_t, std::uint8_t>;
+
 		/**
 		 * @brief
 		 *
@@ -28,11 +30,9 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	protected:
 		std::uint8_t _midiKeyIdx;
 
-		std::uint8_t _activeColor;
+		ColorValue _activeColor;
 
-		std::uint8_t _defaultColor;
-
-		std::uint8_t _colorMode;
+		ColorValue _defaultColor;
 
 		bool _isActive;
 
@@ -44,28 +44,21 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 *
 		 * @param midiKeyIdx
 		 */
-		virtual void midiKeyIdx(std::uint8_t midiKeyIdx) noexcept = 0;
+		virtual void midiKeyIdx(std::uint8_t midiKeyIdx) noexcept;
 
 		/**
 		 * @brief
 		 *
 		 * @param color
 		 */
-		virtual void activeColor(std::uint8_t color) noexcept = 0;
+		virtual void activeColor(ColorValue color) noexcept;
 
 		/**
 		 * @brief
 		 *
 		 * @param color
 		 */
-		virtual void defaultColor(std::uint8_t color) noexcept = 0;
-
-		/**
-		 * @brief
-		 *
-		 * @param colorMode
-		 */
-		virtual void colorMode(std::uint8_t colorMode) noexcept = 0;
+		virtual void defaultColor(ColorValue color) noexcept;
 
 		/**
 		 * @brief
@@ -81,7 +74,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 * @return
 		 */
 		[[nodiscard]]
-		virtual std::uint8_t colorMode() const noexcept = 0;
+		virtual ColorValue activeColor() const noexcept;
 
 		/**
 		 * @brief
@@ -89,7 +82,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 * @return
 		 */
 		[[nodiscard]]
-		virtual std::uint8_t activeColor() const noexcept = 0;
+		virtual ColorValue defaultColor() const noexcept;
 
 		/**
 		 * @brief
@@ -97,15 +90,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 * @return
 		 */
 		[[nodiscard]]
-		virtual std::uint8_t defaultColor() const noexcept = 0;
-
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		virtual std::uint8_t midiKeyIdx() const noexcept = 0;
+		virtual std::uint8_t midiKeyIdx() const noexcept;
 
 #pragma endregion Accessors/Mutators
 
