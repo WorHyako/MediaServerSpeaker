@@ -23,7 +23,7 @@ namespace {
 }
 
 ApcMiniButton::ApcMiniButton(const QString &buttonText, QWidget *parent) noexcept
-	: IMidiButton(buttonText, parent) {
+	: BaseMidiButton(buttonText, parent) {
 }
 
 #pragma region Accessors/Mutators

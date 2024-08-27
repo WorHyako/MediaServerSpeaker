@@ -1,8 +1,8 @@
-#include "Pages/KeyboardLayout/IMidiButton.hpp"
+#include "Pages/KeyboardLayout/BaseMidiButton.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages::KeyboardLayout;
 
-IMidiButton::IMidiButton(const QString &buttonText, QWidget *parent) noexcept
+BaseMidiButton::BaseMidiButton(const QString &buttonText, QWidget *parent) noexcept
 	: QPushButton(buttonText, parent),
 	  _activeColor(-1),
 	  _defaultColor(-1),

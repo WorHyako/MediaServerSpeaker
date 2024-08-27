@@ -59,7 +59,7 @@ MidiSettingsPage::MidiSettingsPage(QWidget *parent) noexcept
 					}
 
 					connect(_keyboardLayoutWidget,
-							&KeyboardLayout::ApcMini::midiKeyPressed,
+							&KeyboardLayout::BaseMidiLayout::midiKeyPressed,
 							[](std::uint8_t idx) {
 								std::printf("FUCK: %i\n", idx);
 							});

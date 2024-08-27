@@ -8,7 +8,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	 *
 	 * @author WorHyako
 	 */
-	class IMidiButton
+	class BaseMidiButton
 			: public QPushButton {
 	public:
 		/**
@@ -18,12 +18,12 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 *
 		 * @param parent
 		 */
-		explicit IMidiButton(const QString &buttonText = "", QWidget *parent = nullptr) noexcept;
+		explicit BaseMidiButton(const QString &buttonText = "", QWidget *parent = nullptr) noexcept;
 
 		/**
 		 * @brief Dtor.
 		 */
-		~IMidiButton() noexcept override = default;
+		~BaseMidiButton() noexcept override = default;
 
 	protected:
 		std::uint8_t _midiKeyIdx;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IMidiButton.hpp"
+#include "BaseMidiButton.hpp"
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 
@@ -10,7 +10,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	 * @author WorHyako
 	 */
 	class ApcMiniButton
-			: public IMidiButton {
+			: public BaseMidiButton {
 	public:
 		/**
 		 * @brief Ctor.

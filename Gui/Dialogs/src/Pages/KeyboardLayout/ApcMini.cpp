@@ -4,7 +4,6 @@
 
 #include "Pages/KeyboardLayout/ApcMiniButton.hpp"
 
-#include "TemplateWrapper/Singleton.hpp"
 #include "Midi/MidiKeyboard.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages::KeyboardLayout;
@@ -26,7 +25,7 @@ namespace {
 }
 
 ApcMini::ApcMini(QWidget *parent) noexcept
-	: QWidget(parent) {
+	: BaseMidiLayout(parent) {
 	auto gridLayout = new QGridLayout;
 	QWidget::setLayout(gridLayout);
 

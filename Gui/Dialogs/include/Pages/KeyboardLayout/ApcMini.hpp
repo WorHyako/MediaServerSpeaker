@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QWidget>
+#include "Pages/KeyboardLayout/BaseMidiLayout.hpp"
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	/**
@@ -9,9 +9,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	 * @author WorHyako
 	 */
 	class ApcMini
-			: public QWidget {
-		Q_OBJECT
-
+			: public BaseMidiLayout {
 	public:
 		/**
 		 * @brief Ctor.
@@ -20,15 +18,9 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 */
 		explicit ApcMini(QWidget *parent = nullptr) noexcept;
 
-#pragma region Accessors/Mutators
-
-#pragma endregion Accessors/Mutators
-
-#pragma region Callbacks
-
-	signals:
-		void midiKeyPressed(std::uint8_t midiKeyIdx);
-
-#pragma endregion Callbacks
+		/**
+		 * @brief Dtor.
+		 */
+		~ApcMini() noexcept override = default;
 	};
 }
