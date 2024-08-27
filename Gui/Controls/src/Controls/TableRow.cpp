@@ -16,23 +16,23 @@ TableRow::TableRow(const QPair<QString, QString> &keyValue, QWidget *parent)
 	auto valueText = new QTextEdit(keyValue.second.isEmpty() ? tr("value") : keyValue.second);
 	layout->addWidget(valueText);
 
-	connect(keyText,
-			&QTextEdit::textChanged,
-			[keyText, valueText, this]() {
-				auto key = keyText->toPlainText();
-				auto value = valueText->toPlainText();
+	std::ignore = connect(keyText,
+						  &QTextEdit::textChanged,
+						  [keyText, valueText, this]() {
+							  auto key = keyText->toPlainText();
+							  auto value = valueText->toPlainText();
 
-				emit keyValueChanged({key, value}, this);
-			});
+							  emit keyValueChanged({key, value}, this);
+						  });
 
-	connect(valueText,
-			&QTextEdit::textChanged,
-			[keyText, valueText, this]() {
-				auto key = keyText->toPlainText();
-				auto value = valueText->toPlainText();
+	std::ignore = connect(valueText,
+						  &QTextEdit::textChanged,
+						  [keyText, valueText, this]() {
+							  auto key = keyText->toPlainText();
+							  auto value = valueText->toPlainText();
 
-				emit keyValueChanged({key, value}, this);
-			});
+							  emit keyValueChanged({key, value}, this);
+						  });
 }
 
 #pragma region Accessors/Mutators

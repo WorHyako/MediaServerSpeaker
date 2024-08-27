@@ -7,19 +7,19 @@ using namespace Mss::Gui::Controls;
 using namespace Mss::Gui;
 
 ManagementButton::ManagementButton(QWidget *parent) noexcept
-        : IMovableControl(parent),
-          _button(nullptr) {
-    QWidget::resize(200, 200);
+	: IMovableControl(parent),
+	  _button(nullptr) {
+	QWidget::resize(200, 200);
 
 	_button = new QPushButton("Event name", this);
 	_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-	connect(_button,
-			&QPushButton::pressed,
-			[this]() {
-				std::ignore = Components::CommandComponent::command()->execute(
-						Components::CommandComponent::sessionName());
-			});
+	std::ignore = connect(_button,
+						  &QPushButton::pressed,
+						  [this]() {
+							  std::ignore = Components::CommandComponent::command()->execute(
+									  Components::CommandComponent::sessionName());
+						  });
 
 	auto layout = new QVBoxLayout;
 	QWidget::setLayout(layout);

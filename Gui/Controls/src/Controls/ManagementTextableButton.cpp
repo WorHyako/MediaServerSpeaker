@@ -7,22 +7,22 @@
 using namespace Mss::Gui::Controls;
 
 ManagementTextableButton::ManagementTextableButton(QWidget *parent) noexcept
-        : IMovableControl(parent),
-          _textEdit(nullptr),
-          _button(nullptr) {
-    QWidget::resize(200, 200);
+	: IMovableControl(parent),
+	  _textEdit(nullptr),
+	  _button(nullptr) {
+	QWidget::resize(200, 200);
 
 	auto layout = new QVBoxLayout;
 	layout->setSpacing(8);
 	QWidget::setLayout(layout);
 
 	_button = new QPushButton("Event name");
-	connect(_button,
-			&QPushButton::pressed,
-			[this]() {
-				std::ignore = Components::CommandComponent::command()->execute(
-						Components::CommandComponent::sessionName());
-			});
+	std::ignore = connect(_button,
+						  &QPushButton::pressed,
+						  [this]() {
+							  std::ignore = Components::CommandComponent::command()->execute(
+									  Components::CommandComponent::sessionName());
+						  });
 	_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	layout->addWidget(_button);
 	std::ignore = layout->setStretchFactor(_button, 5);

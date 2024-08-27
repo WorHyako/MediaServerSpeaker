@@ -64,10 +64,10 @@ MidiProperty::MidiProperty(QWidget *parent) noexcept
 #pragma region Accessors/Mutators
 
 void MidiProperty::targetButton(KeyboardLayout::ApcMiniButton *button) noexcept {
-	auto colors = Wor::Midi::CallbackInfo::ApcMini::availableColors();
-
 	_button = button;
 	_idText->setText(QString::number(_button->midiKeyIdx()));
+
+	auto colors = Wor::Midi::CallbackInfo::ApcMini::availableColors();
 	_activeColorComboBox->clear();
 	_activeColorComboBox->disconnect();
 	connect(_activeColorComboBox,

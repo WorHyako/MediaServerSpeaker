@@ -38,10 +38,10 @@ namespace {
 }
 
 QuickButtonScope::QuickButtonScope(QWidget *parent) noexcept
-        : IScope(parent),
-          _buttonsCount(0) {
-    _controlsType = ControlType::QuickButton;
-    QWidget::move(1, 1);
+	: IScope(parent),
+	  _buttonsCount(0) {
+	_controlsType = ControlType::QuickButton;
+	QWidget::move(1, 1);
 
 	auto layout = new QGridLayout;
 	QWidget::setLayout(layout);
@@ -65,13 +65,13 @@ void QuickButtonScope::addControl(QWidget *control) noexcept {
 	nextCell = layout->replaceWidget(nextCell, control, Qt::FindChildOption::FindDirectChildrenOnly)->widget();
 	nextCell->deleteLater();
 
-	connect(control,
-			&QWidget::destroyed,
-			[this](QObject *t) {
-				removeControl(dynamic_cast<QWidget *>(t));
-			});
+	std::ignore = connect(control,
+						  &QWidget::destroyed,
+						  [this](QObject *t) {
+							  removeControl(dynamic_cast<QWidget *>(t));
+						  });
 
-    _buttonsCount++;
+	_buttonsCount++;
 }
 
 void QuickButtonScope::removeControl(QWidget *control) noexcept {
@@ -158,7 +158,7 @@ void QuickButtonScope::editModeChange(bool toggled) {
 }
 
 void QuickButtonScope::mousePressEvent(QMouseEvent *e) noexcept {
-    IScope::mousePressEvent(e);
+	IScope::mousePressEvent(e);
 }
 
 #pragma endregion Callbacks

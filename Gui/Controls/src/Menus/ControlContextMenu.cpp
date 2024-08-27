@@ -8,8 +8,8 @@ using namespace Mss::Gui::Controls::Menus;
 
 ControlContextMenu::ControlContextMenu(QWidget *parent) noexcept
 	: QMenu(parent) {
-	connect(this, SIGNAL(aboutToShow()), this, SLOT(configure()));
-	connect(this, SIGNAL(aboutToHide()), this, SLOT(reset()));
+	std::ignore = connect(this, SIGNAL(aboutToShow()), this, SLOT(configure()));
+	std::ignore = connect(this, SIGNAL(aboutToHide()), this, SLOT(reset()));
 }
 
 void ControlContextMenu::configure() {
@@ -18,13 +18,13 @@ void ControlContextMenu::configure() {
 		return;
 	}
 	auto propertyDialog = Controls::ControlCreator<Dialogs::ControlProperty>::create(parent);
-	connect(propertyDialog.get(), SIGNAL(finished(int)), propertyDialog.get(), SLOT(deleteLater()));
+	std::ignore = connect(propertyDialog.get(), SIGNAL(finished(int)), propertyDialog.get(), SLOT(deleteLater()));
 
 	auto propertyAction = new QAction("Property");
-	connect(propertyAction, SIGNAL(triggered(bool)), propertyDialog.get(), SLOT(show()));
+	std::ignore = connect(propertyAction, SIGNAL(triggered(bool)), propertyDialog.get(), SLOT(show()));
 
 	auto deleteAction = new QAction("Delete");
-	connect(deleteAction, SIGNAL(triggered(bool)), parent, SLOT(deleteLater()));
+	std::ignore = connect(deleteAction, SIGNAL(triggered(bool)), parent, SLOT(deleteLater()));
 
 	QMenu::addActions({propertyAction, deleteAction});
 

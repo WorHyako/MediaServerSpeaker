@@ -19,21 +19,21 @@ TabPage::TabPage(QWidget *parent) noexcept
 	 * QuickTitles Scope
 	 */
 	auto quickTitlesScope = new Scopes::QuickTitlesScope(this);
-	connect(this, SIGNAL(editModeChanged(bool)), quickTitlesScope, SLOT(editModeChange(bool)));
+	std::ignore = connect(this, SIGNAL(editModeChanged(bool)), quickTitlesScope, SLOT(editModeChange(bool)));
 	layout->addWidget(quickTitlesScope, 0, 0, 6, 1);
 
 	/**
 	 * QuickButtons Scope
 	 */
 	auto quickButtonScope = new Scopes::QuickButtonScope(this);
-	connect(this, SIGNAL(editModeChanged(bool)), quickButtonScope, SLOT(editModeChange(bool)));
+	std::ignore = connect(this, SIGNAL(editModeChanged(bool)), quickButtonScope, SLOT(editModeChange(bool)));
 	layout->addWidget(quickButtonScope, 6, 0, 4, 1);
 
 	/**
 	 * Management scope
 	 */
 	auto managementScope = new ManagementScope(this);
-	connect(this, SIGNAL(editModeChanged(bool)), managementScope, SLOT(editModeChange(bool)));
+	std::ignore = connect(this, SIGNAL(editModeChanged(bool)), managementScope, SLOT(editModeChange(bool)));
 	layout->addWidget(managementScope, 0, 1, 10, 2);
 }
 

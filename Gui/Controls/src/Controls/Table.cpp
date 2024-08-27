@@ -8,10 +8,10 @@
 using namespace Mss::Gui::Controls;
 
 Table::Table(QWidget *parent) noexcept
-        : IMovableControl(parent),
-          _button(nullptr),
-          _rowsLayout(nullptr) {
-    QWidget::resize(200, 300);
+	: IMovableControl(parent),
+	  _button(nullptr),
+	  _rowsLayout(nullptr) {
+	QWidget::resize(200, 300);
 
 	auto layout = new QVBoxLayout;
 	QWidget::setLayout(layout);
@@ -24,37 +24,37 @@ Table::Table(QWidget *parent) noexcept
 	auto buttonLayout = new QHBoxLayout;
 
 	auto addButton = new QPushButton("Add");
-	connect(addButton,
-			&QPushButton::clicked,
-			[this]() {
-				addRow();
-			});
+	std::ignore = connect(addButton,
+						  &QPushButton::clicked,
+						  [this]() {
+							  addRow();
+						  });
 	buttonLayout->addWidget(addButton);
 
 	auto removeButton = new QPushButton("Remove");
-	connect(removeButton,
-			&QPushButton::clicked,
-			[this]() {
-				removeRow();
-			});
+	std::ignore = connect(removeButton,
+						  &QPushButton::clicked,
+						  [this]() {
+							  removeRow();
+						  });
 	buttonLayout->addWidget(removeButton);
 
 	layout->addLayout(buttonLayout);
 
 	_button = new QPushButton("Table");
-	connect(_button,
-			&QPushButton::pressed,
-			[this]() {
-				std::ignore = Components::CommandComponent::command()->execute(
-						Components::CommandComponent::sessionName());
-			});
+	std::ignore = connect(_button,
+						  &QPushButton::pressed,
+						  [this]() {
+							  std::ignore = Components::CommandComponent::command()->execute(
+									  Components::CommandComponent::sessionName());
+						  });
 	layout->addWidget(_button);
 	layout->itemAt(2)->setAlignment(Qt::AlignmentFlag::AlignCenter);
 }
 
 void Table::addRow(const QPair<QString, QString> &pair) noexcept {
 	auto row = new TableRow(pair);
-	connect(row, &TableRow::keyValueChanged, this, &Table::keyValueChange);
+	std::ignore = connect(row, &TableRow::keyValueChanged, this, &Table::keyValueChange);
 
 	_rowsLayout->addWidget(row);
 
