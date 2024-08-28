@@ -3,6 +3,11 @@
 #include <QWidget>
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
+	class BaseMidiButton;
+}
+
+namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
+	class BaseMidiButton;
 
 	/**
 	 * @brief
@@ -34,7 +39,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 *
 		 * @param midiKeyIdx
 		 */
-		void midiKeyPressed(std::uint8_t midiKeyIdx);
+		void midiKeyPressed(BaseMidiButton* midiKeyIdx);
 
 #pragma endregion Callbacks
 	};

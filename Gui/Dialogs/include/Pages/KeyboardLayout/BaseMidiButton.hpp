@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QPushButton>
+#include <Midi/CallbackInfo/MidiInfo.hpp>
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	/**
@@ -10,9 +11,8 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	 */
 	class BaseMidiButton
 			: public QPushButton {
+		using MidiLed = Wor::Midi::CallbackInfo::MidiLed;
 	public:
-		using ColorValue = std::pair<std::uint8_t, std::uint8_t>;
-
 		/**
 		 * @brief
 		 *
@@ -30,9 +30,9 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	protected:
 		std::uint8_t _midiKeyIdx;
 
-		ColorValue _activeColor;
+		MidiLed _activeColor;
 
-		ColorValue _defaultColor;
+		MidiLed _defaultColor;
 
 		bool _isActive;
 
@@ -51,14 +51,14 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 *
 		 * @param color
 		 */
-		virtual void activeColor(ColorValue color) noexcept;
+		virtual void activeColor(MidiLed color) noexcept;
 
 		/**
 		 * @brief
 		 *
 		 * @param color
 		 */
-		virtual void defaultColor(ColorValue color) noexcept;
+		virtual void defaultColor(MidiLed color) noexcept;
 
 		/**
 		 * @brief
@@ -66,7 +66,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 * @return
 		 */
 		[[nodiscard]]
-		virtual std::string colorRgbStr() const noexcept = 0;
+		virtual MidiLed activeColor() const noexcept;
 
 		/**
 		 * @brief
@@ -74,15 +74,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 * @return
 		 */
 		[[nodiscard]]
-		virtual ColorValue activeColor() const noexcept;
-
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		virtual ColorValue defaultColor() const noexcept;
+		virtual MidiLed defaultColor() const noexcept;
 
 		/**
 		 * @brief

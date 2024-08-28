@@ -46,8 +46,8 @@ ApcMini::ApcMini(QWidget *parent) noexcept
 		button->setText(QString::number(i));
 		connect(button,
 				&ApcMiniButton::clicked,
-				[this, idx = button->midiKeyIdx()]() {
-					emit midiKeyPressed(idx);
+				[this, button]() {
+					emit midiKeyPressed(button);
 				});
 		button->midiKeyIdx(i);
 	}

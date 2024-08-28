@@ -26,19 +26,6 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 */
 		~ApcMiniButton() noexcept override = default;
 
-#pragma region Accessors/Mutators
-
-	public:
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		std::string colorRgbStr() const noexcept override;
-
-#pragma endregion Accessors/Mutators
-
 #pragma region Callbacks
 
 		/**

@@ -4,9 +4,7 @@ using namespace Mss::Gui::Dialogs::Pages::KeyboardLayout;
 
 BaseMidiButton::BaseMidiButton(const QString &buttonText, QWidget *parent) noexcept
 	: QPushButton(buttonText, parent),
-	  _activeColor({-1, -1}),
-	  _defaultColor({-1, -1}),
-	  _midiKeyIdx(-1),
+	  _midiKeyIdx(0),
 	  _isActive(false) {
 	QPushButton::setAutoFillBackground(true);
 	QPushButton::setStyleSheet("background-color: rgb(100, 100, 100);");
@@ -22,19 +20,19 @@ std::uint8_t BaseMidiButton::midiKeyIdx() const noexcept {
 	return _midiKeyIdx;
 }
 
-void BaseMidiButton::activeColor(ColorValue color) noexcept {
+void BaseMidiButton::activeColor(MidiLed color) noexcept {
 	_activeColor = color;
 }
 
-BaseMidiButton::ColorValue BaseMidiButton::activeColor() const noexcept {
+BaseMidiButton::MidiLed BaseMidiButton::activeColor() const noexcept {
 	return _activeColor;
 }
 
-void BaseMidiButton::defaultColor(ColorValue color) noexcept {
+void BaseMidiButton::defaultColor(MidiLed color) noexcept {
 	_defaultColor = color;
 }
 
-BaseMidiButton::ColorValue BaseMidiButton::defaultColor() const noexcept {
+BaseMidiButton::MidiLed BaseMidiButton::defaultColor() const noexcept {
 	return _defaultColor;
 }
 

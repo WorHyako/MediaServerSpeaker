@@ -22,15 +22,11 @@ namespace Mss::Gui::Dialogs::Pages {
 		explicit MidiProperty(QWidget *parent = nullptr) noexcept;
 
 	private:
-		KeyboardLayout::ApcMiniButton *_button;
+		KeyboardLayout::BaseMidiButton *_button;
 
 		QComboBox *_activeColorComboBox;
 
-		QComboBox *_activeColorModeComboBox;
-
 		QComboBox *_defaultColorComboBox;
-
-		QComboBox *_defaultColorModeComboBox;
 
 		QTextEdit *_idText;
 
@@ -42,7 +38,7 @@ namespace Mss::Gui::Dialogs::Pages {
 		 *
 		 * @param button
 		 */
-		void targetButton(KeyboardLayout::ApcMiniButton *button) noexcept;
+		void targetButton(KeyboardLayout::BaseMidiButton *button) noexcept;
 
 		/**
 		 * @brief
@@ -50,7 +46,7 @@ namespace Mss::Gui::Dialogs::Pages {
 		 * @return
 		 */
 		[[nodiscard]]
-		KeyboardLayout::ApcMiniButton *targetButton() const noexcept;
+		KeyboardLayout::BaseMidiButton *targetButton() const noexcept;
 
 #pragma endregion Accessors/Mutators
 	};

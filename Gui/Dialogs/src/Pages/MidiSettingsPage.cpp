@@ -59,10 +59,12 @@ MidiSettingsPage::MidiSettingsPage(QWidget *parent) noexcept
 					}
 
 					std::ignore = connect(_keyboardLayoutWidget,
-							&KeyboardLayout::BaseMidiLayout::midiKeyPressed,
-							[](std::uint8_t idx) {
-								std::printf("FUCK: %i\n", idx);
-							});
+										  &KeyboardLayout::BaseMidiLayout::midiKeyPressed,
+										  [this](KeyboardLayout::BaseMidiButton* button) {
+											  if (_editMode) {
+												  _propertyWidget->targetButton(button);
+											  }
+										  });
 				});
 		selectLayout->addWidget(showKeyboardLayout);
 		keyboardLayout->addLayout(selectLayout);
