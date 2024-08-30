@@ -4,12 +4,15 @@
 #include <QCheckBox>
 #include <QLabel>
 #include <QMouseEvent>
+#include <TemplateWrapper/Singleton.hpp>
 
+#include "Midi/MidiRoad.hpp"
 #include "Config/Config.hpp"
 #include "Pages/KeyboardLayout/ApcMini.hpp"
 #include "Pages/MidiProperty.hpp"
 
 #include "Midi/MidiDeviceList.hpp"
+#include "Midi/MidiRoadMap.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages;
 
@@ -54,6 +57,9 @@ MidiSettingsPage::MidiSettingsPage(QWidget *parent) noexcept
 								   * TODO: Implement enum casting
 								   */
 								  if (deviceName == "APC MINI") {
+									  auto &roadMap = Wor::TemplateWrapper::Singleton<
+										  Mss::Backend::Midi::MidiRoadMap>::get();
+									  roadMap.buttonIdIdx(1);
 									  _keyboardLayoutWidget = new KeyboardLayout::ApcMini;
 									  keyboardLayout->addWidget(_keyboardLayoutWidget);
 								  }
@@ -107,14 +113,25 @@ MidiSettingsPage::MidiSettingsPage(QWidget *parent) noexcept
 }
 
 void MidiSettingsPage::save() const noexcept {
-	if(!_keyboardLayoutWidget) {
+	if (!_keyboardLayoutWidget) {
 		return;
 	}
 
-	auto t = _keyboardLayoutWidget->children();
+	auto midiButtons = _keyboardLayoutWidget->midiButtons();
+	auto &roadMap = Wor::TemplateWrapper::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
+	std::ranges::for_each(midiButtons,
+						  [&roadMap](auto &button) {
+							  Backend::Midi::MidiRoad road(button->midiKeyIdx());
+							  road.activeLed(button->activeColor());
+							  road.defaultLed(button->defaultColor());
+							  roadMap.addRoad(button->midiKeyIdx(), road);
+						  });
+	roadMap.save();
 }
 
 void MidiSettingsPage::load() noexcept {
+	auto &roadMap = Wor::TemplateWrapper::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
+	roadMap.load();
 }
 
 #pragma region Callbacks

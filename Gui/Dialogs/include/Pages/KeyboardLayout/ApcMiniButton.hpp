@@ -25,16 +25,5 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 * @brief Dtor.
 		 */
 		~ApcMiniButton() noexcept override = default;
-
-#pragma region Callbacks
-
-		/**
-		 * @brief
-		 *
-		 * @param e
-		 */
-		void mousePressEvent(QMouseEvent *e) noexcept override;
-
-#pragma endregion Callbacks
 	};
 }

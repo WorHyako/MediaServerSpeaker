@@ -27,26 +27,41 @@ namespace Mss::Backend::Midi {
 
 		bool _isActive;
 
-		Wor::Midi::CallbackInfo::ApcMini::ApcMiniLed _activeLed;
+		Wor::Midi::CallbackInfo::MidiLed _activeLed;
 
-		Wor::Midi::CallbackInfo::ApcMini::ApcMiniLed _defaultLed;
+		Wor::Midi::CallbackInfo::MidiLed _defaultLed;
 
 	public:
 #pragma region Accessors/Mutators
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		Wor::Midi::CallbackInfo::MidiLed activeLed() const noexcept;
+
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		Wor::Midi::CallbackInfo::MidiLed defaultLed() const noexcept;
 
 		/**
 		 * @brief
 		 *
 		 * @param led
 		 */
-		void activeLed(Wor::Midi::CallbackInfo::ApcMini::ApcMiniLed led) noexcept;
+		void activeLed(const Wor::Midi::CallbackInfo::MidiLed& led) noexcept;
 
 		/**
 		 * @brief
 		 *
 		 * @param led
 		 */
-		void defaultLed(Wor::Midi::CallbackInfo::ApcMini::ApcMiniLed led) noexcept;
+		void defaultLed(const Wor::Midi::CallbackInfo::MidiLed& led) noexcept;
 
 #pragma endregion Accessors/Mutators
 	};

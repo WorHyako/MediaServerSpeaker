@@ -18,7 +18,7 @@ namespace Mss::Backend::Midi {
 		/**
 		 * @brief Ctor.
 		 */
-		MidiRoadMap() noexcept = default;
+		MidiRoadMap() noexcept;
 
 		/**
 		 * @brief Dtor.
@@ -77,9 +77,18 @@ namespace Mss::Backend::Midi {
 
 		std::unordered_map<std::uint8_t, MidiRoad> _midiRoad;
 
-#pragma region Accessors/Mutators
+		std::uint8_t _buttonIdIdx;
 
 	public:
+#pragma region Accessors/Mutators
+
+		/**
+		 * @brief
+		 *
+		 * @param idx
+		 */
+		void buttonIdIdx(std::uint8_t idx) noexcept;
+
 #pragma endregion Accessors/Mutators
 	};
 }

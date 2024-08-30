@@ -40,15 +40,15 @@ ApcMini::ApcMini(QWidget *parent) noexcept
 
 	for (int i = 0; i < 64; i++) {
 		auto pos = ::positionAtIdx(i);
-
 		auto item = gridLayout->itemAtPosition(pos.first, pos.second);
 		auto button = reinterpret_cast<ApcMiniButton *>(item->widget());
+		_midiButtons.emplace_back(button);
 		button->setText(QString::number(i));
-		connect(button,
-				&ApcMiniButton::clicked,
-				[this, button]() {
-					emit midiKeyPressed(button);
-				});
 		button->midiKeyIdx(i);
+		std::ignore = connect(button,
+							  &ApcMiniButton::clicked,
+							  [this, button]() {
+								  emit midiKeyPressed(button);
+							  });
 	}
 }

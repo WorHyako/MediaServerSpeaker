@@ -7,7 +7,6 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 }
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
-	class BaseMidiButton;
 
 	/**
 	 * @brief
@@ -31,6 +30,22 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 */
 		~BaseMidiLayout() noexcept override = default;
 
+	protected:
+		std::vector<BaseMidiButton *> _midiButtons;
+
+	public:
+#pragma region Accessors/Mutators
+
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		const std::vector<BaseMidiButton *> &midiButtons() const noexcept;
+
+#pragma endregion Accessors/Mutators
+
 #pragma region Callbacks
 
 	signals:
@@ -39,7 +54,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 *
 		 * @param midiKeyIdx
 		 */
-		void midiKeyPressed(Mss::Gui::Dialogs::Pages::KeyboardLayout::BaseMidiButton* midiKeyIdx);
+		void midiKeyPressed(Mss::Gui::Dialogs::Pages::KeyboardLayout::BaseMidiButton *midiKeyIdx);
 
 #pragma endregion Callbacks
 	};
