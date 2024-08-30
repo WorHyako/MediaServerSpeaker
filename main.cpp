@@ -2,6 +2,8 @@
 
 #include <QApplication>
 
+#include "Command/BaseCommand.hpp"
+#include "Midi/MidiRoadMap.hpp"
 #include "Style/WorStyle.hpp"
 
 #include "TemplateWrapper/Singleton.hpp"
@@ -23,13 +25,13 @@ int main(int argc, char **argv) {
 	auto address = boost::asio::ip::address(boost::asio::ip::make_address_v4("127.0.0.1"));
 	localEndPoint.address(address);
 
-	auto &ser = TemplateWrapper::Singleton<Network::TcpServer>::get();
+	auto &server = TemplateWrapper::Singleton<Network::TcpServer>::get();
 
-	if (!ser.bindTo(localEndPoint)) {
-		ser.stop();
+	if (!server.bindTo(localEndPoint)) {
+		server.stop();
 		return 9;
 	}
-	if (ser.start(); !ser.isRunning()) {
+	if (server.start(); !server.isRunning()) {
 		return 9;
 	}
 	Network::Utils::IoService::run();
@@ -39,6 +41,18 @@ int main(int argc, char **argv) {
 	 */
 	auto &midi = TemplateWrapper::Singleton<Midi::MidiKeyboard>::get();
 	midi.open();
+	midi.inCallback([](const Midi::CallbackInfo::BaseCallbackInfo &callbackInfo) {
+		auto &server = TemplateWrapper::Singleton<Network::TcpServer>::get();
+		if (!server.isRunning()) {
+			return;
+		}
+		server.sendToAll("Hello");
+	});
+
+	auto &commandRetransmitter = TemplateWrapper::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
+	midi.inCallback([&commandRetransmitter](Midi::CallbackInfo::BaseCallbackInfo callbackInfo) {
+		commandRetransmitter.transmit(callbackInfo);
+	});
 
 	auto window = new Dialogs::MainWindow();
 	window->show();

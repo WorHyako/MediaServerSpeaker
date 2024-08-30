@@ -27,6 +27,16 @@ namespace Mss::Gui::Dialogs::Pages {
 		explicit MidiSettingsPage(QWidget *parent = nullptr) noexcept;
 
 	private:
+		/**
+		 * @brief
+		 */
+		void save() const noexcept;
+
+		/**
+		 * @brief
+		 */
+		void load() noexcept;
+
 		KeyboardLayout::BaseMidiLayout *_keyboardLayoutWidget;
 
 		MidiProperty *_propertyWidget;

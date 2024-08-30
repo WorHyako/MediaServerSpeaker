@@ -30,9 +30,9 @@ namespace Mss::Gui::Dialogs::Pages {
 
 		QTextEdit *_idText;
 
+	public:
 #pragma region Accessors/Mutators
 
-	public:
 		/**
 		 * @brief
 		 *

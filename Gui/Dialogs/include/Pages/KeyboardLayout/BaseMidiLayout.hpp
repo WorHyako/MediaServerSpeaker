@@ -39,7 +39,7 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		 *
 		 * @param midiKeyIdx
 		 */
-		void midiKeyPressed(BaseMidiButton* midiKeyIdx);
+		void midiKeyPressed(Mss::Gui::Dialogs::Pages::KeyboardLayout::BaseMidiButton* midiKeyIdx);
 
 #pragma endregion Callbacks
 	};

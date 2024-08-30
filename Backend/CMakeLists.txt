@@ -19,7 +19,8 @@ target_link_libraries(Mss_Backend
         Mss::System
         pugixml::pugixml
         Wor::Network
-        Wor::Template)
+        Wor::Template
+        Wor::Midi)
 
 target_include_directories(Mss_Backend
         PUBLIC include

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QPushButton>
-#include <Midi/CallbackInfo/MidiInfo.hpp>
+#include <Midi/CallbackInfo/MidiLed.hpp>
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 	/**

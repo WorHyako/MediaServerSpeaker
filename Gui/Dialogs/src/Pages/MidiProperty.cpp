@@ -5,7 +5,7 @@
 #include <QLabel>
 #include <QComboBox>
 
-#include "Midi/CallbackInfo/ApcMiniInfo.hpp"
+#include "Midi/CallbackInfo/ApcMiniLed.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages;
 

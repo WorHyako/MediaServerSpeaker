@@ -4,7 +4,7 @@
 
 #include "Midi/MidiKeyboard.hpp"
 #include "TemplateWrapper/Singleton.hpp"
-#include "Midi/CallbackInfo/ApcMiniInfo.hpp"
+#include "Midi/CallbackInfo/ApcMiniLed.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages::KeyboardLayout;
 using namespace Wor::Midi;
@@ -22,8 +22,8 @@ void ApcMiniButton::mousePressEvent(QMouseEvent *e) noexcept {
 	if (!midiIn.isOpen()) {
 		return;
 	}
-	auto *currentLed = reinterpret_cast<CallbackInfo::ApcMini::ApcMiniLed *>(
-		_isActive ? &_activeColor : &_defaultColor);
+	auto *currentLed =
+			reinterpret_cast<CallbackInfo::ApcMini::ApcMiniLed *>(_isActive ? &_activeColor : &_defaultColor);
 	CallbackInfo::ApcMiniOutCallbackInfo callbackInfo(_midiKeyIdx, *currentLed);
 	midiIn.send(callbackInfo);
 

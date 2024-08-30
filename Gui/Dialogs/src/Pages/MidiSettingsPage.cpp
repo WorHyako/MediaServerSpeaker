@@ -37,35 +37,35 @@ MidiSettingsPage::MidiSettingsPage(QWidget *parent) noexcept
 		selectLayout->addWidget(comboBox);
 
 		auto showKeyboardLayout = new QPushButton("Show");
-		connect(showKeyboardLayout,
-				&QPushButton::clicked,
-				[devices, comboBox,keyboardLayout, this]() {
-					auto activeIdx = comboBox->currentIndex();
-					if (activeIdx == -1) {
-						return;
-					}
-					auto deviceName = devices[activeIdx];
+		std::ignore = connect(showKeyboardLayout,
+							  &QPushButton::clicked,
+							  [devices, comboBox,keyboardLayout, this]() {
+								  auto activeIdx = comboBox->currentIndex();
+								  if (activeIdx == -1) {
+									  return;
+								  }
+								  const auto &deviceName = devices[activeIdx];
 
-					if (_keyboardLayoutWidget != nullptr) {
-						layout()->removeWidget(_keyboardLayoutWidget);
-						_keyboardLayoutWidget->deleteLater();
-					}
-					/**
-					 * TODO: Implement enum casting
-					 */
-					if (deviceName == "APC MINI") {
-						_keyboardLayoutWidget = new KeyboardLayout::ApcMini;
-						keyboardLayout->addWidget(_keyboardLayoutWidget);
-					}
+								  if (_keyboardLayoutWidget != nullptr) {
+									  layout()->removeWidget(_keyboardLayoutWidget);
+									  _keyboardLayoutWidget->deleteLater();
+								  }
+								  /**
+								   * TODO: Implement enum casting
+								   */
+								  if (deviceName == "APC MINI") {
+									  _keyboardLayoutWidget = new KeyboardLayout::ApcMini;
+									  keyboardLayout->addWidget(_keyboardLayoutWidget);
+								  }
 
-					std::ignore = connect(_keyboardLayoutWidget,
-										  &KeyboardLayout::BaseMidiLayout::midiKeyPressed,
-										  [this](KeyboardLayout::BaseMidiButton* button) {
-											  if (_editMode) {
-												  _propertyWidget->targetButton(button);
-											  }
-										  });
-				});
+								  std::ignore = connect(_keyboardLayoutWidget,
+														&KeyboardLayout::BaseMidiLayout::midiKeyPressed,
+														[this](KeyboardLayout::BaseMidiButton *button) {
+															if (_editMode) {
+																_propertyWidget->targetButton(button);
+															}
+														});
+							  });
 		selectLayout->addWidget(showKeyboardLayout);
 		keyboardLayout->addLayout(selectLayout);
 	}
@@ -74,16 +74,47 @@ MidiSettingsPage::MidiSettingsPage(QWidget *parent) noexcept
 	_propertyWidget->setVisible(false);
 
 	auto editMode = new QCheckBox("Edit mode");
-	connect(editMode,
-			&QCheckBox::stateChanged,
-			[this](bool state) {
-				_editMode = state;
-				_propertyWidget->setVisible(_editMode);
-			});
+	std::ignore = connect(editMode,
+						  &QCheckBox::stateChanged,
+						  [this](bool state) {
+							  _editMode = state;
+							  _propertyWidget->setVisible(_editMode);
+						  });
 	keyboardLayout->addWidget(editMode);
 	mainLayout->addLayout(keyboardLayout);
 
 	mainLayout->addWidget(_propertyWidget);
+
+	{
+		auto layout = new QHBoxLayout;
+		auto save = new QPushButton("Save");
+		std::ignore = connect(save,
+							  &QPushButton::clicked,
+							  [this]() {
+								  this->save();
+							  });
+		layout->addWidget(save);
+
+		auto load = new QPushButton("Load");
+		std::ignore = connect(load,
+							  &QPushButton::clicked,
+							  [this]() {
+								  this->load();
+							  });
+		layout->addWidget(load);
+		mainLayout->addLayout(layout);
+	}
+}
+
+void MidiSettingsPage::save() const noexcept {
+	if(!_keyboardLayoutWidget) {
+		return;
+	}
+
+	auto t = _keyboardLayoutWidget->children();
+}
+
+void MidiSettingsPage::load() noexcept {
 }
 
 #pragma region Callbacks
