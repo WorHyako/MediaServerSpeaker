@@ -4,15 +4,15 @@
 #include <QCheckBox>
 #include <QLabel>
 #include <QMouseEvent>
-#include <TemplateWrapper/Singleton.hpp>
 
 #include "Midi/MidiRoad.hpp"
 #include "Config/Config.hpp"
 #include "Pages/KeyboardLayout/ApcMini.hpp"
 #include "Pages/MidiProperty.hpp"
 
-#include "Midi/MidiDeviceList.hpp"
+#include "Wor/Midi/MidiDeviceList.hpp"
 #include "Midi/MidiRoadMap.hpp"
+#include "Wor/TemplateWrapper/Singleton.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages;
 
@@ -66,9 +66,9 @@ MidiSettingsPage::MidiSettingsPage(QWidget *parent) noexcept
 
 								  std::ignore = connect(_keyboardLayoutWidget,
 														&KeyboardLayout::BaseMidiLayout::midiKeyPressed,
-														[this](KeyboardLayout::BaseMidiButton *button) {
+														[this](std::uint8_t midiIdx) {
 															if (_editMode) {
-																_propertyWidget->targetButton(button);
+																_propertyWidget->targetMidiIdx(midiIdx);
 															}
 														});
 							  });

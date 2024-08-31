@@ -4,7 +4,7 @@
 
 #include "Pages/KeyboardLayout/ApcMiniButton.hpp"
 
-#include "Midi/MidiKeyboard.hpp"
+#include "Wor/Midi/MidiKeyboard.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages::KeyboardLayout;
 using namespace Wor::Midi;
@@ -47,8 +47,8 @@ ApcMini::ApcMini(QWidget *parent) noexcept
 		button->midiKeyIdx(i);
 		std::ignore = connect(button,
 							  &ApcMiniButton::clicked,
-							  [this, button]() {
-								  emit midiKeyPressed(button);
+							  [this, i]() {
+								  emit midiKeyPressed(i);
 							  });
 	}
 }

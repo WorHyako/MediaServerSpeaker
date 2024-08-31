@@ -97,4 +97,12 @@ void MidiRoadMap::buttonIdIdx(std::uint8_t idx) noexcept {
 	_buttonIdIdx = idx;
 }
 
+MidiRoad MidiRoadMap::midiRoad(std::uint8_t midiIdx) const noexcept {
+	return _midiRoad.at(midiIdx);
+}
+
+ServerRoad MidiRoadMap::serverRoad(std::uint8_t midiIdx) const noexcept {
+	return _serverRoad.at(midiIdx);
+}
+
 #pragma endregion Accessors/Mutators

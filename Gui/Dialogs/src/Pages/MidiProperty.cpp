@@ -5,13 +5,15 @@
 #include <QLabel>
 #include <QComboBox>
 
-#include "Midi/CallbackInfo/ApcMiniLed.hpp"
+#include "Midi/MidiRoadMap.hpp"
+
+#include "Wor/Midi/CallbackInfo/ApcMiniLed.hpp"
+#include "Wor/TemplateWrapper/Singleton.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages;
 
 MidiProperty::MidiProperty(QWidget *parent) noexcept
-	: QWidget(parent),
-	  _button(nullptr) {
+	: QWidget(parent) {
 	auto propertiesLayout = new QVBoxLayout;
 	QWidget::setLayout(propertiesLayout);
 
@@ -47,17 +49,19 @@ MidiProperty::MidiProperty(QWidget *parent) noexcept
 
 #pragma region Accessors/Mutators
 
-void MidiProperty::targetButton(KeyboardLayout::BaseMidiButton *button) noexcept {
-	_button = button;
-	_idText->setText(QString::number(_button->midiKeyIdx()));
+void MidiProperty::targetMidiIdx(std::uint8_t buttonIdx) noexcept {
+	_idText->setText(QString::number(buttonIdx));
 
-	auto colors = Wor::Midi::CallbackInfo::ApcMini::ApcMiniLed::availableLeds();
+	auto &roadMap = Wor::TemplateWrapper::Singleton<Backend::Midi::MidiRoadMap>::get();
+	auto road = roadMap.midiRoad(buttonIdx);
 
 	_activeColorComboBox->clear();
-	_activeColorComboBox->disconnect();
+	std::ignore = _activeColorComboBox->disconnect();
 
 	_defaultColorComboBox->clear();
-	_defaultColorComboBox->disconnect();
+	std::ignore = _defaultColorComboBox->disconnect();
+
+	auto colors = Wor::Midi::CallbackInfo::ApcMini::ApcMiniLed::availableLeds();
 
 	std::ranges::for_each(colors,
 						  [&colorCombobox = _activeColorComboBox](
@@ -65,11 +69,10 @@ void MidiProperty::targetButton(KeyboardLayout::BaseMidiButton *button) noexcept
 							  auto itemText = std::format("{} {}", color.colorName(), color.modeName());
 							  colorCombobox->addItem(itemText.c_str());
 						  });
-	auto currentActiveColorIt = std::find_if(std::begin(colors),
-											 std::end(colors),
-											 [button](const Wor::Midi::CallbackInfo::MidiLed &each) {
-												 return each == button->activeColor();
-											 });
+	auto currentActiveColorIt = std::ranges::find_if(colors,
+													 [road](const Wor::Midi::CallbackInfo::MidiLed &each) {
+														 return each == road.activeLed();
+													 });
 	std::uint8_t activeColorIdx = std::distance(std::begin(colors), currentActiveColorIt);
 	_activeColorComboBox->setCurrentIndex(activeColorIdx);
 
@@ -79,35 +82,32 @@ void MidiProperty::targetButton(KeyboardLayout::BaseMidiButton *button) noexcept
 							  auto itemText = std::format("{} {}", color.colorName(), color.modeName());
 							  colorCombobox->addItem(itemText.c_str());
 						  });
-	auto currentDefaultColorIt = std::find_if(std::begin(colors),
-											  std::end(colors),
-											  [button](const Wor::Midi::CallbackInfo::MidiLed &each) {
-												  return each == button->defaultColor();
-											  });
+	auto currentDefaultColorIt = std::ranges::find_if(colors,
+													  [road](const Wor::Midi::CallbackInfo::MidiLed &each) {
+														  return each == road.defaultLed();
+													  });
 	std::uint8_t defaultColorIdx = std::distance(std::begin(colors), currentDefaultColorIt);
 	_defaultColorComboBox->setCurrentIndex(defaultColorIdx);
 
 	std::ignore = connect(_activeColorComboBox,
 						  &QComboBox::currentIndexChanged,
-						  [button, colors](int idx) {
+						  [roadMap, roadIdx = buttonIdx, colors](int idx) {
 							  if (idx == -1) {
 								  return;
 							  }
-							  button->activeColor(static_cast<Wor::Midi::CallbackInfo::MidiLed>(colors[idx]));
+							  auto currentRoad = roadMap.midiRoad(roadIdx);
+							  currentRoad.activeLed(static_cast<Wor::Midi::CallbackInfo::MidiLed>(colors[idx]));
 						  });
 
 	std::ignore = connect(_defaultColorComboBox,
 						  &QComboBox::currentIndexChanged,
-						  [button, colors](int idx) {
+						  [roadMap, roadIdx = buttonIdx, colors](int idx) {
 							  if (idx == -1) {
 								  return;
 							  }
-							  button->defaultColor(static_cast<Wor::Midi::CallbackInfo::MidiLed>(colors[idx]));
+							  auto currentRoad = roadMap.midiRoad(roadIdx);
+							  currentRoad.defaultLed(static_cast<Wor::Midi::CallbackInfo::MidiLed>(colors[idx]));
 						  });
-}
-
-KeyboardLayout::BaseMidiButton *MidiProperty::targetButton() const noexcept {
-	return _button;
 }
 
 #pragma endregion Accessors/Mutators

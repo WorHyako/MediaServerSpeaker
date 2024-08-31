@@ -2,14 +2,13 @@
 
 #include <QApplication>
 
-#include "Command/BaseCommand.hpp"
 #include "Midi/MidiRoadMap.hpp"
 #include "Style/WorStyle.hpp"
 
-#include "TemplateWrapper/Singleton.hpp"
-#include "Midi/MidiKeyboard.hpp"
-#include "Network/TcpServer.hpp"
-#include "Network/Utils/IoService.hpp"
+#include "Wor/TemplateWrapper/Singleton.hpp"
+#include "Wor/Midi/MidiKeyboard.hpp"
+#include "Wor/Network/TcpServer.hpp"
+#include "Wor/Network/Utils/IoService.hpp"
 
 using namespace Mss::Gui;
 using namespace Wor;

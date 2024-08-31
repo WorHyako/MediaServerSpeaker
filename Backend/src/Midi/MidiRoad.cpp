@@ -1,8 +1,8 @@
 #include "Midi/MidiRoad.hpp"
 
-#include "Midi/MidiKeyboard.hpp"
-#include "TemplateWrapper/Singleton.hpp"
-#include "Midi/CallbackInfo/ApcMiniOutCallbackInfo.hpp"
+#include "Wor/Midi/MidiKeyboard.hpp"
+#include "Wor/TemplateWrapper/Singleton.hpp"
+#include "Wor/Midi/CallbackInfo/ApcMiniOutCallbackInfo.hpp"
 
 using namespace Mss::Backend::Midi;
 

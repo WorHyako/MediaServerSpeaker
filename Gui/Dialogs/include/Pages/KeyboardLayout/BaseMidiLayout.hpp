@@ -52,9 +52,9 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		/**
 		 * @brief
 		 *
-		 * @param midiKeyIdx
+		 * @param idx
 		 */
-		void midiKeyPressed(Mss::Gui::Dialogs::Pages::KeyboardLayout::BaseMidiButton *midiKeyIdx);
+		void midiKeyPressed(std::uint8_t idx);
 
 #pragma endregion Callbacks
 	};

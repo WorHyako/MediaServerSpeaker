@@ -3,7 +3,7 @@
 #include "ServerRoad.hpp"
 #include "MidiRoad.hpp"
 
-#include "Midi/CallbackInfo/BaseCallbackInfo.hpp"
+#include "Wor/Midi/CallbackInfo/BaseCallbackInfo.hpp"
 
 #include <unordered_map>
 
@@ -88,6 +88,22 @@ namespace Mss::Backend::Midi {
 		 * @param idx
 		 */
 		void buttonIdIdx(std::uint8_t idx) noexcept;
+
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		MidiRoad midiRoad(std::uint8_t midiIdx) const noexcept;
+
+		/**
+		 * @brief
+		 *
+		 * @return
+		 */
+		[[nodiscard]]
+		ServerRoad serverRoad(std::uint8_t midiIdx) const noexcept;
 
 #pragma endregion Accessors/Mutators
 	};

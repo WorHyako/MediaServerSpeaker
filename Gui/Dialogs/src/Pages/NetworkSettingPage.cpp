@@ -1,7 +1,7 @@
 #include "Pages/NetworkSettingPage.hpp"
 
-#include "Network/TcpServer.hpp"
-#include "TemplateWrapper/Singleton.hpp"
+#include "Wor/Network/TcpServer.hpp"
+#include "Wor/TemplateWrapper/Singleton.hpp"
 
 #include <QVBoxLayout>
 #include <QTextEdit>
@@ -47,25 +47,25 @@ NetworkSettingPage::NetworkSettingPage(QWidget *parent) noexcept
 		std::string buttonStyle("QPushButton {background-color: \"#%s\"; }",
 								server.isRunning() ? "00ff00" : "ff0000");
 
-		connect(_serverConnectButton,
-				&QPushButton::pressed,
-				[addressText, portText]() {
-					auto &server = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
-					std::string address = addressText->toPlainText().toUtf8().constData();
-					bool portConversation(false);
-					auto port = portText->toPlainText().toInt(&portConversation);
-					if (!portConversation) {
-						std::printf("Wrong port symbols\n");
-					}
-					boost::asio::ip::tcp::endpoint endpoint;
-					endpoint.port(port);
-					endpoint.address(boost::asio::ip::make_address_v4(address));
-					if (server.bindTo(endpoint)) {
-						std::printf("Success in binding to local port\n");
-					} else {
-						std::printf("Fail in binding to local port\n");
-					}
-				});
+		std::ignore = connect(_serverConnectButton,
+							  &QPushButton::pressed,
+							  [addressText, portText]() {
+								  auto &server = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
+								  std::string address = addressText->toPlainText().toUtf8().constData();
+								  bool portConversation(false);
+								  auto port = portText->toPlainText().toInt(&portConversation);
+								  if (!portConversation) {
+									  std::printf("Wrong port symbols\n");
+								  }
+								  boost::asio::ip::tcp::endpoint endpoint;
+								  endpoint.port(port);
+								  endpoint.address(boost::asio::ip::make_address_v4(address));
+								  if (server.bindTo(endpoint)) {
+									  std::printf("Success in binding to local port\n");
+								  } else {
+									  std::printf("Fail in binding to local port\n");
+								  }
+							  });
 		hLayout->addWidget(_serverConnectButton);
 
 		vLayout->addLayout(hLayout);
@@ -78,11 +78,11 @@ NetworkSettingPage::NetworkSettingPage(QWidget *parent) noexcept
 	vLayout->addLayout(_sessionListLayout);
 
 	auto refreshButton = new QPushButton("Refresh sessions");
-	connect(refreshButton,
-			&QPushButton::pressed,
-			[this]() {
-				this->refreshServerStatus();
-			});
+	std::ignore = connect(refreshButton,
+						  &QPushButton::pressed,
+						  [this]() {
+							  this->refreshServerStatus();
+						  });
 	vLayout->addWidget(refreshButton);
 }
 
@@ -126,11 +126,11 @@ void NetworkSettingPage::refreshServerStatus() noexcept {
 					  hLayout->addWidget(endPointText);
 
 					  auto sessionName = new QTextEdit(session->name().c_str());
-					  connect(sessionName,
-							  &QTextEdit::textChanged,
-							  [sessionName, session]() {
-								  session->name(sessionName->toPlainText().toUtf8().constData());
-							  });
+					  std::ignore = connect(sessionName,
+											&QTextEdit::textChanged,
+											[sessionName, session]() {
+												session->name(sessionName->toPlainText().toUtf8().constData());
+											});
 					  hLayout->addWidget(sessionName);
 
 					  sessionLayout->addLayout(hLayout);
