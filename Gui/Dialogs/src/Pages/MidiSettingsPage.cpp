@@ -6,13 +6,13 @@
 #include <QMouseEvent>
 
 #include "Midi/MidiRoad.hpp"
+#include "Midi/MidiRoadMap.hpp"
 #include "Config/Config.hpp"
 #include "Pages/KeyboardLayout/ApcMini.hpp"
 #include "Pages/MidiProperty.hpp"
 
 #include "Wor/Midi/MidiDeviceList.hpp"
-#include "Midi/MidiRoadMap.hpp"
-#include "Wor/TemplateWrapper/Singleton.hpp"
+#include "Wor/Wrappers/Singleton.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages;
 
@@ -57,8 +57,7 @@ MidiSettingsPage::MidiSettingsPage(QWidget *parent) noexcept
 								   * TODO: Implement enum casting
 								   */
 								  if (deviceName == "APC MINI") {
-									  auto &roadMap = Wor::TemplateWrapper::Singleton<
-										  Mss::Backend::Midi::MidiRoadMap>::get();
+									  auto &roadMap = Wor::Wrappers::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
 									  roadMap.buttonIdIdx(1);
 									  _keyboardLayoutWidget = new KeyboardLayout::ApcMini;
 									  keyboardLayout->addWidget(_keyboardLayoutWidget);
@@ -118,7 +117,7 @@ void MidiSettingsPage::save() const noexcept {
 	}
 
 	auto midiButtons = _keyboardLayoutWidget->midiButtons();
-	auto &roadMap = Wor::TemplateWrapper::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
+	auto &roadMap = Wor::Wrappers::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
 	std::ranges::for_each(midiButtons,
 						  [&roadMap](auto &button) {
 							  Backend::Midi::MidiRoad road(button->midiKeyIdx());
@@ -130,7 +129,7 @@ void MidiSettingsPage::save() const noexcept {
 }
 
 void MidiSettingsPage::load() noexcept {
-	auto &roadMap = Wor::TemplateWrapper::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
+	auto &roadMap = Wor::Wrappers::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
 	roadMap.load();
 }
 

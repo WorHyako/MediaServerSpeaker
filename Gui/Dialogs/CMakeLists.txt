@@ -26,5 +26,5 @@ target_link_libraries(Mss_Dialogs
         Qt6::Core
         Mss::Scopes
         Wor::Network
-        Wor::Template
+        Wor::Wrappers
         Wor::Midi)

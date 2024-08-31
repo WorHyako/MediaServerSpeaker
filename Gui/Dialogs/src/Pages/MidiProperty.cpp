@@ -8,7 +8,7 @@
 #include "Midi/MidiRoadMap.hpp"
 
 #include "Wor/Midi/CallbackInfo/ApcMiniLed.hpp"
-#include "Wor/TemplateWrapper/Singleton.hpp"
+#include "Wor/Wrappers/Singleton.hpp"
 
 using namespace Mss::Gui::Dialogs::Pages;
 
@@ -52,7 +52,7 @@ MidiProperty::MidiProperty(QWidget *parent) noexcept
 void MidiProperty::targetMidiIdx(std::uint8_t buttonIdx) noexcept {
 	_idText->setText(QString::number(buttonIdx));
 
-	auto &roadMap = Wor::TemplateWrapper::Singleton<Backend::Midi::MidiRoadMap>::get();
+	auto &roadMap = Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get();
 	auto road = roadMap.midiRoad(buttonIdx);
 
 	_activeColorComboBox->clear();

@@ -1,7 +1,7 @@
 #include "Midi/MidiRoad.hpp"
 
 #include "Wor/Midi/MidiKeyboard.hpp"
-#include "Wor/TemplateWrapper/Singleton.hpp"
+#include "Wor/Wrappers/Singleton.hpp"
 #include "Wor/Midi/CallbackInfo/ApcMiniOutCallbackInfo.hpp"
 
 using namespace Mss::Backend::Midi;
@@ -14,7 +14,7 @@ MidiRoad::MidiRoad(std::uint8_t buttonId) noexcept
 void MidiRoad::go() noexcept {
 	using WorOutCallback = Wor::Midi::CallbackInfo::ApcMiniOutCallbackInfo;
 
-	auto &midiIn = Wor::TemplateWrapper::Singleton<Wor::Midi::MidiKeyboard>::get();
+	auto &midiIn = Wor::Wrappers::Singleton<Wor::Midi::MidiKeyboard>::get();
 	if (!midiIn.isOpen()) {
 		return;
 	}

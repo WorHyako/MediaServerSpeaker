@@ -44,7 +44,6 @@ ApcMini::ApcMini(QWidget *parent) noexcept
 		auto button = reinterpret_cast<ApcMiniButton *>(item->widget());
 		_midiButtons.emplace_back(button);
 		button->setText(QString::number(i));
-		button->midiKeyIdx(i);
 		std::ignore = connect(button,
 							  &ApcMiniButton::clicked,
 							  [this, i]() {

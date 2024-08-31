@@ -3,7 +3,7 @@
 #include "pugixml.hpp"
 
 #include "Wor/Network/TcpServer.hpp"
-#include "Wor/TemplateWrapper/Singleton.hpp"
+#include "Wor/Wrappers/Singleton.hpp"
 
 #include <sstream>
 
@@ -50,7 +50,7 @@ void BaseCommand::clean() noexcept {
 
 bool BaseCommand::execute(std::string sessionName) const noexcept {
 	std::printf("Execute command: %s\n", str().c_str());
-	auto &server = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
+	auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
 	auto session = server.session(sessionName);
 	if (!session) {
 		return false;

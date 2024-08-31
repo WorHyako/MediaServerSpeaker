@@ -1,7 +1,7 @@
 #include "Pages/NetworkSettingPage.hpp"
 
 #include "Wor/Network/TcpServer.hpp"
-#include "Wor/TemplateWrapper/Singleton.hpp"
+#include "Wor/Wrappers/Singleton.hpp"
 
 #include <QVBoxLayout>
 #include <QTextEdit>
@@ -42,7 +42,7 @@ NetworkSettingPage::NetworkSettingPage(QWidget *parent) noexcept
 		portText->setMaximumHeight(30);
 		hLayout->addWidget(portText);
 
-		auto &server = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
+		auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
 		_serverConnectButton = new QPushButton("Apply");
 		std::string buttonStyle("QPushButton {background-color: \"#%s\"; }",
 								server.isRunning() ? "00ff00" : "ff0000");
@@ -50,7 +50,7 @@ NetworkSettingPage::NetworkSettingPage(QWidget *parent) noexcept
 		std::ignore = connect(_serverConnectButton,
 							  &QPushButton::pressed,
 							  [addressText, portText]() {
-								  auto &server = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
+								  auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
 								  std::string address = addressText->toPlainText().toUtf8().constData();
 								  bool portConversation(false);
 								  auto port = portText->toPlainText().toInt(&portConversation);
@@ -87,7 +87,7 @@ NetworkSettingPage::NetworkSettingPage(QWidget *parent) noexcept
 }
 
 void NetworkSettingPage::refreshServerStatus() noexcept {
-	auto &server = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
+	auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
 	auto sessionList = server.sessionList();
 
 	std::string buttonStyle("QPushButton {background-color: \"#%s\"; }",
