@@ -13,3 +13,7 @@
 [submodule "ThirdParty/pugixml"]
 	path = ThirdParty/pugixml
 	url = https://github.com/zeux/pugixml.git
+
+[submodule "ThirdParty/MediaServerSpeaker_ConfData"]
+	path = ThirdParty/MediaServerSpeaker_ConfData
+	url = https://github.com/WorHyako/MediaServerSpeaker_ConfData.git

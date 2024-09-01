@@ -48,7 +48,9 @@ target_sources(MediaServerSpeaker
         PRIVATE main.cpp)
 
 target_link_libraries(MediaServerSpeaker
-        PRIVATE Mss::Gui)
+        PRIVATE
+        Mss::Gui
+        Mss::ConfData)
 
 file(GLOB Resources Resources/*)
 file(COPY ${Resources} DESTINATION ${CMAKE_BINARY_DIR}/Resources)
