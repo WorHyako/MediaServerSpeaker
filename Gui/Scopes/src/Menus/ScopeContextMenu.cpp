@@ -46,52 +46,52 @@ ScopeContextMenu::ScopeContextMenu(Scopes::ControlType controlType, QWidget *par
 	QList<QAction *> addActionList;
 	if (controlType & Scopes::ControlType::ManagementTextableButton) {
 		auto addButton = new QAction("Management Textable Button");
-		connect(addButton,
-				&QAction::triggered,
-				[scope]() {
-					::addToScope<ManagementTextableButton>(scope);
-				});
+		std::ignore = connect(addButton,
+							  &QAction::triggered,
+							  [scope]() {
+								  ::addToScope<ManagementTextableButton>(scope);
+							  });
 
 		addActionList.emplace_back(addButton);
 	}
 
 	if (controlType & Scopes::ControlType::ManagementButton) {
 		auto addMButton = new QAction("Management button");
-		connect(addMButton,
-				&QAction::triggered,
-				[scope]() {
-					::addToScope<ManagementButton>(scope);
-				});
+		std::ignore = connect(addMButton,
+							  &QAction::triggered,
+							  [scope]() {
+								  ::addToScope<ManagementButton>(scope);
+							  });
 		addActionList.emplace_back(addMButton);
 	}
 
 	if (controlType & Scopes::ControlType::QuickButton) {
 		auto addMButton = new QAction("Quick button");
-		connect(addMButton,
-				&QAction::triggered,
-				[scope]() {
-					::addToScope<QuickButton>(scope);
-				});
+		std::ignore = connect(addMButton,
+							  &QAction::triggered,
+							  [scope]() {
+								  ::addToScope<QuickButton>(scope);
+							  });
 		addActionList.emplace_back(addMButton);
 	}
 
 	if (controlType & Scopes::ControlType::QuickTitle) {
 		auto addMButton = new QAction("Quick title");
-		connect(addMButton,
-				&QAction::triggered,
-				[scope]() {
-					::addToScope<QuickTitle>(scope);
-				});
+		std::ignore = connect(addMButton,
+							  &QAction::triggered,
+							  [scope]() {
+								  ::addToScope<QuickTitle>(scope);
+							  });
 		addActionList.emplace_back(addMButton);
 	}
 
 	if (controlType & Scopes::ControlType::Table) {
 		auto addMButton = new QAction("Table");
-		connect(addMButton,
-				&QAction::triggered,
-				[scope]() {
-					::addToScope<Table>(scope);
-				});
+		std::ignore = connect(addMButton,
+							  &QAction::triggered,
+							  [scope]() {
+								  ::addToScope<Table>(scope);
+							  });
 		addActionList.emplace_back(addMButton);
 	}
 
@@ -99,25 +99,25 @@ ScopeContextMenu::ScopeContextMenu(Scopes::ControlType controlType, QWidget *par
 	QMenu::addMenu(addNewMenu);
 
 	auto loadAction = new QAction("Load");
-	connect(loadAction,
-			&QAction::triggered,
-			[scope]() {
-				scope->loadControls();
-			});
+	std::ignore = connect(loadAction,
+						  &QAction::triggered,
+						  [scope]() {
+							  scope->loadControls();
+						  });
 
 	auto saveAction = new QAction("Save");
-	connect(saveAction,
-			&QAction::triggered,
-			[scope]() {
-				scope->saveControls();
-			});
+	std::ignore = connect(saveAction,
+						  &QAction::triggered,
+						  [scope]() {
+							  scope->saveControls();
+						  });
 
 	auto clearAction = new QAction("Clear");
-	connect(clearAction,
-			&QAction::triggered,
-			[scope]() {
-				scope->removeAllControls();
-			});
+	std::ignore = connect(clearAction,
+						  &QAction::triggered,
+						  [scope]() {
+							  scope->removeAllControls();
+						  });
 
 	QMenu::addActions({loadAction, saveAction, clearAction});
 }

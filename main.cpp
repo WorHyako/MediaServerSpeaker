@@ -2,46 +2,77 @@
 
 #include <QApplication>
 
+#include "Midi/MidiRoadMap.hpp"
 #include "Style/WorStyle.hpp"
 
-#include "TemplateWrapper/Singleton.hpp"
-#include "Network/TcpServer.hpp"
-#include "Network/Utils/IoService.hpp"
+#include "Wor/Wrappers/Singleton.hpp"
+#include "Wor/Midi/MidiKeyboard.hpp"
+#include "Wor/Network/TcpServer.hpp"
+#include "Wor/Network/Utils/IoService.hpp"
+#include "Wor/Sql/MySqlManager.hpp"
 
 using namespace Mss::Gui;
 using namespace Wor;
 
 int main(int argc, char **argv) {
-    QApplication app(argc, argv);
+	QApplication app(argc, argv);
 
-    boost::asio::ip::tcp::endpoint localEndPoint;
-    localEndPoint.port(33000);
-    auto address = boost::asio::ip::address(boost::asio::ip::make_address_v4("127.0.0.1"));
-    localEndPoint.address(address);
+	/**
+	 * SQL
+	 */
 
-    auto &ser = TemplateWrapper::Singleton<Network::TcpServer>::get();
+	auto &manager = Wrappers::Singleton<Sql::MySqlManager>::get();
+	manager.configure(Sql::DataBaseParameters("dbType=mysql "
+			"dbName=events "
+			"user=user "
+			"password=user "
+			"host=127.0.0.1 "
+			"port=3306"));
+	auto connectRes = manager.tryToConnect();
 
-    if (!ser.bindTo(localEndPoint)) {
-        ser.stop();
-        return 9;
-    }
-    if (ser.start(); !ser.isRunning()) {
-        return 9;
-    }
+	return 0;
 
-    auto window = new Dialogs::MainWindow();
-    window->show();
+	/**
+	 * Tcp Server
+	 */
+	boost::asio::ip::tcp::endpoint localEndPoint;
+	localEndPoint.port(33000);
+	auto address = boost::asio::ip::address(boost::asio::ip::make_address_v4("127.0.0.1"));
+	localEndPoint.address(address);
 
-    Network::Utils::IoService::run();
-//    auto t1 = Wor::Network::Utils::IoService::isRunning();
-//    std::this_thread::sleep_for(std::chrono::seconds(2));
-//    Wor::Network::Utils::IoService::stop();
-//    auto t2 = Wor::Network::Utils::IoService::isRunning();
-//    std::this_thread::sleep_for(std::chrono::seconds(2));
-//    Wor::Network::Utils::IoService::run();
-//    std::this_thread::sleep_for(std::chrono::seconds(2));
-//    auto t3 = Wor::Network::Utils::IoService::isRunning();
-    app.setStyleSheet(Style::getWorStyle().c_str());
+	auto &server = Wrappers::Singleton<Network::TcpServer>::get();
 
-    return QApplication::exec();
+	if (!server.bindTo(localEndPoint)) {
+		server.stop();
+		return 9;
+	}
+	if (server.start(); !server.isRunning()) {
+		return 9;
+	}
+	Network::Utils::IoService::run();
+
+	/**
+	 * Midi
+	 */
+	auto &midi = Wrappers::Singleton<Midi::MidiKeyboard>::get();
+	midi.open();
+	midi.inCallback([](const Midi::CallbackInfo::BaseCallbackInfo &callbackInfo) {
+		auto &server = Wrappers::Singleton<Network::TcpServer>::get();
+		if (!server.isRunning()) {
+			return;
+		}
+		server.sendToAll("Hello");
+	});
+
+	auto &commandRetransmitter = Wrappers::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
+	midi.inCallback([&commandRetransmitter](Midi::CallbackInfo::BaseCallbackInfo callbackInfo) {
+		commandRetransmitter.transmit(callbackInfo);
+	});
+
+	auto window = new Dialogs::MainWindow();
+	window->show();
+
+	app.setStyleSheet(Style::getWorStyle().c_str());
+
+	return QApplication::exec();
 }

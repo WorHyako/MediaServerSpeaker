@@ -2,8 +2,8 @@
 
 #include "pugixml.hpp"
 
-#include "Network/TcpServer.hpp"
-#include "TemplateWrapper/Singleton.hpp"
+#include "Wor/Network/TcpServer.hpp"
+#include "Wor/Wrappers/Singleton.hpp"
 
 #include <sstream>
 
@@ -50,7 +50,7 @@ void BaseCommand::clean() noexcept {
 
 bool BaseCommand::execute(std::string sessionName) const noexcept {
 	std::printf("Execute command: %s\n", str().c_str());
-	auto &server = Wor::TemplateWrapper::Singleton<Wor::Network::TcpServer>::get();
+	auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
 	auto session = server.session(sessionName);
 	if (!session) {
 		return false;
@@ -98,7 +98,7 @@ void BaseCommand::set(const std::string &commandStr) noexcept {
 	xml_node root = doc.first_child();
 	_tag = root.name();
 
-	std::uint16_t t = std::distance(root.attributes().begin(), root.attributes().end());
+	std::uint16_t t = std::distance(std::begin(root.attributes()), std::end(root.attributes()));
 	_items.clear();
 	_items.reserve(t);
 	std::for_each(root.attributes_begin(),

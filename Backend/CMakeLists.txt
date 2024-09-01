@@ -15,11 +15,13 @@ target_sources(Mss_Backend
 target_link_libraries(Mss_Backend
         PUBLIC
         Qt6::Widgets
-        Wor::Lib
         Mss::System
         pugixml::pugixml
+        Wor::Lib
+        Wor::Sql
         Wor::Network
-        Wor::Template)
+        Wor::Wrappers
+        Wor::Midi)
 
 target_include_directories(Mss_Backend
         PUBLIC include

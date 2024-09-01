@@ -2,8 +2,6 @@
 
 #include <QMainWindow>
 
-class QGridLayout;
-
 namespace Mss::Gui::Dialogs {
 
 	/**

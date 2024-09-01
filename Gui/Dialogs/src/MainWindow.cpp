@@ -24,22 +24,22 @@ MainWindow::MainWindow(QWidget *parent) noexcept
 	auto settingsMenu = menuBar->addMenu(tr("Preference"));
 
 	auto settings = settingsMenu->addAction("Edit...");
-	connect(settings,
-			&QAction::triggered,
-			[this](bool) {
-				auto settingsDialog = Controls::ControlCreator<Dialogs::SettingDialog>::create(this);
-				settingsDialog->show();
-				std::ignore = settingsDialog.release();
-			});
+	std::ignore = connect(settings,
+						  &QAction::triggered,
+						  [this](bool) {
+							  auto settingsDialog = Controls::ControlCreator<Dialogs::SettingDialog>::create(this);
+							  settingsDialog->show();
+							  std::ignore = settingsDialog.release();
+						  });
 
 	settingsMenu->addSeparator();
 
 	auto editMode = settingsMenu->addAction("Edit mode");
 	editMode->setCheckable(true);
-	connect(editMode,
-			&QAction::toggled,
-			[tabs](bool toggled) {
-				emit
-				tabs->editModeChanged(toggled);
-			});
+	std::ignore = connect(editMode,
+						  &QAction::toggled,
+						  [tabs](bool toggled) {
+							  emit
+							  tabs->editModeChanged(toggled);
+						  });
 }

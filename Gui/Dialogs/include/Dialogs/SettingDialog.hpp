@@ -8,29 +8,19 @@ class QVBoxLayout;
 
 namespace Mss::Gui::Dialogs {
 
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class SettingDialog
-            : public QDialog {
-    public:
-        /**
-         * @brief Ctor.
-         *
-         * @param parent
-         */
-        explicit SettingDialog(QWidget *parent = nullptr) noexcept;
-
-	private:
+	/**
+	 * @brief
+	 *
+	 * @author WorHyako
+	 */
+	class SettingDialog
+			: public QDialog {
+	public:
 		/**
-		 * @brief
+		 * @brief Ctor.
+		 *
+		 * @param parent
 		 */
-		void refreshServerStatus() noexcept;
-
-		QVBoxLayout *_sessionListLayout;
-
-		QPushButton *_serverConnectButton;
+		explicit SettingDialog(QWidget *parent = nullptr) noexcept;
 	};
 }
