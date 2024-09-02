@@ -22,12 +22,11 @@ int main(int argc, char **argv) {
 	/**
 	 * SQL
 	 */
-
 	auto &manager = Wrappers::Singleton<Sql::MySqlManager>::get();
 	manager.configure(Mss::ConfData::authParameters);
 	auto connectRes = manager.tryToConnect();
 
-	return 0;
+	// return 0;
 
 	/**
 	 * Tcp Server

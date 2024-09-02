@@ -27,12 +27,12 @@ namespace Mss::Backend::Command {
 		/**
 		 * @brief
 		 *
-		 * @param socketName
+		 * @param sessionName
 		 *
 		 * @return
 		 */
 		[[nodiscard]]
-		virtual bool execute(std::string socketName) const noexcept = 0;
+		virtual bool execute(std::string sessionName) const noexcept = 0;
 
 		/**
 		 * @brief

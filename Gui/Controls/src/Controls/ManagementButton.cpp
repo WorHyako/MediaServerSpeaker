@@ -45,4 +45,4 @@ void ManagementButton::commandChanged() noexcept {
 
 }
 
-#pragma region Callbacks
+#pragma endregion Callbacks

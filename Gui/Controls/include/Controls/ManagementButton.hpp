@@ -11,7 +11,7 @@ namespace Mss::Gui::Controls {
      *
      * @author WorHyako
      */
-    class ManagementButton
+    class ManagementButton final
             : public IMovableControl {
     public:
         /**

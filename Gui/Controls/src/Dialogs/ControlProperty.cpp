@@ -14,11 +14,13 @@ using namespace Mss::Backend::Command;
 ControlProperty::ControlProperty(QWidget *parent) noexcept
 	: QDialog(parent),
 	  _commandLayout(nullptr),
-	  _control(dynamic_cast<Controls::IMovableControl *>(parent)) {
+	  _control(dynamic_cast<Controls::IMovableControl *>(parent)),
+	  _midiButtonId(0) {
 	if (!_control) {
 		QDialog::deleteLater();
 		return;
 	}
+
 	QDialog::setWindowTitle(parent->accessibleName());
 
 	QDialog::setStyleSheet(Style::getWorStyle().c_str());
@@ -28,24 +30,40 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 	_testCommand = std::make_unique<BaseCommand>();
 	_testCommand->set(_control->command()->str());
 	_controlName = _control->text();
+	_midiButtonId = _control->midiKeyIdx();
 
 	{
 		/**
 		 * Control name
 		 */
-		auto hLayout = new QHBoxLayout;
+		auto layout = new QHBoxLayout;
 
-		auto controlNameText = new QTextEdit;
-		controlNameText->setText(_controlName.c_str());
-		hLayout->addWidget(controlNameText);
+		auto text = new QTextEdit(_controlName.c_str());
+		layout->addWidget(text);
 
-		std::ignore = connect(controlNameText,
+		std::ignore = connect(text,
 							  &QTextEdit::textChanged,
-							  [this, controlNameText]() {
-								  _controlName = controlNameText->toPlainText().toUtf8().constData();
+							  [this, text]() {
+								  _controlName = text->toPlainText().toUtf8().constData();
 							  });
 
-		vLayout->addLayout(hLayout);
+		vLayout->addLayout(layout);
+	}
+
+	/**
+	 * MidiIdx
+	 */
+	{
+		auto layout = new QHBoxLayout;
+		auto text = new QTextEdit(QString::number(_control->midiKeyIdx()));
+		std::ignore = connect(text,
+							  &QTextEdit::textChanged,
+							  [&midiButtonId = _midiButtonId, text]() {
+								  midiButtonId = text->toPlainText().toInt();
+							  });
+		layout->addWidget(text);
+
+		vLayout->addLayout(layout);
 	}
 
 	auto commandTag = new QTextEdit(_testCommand->tag().c_str());
@@ -64,11 +82,10 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 		_commandLayout = new QVBoxLayout(vLayout->widget());
 
 		auto controlItems = _testCommand->items();
-		std::for_each(std::begin(controlItems),
-					  std::end(controlItems),
-					  [this](const CommandItem &each) {
-						  addCommandItemHLayout(each, false);
-					  });
+		std::ranges::for_each(controlItems,
+							  [this](const CommandItem &each) {
+								  addCommandItemHLayout(each, false);
+							  });
 	}
 	vLayout->addLayout(_commandLayout);
 
@@ -103,27 +120,29 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 						  });
 	vLayout->addWidget(sessionName);
 
-	/**
-	 * Common buttons
-	 */
-	auto hCommonLayout = new QHBoxLayout;
-	auto okButton = new QPushButton("Ok");
-	std::ignore = connect(okButton,
-						  &QPushButton::pressed,
-						  [this]() {
-							  applyChanged();
-						  });
-	hCommonLayout->addWidget(okButton);
+	{
+		/**
+		 * Common buttons
+		 */
+		auto layout = new QHBoxLayout;
+		auto okButton = new QPushButton("Ok");
+		std::ignore = connect(okButton,
+							  &QPushButton::pressed,
+							  [this]() {
+								  applyChanged();
+							  });
+		layout->addWidget(okButton);
 
-	auto cancelButton = new QPushButton("Cancel");
-	std::ignore = connect(cancelButton,
-						  &QPushButton::pressed,
-						  [this]() {
-							  QDialog::close();
-						  });
-	hCommonLayout->addWidget(cancelButton);
+		auto cancelButton = new QPushButton("Cancel");
+		std::ignore = connect(cancelButton,
+							  &QPushButton::pressed,
+							  [this]() {
+								  QDialog::close();
+							  });
+		layout->addWidget(cancelButton);
 
-	vLayout->addLayout(hCommonLayout);
+		vLayout->addLayout(layout);
+	}
 
 	emit fullCommandChanged(_testCommand->str().c_str());
 }
@@ -180,18 +199,11 @@ void ControlProperty::removeCommandItemHLayout(QHBoxLayout *hLayout) noexcept {
 	_commandLayout->removeItem(hLayout);
 
 	while (hLayout->count() > 0) {
-		auto layoutItem = hLayout->takeAt(0)->widget();
-		if (layoutItem) {
+		if (auto layoutItem = hLayout->takeAt(0)->widget()) {
 			layoutItem->deleteLater();
 		}
 	}
 	_commandLayout->update();
-
-	emit fullCommandChanged(_testCommand->str().c_str());
-}
-
-void ControlProperty::refreshCommand(std::uint16_t idx, const CommandItem &item) {
-	_testCommand->changeItem(idx, item);
 
 	emit fullCommandChanged(_testCommand->str().c_str());
 }
@@ -203,5 +215,18 @@ void ControlProperty::applyChanged() noexcept {
 	_control->text(_controlName);
 	_control->sessionName(_sessionName);
 
+	_control->midiKeyIdx(_midiButtonId);
+	_control->createServerRoad();
+
 	QDialog::close();
 }
+
+#pragma region Callbacks
+
+void ControlProperty::refreshCommand(std::uint16_t idx, const CommandItem &item) {
+	_testCommand->changeItem(idx, item);
+
+	emit fullCommandChanged(_testCommand->str().c_str());
+}
+
+#pragma endregion Callbacks

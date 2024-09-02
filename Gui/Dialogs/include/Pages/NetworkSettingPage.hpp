@@ -32,5 +32,4 @@ namespace Mss::Gui::Dialogs::Pages {
 
 		QPushButton *_serverConnectButton;
 	};
-
 }

@@ -31,7 +31,7 @@ namespace Mss::Gui::Components {
 		bool execute() const noexcept;
 
 	private:
-		std::unique_ptr<Backend::Command::ICommand> _command;
+		std::shared_ptr<Backend::Command::ICommand> _command;
 
 		std::string _sessionName;
 
@@ -41,17 +41,17 @@ namespace Mss::Gui::Components {
 		/**
 		 * @brief
 		 *
-		 * @return
+		 * @param command
 		 */
-		[[nodiscard]]
-		Backend::Command::ICommand* command() const noexcept;
+		void command(Backend::Command::ICommand* command) noexcept;
 
 		/**
 		 * @brief
 		 *
-		 * @param command
+		 * @return
 		 */
-		void command(Backend::Command::ICommand* command) noexcept;
+		[[nodiscard]]
+		std::shared_ptr<Backend::Command::ICommand> command() const noexcept;
 
 		/**
 		 * @brief

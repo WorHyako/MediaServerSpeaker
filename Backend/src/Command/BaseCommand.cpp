@@ -17,11 +17,10 @@ void BaseCommand::addItem(CommandItem item) noexcept {
 }
 
 void BaseCommand::addItems(std::vector<CommandItem> items) noexcept {
-	std::for_each(std::begin(items),
-				  std::end(items),
-				  [this](const CommandItem &each) {
-					  addItem(each);
-				  });
+	std::ranges::for_each(items,
+						  [this](const CommandItem &each) {
+							  addItem(each);
+						  });
 }
 
 void BaseCommand::removeItem(CommandItem item) noexcept {

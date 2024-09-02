@@ -17,8 +17,8 @@ bool CommandComponent::execute() const noexcept {
 
 #pragma region Accessors/Mutators
 
-ICommand *CommandComponent::command() const noexcept {
-	return _command.get();
+std::shared_ptr<ICommand> CommandComponent::command() const noexcept {
+	return _command;
 }
 
 void CommandComponent::command(ICommand *command) noexcept {

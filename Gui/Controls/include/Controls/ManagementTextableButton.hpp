@@ -13,7 +13,7 @@ namespace Mss::Gui::Controls {
      *
      * @author WorHyako
      */
-    class ManagementTextableButton
+    class ManagementTextableButton final
             : public IMovableControl {
     Q_OBJECT
 

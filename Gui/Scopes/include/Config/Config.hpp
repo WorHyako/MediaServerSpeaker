@@ -22,8 +22,8 @@ namespace Mss::Gui::Scopes {
 	using WorQWidgetPtr = std::unique_ptr<QWidget>;
 	using WorQWidgetPtrVec = std::vector<WorQWidgetPtr>;
 
-    using WorBaseControl = Mss::Gui::Controls::IControl;
-    using WorMovableBaseControl = Mss::Gui::Controls::IMovableControl;
+	using WorBaseControl = Controls::IControl;
+	using WorMovableBaseControl = Controls::IMovableControl;
 
 	/**
 	 *  @brief
@@ -36,7 +36,7 @@ namespace Mss::Gui::Scopes {
 	class Config final {
 	public:
 		template <class TControlType>
-		using Creator = Mss::Gui::Controls::ControlCreator<TControlType>;
+		using Creator = Controls::ControlCreator<TControlType>;
 
 		/**
 		 * @brief Ctor.
@@ -70,8 +70,6 @@ namespace Mss::Gui::Scopes {
 		/**
 		 * @brief
 		 *
-		 * @param tabName
-		 *
 		 * @return
 		 */
 		[[nodiscard]]
@@ -82,8 +80,6 @@ namespace Mss::Gui::Scopes {
 		 *
 		 * @tparam TControlType
 		 *
-		 * @param tabName
-		 *
 		 * @param owner
 		 */
 		template <class TControlType>
@@ -91,8 +87,6 @@ namespace Mss::Gui::Scopes {
 
 		/**
 		 * @brief
-		 *
-		 * @param tabName
 		 *
 		 * @return
 		 */
@@ -143,8 +137,7 @@ namespace Mss::Gui::Scopes {
 
 	template <class TScopeType>
 	Config<TScopeType>::Config(std::string tabName) noexcept
-		: _tabName(std::move(tabName)),
-		  _config() {
+		: _tabName(std::move(tabName)) {
 	}
 
 	template <class TScopeType>
@@ -161,18 +154,17 @@ namespace Mss::Gui::Scopes {
 
 		auto typeConfig = (*it).at(Mss::System::jsonControlKey<TControlType>());
 		WorQWidgetPtrVec controls;
-		std::for_each(std::begin(typeConfig),
-					  std::end(typeConfig),
-					  [this, &controls](const nlohmann::json &each) {
-						  auto control = Creator<TControlType>::create();
-						  acceptBaseParameters(each, control.get());
+		std::ranges::for_each(typeConfig,
+							  [this, &controls](const nlohmann::json &each) {
+								  auto control = Creator<TControlType>::create();
+								  acceptBaseParameters(each, control.get());
 
-						  if (dynamic_cast<WorMovableBaseControl *>(control.get())) {
-							  acceptMovableParameters(each, control.get());
-						  }
+								  if (dynamic_cast<WorMovableBaseControl *>(control.get())) {
+									  acceptMovableParameters(each, control.get());
+								  }
 
-						  controls.push_back(std::move(control));
-					  });
+								  controls.push_back(std::move(control));
+							  });
 		return controls;
 	}
 
@@ -189,15 +181,15 @@ namespace Mss::Gui::Scopes {
 		WorQWidgetPtrVec controls;
 		controls.reserve(allControls.size());
 
-		std::for_each(std::begin(allControls),
-					  std::end(allControls),
-					  [&controls](QObject *each) {
-						  auto control = dynamic_cast<QWidget *>(each);
-						  if (dynamic_cast<const TControlType *>(each)) {
-							  std::printf("%s was tracked.\n", Mss::System::jsonControlKey<TControlType>().data());
-							  controls.emplace_back(control);
-						  }
-					  });
+		std::ranges::for_each(allControls,
+							  [&controls](QObject *each) {
+								  auto control = dynamic_cast<QWidget *>(each);
+								  if (dynamic_cast<const TControlType *>(each)) {
+									  std::printf("%s was tracked.\n",
+												  Mss::System::jsonControlKey<TControlType>().data());
+									  controls.emplace_back(control);
+								  }
+							  });
 
 		nlohmann::json config = makeConfig<TControlType>(std::move(controls));
 
@@ -208,21 +200,20 @@ namespace Mss::Gui::Scopes {
 	template <class TControlType>
 	nlohmann::json Config<TScopeType>::makeConfig(WorQWidgetPtrVec controls) noexcept {
 		nlohmann::json fullConfig;
-		std::for_each(std::begin(controls),
-					  std::end(controls),
-					  [this, &fullConfig](std::unique_ptr<QWidget> &each) {
-						  auto control = dynamic_cast<TControlType *>(each.release());
-						  if (!control) {
-							  return;
-						  }
-						  nlohmann::json config;
-						  makeBaseParameters(config, control);
+		std::ranges::for_each(controls,
+							  [this, &fullConfig](std::unique_ptr<QWidget> &each) {
+								  auto control = dynamic_cast<TControlType *>(each.release());
+								  if (!control) {
+									  return;
+								  }
+								  nlohmann::json config;
+								  makeBaseParameters(config, control);
 
-						  if (dynamic_cast<WorMovableBaseControl *>(control)) {
-							  makeMovableParameters(config, control);
-						  }
-						  fullConfig[Mss::System::jsonControlKey<TControlType>()].push_back(std::move(config));
-					  });
+								  if (dynamic_cast<WorMovableBaseControl *>(control)) {
+									  makeMovableParameters(config, control);
+								  }
+								  fullConfig[Mss::System::jsonControlKey<TControlType>()].push_back(std::move(config));
+							  });
 		return fullConfig;
 	}
 
@@ -254,14 +245,18 @@ namespace Mss::Gui::Scopes {
 	template <class TScopeType>
 	void Config<TScopeType>::acceptBaseParameters(const nlohmann::json &json, WorBaseControl *control) const noexcept {
 		try {
-			std::string text = json.at(Mss::System::jsonTextKey());
-			control->text(text);
+			std::string text = json.at(System::jsonTextKey());
+			control->text(std::move(text));
 
-			std::string sessionName = json.at(Mss::System::jsonSessionNameKey());
-			control->sessionName(sessionName);
+			std::string sessionName = json.at(System::jsonSessionNameKey());
+			control->sessionName(std::move(sessionName));
 
-			std::string commandStr = json.at(Mss::System::jsonCommandKey());
-			auto command = new Mss::Backend::Command::BaseCommand;
+			std::uint8_t midiButtonId = json.at(System::jsonMidiButtonIdKey());
+			control->midiKeyIdx(midiButtonId);
+			control->createServerRoad();
+
+			std::string commandStr = json.at(System::jsonCommandKey());
+			auto command = new Backend::Command::BaseCommand;
 			command->set(commandStr);
 			control->command(command);
 		} catch (const nlohmann::json::exception &e) {
@@ -272,8 +267,8 @@ namespace Mss::Gui::Scopes {
 	}
 
 	template <class TScopeType>
-	void Config<
-		TScopeType>::acceptMovableParameters(const nlohmann::json &json, WorBaseControl *control) const noexcept {
+	void Config<TScopeType>::acceptMovableParameters(const nlohmann::json &json,
+													 WorBaseControl *control) const noexcept {
 		try {
 			int xPos = json.at(Mss::System::jsonPositionKey()).at("x");
 			int yPos = json.at(Mss::System::jsonPositionKey()).at("y");
@@ -291,16 +286,17 @@ namespace Mss::Gui::Scopes {
 
 	template <class TScopeType>
 	void Config<TScopeType>::makeBaseParameters(nlohmann::json &json, WorBaseControl *control) noexcept {
-		json[Mss::System::jsonTextKey()] = control->text();
-		json[Mss::System::jsonCommandKey()] = control->command()->str();
-		json[Mss::System::jsonSessionNameKey()] = control->sessionName();
+		json[System::jsonTextKey()] = control->text();
+		json[System::jsonCommandKey()] = control->command()->str();
+		json[System::jsonSessionNameKey()] = control->sessionName();
+		json[System::jsonMidiButtonIdKey()] = control->midiKeyIdx();
 	}
 
 	template <class TScopeType>
 	void Config<TScopeType>::makeMovableParameters(nlohmann::json &json, WorBaseControl *control) noexcept {
-		json[Mss::System::jsonPositionKey()] = {{"x", control->pos().x()},
-												{"y", control->pos().y()}};
-		json[Mss::System::jsonSizeKey()] = {{"x", control->size().width()},
-											{"y", control->size().height()}};
+		json[System::jsonPositionKey()] = {{"x", control->pos().x()},
+										   {"y", control->pos().y()}};
+		json[System::jsonSizeKey()] = {{"x", control->size().width()},
+									   {"y", control->size().height()}};
 	}
 }
