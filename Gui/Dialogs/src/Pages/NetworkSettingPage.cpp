@@ -103,36 +103,34 @@ void NetworkSettingPage::refreshServerStatus() noexcept {
 			item->layout()->removeItem(itemChild);
 			itemChild->widget()->deleteLater();
 		}
-		std::for_each(std::begin(itemChildren),
-					  std::end(itemChildren),
-					  [layout = item->layout()](QObject *each) {
-						  layout->removeWidget(dynamic_cast<QWidget *>(each));
-						  each->deleteLater();
-					  });
+		std::ranges::for_each(itemChildren,
+							  [layout = item->layout()](QObject *each) {
+								  layout->removeWidget(dynamic_cast<QWidget *>(each));
+								  each->deleteLater();
+							  });
 		item->layout()->deleteLater();
 	}
 
-	std::for_each(std::begin(sessionList),
-				  std::end(sessionList),
-				  [&sessionLayout = _sessionListLayout](Wor::Network::TcpSession::ptr &session) {
-					  auto hLayout = new QHBoxLayout;
+	std::ranges::for_each(sessionList,
+						  [&sessionLayout = _sessionListLayout](Wor::Network::TcpSession::ptr &session) {
+							  auto hLayout = new QHBoxLayout;
 
-					  QString endpointStr(session->endpoint().address().to_string().c_str()
-							  + QString(":")
-							  + QString::number(session->endpoint().port()));
+							  QString endpointStr(session->endpoint().address().to_string().c_str()
+									  + QString(":")
+									  + QString::number(session->endpoint().port()));
 
-					  auto endPointText = new QLabel;
-					  endPointText->setText(endpointStr);
-					  hLayout->addWidget(endPointText);
+							  auto endPointText = new QLabel;
+							  endPointText->setText(endpointStr);
+							  hLayout->addWidget(endPointText);
 
-					  auto sessionName = new QTextEdit(session->name().c_str());
-					  std::ignore = connect(sessionName,
-											&QTextEdit::textChanged,
-											[sessionName, session]() {
-												session->name(sessionName->toPlainText().toUtf8().constData());
-											});
-					  hLayout->addWidget(sessionName);
+							  auto sessionName = new QTextEdit(session->name().c_str());
+							  std::ignore = connect(sessionName,
+													&QTextEdit::textChanged,
+													[sessionName, session]() {
+														session->name(sessionName->toPlainText().toUtf8().constData());
+													});
+							  hLayout->addWidget(sessionName);
 
-					  sessionLayout->addLayout(hLayout);
-				  });
+							  sessionLayout->addLayout(hLayout);
+						  });
 }

@@ -4,14 +4,14 @@
 
 namespace Mss::Gui::Scopes {
 
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class QuickButtonScope
-            : public IScope {
-    Q_OBJECT
+	/**
+	 * @brief
+	 *
+	 * @author WorHyako
+	 */
+	class QuickButtonScope
+			: public IScope {
+		Q_OBJECT
 
 	public:
 		/**
@@ -26,14 +26,13 @@ namespace Mss::Gui::Scopes {
 		 */
 		~QuickButtonScope() override = default;
 
-    private:
-
-        /**
-         * @brief
-         *
-         * @param control
-         */
-        void addControl(QWidget *control) noexcept override;
+	private:
+		/**
+		 * @brief
+		 *
+		 * @param control
+		 */
+		void addControl(QWidget *control) noexcept override;
 
 		/**
 		 * @brief
@@ -57,32 +56,32 @@ namespace Mss::Gui::Scopes {
 		 */
 		void saveControls() noexcept override;
 
-        /**
-         * @brief
-         *
-         * @param idx
-         */
-        void moveAllLeftSince(std::uint8_t idx) noexcept;
+		/**
+		 * @brief
+		 *
+		 * @param idx
+		 */
+		void moveAllLeftSince(std::uint8_t idx) noexcept;
 
-        std::uint8_t _buttonsCount;
+		std::uint8_t _buttonsCount;
 
 #pragma region Callbacks
-    public slots:
 
-        /**
-         * @brief
-         *
-         * @param toggled
-         */
-        void editModeChange(bool toggled);
+	public slots:
+		/**
+		 * @brief
+		 *
+		 * @param toggled
+		 */
+		void editModeChange(bool toggled);
 
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mousePressEvent(QMouseEvent *e) noexcept override;
+		/**
+		 * @brief
+		 *
+		 * @param e
+		 */
+		void mousePressEvent(QMouseEvent *e) noexcept override;
 
 #pragma endregion Callbacks
-    };
+	};
 }

@@ -2,6 +2,7 @@
 
 #include "WidgetControlStyle.hpp"
 #include "TextEditStyle.hpp"
+#include "LineEditStyle.hpp"
 #include "ButtonStyle.hpp"
 
 #include <string>
@@ -19,6 +20,7 @@ namespace Mss::Gui::Style {
 		return std::string()
 				+ Style::getWidgetControlStyle().data()
 				+ Style::getButtonStyle().data()
-				+ Style::getTextEditStyle().data();
+				+ Style::getTextEditStyle().data()
+				+ Style::getLineEditStyle().data();
 	}
 }

@@ -11,6 +11,8 @@
 #include "Wor/Network/Utils/IoService.hpp"
 #include "Wor/Sql/MySqlManager.hpp"
 
+#include "ConfData/AuthData.hpp"
+
 using namespace Mss::Gui;
 using namespace Wor;
 
@@ -20,17 +22,11 @@ int main(int argc, char **argv) {
 	/**
 	 * SQL
 	 */
-
 	auto &manager = Wrappers::Singleton<Sql::MySqlManager>::get();
-	manager.configure(Sql::DataBaseParameters("dbType=mysql "
-			"dbName=events "
-			"user=user "
-			"password=user "
-			"host=127.0.0.1 "
-			"port=3306"));
+	manager.configure(Mss::ConfData::authParameters);
 	auto connectRes = manager.tryToConnect();
 
-	return 0;
+	// return 0;
 
 	/**
 	 * Tcp Server

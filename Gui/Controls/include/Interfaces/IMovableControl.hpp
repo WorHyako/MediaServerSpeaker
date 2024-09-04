@@ -6,35 +6,35 @@
 
 namespace Mss::Gui::Controls {
 
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class IMovableControl
-            : public IControl,
-              public Components::WidgetTransformComponent {
-    public:
-        /**
-         * @brief Ctor.
-         */
-        explicit IMovableControl(QWidget *parent) noexcept;
+	/**
+	 * @brief
+	 *
+	 * @author WorHyako
+	 */
+	class IMovableControl
+			: public IControl,
+			  public Components::WidgetTransformComponent {
+	public:
+		/**
+		 * @brief Ctor.
+		 */
+		explicit IMovableControl(QWidget *parent) noexcept;
 
-        /**
-         * @brief Dtor.
-         */
-        ~IMovableControl() override = default;
+		/**
+		 * @brief Dtor.
+		 */
+		~IMovableControl() override = default;
 
-        /**
-         * @brief
-         *
-         * @param enable
-         */
-        void editMode(bool enable) noexcept override;
-
-#pragma region Callbacks
+		/**
+		 * @brief
+		 *
+		 * @param enable
+		 */
+		void editMode(bool enable) noexcept override;
 
 	public:
+#pragma region Callbacks
+
 		/**
 		 * @brief
 		 *

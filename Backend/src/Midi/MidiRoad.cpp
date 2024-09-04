@@ -35,11 +35,11 @@ Wor::Midi::CallbackInfo::MidiLed MidiRoad::defaultLed() const noexcept {
 	return _defaultLed;
 }
 
-void MidiRoad::activeLed(const Wor::Midi::CallbackInfo::MidiLed& led) noexcept {
+void MidiRoad::activeLed(const Wor::Midi::CallbackInfo::MidiLed &led) noexcept {
 	_activeLed = led;
 }
 
-void MidiRoad::defaultLed(const Wor::Midi::CallbackInfo::MidiLed& led) noexcept {
+void MidiRoad::defaultLed(const Wor::Midi::CallbackInfo::MidiLed &led) noexcept {
 	_defaultLed = led;
 }
 

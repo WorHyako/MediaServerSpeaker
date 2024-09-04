@@ -8,9 +8,32 @@ class QMouseEvent;
 
 namespace Mss::Gui::Components {
 	/**
-	 * @brief
+	 * @brief	Object to transform (move and resize) Qt Widgets.
 	 *
-	 * @author WorHyako
+	 * @usage
+	 * @code
+	 *			class Foo
+	 *				: public QWidget,
+	 *				  public Components::WidgetTransformComponent {
+	 *			...
+	 *
+	 *			void Foo::mouseMoveEvent(QMouseEvent *e) {
+	 *				Components::WidgetTransformComponent::doTransform(e);
+	 *				...
+	 *			}
+	 *
+	 *			void Foo::mouseReleaseEvent(QMouseEvent *e) {
+	 *				Components::WidgetTransformComponent::stopTransform(e);
+	 *				...
+	 *			}
+	 *
+	 *			void Foo::enableTransforming(bool enable) noexcept {
+	 *				Components::WidgetTransformComponent::canTransform(enable);
+	 *				...
+	 *		    }
+	 * @endcode
+	 *
+	 * @author	WorHyako
 	 */
 	class WidgetTransformComponent {
 	public:
@@ -35,10 +58,8 @@ namespace Mss::Gui::Components {
 
 		/**
 		 * @brief
-		 *
-		 * @param e
 		 */
-		void stopTransform(QMouseEvent*) noexcept;
+		void stopTransform() noexcept;
 
 	private:
 		QWidget* _parent;

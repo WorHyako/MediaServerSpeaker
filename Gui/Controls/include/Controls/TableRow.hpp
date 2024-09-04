@@ -28,14 +28,6 @@ namespace Mss::Gui::Controls {
 		 */
 		~TableRow() override = default;
 
-	signals:
-		/**
-		 * @brief
-		 *
-		 * @param keyValue
-		 */
-		void keyValueChanged(QPair<QString, QString> keyValue, TableRow *sender);
-
 	public:
 #pragma region Accessors/Mutators
 
@@ -55,6 +47,18 @@ namespace Mss::Gui::Controls {
 		void keyValue(const QPair<QString, QString> &keyValue) noexcept;
 
 #pragma endregion Accessors/Mutators
+
+#pragma region Callbacks
+
+	signals:
+		/**
+		 * @brief
+		 *
+		 * @param keyValue
+		 */
+		void keyValueChanged(QPair<QString, QString> keyValue, Mss::Gui::Controls::TableRow *sender);
+
+#pragma endregion Callbacks
 
 	};
 }

@@ -3,7 +3,6 @@
 #include <memory>
 
 #include <QDialog>
-#include <QString>
 
 #include "Command/BaseCommand.hpp"
 
@@ -12,11 +11,10 @@ class QVBoxLayout;
 class QHBoxLayout;
 
 namespace Mss::Gui::Controls {
-    class IControl;
+	class IControl;
 }
 
 namespace Mss::Gui::Controls::Dialogs {
-
 	/**
 	 * @brief
 	 *
@@ -39,24 +37,6 @@ namespace Mss::Gui::Controls::Dialogs {
 		 */
 		~ControlProperty() override = default;
 
-	signals:
-		/**
-		 * @brief
-		 *
-		 * @param commandStr
-		 */
-		void fullCommandChanged(const QString &commandStr);
-
-	public slots:
-		/**
-		 * @brief
-		 *
-		 * @param idx
-		 *
-		 * @param item
-		 */
-		void refreshCommand(std::uint16_t idx, const Backend::Command::CommandItem &item);
-
 	private:
 		/**
 		 * @brief
@@ -77,7 +57,7 @@ namespace Mss::Gui::Controls::Dialogs {
 		 */
 		void applyChanged() noexcept;
 
-        Controls::IControl *_control;
+		Controls::IControl *_control;
 
 		QVBoxLayout *_commandLayout;
 
@@ -85,6 +65,31 @@ namespace Mss::Gui::Controls::Dialogs {
 
 		std::string _sessionName;
 
+		std::uint8_t _midiButtonId;
+
 		std::unique_ptr<Backend::Command::BaseCommand> _testCommand;
+
+	public:
+#pragma region Callbacks
+
+	signals:
+		/**
+		 * @brief
+		 *
+		 * @param commandStr
+		 */
+		void fullCommandChanged(const QString &commandStr);
+
+	public slots:
+		/**
+		 * @brief
+		 *
+		 * @param idx
+		 *
+		 * @param item
+		 */
+		void refreshCommand(std::uint16_t idx, const Backend::Command::CommandItem &item);
+
+#pragma endregion Callbacks
 	};
 }

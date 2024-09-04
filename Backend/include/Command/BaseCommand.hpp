@@ -5,7 +5,9 @@
 namespace Mss::Backend::Command {
 
 	/**
-	 * @brief
+	 * @brief	Represents basic command class.
+	 *			<p>
+	 *			Stores command via CommandItem list and data about session to send command.
 	 *
 	 * @usage
 	 * @code
@@ -77,19 +79,22 @@ namespace Mss::Backend::Command {
 		void clean() noexcept override;
 
 		/**
-		 * @brief
+		 * @brief	Executes command.
+		 *			Searches session in current server and tries to send command to endpoint.
 		 *
-		 * @param sessionName
+		 * @param	sessionName	Session name to send command.
 		 *
-		 * @return
+		 * @return	<code>true</code> success executing
+		 *			<p>
+		 *			<code>false</code> fail in executing
 		 */
 		[[nodiscard]]
 		bool execute(std::string sessionName) const noexcept override;
 
 		/**
 		 * @brief   Changes item by key.
-		 *          <p/>
-		 *          Nothing will happened, if item doesn't exist.
+		 *          <p>
+		 *          Nothing will happen, if item doesn't exist.
 		 *
 		 * @param   item Item to change
 		 */
@@ -97,8 +102,8 @@ namespace Mss::Backend::Command {
 
 		/**
 		 * @brief   Changes item by index.
-		 *          <p/>
-		 *          Nothing will happened, if index out of range.
+		 *          <p>
+		 *          Nothing will happen, if index out of range.
 		 *
 		 * @param   idx     Index of item to change
 		 *

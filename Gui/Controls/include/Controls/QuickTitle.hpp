@@ -2,7 +2,7 @@
 
 #include "Interfaces/IControl.hpp"
 
-class QTextEdit;
+class QLineEdit;
 
 class QPushButton;
 
@@ -29,7 +29,7 @@ namespace Mss::Gui::Controls {
 		~QuickTitle() override = default;
 
 	private:
-		QTextEdit *_textEdit;
+		QLineEdit *_textEdit;
 
 		QPushButton *_button;
 

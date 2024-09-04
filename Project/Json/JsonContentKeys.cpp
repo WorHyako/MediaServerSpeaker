@@ -13,6 +13,8 @@ namespace {
 
 	constexpr std::string_view jsonSessionNameKey = "sessionName";
 
+	constexpr std::string_view jsonMidiKeyIdxKey = "midiButtonId";
+
 	constexpr std::string_view jsonManagementButtonKey = "Management Button";
 
 	constexpr std::string_view jsonManagementTextableButtonKey = "Management Textable Button";
@@ -58,22 +60,26 @@ std::string_view System::jsonSessionNameKey() noexcept {
 	return ::jsonSessionNameKey;
 }
 
+std::string_view System::jsonMidiButtonIdKey() noexcept {
+	return ::jsonMidiKeyIdxKey;
+}
+
 template <>
-std::string_view System::jsonControlKey<Mss::Gui::Controls::ManagementButton>() noexcept {
+std::string_view System::jsonControlKey<Gui::Controls::ManagementButton>() noexcept {
 	return ::jsonManagementButtonKey;
 }
 
 template <>
-std::string_view System::jsonControlKey<Mss::Gui::Controls::ManagementTextableButton>() noexcept {
+std::string_view System::jsonControlKey<Gui::Controls::ManagementTextableButton>() noexcept {
 	return ::jsonManagementTextableButtonKey;
 }
 
 template <>
-std::string_view System::jsonControlKey<Mss::Gui::Controls::QuickButton>() noexcept {
+std::string_view System::jsonControlKey<Gui::Controls::QuickButton>() noexcept {
 	return ::jsonQuickButtonKey;
 }
 
 template <>
-std::string_view System::jsonControlKey<Mss::Gui::Controls::QuickTitle>() noexcept {
+std::string_view System::jsonControlKey<Gui::Controls::QuickTitle>() noexcept {
 	return ::jsonQuickTitleKey;
 }

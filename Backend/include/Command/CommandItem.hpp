@@ -5,9 +5,11 @@
 namespace Mss::Backend::Command {
 
 	/**
-	 * @brief
+	 * @brief	Represents a pair of key-value command item.
+	 *			<p>
+	 *			In command string <code>CommandItem</code> looks like "...key=value..."
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
 	 */
 	class CommandItem final {
 	public:
@@ -17,11 +19,11 @@ namespace Mss::Backend::Command {
 		CommandItem() noexcept = default;
 
 		/**
-		 * @brief
+		 * @brief	Ctor.
 		 *
-		 * @param key
+		 * @param	key		Key
 		 *
-		 * @param value
+		 * @param	value	Value
 		 */
 		CommandItem(std::string key, std::string value) noexcept;
 
@@ -39,25 +41,27 @@ namespace Mss::Backend::Command {
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief	Key accessor
 		 *
-		 * @return
+		 * @return	key
 		 */
 		[[nodiscard]]
 		std::string key() const noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Value accessor
 		 *
-		 * @return
+		 * @return	value
 		 */
 		[[nodiscard]]
 		std::string value() const noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Checks for value emptiness.
 		 *
-		 * @return
+		 * @return	<code>true</code> CommandItem's value is empty.
+		 *			<p>
+		 *			<code>false</code> CommandItem's value isn't empty.
 		 */
 		[[nodiscard]]
 		bool empty() const noexcept;

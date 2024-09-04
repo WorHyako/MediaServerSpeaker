@@ -9,9 +9,7 @@ using namespace Mss::Backend;
 
 QuickButton::QuickButton(QWidget *parent) noexcept
         : IControl(parent),
-          _button(nullptr) {
-    _button = new QPushButton(this);
-    _button->show();
+          _button(new QPushButton(this)) {
 }
 
 #pragma region Accessors/Mutators

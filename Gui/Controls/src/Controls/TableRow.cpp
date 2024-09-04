@@ -1,7 +1,7 @@
 #include "Controls/TableRow.hpp"
 
 #include <QHBoxLayout>
-#include <QTextEdit>
+#include <QLineEdit>
 
 using namespace Mss::Gui::Controls;
 
@@ -10,26 +10,26 @@ TableRow::TableRow(const QPair<QString, QString> &keyValue, QWidget *parent)
 	auto layout = new QHBoxLayout;
 	QWidget::setLayout(layout);
 
-	auto keyText = new QTextEdit(keyValue.first.isEmpty() ? tr("key") : keyValue.first);
+	auto keyText = new QLineEdit(keyValue.first.isEmpty() ? tr("key") : keyValue.first);
 	layout->addWidget(keyText);
 
-	auto valueText = new QTextEdit(keyValue.second.isEmpty() ? tr("value") : keyValue.second);
+	auto valueText = new QLineEdit(keyValue.second.isEmpty() ? tr("value") : keyValue.second);
 	layout->addWidget(valueText);
 
 	std::ignore = connect(keyText,
-						  &QTextEdit::textChanged,
+						  &QLineEdit::textChanged,
 						  [keyText, valueText, this]() {
-							  auto key = keyText->toPlainText();
-							  auto value = valueText->toPlainText();
+							  auto key = keyText->text();
+							  auto value = valueText->text();
 
 							  emit keyValueChanged({key, value}, this);
 						  });
 
 	std::ignore = connect(valueText,
-						  &QTextEdit::textChanged,
+						  &QLineEdit::textChanged,
 						  [keyText, valueText, this]() {
-							  auto key = keyText->toPlainText();
-							  auto value = valueText->toPlainText();
+							  auto key = keyText->text();
+							  auto value = valueText->text();
 
 							  emit keyValueChanged({key, value}, this);
 						  });
@@ -41,10 +41,10 @@ QPair<QString, QString> TableRow::keyValue() const noexcept {
 	auto layout = QWidget::layout();
 
 	auto keyWidget = layout->itemAt(0)->widget();
-	auto key = dynamic_cast<QTextEdit *>(keyWidget)->toPlainText();
+	auto key = dynamic_cast<QLineEdit *>(keyWidget)->text();
 
 	auto valueWidget = layout->itemAt(1)->widget();
-	auto value = dynamic_cast<QTextEdit *>(valueWidget)->toPlainText();
+	auto value = dynamic_cast<QLineEdit *>(valueWidget)->text();
 
 	return {key, value};
 }
@@ -53,10 +53,10 @@ void TableRow::keyValue(const QPair<QString, QString> &keyValue) noexcept {
 	auto layout = QWidget::layout();
 
 	auto keyWidget = layout->itemAt(0)->widget();
-	dynamic_cast<QTextEdit *>(keyWidget)->setText(keyValue.first);
+	dynamic_cast<QLineEdit *>(keyWidget)->setText(keyValue.first);
 
 	auto valueWidget = layout->itemAt(1)->widget();
-	dynamic_cast<QTextEdit *>(valueWidget)->setText(keyValue.second);
+	dynamic_cast<QLineEdit *>(valueWidget)->setText(keyValue.second);
 }
 
 #pragma endregion Accessors/Mutators

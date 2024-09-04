@@ -44,7 +44,7 @@ void WidgetTransformComponent::doTransform(QMouseEvent *e) noexcept {
 	}
 }
 
-void WidgetTransformComponent::stopTransform(QMouseEvent *) noexcept {
+void WidgetTransformComponent::stopTransform() noexcept {
 	_lastMousePressPosition = {-1, -1};
 }
 

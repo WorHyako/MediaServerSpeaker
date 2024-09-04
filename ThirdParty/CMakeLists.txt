@@ -44,6 +44,11 @@ set(WORLIBRARY_WRAPPERS ON)
 set(WORLIBRARY_MIDI ON)
 add_subdirectory(WorLibrary)
 
+################
+#   ConfData   #
+################
+add_subdirectory(MediaServerSpeaker_ConfData)
+
 add_library(WorLibrary INTERFACE)
 add_library(Wor::Lib ALIAS WorLibrary)
 

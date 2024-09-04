@@ -42,6 +42,16 @@ namespace Mss::System {
 	 * @author  WorHyako
 	 */
 	[[nodiscard]]
+	std::string_view jsonMidiButtonIdKey() noexcept;
+
+	/**
+	 * @brief
+	 *
+	 * @return
+	 *
+	 * @author  WorHyako
+	 */
+	[[nodiscard]]
 	std::string_view jsonCommandKey() noexcept;
 
 	/**

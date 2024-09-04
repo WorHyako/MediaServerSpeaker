@@ -12,14 +12,14 @@ namespace Mss::Gui::Controls {
 
 namespace Mss::Gui::Controls {
 
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class Table
-            : public IMovableControl {
-    Q_OBJECT
+	/**
+	 * @brief
+	 *
+	 * @author WorHyako
+	 */
+	class Table
+			: public IMovableControl {
+		Q_OBJECT
 
 	public:
 		/**
@@ -33,14 +33,6 @@ namespace Mss::Gui::Controls {
 		 * @brief Dtor.
 		 */
 		~Table() override = default;
-
-	public slots:
-		/**
-		 * @brief
-		 *
-		 * @param keyValue
-		 */
-		void keyValueChange(const QPair<QString, QString> &keyValue, TableRow *sender);
 
 		/**
 		 * @brief
@@ -88,6 +80,14 @@ namespace Mss::Gui::Controls {
 		 * @brief
 		 */
 		void commandChanged() noexcept override;
+
+	public slots:
+		/**
+		 * @brief
+		 *
+		 * @param keyValue
+		 */
+		void keyValueChange(const QPair<QString, QString> &keyValue, Mss::Gui::Controls::TableRow *sender);
 
 #pragma endregion Callbacks
 

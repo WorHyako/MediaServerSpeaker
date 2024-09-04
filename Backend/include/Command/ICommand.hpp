@@ -9,11 +9,7 @@
 namespace Mss::Backend::Command {
 
 	/**
-	 * TODO: make common shared pointer for same command from different controls
-	 */
-
-	/**
-	 * @brief
+	 * @brief	Represents interface for command classes.
 	 *
 	 * @author WorHyako
 	 */
@@ -25,82 +21,91 @@ namespace Mss::Backend::Command {
 		virtual ~ICommand() = default;
 
 		/**
-		 * @brief
+		 * @brief	Executes command.
+		 *			Searches session in current server and tries to send command to endpoint.
 		 *
-		 * @param socketName
+		 * @param	sessionName	Session name to send command.
 		 *
-		 * @return
+		 * @return	<code>true</code> success executing
+		 *			<p>
+		 *			<code>false</code> fail in executing
 		 */
 		[[nodiscard]]
-		virtual bool execute(std::string socketName) const noexcept = 0;
+		virtual bool execute(std::string sessionName) const noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Removes all items from command.
 		 */
 		virtual void clean() noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Add selected item to command.
 		 *
-		 * @param item
+		 * @param   item Item to add
 		 */
 		virtual void addItem(CommandItem item) noexcept = 0;
 
 		/**
-		 * @param
+		 * @brief   Add selected items to command.
 		 *
-		 * @param items
+		 * @param   items Items to add.
 		 */
 		virtual void addItems(std::vector<CommandItem> items) noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Removes item by key from command
 		 *
-		 * @param item
+		 * @param   item Item to remove
 		 */
 		virtual void removeItem(CommandItem item) noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Removes item by key from command.
 		 *
-		 * @param key
+		 * @param   key Key of item to remove
 		 */
 		virtual void removeItem(std::string key) noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Removes item by index from command.
 		 *
-		 * @param idx
+		 * @param   idx Index of item to remove.
 		 */
 		virtual void removeItem(std::uint16_t idx) noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Removes last item from command.
 		 */
 		virtual void removeItem() noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Changes item by key.
+		 *          <p>
+		 *          Nothing will happen, if item doesn't exist.
 		 *
-		 * @param item
+		 * @param   item Item to change
 		 */
 		virtual void changeItem(CommandItem item) noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Changes item by index.
+		 *          <p>
+		 *          Nothing will happen, if index out of range.
 		 *
-		 * @param idx
+		 * @param   idx     Index of item to change
 		 *
-		 * @param item
+		 * @param   item    New item
 		 */
 		virtual void changeItem(std::uint16_t idx, CommandItem item) noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Returns index of item with selected key.
 		 *
-		 * @param key
+		 * @param   key Item's key to search.
 		 *
-		 * @return
+		 * @return  Index of item
+		 *          <p/>
+		 *          <code>-1</code> if there is no item with selected key
 		 */
 		[[nodiscard]]
 		virtual std::int16_t indexOf(std::string key) const noexcept = 0;
@@ -109,40 +114,40 @@ namespace Mss::Backend::Command {
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief   Returns vector of command items.
 		 *
-		 * @return
+		 * @return  Command items
 		 */
 		[[nodiscard]]
 		virtual std::vector<CommandItem> items() const noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Convert command to string.
 		 *
-		 * @return
+		 * @return  Command via string representation
 		 */
 		[[nodiscard]]
 		virtual std::string str() const noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Marks command with selected tag.
 		 *
-		 * @param tag
+		 * @param   tag Command tag
 		 */
 		virtual void tag(std::string tag) noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Returns command tag.
 		 *
-		 * @return
+		 * @return  Command tag
 		 */
 		[[nodiscard]]
 		virtual std::string tag() const noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief   Try to parse selected string to command items and fill it.
 		 *
-		 * @param commandStr
+		 * @param   commandStr Command via string
 		 */
 		virtual void set(const std::string &commandStr) noexcept = 0;
 

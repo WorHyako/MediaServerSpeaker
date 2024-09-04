@@ -26,7 +26,7 @@ namespace Mss::Gui::Controls {
 		 */
 		~QuickButton() override = default;
 
-	protected:
+	private:
 		QPushButton *_button;
 
 	public:

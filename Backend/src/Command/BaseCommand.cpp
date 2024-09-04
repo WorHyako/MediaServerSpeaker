@@ -17,11 +17,10 @@ void BaseCommand::addItem(CommandItem item) noexcept {
 }
 
 void BaseCommand::addItems(std::vector<CommandItem> items) noexcept {
-	std::for_each(std::begin(items),
-				  std::end(items),
-				  [this](const CommandItem &each) {
-					  addItem(each);
-				  });
+	std::ranges::for_each(items,
+						  [this](const CommandItem &each) {
+							  addItem(each);
+						  });
 }
 
 void BaseCommand::removeItem(CommandItem item) noexcept {
@@ -123,13 +122,12 @@ void BaseCommand::tag(std::string tag) noexcept {
 std::string BaseCommand::str() const noexcept {
 	xml_document doc;
 	doc.append_child(tag().c_str());
-	std::for_each(std::begin(_items),
-				  std::end(_items),
-				  [&doc](const CommandItem &each) {
-					  auto root = doc.first_child();
-					  auto attr = root.append_attribute(each.key().c_str());
-					  attr.set_value(each.value().c_str());
-				  });
+	std::ranges::for_each(_items,
+						  [&doc](const CommandItem &each) {
+							  auto root = doc.first_child();
+							  auto attr = root.append_attribute(each.key().c_str());
+							  attr.set_value(each.value().c_str());
+						  });
 	std::stringstream ss;
 	doc.print(ss);
 	return ss.str();

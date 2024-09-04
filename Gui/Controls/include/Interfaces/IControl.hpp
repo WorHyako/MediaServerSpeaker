@@ -3,38 +3,43 @@
 #include <QWidget>
 
 #include "Components/CommandComponent.hpp"
-
-#include "Menus/ControlContextMenu.hpp"
+#include "Components/MidiComponent.hpp"
 
 namespace Mss::Gui::Controls {
 
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class IControl
-            : public QWidget,
-              public Components::CommandComponent {
-    Q_OBJECT
+	/**
+	 * @brief
+	 *
+	 * @author WorHyako
+	 */
+	class IControl
+			: public QWidget,
+			  public Components::CommandComponent,
+			  public Components::MidiComponent {
+		Q_OBJECT
 
-    public:
-        /**
-         * @brief Ctor.
-         */
-        explicit IControl(QWidget *parent) noexcept;
+	public:
+		/**
+		 * @brief Ctor.
+		 */
+		explicit IControl(QWidget *parent) noexcept;
 
-        /**
-         * @brief Dtor.
-         */
-        ~IControl() override = default;
+		/**
+		 * @brief Dtor.
+		 */
+		~IControl() override = default;
 
-        /**
-         * @brief
-         *
-         * @param enable
-         */
-        virtual void editMode(bool enable) noexcept;
+		/**
+		 * @brief
+		 */
+		void createServerRoad() const noexcept;
+
+		/**
+		 * @brief
+		 *
+		 * @param enable
+		 */
+		virtual void editMode(bool enable) noexcept;
 
 	public:
 #pragma region Accessors/Mutators
@@ -57,20 +62,19 @@ namespace Mss::Gui::Controls {
 #pragma endregion Accessors/Mutators
 
 #pragma region Callbacks
-    public:
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mousePressEvent(QMouseEvent *e) override;
 
-    public slots:
+		/**
+		 * @brief
+		 *
+		 * @param e
+		 */
+		void mousePressEvent(QMouseEvent *e) override;
 
-        /**
-         * @brief
-         */
-        virtual void commandChanged() noexcept = 0;
+	public slots:
+		/**
+		 * @brief
+		 */
+		virtual void commandChanged() noexcept = 0;
 
 #pragma endregion Callbacks
 	};
