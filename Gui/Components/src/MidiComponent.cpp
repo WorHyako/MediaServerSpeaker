@@ -6,10 +6,13 @@
 using namespace Mss::Gui::Components;
 
 MidiComponent::MidiComponent() noexcept
-	: _midiKeyIdx(0) {
+	: _midiKeyIdx(-1) {
 }
 
 void MidiComponent::goMidiRoad() noexcept {
+	if(_midiKeyIdx < 0) {
+		return;
+	}
 	auto &roadMap = Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get();
 	auto road = roadMap.midiRoad(_midiKeyIdx);
 	road.go();

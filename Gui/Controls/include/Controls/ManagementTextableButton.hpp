@@ -2,7 +2,7 @@
 
 #include "Interfaces/IMovableControl.hpp"
 
-class QTextEdit;
+class QLineEdit;
 
 class QPushButton;
 
@@ -31,7 +31,7 @@ namespace Mss::Gui::Controls {
 		~ManagementTextableButton() override = default;
 
 	private:
-		QTextEdit *_textEdit;
+		QLineEdit *_textEdit;
 
 		QPushButton *_button;
 

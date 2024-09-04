@@ -2,11 +2,11 @@
 
 #include "Creators/ControlCreator.hpp"
 #include "Menus/ControlContextMenu.hpp"
+#include "Midi/MidiRoadMap.hpp"
 
 #include <QMouseEvent>
-#include <Wor/Wrappers/Singleton.hpp>
 
-#include "Midi/MidiRoadMap.hpp"
+#include "Wor/Wrappers/Singleton.hpp"
 
 using namespace Mss::Gui::Controls;
 using namespace Mss::Backend::Command;
@@ -16,7 +16,7 @@ IControl::IControl(QWidget *parent) noexcept
 	QWidget::setObjectName("WorControl");
 }
 
-void IControl::createServerRoad() noexcept {
+void IControl::createServerRoad() const noexcept {
 	Backend::Midi::ServerRoad road;
 	road.activeCommand(CommandComponent::command());
 	road.sessionName(CommandComponent::sessionName());
@@ -42,6 +42,7 @@ void IControl::editMode(bool enable) noexcept {
 void IControl::mousePressEvent(QMouseEvent *e) {
 	switch (e->button()) {
 		case Qt::MouseButton::LeftButton:
+			MidiComponent::goMidiRoad();
 			break;
 		case Qt::MouseButton::RightButton: {
 			auto menu = ControlCreator<Menus::ControlContextMenu>::create(this);

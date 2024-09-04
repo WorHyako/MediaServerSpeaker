@@ -32,7 +32,7 @@ namespace Mss::Gui::Controls {
 		/**
 		 * @brief
 		 */
-		void createServerRoad() noexcept;
+		void createServerRoad() const noexcept;
 
 		/**
 		 * @brief

@@ -13,8 +13,8 @@ using namespace Mss::Backend::Command;
 
 ControlProperty::ControlProperty(QWidget *parent) noexcept
 	: QDialog(parent),
-	  _commandLayout(nullptr),
 	  _control(dynamic_cast<Controls::IMovableControl *>(parent)),
+	  _commandLayout(nullptr),
 	  _midiButtonId(0) {
 	if (!_control) {
 		QDialog::deleteLater();

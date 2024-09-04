@@ -13,6 +13,8 @@ Table::Table(QWidget *parent) noexcept
 	  _rowsLayout(nullptr) {
 	QWidget::resize(200, 300);
 
+	QWidget::setAutoFillBackground(true);
+
 	auto layout = new QVBoxLayout;
 	QWidget::setLayout(layout);
 
@@ -100,11 +102,10 @@ std::string Table::text() const noexcept {
 void Table::commandChanged() noexcept {
 	clear();
 	auto commandItems = Components::CommandComponent::command()->items();
-	std::for_each(std::begin(commandItems),
-				  std::end(commandItems),
-				  [this](const Backend::Command::CommandItem &item) {
-					  addRow({item.key().c_str(), item.value().c_str()});
-				  });
+	std::ranges::for_each(commandItems,
+						  [this](const Backend::Command::CommandItem &item) {
+							  addRow({item.key().c_str(), item.value().c_str()});
+						  });
 }
 
 #pragma endregion Callbacks

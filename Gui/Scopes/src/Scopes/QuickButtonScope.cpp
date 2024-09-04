@@ -9,7 +9,6 @@ using namespace Mss::Gui::Scopes;
 using namespace Mss::Gui::Controls;
 
 namespace {
-
 	/**
 	 * @brief
 	 */
@@ -88,15 +87,14 @@ void QuickButtonScope::removeControl(QWidget *control) noexcept {
 
 void QuickButtonScope::removeAllControls() noexcept {
 	auto allControls = QWidget::layout()->children();
-	std::for_each(std::begin(allControls),
-				  std::end(allControls),
-				  [this](QObject *each) {
-					  auto control = dynamic_cast<QWidget *>(each);
-					  if (!control) {
-						  return;
-					  }
-					  removeControl(control);
-				  });
+	std::ranges::for_each(allControls,
+						  [this](QObject *each) {
+							  auto control = dynamic_cast<QWidget *>(each);
+							  if (!control) {
+								  return;
+							  }
+							  removeControl(control);
+						  });
 }
 
 void QuickButtonScope::loadControls() noexcept {
@@ -122,11 +120,10 @@ void QuickButtonScope::loadControls() noexcept {
 	/**
 	 * TODO: finish
 	 */
-	std::for_each(std::begin(controls),
-				  std::end(controls),
-				  [this](auto &each) {
-					  addControl(each.release());
-				  });
+	std::ranges::for_each(controls,
+						  [this](auto &each) {
+							  addControl(each.release());
+						  });
 }
 
 void QuickButtonScope::saveControls() noexcept {

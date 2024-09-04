@@ -69,6 +69,7 @@ namespace Mss::Gui::Controls::Dialogs {
 
 		std::unique_ptr<Backend::Command::BaseCommand> _testCommand;
 
+	public:
 #pragma region Callbacks
 
 	signals:

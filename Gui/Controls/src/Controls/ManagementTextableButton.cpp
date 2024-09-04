@@ -2,7 +2,7 @@
 
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QTextEdit>
+#include <QLineEdit>
 
 using namespace Mss::Gui::Controls;
 
@@ -27,7 +27,7 @@ ManagementTextableButton::ManagementTextableButton(QWidget *parent) noexcept
 	layout->addWidget(_button);
 	std::ignore = layout->setStretchFactor(_button, 5);
 
-	_textEdit = new QTextEdit;
+	_textEdit = new QLineEdit;
 	_textEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	layout->addWidget(_textEdit);
 	std::ignore = layout->setStretchFactor(_textEdit, 1);
