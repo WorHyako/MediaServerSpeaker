@@ -95,7 +95,7 @@ namespace Mss::Backend::Midi {
 		 * @return
 		 */
 		[[nodiscard]]
-		MidiRoad midiRoad(std::uint8_t midiIdx) const noexcept;
+		std::optional<MidiRoad> midiRoad(std::uint8_t midiIdx) const noexcept;
 
 		/**
 		 * @brief
@@ -103,7 +103,7 @@ namespace Mss::Backend::Midi {
 		 * @return
 		 */
 		[[nodiscard]]
-		ServerRoad serverRoad(std::uint8_t midiIdx) const noexcept;
+		std::optional<ServerRoad> serverRoad(std::uint8_t midiIdx) const noexcept;
 
 #pragma endregion Accessors/Mutators
 	};

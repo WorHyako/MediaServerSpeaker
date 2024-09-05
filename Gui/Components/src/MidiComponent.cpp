@@ -6,16 +6,18 @@
 using namespace Mss::Gui::Components;
 
 MidiComponent::MidiComponent() noexcept
-	: _midiKeyIdx(-1) {
+	: _midiKeyIdx(0) {
 }
 
 void MidiComponent::goMidiRoad() noexcept {
-	if(_midiKeyIdx < 0) {
+	if (_midiKeyIdx < 0) {
 		return;
 	}
 	auto &roadMap = Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get();
 	auto road = roadMap.midiRoad(_midiKeyIdx);
-	road.go();
+	if (!road.has_value()) {
+		road.value().go();
+	}
 }
 
 #pragma region Accessors/Mutators
