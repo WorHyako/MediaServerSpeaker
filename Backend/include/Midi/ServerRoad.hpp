@@ -6,9 +6,21 @@
 
 namespace Mss::Backend::Midi {
 	/**
-	 * @brief
+	 * @brief	Object to control server messages.
+	 *			<p>
+	 *			Controls active/passive status of launchpad's midi button.
+	 *			<p>
+	 *			Store roads in road map object.
 	 *
-	 * @author WorHyako
+	 * @usage
+	 * @code
+	 *			ServerRoad road;
+	 *			road.activeCommand(command1);
+	 *			road.deactiveCommand(command2);
+	 *			road.go();
+	 * @endcode
+	 *
+	 * @author	WorHyako
 	 */
 	class ServerRoad final {
 	public:
@@ -17,60 +29,74 @@ namespace Mss::Backend::Midi {
 		/**
 		 * @brief Ctor.
 		 *
-		 * @param sessionName
+		 * @param sessionName Session name to send command.
 		 */
 		explicit ServerRoad(std::string sessionName = {}) noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Sends out message to session's endpoint if it's possible.
+		 *			<p>
+		 *			Change active status via internal class field @code _isActive @endcode .
 		 */
 		void go() noexcept;
 
 	private:
+		/**
+		 * @brief Command in midi button active state.
+		 */
 		WorCommandPtr _activeCommand;
 
+		/**
+		 * @brief Command in midi button passive state.
+		 */
 		WorCommandPtr _deactiveCommand;
 
+		/**
+		 * @brief Session name to send message.
+		 */
 		std::string _sessionName;
 
+		/**
+		 * @brief Midi button state.
+		 */
 		bool _isActive;
 
 	public:
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief	Session name mutator.
 		 *
-		 * @param sessionName
+		 * @param	sessionName New session name.
 		 */
 		void sessionName(std::string sessionName) noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Session name accessor.
 		 *
-		 * @return
+		 * @return	Session name.
 		 */
 		[[nodiscard]]
 		std::string sessionName() const noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Active command mutator.
 		 *
-		 * @param command
+		 * @param	command New command.
 		 */
 		void activeCommand(WorCommandPtr command) noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Passive command mutator.
 		 *
-		 * @param command
+		 * @param	command New command.
 		 */
 		void deactiveCommand(WorCommandPtr command) noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Current command.
 		 *
-		 * @return
+		 * @return	Command.
 		 */
 		[[nodiscard]]
 		WorCommandPtr currentCommand() const noexcept;

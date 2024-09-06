@@ -19,6 +19,7 @@ void ServerRoad::go() noexcept {
 		return;
 	}
 	session->send(command->str());
+
 	_isActive = !_isActive;
 }
 

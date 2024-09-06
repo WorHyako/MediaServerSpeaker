@@ -20,7 +20,7 @@ namespace Mss::Gui::Controls::Dialogs {
 	 *
 	 * @author WorHyako
 	 */
-	class ControlProperty
+	class ControlProperty final
 			: public QDialog {
 		Q_OBJECT
 

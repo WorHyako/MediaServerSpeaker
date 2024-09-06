@@ -32,7 +32,7 @@ namespace Mss::Backend::Midi {
 		explicit MidiRoad(std::uint8_t buttonId) noexcept;
 
 		/**
-		 * @brief	Sends out message to launchpad if it possible.
+		 * @brief	Sends out message to launchpad if it's possible.
 		 *			<p>
 		 *			Change active status via internal class field @code _isActive @endcode .
 		 */
