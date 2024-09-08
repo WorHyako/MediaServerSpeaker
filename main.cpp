@@ -13,10 +13,25 @@
 
 #include "ConfData/AuthData.hpp"
 
+#include <spdlog/spdlog.h>
+
+#ifdef LOG_TO_FILE
+
+#include <spdlog/sinks/basic_file_sink.h>
+
+#endif
+
 using namespace Mss::Gui;
 using namespace Wor;
 
 int main(int argc, char **argv) {
+#ifdef LOG_TO_FILE
+
+	auto localLogger = spdlog::basic_logger_mt("local_logger", "log/log.txt", true);
+	spdlog::set_default_logger(localLogger);
+
+#endif
+
 	QApplication app(argc, argv);
 
 	/**

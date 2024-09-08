@@ -10,6 +10,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
 
+option(LOG_TO_FILE "" OFF)
+
+if (LOG_TO_FILE)
+    add_compile_definitions(LOG_TO_FILE)
+endif ()
+
 ##################
 #   Mss System   #
 ##################

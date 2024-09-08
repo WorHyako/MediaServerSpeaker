@@ -11,7 +11,7 @@ namespace Mss::Gui::Controls {
      *
      * @author WorHyako
      */
-    class QuickButton
+    class QuickButton final
             : public IControl {
     public:
         /**

@@ -16,8 +16,9 @@ void MidiComponent::goMidiRoad() noexcept {
 	auto &roadMap = Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get();
 	auto road = roadMap.midiRoad(_midiKeyIdx);
 	if (!road.has_value()) {
-		road.value().go();
+		return;
 	}
+	road.value().go();
 }
 
 #pragma region Accessors/Mutators

@@ -81,9 +81,7 @@ void QuickTitlesScope::saveControls() noexcept {
 	std::string tabName(parentTab->accessibleName().toUtf8().constData());
 	Config<QuickTitlesScope> config(tabName);
 	config.addToConfig<QuickTitle>(this);
-	if (!config.saveConfig()) {
-		std::printf("Fail in saving process.\n");
-	}
+	std::ignore = config.saveConfig();
 }
 
 #pragma region Callbacks

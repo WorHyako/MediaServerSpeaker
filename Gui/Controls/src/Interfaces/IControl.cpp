@@ -5,6 +5,8 @@
 #include "Midi/MidiRoadMap.hpp"
 
 #include <QMouseEvent>
+#include <QStyleOption>
+#include <QPainter>
 
 #include "Wor/Wrappers/Singleton.hpp"
 
@@ -53,6 +55,15 @@ void IControl::mousePressEvent(QMouseEvent *e) {
 		default:
 			break;
 	}
+}
+
+void IControl::paintEvent(QPaintEvent *event) {
+	QStyleOption opt;
+	opt.initFrom(this);
+	QPainter p(this);
+	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+
+	QWidget::paintEvent(event);
 }
 
 #pragma endregion Callbacks

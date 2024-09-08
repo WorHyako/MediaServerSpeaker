@@ -18,7 +18,7 @@ namespace Mss::Gui::Scopes::Menus {
 	 *
 	 * @author  WorHyako
 	 */
-	class ScopeContextMenu
+	class ScopeContextMenu final
 			: public QMenu {
 	public:
 		/**
@@ -28,8 +28,7 @@ namespace Mss::Gui::Scopes::Menus {
 		 *
 		 * @param parent
 		 */
-		explicit ScopeContextMenu(Scopes::ControlType controlType,
-								  QWidget *parent = nullptr) noexcept;
+		explicit ScopeContextMenu(ControlType controlType, QWidget *parent = nullptr) noexcept;
 
 		/**
 		 * @brief Dtor.

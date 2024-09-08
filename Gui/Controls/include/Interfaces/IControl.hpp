@@ -76,6 +76,8 @@ namespace Mss::Gui::Controls {
 		 */
 		virtual void commandChanged() noexcept = 0;
 
+		void paintEvent(QPaintEvent *event) override;
+
 #pragma endregion Callbacks
 	};
 }

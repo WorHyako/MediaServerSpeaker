@@ -134,9 +134,7 @@ void QuickButtonScope::saveControls() noexcept {
 	std::string tabName(parentTab->accessibleName().toUtf8().constData());
 	Config<QuickButtonScope> config(tabName);
 	config.addToConfig<QuickButton>(this);
-	if (!config.saveConfig()) {
-		std::printf("Error in saving process.\n");
-	}
+	std::ignore = config.saveConfig();
 }
 
 void QuickButtonScope::moveAllLeftSince(std::uint8_t idx) noexcept {
