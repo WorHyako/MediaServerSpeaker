@@ -53,16 +53,12 @@ NetworkSettingPage::NetworkSettingPage(QWidget *parent) noexcept
 								  bool portConversation(false);
 								  auto port = portText->text().toInt(&portConversation);
 								  if (!portConversation) {
-									  std::printf("Wrong port symbols\n");
+									  return;
 								  }
 								  boost::asio::ip::tcp::endpoint endpoint;
 								  endpoint.port(port);
 								  endpoint.address(boost::asio::ip::make_address_v4(address));
-								  if (server.bindTo(endpoint)) {
-									  std::printf("Success in binding to local port\n");
-								  } else {
-									  std::printf("Fail in binding to local port\n");
-								  }
+								  std::ignore = server.bindTo(endpoint);
 							  });
 		hLayout->addWidget(_serverConnectButton);
 
