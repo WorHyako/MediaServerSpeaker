@@ -8,17 +8,19 @@ class QWidget;
 
 namespace Mss::Gui::Controls {
 	/**
-	 * @brief
+	 * @brief	Creates and logs qt control.
+	 *			<p>
+	 *			Don't forget to release smart pointer. It will be destroyed otherwise.
 	 *
-	 *
-	 * @tparam TControlType
+	 * @tparam	TControlType	Control type to create.
 	 *
 	 * @usage
 	 * @code
-	 *
+	 *			auto control = ControlCreator<ControlType>::create(parent);
+	 *			control.release();
 	 * @endcode
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
 	 */
 	template <typename TControlType>
 	class ControlCreator final {
@@ -29,25 +31,22 @@ namespace Mss::Gui::Controls {
 		ControlCreator() noexcept = delete;
 
 		/**
-		 * @brief
+		 * @brief	Creates new control, logs and returns it via smart pointer.
 		 *
-		 * @return
+		 * @return	New control.
 		 */
 		[[nodiscard]]
 		static std::unique_ptr<TControlType> create(QWidget* parent = nullptr) noexcept;
 
 	private:
 		/**
-		 * @brief
+		 * @brief	Log creating process.
 		 */
 		static void log() noexcept;
 	};
 
 	template <typename TControlType>
 	void ControlCreator<TControlType>::log() noexcept {
-		/**
-		 * Place to log creation process in future
-		 */
 		std::stringstream ss;
 		ss << "ControlCreator:\n"
 				<< "Object "

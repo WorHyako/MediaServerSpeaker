@@ -4,11 +4,11 @@
 
 namespace Mss::Gui::Style {
 	/**
-	 * @brief
+	 * @brief	Returns style sheet for QPushButton object.
 	 *
-	 * @return
+	 * @return	Style sheet.
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
 	 */
 	constexpr std::string_view getButtonStyle() noexcept {
 		return R"(

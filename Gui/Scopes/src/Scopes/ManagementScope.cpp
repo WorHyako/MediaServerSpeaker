@@ -77,11 +77,10 @@ void ManagementScope::loadControls() noexcept {
 	/**
 	 * TODO: finish
 	 */
-	std::for_each(std::begin(controls),
-				  std::end(controls),
-				  [this](auto &each) {
-					  addControl(each.release());
-				  });
+	std::ranges::for_each(controls,
+						  [this](auto &each) {
+							  addControl(each.release());
+						  });
 }
 
 void ManagementScope::saveControls() noexcept {

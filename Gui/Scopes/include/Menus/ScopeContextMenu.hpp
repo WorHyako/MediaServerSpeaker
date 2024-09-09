@@ -7,7 +7,7 @@
 namespace Mss::Gui::Scopes::Menus {
 
 	/**
-	 * @brief
+	 * @brief	Context menu for Wor scopes.
 	 *
 	 * @usage
 	 * @code
@@ -22,11 +22,11 @@ namespace Mss::Gui::Scopes::Menus {
 			: public QMenu {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param controlType
+		 * @param	controlType	Available control type.
 		 *
-		 * @param parent
+		 * @param	parent		Parent widget.
 		 */
 		explicit ScopeContextMenu(ControlType controlType, QWidget *parent = nullptr) noexcept;
 

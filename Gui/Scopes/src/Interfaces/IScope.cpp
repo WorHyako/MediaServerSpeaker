@@ -2,6 +2,7 @@
 
 #include "Interfaces/IControl.hpp"
 #include "Menus/ScopeContextMenu.hpp"
+#include "Creators/ControlCreator.hpp"
 
 #include <QMouseEvent>
 #include <QPainter>

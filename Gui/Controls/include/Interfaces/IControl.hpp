@@ -76,7 +76,12 @@ namespace Mss::Gui::Controls {
 		 */
 		virtual void commandChanged() noexcept = 0;
 
-		void paintEvent(QPaintEvent *event) override;
+		/**
+		 * @brief	Painting event. Uses for style sheet applying.
+		 *
+		 * @param	e	Paint event.
+		 */
+		void paintEvent(QPaintEvent *e) override;
 
 #pragma endregion Callbacks
 	};

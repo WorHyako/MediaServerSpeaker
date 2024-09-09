@@ -4,11 +4,13 @@
 
 namespace Mss::Gui::Style {
 	/**
-	 * @brief
+	 * @brief	Returns style sheet fpr QWidget object named "WorControl".
+	 *			<p>
+	 *			It will paint background with rounded corners.
 	 *
-	 * @return
+	 * @return	Style sheet.
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
 	 */
 	constexpr std::string_view getWidgetControlStyle() noexcept {
 		return R"(

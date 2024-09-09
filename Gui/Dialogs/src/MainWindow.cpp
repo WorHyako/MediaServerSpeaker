@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) noexcept
 	std::ignore = connect(settings,
 						  &QAction::triggered,
 						  [this](bool) {
-							  auto settingsDialog = Controls::ControlCreator<Dialogs::SettingDialog>::create(this);
+							  auto settingsDialog = Controls::ControlCreator<SettingDialog>::create(this);
 							  settingsDialog->show();
 							  std::ignore = settingsDialog.release();
 						  });

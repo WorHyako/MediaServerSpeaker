@@ -38,6 +38,7 @@ namespace Mss::Gui::Components {
 		 * @brief	Try to execute command with current session name
 		 *
 		 * @return	@code true @endcode		Successful command executing.
+		 *			<p>
 		 *			@code false @endcode	Fail in command executing.
 		 */
 		[[nodiscard]]
@@ -54,7 +55,7 @@ namespace Mss::Gui::Components {
 		/**
 		 * @brief	Command mutator.
 		 *
-		 * @param	command		New command. Pointer will be modify to std::shared_pat
+		 * @param	command	New command. Pointer will be modify to std::shared_pat
 		 */
 		void command(Backend::Command::ICommand* command) noexcept;
 
@@ -69,7 +70,7 @@ namespace Mss::Gui::Components {
 		/**
 		 * @brief	Session name mutator.
 		 *
-		 * @param	sessionName New session name.
+		 * @param	sessionName	New session name.
 		 */
 		void sessionName(std::string sessionName) noexcept;
 

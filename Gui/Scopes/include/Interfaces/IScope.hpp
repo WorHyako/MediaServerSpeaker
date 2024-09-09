@@ -7,14 +7,9 @@
 namespace Mss::Gui::Scopes {
 
     /**
-     * @brief
+     * @brief	Contains list of controls, that uses for ContextMenu filling.
      *
-     * @usage
-     * @code
-     *
-     * @endcode
-     *
-     * @author WorHyako
+     * @author	WorHyako
      */
     enum class ControlType
             : std::uint8_t {
@@ -50,15 +45,15 @@ namespace Mss::Gui::Scopes {
 	};
 
 	/**
-	 * @brief
+	 * @brief	Operator
 	 *
-	 * @param a
+	 * @param	a
 	 *
-	 * @param b
+	 * @param	b
 	 *
 	 * @return
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
 	 */
 	[[nodiscard]]
 	inline ControlType operator|(ControlType a, ControlType b) {
@@ -68,13 +63,13 @@ namespace Mss::Gui::Scopes {
 	/**
 	 * @brief
 	 *
-	 * @param a
+	 * @param	a
 	 *
-	 * @param b
+	 * @param	b
 	 *
 	 * @return
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
 	 */
 	[[nodiscard]]
 	inline bool operator&(ControlType a, ControlType b) {
@@ -92,7 +87,9 @@ namespace Mss::Gui::Scopes {
 
     public:
         /**
-         * @brief Ctor.
+         * @brief	Ctor.
+         *
+         * @param	parent	Parent widget.
          */
         explicit IScope(QWidget *parent = nullptr) noexcept;
 
@@ -152,16 +149,16 @@ namespace Mss::Gui::Scopes {
 #pragma region Callbacks
 
         /**
-         * @brief
+         * @brief	Mouse press event. Uses for context menu calling.
          *
-         * @param e
+         * @param	e	Mouse event info.
          */
         void mousePressEvent(QMouseEvent *e) noexcept override;
 
         /**
-         * @brief
+         * @brief	Painting event. Uses for style sheet applying.
          *
-         * @param e
+         * @param	e	Paint event.
          */
         void paintEvent(QPaintEvent *e) noexcept override;
 

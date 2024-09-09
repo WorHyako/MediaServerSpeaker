@@ -9,11 +9,16 @@
 
 namespace Mss::Gui::Style {
 	/**
-	 * @brief
+	 * @brief	Returns all Wor styles for controls
 	 *
-	 * @return
+	 * @usage
+	 * @code
+	 *			window.setStyleSheet(Style::getWorStyle().c_str());
+	 * @endcode
 	 *
-	 * @author WorHyako
+	 * @return	Styles sheet.
+	 *
+	 * @author	WorHyako
 	 */
 	[[nodiscard]]
 	static std::string getWorStyle() noexcept {
