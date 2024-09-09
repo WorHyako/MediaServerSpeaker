@@ -93,9 +93,7 @@ void ManagementScope::saveControls() noexcept {
 	Config<ManagementScope> config(tabName);
 	config.addToConfig<ManagementButton>(this);
 	config.addToConfig<ManagementTextableButton>(this);
-	if (!config.saveConfig()) {
-		std::printf("Saving failed\n");
-	}
+	std::ignore = config.saveConfig();
 }
 
 #pragma region Callbacks

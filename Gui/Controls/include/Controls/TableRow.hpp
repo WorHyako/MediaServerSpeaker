@@ -9,7 +9,7 @@ namespace Mss::Gui::Controls {
 	 *
 	 * @author WorHyako
 	 */
-	class TableRow
+	class TableRow final
 			: public QWidget {
 		Q_OBJECT
 

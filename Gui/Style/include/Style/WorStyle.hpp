@@ -18,9 +18,9 @@ namespace Mss::Gui::Style {
 	[[nodiscard]]
 	static std::string getWorStyle() noexcept {
 		return std::string()
-				+ Style::getWidgetControlStyle().data()
-				+ Style::getButtonStyle().data()
-				+ Style::getTextEditStyle().data()
-				+ Style::getLineEditStyle().data();
+				+ getWidgetControlStyle().data()
+				+ getButtonStyle().data()
+				+ getTextEditStyle().data()
+				+ getLineEditStyle().data();
 	}
 }

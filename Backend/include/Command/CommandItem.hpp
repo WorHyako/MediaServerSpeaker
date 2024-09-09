@@ -7,7 +7,7 @@ namespace Mss::Backend::Command {
 	/**
 	 * @brief	Represents a pair of key-value command item.
 	 *			<p>
-	 *			In command string <code>CommandItem</code> looks like "...key=value..."
+	 *			In command string @code CommandItem @endcode looks like "...key=value..."
 	 *
 	 * @author	WorHyako
 	 */
@@ -59,9 +59,9 @@ namespace Mss::Backend::Command {
 		/**
 		 * @brief	Checks for value emptiness.
 		 *
-		 * @return	<code>true</code> CommandItem's value is empty.
+		 * @return	@code true @endcode		CommandItem's value is empty.
 		 *			<p>
-		 *			<code>false</code> CommandItem's value isn't empty.
+		 *			@code false @endcode	CommandItem's value isn't empty.
 		 */
 		[[nodiscard]]
 		bool empty() const noexcept;

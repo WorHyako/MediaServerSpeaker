@@ -15,7 +15,7 @@ namespace Mss::Backend::Command {
 	 *			CommandBuilder<BaseCommand>::build();
 	 * @endcode
 	 *
-	 * @tparam	TCommandType Command class type
+	 * @tparam	TCommandType	Command class type
 	 *
 	 * @author	WorHyako
 	 */
@@ -30,11 +30,11 @@ namespace Mss::Backend::Command {
 		/**
 		 * @brief	Creates command from selected CommandItems.
 		 *
-		 * @param	items List of CommandItems to create command.
+		 * @param	items	List of CommandItems to create command.
 		 *
 		 * @return	Unique pointer of created command.
 		 *
-		 * @see		<code>CommandItem</code>
+		 * @see		@code CommandItem @endcode
 		 */
 		[[nodiscard]]
 		static std::unique_ptr<TCommandType> build(std::vector<CommandItem> items = {}) noexcept;

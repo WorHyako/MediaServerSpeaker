@@ -1,7 +1,8 @@
 #pragma once
 
 #include <memory>
-#include <cstdio>
+
+#include "spdlog/spdlog.h"
 
 class QWidget;
 
@@ -47,7 +48,12 @@ namespace Mss::Gui::Controls {
 		/**
 		 * Place to log creation process in future
 		 */
-		std::printf("Object %s was created.\n", typeid(TControlType).name());
+		std::stringstream ss;
+		ss << "ControlCreator:\n"
+				<< "Object "
+				<< typeid(TControlType).name()
+				<< " was created";
+		spdlog::info(ss.str());
 	}
 
 	template <typename TControlType>

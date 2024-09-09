@@ -4,7 +4,7 @@
 #include "Wor/Wrappers/Singleton.hpp"
 
 #include <QVBoxLayout>
-#include <QTextEdit>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QLabel>
 #include <QGraphicsEllipseItem>
@@ -29,16 +29,14 @@ NetworkSettingPage::NetworkSettingPage(QWidget *parent) noexcept
 		auto addressLabel = new QLabel("Host:");
 		hLayout->addWidget(addressLabel);
 
-		auto addressText = new QTextEdit("127.0.0.1");
-		addressText->setLineWrapMode(QTextEdit::NoWrap);
+		auto addressText = new QLineEdit("127.0.0.1");
 		addressText->setMaximumHeight(30);
 		hLayout->addWidget(addressText);
 
 		auto portLabel = new QLabel("Port:");
 		hLayout->addWidget(portLabel);
 
-		auto portText = new QTextEdit("33000");
-		portText->setLineWrapMode(QTextEdit::NoWrap);
+		auto portText = new QLineEdit("33000");
 		portText->setMaximumHeight(30);
 		hLayout->addWidget(portText);
 
@@ -51,20 +49,16 @@ NetworkSettingPage::NetworkSettingPage(QWidget *parent) noexcept
 							  &QPushButton::pressed,
 							  [addressText, portText]() {
 								  auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
-								  std::string address = addressText->toPlainText().toUtf8().constData();
+								  std::string address = addressText->text().toUtf8().constData();
 								  bool portConversation(false);
-								  auto port = portText->toPlainText().toInt(&portConversation);
+								  auto port = portText->text().toInt(&portConversation);
 								  if (!portConversation) {
-									  std::printf("Wrong port symbols\n");
+									  return;
 								  }
 								  boost::asio::ip::tcp::endpoint endpoint;
 								  endpoint.port(port);
 								  endpoint.address(boost::asio::ip::make_address_v4(address));
-								  if (server.bindTo(endpoint)) {
-									  std::printf("Success in binding to local port\n");
-								  } else {
-									  std::printf("Fail in binding to local port\n");
-								  }
+								  std::ignore = server.bindTo(endpoint);
 							  });
 		hLayout->addWidget(_serverConnectButton);
 
@@ -123,11 +117,11 @@ void NetworkSettingPage::refreshServerStatus() noexcept {
 							  endPointText->setText(endpointStr);
 							  hLayout->addWidget(endPointText);
 
-							  auto sessionName = new QTextEdit(session->name().c_str());
+							  auto sessionName = new QLineEdit(session->name().c_str());
 							  std::ignore = connect(sessionName,
-													&QTextEdit::textChanged,
+													&QLineEdit::textChanged,
 													[sessionName, session]() {
-														session->name(sessionName->toPlainText().toUtf8().constData());
+														session->name(sessionName->text().toUtf8().constData());
 													});
 							  hLayout->addWidget(sessionName);
 

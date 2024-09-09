@@ -2,7 +2,7 @@
 
 #include <QWidget>
 
-class QTextEdit;
+class QLineEdit;
 
 namespace Mss::Gui::Dialogs::Pages {
 	/**
@@ -26,19 +26,14 @@ namespace Mss::Gui::Dialogs::Pages {
 		 */
 		void refreshSqlStatus() noexcept;
 
-		QTextEdit* _userNameText;
+		QLineEdit* _userNameText;
 
-		QTextEdit* _userPasswordText;
+		QLineEdit* _userPasswordText;
 
-		QTextEdit* _hostText;
+		QLineEdit* _hostText;
 
-		QTextEdit* _portText;
+		QLineEdit* _portText;
 
-		QTextEdit* _dbNameText;
-
-	public:
-#pragma region Accessors/Mutators
-
-#pragma endregion Accessors/Mutators
+		QLineEdit* _dbNameText;
 	};
 }

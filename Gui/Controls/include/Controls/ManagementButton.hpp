@@ -6,20 +6,20 @@ class QPushButton;
 
 namespace Mss::Gui::Controls {
 
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class ManagementButton final
-            : public IMovableControl {
-    public:
-        /**
-         * @brief Ctor.
-         *
-         * @param parent
-         */
-        explicit ManagementButton(QWidget *parent = nullptr) noexcept;
+	/**
+	 * @brief
+	 *
+	 * @author	WorHyako
+	 */
+	class ManagementButton final
+			: public IMovableControl {
+	public:
+		/**
+		 * @brief Ctor.
+		 *
+		 * @param parent
+		 */
+		explicit ManagementButton(QWidget *parent = nullptr) noexcept;
 
 		/**
 		 * @brief Dtor.
@@ -51,6 +51,9 @@ namespace Mss::Gui::Controls {
 
 #pragma region Callbacks
 
+		/**
+		 * @brief
+		 */
 		void commandChanged() noexcept override;
 
 #pragma endregion Callbacks

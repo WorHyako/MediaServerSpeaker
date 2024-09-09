@@ -12,6 +12,8 @@ using namespace Mss::Gui::Dialogs;
 
 SettingDialog::SettingDialog(QWidget *parent) noexcept
 	: QDialog(parent) {
+	QDialog::setMinimumSize(400, 400);
+
 	auto vLayout = new QVBoxLayout;
 	QDialog::setLayout(vLayout);
 	QDialog::setWindowTitle("Settings");

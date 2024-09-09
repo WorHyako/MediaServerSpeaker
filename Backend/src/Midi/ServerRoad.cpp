@@ -1,5 +1,7 @@
 #include "Midi/ServerRoad.hpp"
 
+#include <spdlog/spdlog.h>
+
 #include "Wor/Wrappers/Singleton.hpp"
 #include "Wor/Network/TcpServer.hpp"
 
@@ -11,14 +13,18 @@ ServerRoad::ServerRoad(std::string sessionName) noexcept
 }
 
 void ServerRoad::go() noexcept {
-	const auto &command = _isActive ? _activeCommand : _deactiveCommand;;
-	std::printf("Execute command: %s\n", command->str().c_str());
+	const auto &command = _isActive ? _activeCommand : _deactiveCommand;
+	std::stringstream ss;
+	ss << "ServerRoad. Command executing: "
+			<< command->str();
+	spdlog::info(ss.str());
 	auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
 	const auto &session = server.session(_sessionName);
 	if (!session) {
 		return;
 	}
 	session->send(command->str());
+
 	_isActive = !_isActive;
 }
 

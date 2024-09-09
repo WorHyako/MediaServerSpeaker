@@ -17,7 +17,7 @@ namespace Mss::Gui::Controls {
 	 *
 	 * @author WorHyako
 	 */
-	class Table
+	class Table final
 			: public IMovableControl {
 		Q_OBJECT
 

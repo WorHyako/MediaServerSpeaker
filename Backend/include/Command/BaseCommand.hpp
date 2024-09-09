@@ -20,8 +20,8 @@ namespace Mss::Backend::Command {
 	 *          std::string commandStr = command.str();
 	 * @endcode
 	 *
-	 * @see     <code>CommandBuilder</code>
-	 * @see     <code>CommandItem</code>
+	 * @see     @code CommandBuilder @endcode
+	 * @see     @code CommandItem @endcode
 	 *
 	 * @author  WorHyako
 	 */
@@ -36,35 +36,35 @@ namespace Mss::Backend::Command {
 		/**
 		 * @brief   Add selected item to command.
 		 *
-		 * @param   item Item to add
+		 * @param   item	Item to add
 		 */
 		void addItem(CommandItem item) noexcept override;
 
 		/**
 		 * @brief   Add selected items to command.
 		 *
-		 * @param   items Items to add.
+		 * @param   items	Items to add.
 		 */
 		void addItems(std::vector<CommandItem> items) noexcept override;
 
 		/**
 		 * @brief   Removes item by key from command
 		 *
-		 * @param   item Item to remove
+		 * @param   item	Item to remove
 		 */
 		void removeItem(CommandItem item) noexcept override;
 
 		/**
 		 * @brief   Removes item by key from command.
 		 *
-		 * @param   key Key of item to remove
+		 * @param   key		Key of item to remove
 		 */
 		void removeItem(std::string key) noexcept override;
 
 		/**
 		 * @brief   Removes item by index from command.
 		 *
-		 * @param   idx Index of item to remove.
+		 * @param   idx		Index of item to remove.
 		 */
 		void removeItem(std::uint16_t idx) noexcept override;
 
@@ -84,9 +84,9 @@ namespace Mss::Backend::Command {
 		 *
 		 * @param	sessionName	Session name to send command.
 		 *
-		 * @return	<code>true</code> success executing
+		 * @return	@code true @endcode success executing
 		 *			<p>
-		 *			<code>false</code> fail in executing
+		 *			@code false @endcode fail in executing
 		 */
 		[[nodiscard]]
 		bool execute(std::string sessionName) const noexcept override;
@@ -96,7 +96,7 @@ namespace Mss::Backend::Command {
 		 *          <p>
 		 *          Nothing will happen, if item doesn't exist.
 		 *
-		 * @param   item Item to change
+		 * @param   item	Item to change
 		 */
 		void changeItem(CommandItem item) noexcept override;
 
@@ -114,18 +114,26 @@ namespace Mss::Backend::Command {
 		/**
 		 * @brief   Returns index of item with selected key.
 		 *
-		 * @param   key Item's key to search.
+		 * @param   key		Item's key to search.
 		 *
 		 * @return  Index of item
-		 *          <p/>
-		 *          <code>-1</code> if there is no item with selected key
+		 *          <p>
+		 *          @code -1 @endcode if there is no item with selected key
 		 */
 		[[nodiscard]]
 		std::int16_t indexOf(std::string key) const noexcept override;
 
 	protected:
+		/**
+		 * @brief	Command tag. It's root of xml packet.
+		 */
 		std::string _tag;
 
+		/**
+		 * @brief	Separated command parts via CommandItem.
+		 *
+		 * @see		@code CommandItem @endcode
+		 */
 		std::vector<CommandItem> _items;
 
 	public:
@@ -142,7 +150,7 @@ namespace Mss::Backend::Command {
 		/**
 		 * @brief   Marks command with selected tag.
 		 *
-		 * @param   tag Command tag
+		 * @param   tag		Command tag
 		 */
 		void tag(std::string tag) noexcept override;
 
@@ -157,7 +165,7 @@ namespace Mss::Backend::Command {
 		/**
 		 * @brief   Try to parse selected string to command items and fill it.
 		 *
-		 * @param   commandStr Command via string
+		 * @param   commandStr	Command via string
 		 */
 		void set(const std::string &commandStr) noexcept override;
 

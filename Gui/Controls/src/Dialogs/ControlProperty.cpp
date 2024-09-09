@@ -1,11 +1,13 @@
 #include "ControlProperty.hpp"
 
+#include <QLabel>
+
 #include "Interfaces/IMovableControl.hpp"
 
 #include "Style/WorStyle.hpp"
 
 #include <QVBoxLayout>
-#include <QTextEdit>
+#include <QLineEdit>
 #include <QPushButton>
 
 using namespace Mss::Gui::Controls::Dialogs;
@@ -22,11 +24,16 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 	}
 
 	QDialog::setWindowTitle(parent->accessibleName());
-
 	QDialog::setStyleSheet(Style::getWorStyle().c_str());
-	auto vLayout = new QVBoxLayout(this);
-	QDialog::setLayout(vLayout);
-	vLayout->setSpacing(5);
+
+	auto hLayout = new QHBoxLayout;
+	QDialog::setLayout(hLayout);
+	auto labelLayout = new QVBoxLayout;
+	auto textLayout = new QVBoxLayout;
+
+	hLayout->addLayout(labelLayout);
+	hLayout->addLayout(textLayout);
+
 	_testCommand = std::make_unique<BaseCommand>();
 	_testCommand->set(_control->command()->str());
 	_controlName = _control->text();
@@ -36,90 +43,108 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 		/**
 		 * Control name
 		 */
-		auto layout = new QHBoxLayout;
+		auto text = new QLineEdit(_controlName.c_str());
+		textLayout->addWidget(text);
 
-		auto text = new QTextEdit(_controlName.c_str());
-		layout->addWidget(text);
+		auto label = new QLabel("Control Name");
+		labelLayout->addWidget(label);
 
 		std::ignore = connect(text,
-							  &QTextEdit::textChanged,
+							  &QLineEdit::textChanged,
 							  [this, text]() {
-								  _controlName = text->toPlainText().toUtf8().constData();
+								  _controlName = text->text().toUtf8().constData();
 							  });
-
-		vLayout->addLayout(layout);
 	}
-
-	/**
-	 * MidiIdx
-	 */
 	{
-		auto layout = new QHBoxLayout;
-		auto text = new QTextEdit(QString::number(_control->midiKeyIdx()));
+		/**
+		 * MidiIdx
+		 */
+		auto text = new QLineEdit(QString::number(_control->midiKeyIdx()));
+		textLayout->addWidget(text);
+
+		auto label = new QLabel("Midi button ID");
+		labelLayout->addWidget(label);
+
 		std::ignore = connect(text,
-							  &QTextEdit::textChanged,
+							  &QLineEdit::textChanged,
 							  [&midiButtonId = _midiButtonId, text]() {
-								  midiButtonId = text->toPlainText().toInt();
+								  midiButtonId = text->text().toInt();
 							  });
-		layout->addWidget(text);
-
-		vLayout->addLayout(layout);
 	}
+	{
+		/**
+		 * Command tag
+		 */
+		auto text = new QLineEdit(_testCommand->tag().c_str());
+		textLayout->addWidget(text);
 
-	auto commandTag = new QTextEdit(_testCommand->tag().c_str());
-	std::ignore = connect(commandTag,
-						  &QTextEdit::textChanged,
-						  [commandTag, this]() {
-							  _testCommand->tag(commandTag->toPlainText().toUtf8().constData());
-							  emit fullCommandChanged(_testCommand->str().c_str());
-						  });
-	vLayout->addWidget(commandTag);
+		auto label = new QLabel("Command tag");
+		labelLayout->addWidget(label);
 
+		std::ignore = connect(text,
+							  &QLineEdit::textChanged,
+							  [text, this]() {
+								  _testCommand->tag(text->text().toUtf8().constData());
+								  emit fullCommandChanged(_testCommand->str().c_str());
+							  });
+	}
 	{
 		/**
 		 * Command items layout command
 		 */
-		_commandLayout = new QVBoxLayout(vLayout->widget());
+		_commandLayout = new QVBoxLayout;
 
 		auto controlItems = _testCommand->items();
 		std::ranges::for_each(controlItems,
 							  [this](const CommandItem &each) {
 								  addCommandItemHLayout(each, false);
 							  });
+		textLayout->addLayout(_commandLayout);
 	}
-	vLayout->addLayout(_commandLayout);
+	{
+		/**
+		 * Buttons layout for command items
+		 */
+		auto buttonsLayout = new QHBoxLayout;
 
-	/**
-	 * Buttons layout for command items
-	 */
-	auto buttonsLayout = new QHBoxLayout;
+		auto addCommandItemButton = new QPushButton("Add");
+		std::ignore = connect(addCommandItemButton,
+							  &QPushButton::pressed,
+							  [this]() {
+								  addCommandItemHLayout();
+							  });
+		buttonsLayout->addWidget(addCommandItemButton);
+		textLayout->addLayout(buttonsLayout);
+	}
+	{
+		/**
+		 * Full command widget
+		 */
+		auto text = new QLineEdit(_testCommand->str().c_str());
+		text->setEnabled(false);
+		textLayout->addWidget(text);
 
-	auto addCommandItemButton = new QPushButton("Add");
-	std::ignore = connect(addCommandItemButton,
-						  &QPushButton::pressed,
-						  [this]() {
-							  addCommandItemHLayout();
-						  });
-	buttonsLayout->addWidget(addCommandItemButton);
-	vLayout->addLayout(buttonsLayout);
+		auto label = new QLabel("Full command");
+		labelLayout->addWidget(label);
 
-	/**
-	 * Full command widget
-	 */
-	auto fullCommand = new QTextEdit(_testCommand->str().c_str());
-	fullCommand->setFixedHeight(50);
-	std::ignore = connect(this, SIGNAL(fullCommandChanged(QString)), fullCommand, SLOT(setText(QString)));
-	fullCommand->setEnabled(false);
-	vLayout->addWidget(fullCommand);
+		std::ignore = connect(this, &ControlProperty::fullCommandChanged, text, &QLineEdit::textChanged);
+	}
+	{
+		/**
+		 * Session name
+		 */
+		auto text = new QLineEdit(_control->sessionName().c_str());
+		textLayout->addWidget(text);
 
-	auto sessionName = new QTextEdit(_control->sessionName().c_str());
-	std::ignore = connect(sessionName,
-						  &QTextEdit::textChanged,
-						  [this, sessionName]() {
-							  _sessionName = sessionName->toPlainText().toUtf8().constData();
-						  });
-	vLayout->addWidget(sessionName);
+		auto label = new QLabel("Session name");
+		labelLayout->addWidget(label);
 
+		std::ignore = connect(text,
+							  &QLineEdit::textChanged,
+							  [this, text]() {
+								  _sessionName = text->text().toUtf8().constData();
+							  });
+	}
 	{
 		/**
 		 * Common buttons
@@ -141,14 +166,14 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 							  });
 		layout->addWidget(cancelButton);
 
-		vLayout->addLayout(layout);
+		textLayout->addLayout(layout);
 	}
 
 	emit fullCommandChanged(_testCommand->str().c_str());
 }
 
 void ControlProperty::addCommandItemHLayout(const CommandItem &item, bool unique) noexcept {
-	auto hLayout = new QHBoxLayout();
+	auto hLayout = new QHBoxLayout;
 	if (unique) {
 		auto idx = _testCommand->indexOf(item.key());
 		if (idx != -1) {
@@ -157,25 +182,25 @@ void ControlProperty::addCommandItemHLayout(const CommandItem &item, bool unique
 		_testCommand->addItem(item);
 	}
 
-	auto keyText = new QTextEdit(item.key().c_str());
+	auto keyText = new QLineEdit(item.key().c_str());
 	std::ignore = connect(keyText,
-						  &QTextEdit::textChanged,
+						  &QLineEdit::textChanged,
 						  [keyText, hLayout, this]() {
 							  auto idx = _commandLayout->indexOf(hLayout);
 							  auto value = _testCommand->items()[idx].value();
-							  emit refreshCommand(idx, {keyText->toPlainText().toUtf8().constData(), value});
+							  emit refreshCommand(idx, {keyText->text().toUtf8().constData(), value});
 						  });
 
 	keyText->setStyleSheet(Style::getTextEditStyle().data());
 	hLayout->addWidget(keyText);
 
-	auto valueText = new QTextEdit(item.value().c_str());
+	auto valueText = new QLineEdit(item.value().c_str());
 	std::ignore = connect(valueText,
-						  &QTextEdit::textChanged,
+						  &QLineEdit::textChanged,
 						  [valueText, hLayout, this]() {
 							  auto idx = _commandLayout->indexOf(hLayout);
 							  auto key = _testCommand->items()[idx].key();
-							  emit refreshCommand(idx, {key, valueText->toPlainText().toUtf8().constData()});
+							  emit refreshCommand(idx, {key, valueText->text().toUtf8().constData()});
 						  });
 	hLayout->addWidget(valueText);
 

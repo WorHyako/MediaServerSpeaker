@@ -57,7 +57,7 @@ MidiSettingsPage::MidiSettingsPage(QWidget *parent) noexcept
 								   * TODO: Implement enum casting
 								   */
 								  if (deviceName == "APC MINI") {
-									  auto &roadMap = Wor::Wrappers::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
+									  auto &roadMap = Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get();
 									  roadMap.buttonIdIdx(1);
 									  _keyboardLayoutWidget = new KeyboardLayout::ApcMini;
 									  keyboardLayout->addWidget(_keyboardLayoutWidget);
@@ -117,7 +117,7 @@ void MidiSettingsPage::save() const noexcept {
 	}
 
 	auto midiButtons = _keyboardLayoutWidget->midiButtons();
-	auto &roadMap = Wor::Wrappers::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
+	auto &roadMap = Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get();
 	std::ranges::for_each(midiButtons,
 						  [&roadMap](auto &button) {
 							  Backend::Midi::MidiRoad road(button->midiKeyIdx());
@@ -129,10 +129,6 @@ void MidiSettingsPage::save() const noexcept {
 }
 
 void MidiSettingsPage::load() noexcept {
-	auto &roadMap = Wor::Wrappers::Singleton<Mss::Backend::Midi::MidiRoadMap>::get();
+	auto &roadMap = Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get();
 	roadMap.load();
 }
-
-#pragma region Callbacks
-
-#pragma endregion Callbacks

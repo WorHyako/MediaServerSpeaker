@@ -2,6 +2,8 @@
 
 #include "pugixml.hpp"
 
+#include "spdlog/spdlog.h"
+
 #include "Wor/Network/TcpServer.hpp"
 #include "Wor/Wrappers/Singleton.hpp"
 
@@ -13,7 +15,10 @@ using namespace pugi;
 void BaseCommand::addItem(CommandItem item) noexcept {
 	_items.emplace_back(std::move(item));
 
-	std::printf("Command has been changed: %s\n", str().c_str());
+	std::stringstream ss;
+	ss << "Command has been changed: "
+			<< str().c_str();
+	spdlog::info(ss.str());
 }
 
 void BaseCommand::addItems(std::vector<CommandItem> items) noexcept {
@@ -48,7 +53,11 @@ void BaseCommand::clean() noexcept {
 }
 
 bool BaseCommand::execute(std::string sessionName) const noexcept {
-	std::printf("Execute command: %s\n", str().c_str());
+	std::stringstream ss;
+	ss << "Command executing"
+			<< str().c_str();
+	spdlog::info(ss.str());
+
 	auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
 	auto session = server.session(sessionName);
 	if (!session) {

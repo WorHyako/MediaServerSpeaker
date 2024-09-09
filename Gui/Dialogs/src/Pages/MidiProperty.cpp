@@ -53,7 +53,7 @@ void MidiProperty::targetMidiIdx(std::uint8_t buttonIdx) noexcept {
 	_idText->setText(QString::number(buttonIdx));
 
 	auto &roadMap = Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get();
-	auto road = roadMap.midiRoad(buttonIdx);
+	auto road = roadMap.midiRoad(buttonIdx).value();
 
 	_activeColorComboBox->clear();
 	std::ignore = _activeColorComboBox->disconnect();
@@ -95,7 +95,7 @@ void MidiProperty::targetMidiIdx(std::uint8_t buttonIdx) noexcept {
 							  if (idx == -1) {
 								  return;
 							  }
-							  auto currentRoad = roadMap.midiRoad(roadIdx);
+							  auto currentRoad = roadMap.midiRoad(roadIdx).value();
 							  currentRoad.activeLed(static_cast<Wor::Midi::CallbackInfo::MidiLed>(colors[idx]));
 						  });
 
@@ -105,7 +105,7 @@ void MidiProperty::targetMidiIdx(std::uint8_t buttonIdx) noexcept {
 							  if (idx == -1) {
 								  return;
 							  }
-							  auto currentRoad = roadMap.midiRoad(roadIdx);
+							  auto currentRoad = roadMap.midiRoad(roadIdx).value();
 							  currentRoad.defaultLed(static_cast<Wor::Midi::CallbackInfo::MidiLed>(colors[idx]));
 						  });
 }

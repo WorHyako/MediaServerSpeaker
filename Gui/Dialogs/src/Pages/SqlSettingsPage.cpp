@@ -1,6 +1,7 @@
 #include "Pages/SqlSettingsPage.hpp"
 
 #include <QLabel>
+#include <QLineEdit>
 #include <QTextEdit>
 #include <QVBoxLayout>
 
@@ -22,52 +23,55 @@ SqlSettingsPage::SqlSettingsPage(QWidget *parent) noexcept
 	auto &sqlManager = Wor::Wrappers::Singleton<Wor::Sql::MySqlManager>::get();
 	auto dbParameters = sqlManager.dpParameters();
 
-	auto hostLayout = new QHBoxLayout;
-	auto hostlabel = new QLabel("Host:");
-	hostLayout->addWidget(hostlabel);
+	auto hLayout = new QHBoxLayout;
+	auto labelLayout = new QVBoxLayout;
+	auto textLayout = new QVBoxLayout;
 
-	_hostText = new QTextEdit(dbParameters.host.c_str());
-	hostLayout->addWidget(_hostText);
+	auto hostlabel = new QLabel("Host:");
+	labelLayout->addWidget(hostlabel);
+
+	_hostText = new QLineEdit(dbParameters.host.c_str());
+	textLayout->addWidget(_hostText);
 
 	auto portLabel = new QLabel("Port:");
-	hostLayout->addWidget(portLabel);
+	labelLayout->addWidget(portLabel);
 
-	_portText = new QTextEdit(QString::number(dbParameters.port));
-	hostLayout->addWidget(_portText);
+	_portText = new QLineEdit(QString::number(dbParameters.port));
+	textLayout->addWidget(_portText);
 
-	vLayout->addLayout(hostLayout);
-
-	auto userLayout = new QHBoxLayout;
 	auto userNameLabel = new QLabel("Username:");
-	userLayout->addWidget(userNameLabel);
+	labelLayout->addWidget(userNameLabel);
 
-	_userNameText = new QTextEdit(dbParameters.user.c_str());
-	userLayout->addWidget(_userNameText);
+	_userNameText = new QLineEdit(dbParameters.user.c_str());
+	textLayout->addWidget(_userNameText);
 
 	auto userPasswordLabel = new QLabel("Password:");
-	userLayout->addWidget(userPasswordLabel);
+	labelLayout->addWidget(userPasswordLabel);
 
-	_userPasswordText = new QTextEdit(dbParameters.password.c_str());
-	userLayout->addWidget(_userPasswordText);
+	_userPasswordText = new QLineEdit(dbParameters.password.c_str());
+	textLayout->addWidget(_userPasswordText);
 
 	auto dbNameLabel = new QLabel("Database name:");
-	userLayout->addWidget(dbNameLabel);
+	labelLayout->addWidget(dbNameLabel);
 
-	_dbNameText = new QTextEdit(dbParameters.dbName.c_str());
-	userLayout->addWidget(_dbNameText);
+	_dbNameText = new QLineEdit(dbParameters.dbName.c_str());
+	textLayout->addWidget(_dbNameText);
 
-	vLayout->addLayout(userLayout);
+	hLayout->addLayout(labelLayout);
+	hLayout->addLayout(textLayout);
+
+	vLayout->addLayout(hLayout);
 }
 
 void SqlSettingsPage::refreshSqlStatus() noexcept {
 	auto &sqlManager = Wor::Wrappers::Singleton<Wor::Sql::MySqlManager>::get();
 
 	Wor::Sql::DataBaseParameters dbParams;
-	dbParams.host = _hostText->toPlainText().toStdString();
-	dbParams.port = _portText->toPlainText().toInt();
-	dbParams.user = _userNameText->toPlainText().toStdString();
-	dbParams.password = _userPasswordText->toPlainText().toStdString();
-	dbParams.dbName = _dbNameText->toPlainText().toStdString();
+	dbParams.host = _hostText->text().toStdString();
+	dbParams.port = _portText->text().toInt();
+	dbParams.user = _userNameText->text().toStdString();
+	dbParams.password = _userPasswordText->text().toStdString();
+	dbParams.dbName = _dbNameText->text().toStdString();
 	dbParams.dbType = "mysql";
 	if (!sqlManager.dpParameters(dbParams)) {
 		return;

@@ -13,7 +13,7 @@ namespace Mss::Gui::Controls {
      *
      * @author WorHyako
      */
-    class QuickTitle
+    class QuickTitle final
             : public IControl {
     public:
         /**

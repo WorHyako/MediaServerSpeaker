@@ -8,14 +8,15 @@
 
 #include "nlohmann/json.hpp"
 
+#include "spdlog/spdlog.h"
+
 #include "Hierarchy/Files.hpp"
 #include "Json/JsonContentKeys.hpp"
 #include "Command/BaseCommand.hpp"
-
 #include "Interfaces/IMovableControl.hpp"
 #include "Creators/ControlCreator.hpp"
 
-#include "Json/JsonManager.hpp"
+#include "Wor/Json/JsonManager.hpp"
 
 namespace Mss::Gui::Scopes {
 
@@ -146,13 +147,13 @@ namespace Mss::Gui::Scopes {
 		auto it = std::find_if(std::begin(_config),
 							   std::end(_config),
 							   [](const nlohmann::json &each) {
-								   return each.contains(Mss::System::jsonControlKey<TControlType>());
+								   return each.contains(System::jsonControlKey<TControlType>());
 							   });
 		if (it == _config.end()) {
 			return {};
 		}
 
-		auto typeConfig = (*it).at(Mss::System::jsonControlKey<TControlType>());
+		auto typeConfig = (*it).at(System::jsonControlKey<TControlType>());
 		WorQWidgetPtrVec controls;
 		std::ranges::for_each(typeConfig,
 							  [this, &controls](const nlohmann::json &each) {
@@ -185,15 +186,18 @@ namespace Mss::Gui::Scopes {
 							  [&controls](QObject *each) {
 								  auto control = dynamic_cast<QWidget *>(each);
 								  if (dynamic_cast<const TControlType *>(each)) {
-									  std::printf("%s was tracked.\n",
-												  Mss::System::jsonControlKey<TControlType>().data());
+									  std::stringstream ss;
+									  ss << "Config generation: "
+											  << System::jsonControlKey<TControlType>().data()
+											  << "was tracked.";
+									  spdlog::info(ss.str());
 									  controls.emplace_back(control);
 								  }
 							  });
 
 		nlohmann::json config = makeConfig<TControlType>(std::move(controls));
 
-		_config[Mss::System::jsonHeadKey()].emplace_back(std::move(config));
+		_config[System::jsonHeadKey()].emplace_back(std::move(config));
 	}
 
 	template <class TScopeType>
@@ -212,33 +216,40 @@ namespace Mss::Gui::Scopes {
 								  if (dynamic_cast<WorMovableBaseControl *>(control)) {
 									  makeMovableParameters(config, control);
 								  }
-								  fullConfig[Mss::System::jsonControlKey<TControlType>()].push_back(std::move(config));
+								  fullConfig[System::jsonControlKey<TControlType>()].push_back(std::move(config));
 							  });
 		return fullConfig;
 	}
 
 	template <class TScopeType>
 	bool Config<TScopeType>::saveConfig() const noexcept {
-		std::string configPath = Mss::System::getResourcePath().data() +
+		std::string configPath = System::getResourcePath().data() +
 				_tabName + '/' +
-				Mss::System::getConfigName<TScopeType>().data();
+				System::getConfigName<TScopeType>().data();
 		return Wor::Json::tryToSaveFile(configPath, _config.dump());
 	}
 
 	template <class TScopeType>
 	bool Config<TScopeType>::loadConfig() noexcept {
-		std::string configPath(Mss::System::getResourcePath().data()
+		const std::string configPath(System::getResourcePath().data()
 				+ _tabName + '/'
-				+ Mss::System::getConfigName<TScopeType>().data());
+				+ System::getConfigName<TScopeType>().data());
 
 		auto config = Wor::Json::tryToLoadFile(configPath);
 
 		if (config.empty()
-			|| !config.contains(Mss::System::jsonHeadKey().data())) {
-			std::printf("Fail to parse config: %s\n", configPath.c_str());
+			|| !config.contains(System::jsonHeadKey().data())) {
+			std::stringstream ss;
+			ss << "Failed to parse config from resource path: "
+					<< configPath;
+			spdlog::error(ss.str());
 			return false;
 		}
-		_config = config.at(Mss::System::jsonHeadKey().data());
+		_config = config.at(System::jsonHeadKey().data());
+		std::stringstream ss;
+		ss << "Success to parse config from resource path: "
+				<< configPath;
+		spdlog::info(ss.str());
 		return true;
 	}
 
@@ -260,9 +271,12 @@ namespace Mss::Gui::Scopes {
 			command->set(commandStr);
 			control->command(command);
 		} catch (const nlohmann::json::exception &e) {
-			std::printf("Error: %s\n Bad object dump: %s\n",
-						e.what(),
-						std::string(json.dump()).c_str());
+			std::stringstream ss;
+			ss << "Config loading:\nBad config: "
+					<< json.dump()
+					<< "\nError info: "
+					<< e.what();
+			spdlog::error(ss.str());
 		}
 	}
 
@@ -270,17 +284,20 @@ namespace Mss::Gui::Scopes {
 	void Config<TScopeType>::acceptMovableParameters(const nlohmann::json &json,
 													 WorBaseControl *control) const noexcept {
 		try {
-			int xPos = json.at(Mss::System::jsonPositionKey()).at("x");
-			int yPos = json.at(Mss::System::jsonPositionKey()).at("y");
+			int xPos = json.at(System::jsonPositionKey()).at("x");
+			int yPos = json.at(System::jsonPositionKey()).at("y");
 			control->move(xPos, yPos);
 
-			int xSize = json.at(Mss::System::jsonSizeKey()).at("x");
-			int ySize = json.at(Mss::System::jsonSizeKey()).at("y");
+			int xSize = json.at(System::jsonSizeKey()).at("x");
+			int ySize = json.at(System::jsonSizeKey()).at("y");
 			control->resize(xSize, ySize);
 		} catch (const nlohmann::json::exception &e) {
-			std::printf("Error: %s\n Bad object dump: %s\n",
-						e.what(),
-						std::string(json.dump()).c_str());
+			std::stringstream ss;
+			ss << "Config loading:\nBad config: "
+					<< json.dump()
+					<< "\nError info: "
+					<< e.what();
+			spdlog::error(ss.str());
 		}
 	}
 
