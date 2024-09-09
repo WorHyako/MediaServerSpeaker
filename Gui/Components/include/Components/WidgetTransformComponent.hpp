@@ -9,6 +9,12 @@ class QMouseEvent;
 namespace Mss::Gui::Components {
 	/**
 	 * @brief	Object to transform (move and resize) Qt Widgets.
+	 *			<p>
+	 *			Orients just for inheritance existing.
+	 *			<p>
+	 *			Does resize with Alt modifier.
+	 *			<p>
+	 *			Does move with Ctrl modifier.
 	 *
 	 * @usage
 	 * @code
@@ -38,9 +44,9 @@ namespace Mss::Gui::Components {
 	class WidgetTransformComponent {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent	Object to transform.
 		 */
 		explicit WidgetTransformComponent(QWidget* parent) noexcept;
 
@@ -50,14 +56,14 @@ namespace Mss::Gui::Components {
 		virtual ~WidgetTransformComponent() noexcept = default;
 
 		/**
-		 * @brief
+		 * @brief	Does transform in case of pressed modifier (See class description).
 		 *
-		 * @param e
+		 * @param	e	Mouse event to take ket modifiers and position.
 		 */
 		void doTransform(QMouseEvent* e) noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Resets last mouse position.
 		 */
 		void stopTransform() noexcept;
 
@@ -72,9 +78,9 @@ namespace Mss::Gui::Components {
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief	Accessor for transforming flag.
 		 *
-		 * @param canTransform
+		 * @param	canTransform	New Value
 		 */
 		void canTransform(bool canTransform) noexcept;
 

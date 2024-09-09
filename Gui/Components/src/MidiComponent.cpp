@@ -23,8 +23,8 @@ void MidiComponent::goMidiRoad() noexcept {
 
 #pragma region Accessors/Mutators
 
-void MidiComponent::midiKeyIdx(std::uint8_t midiKeyIdx) noexcept {
-	_midiKeyIdx = midiKeyIdx;
+void MidiComponent::midiKeyIdx(std::uint8_t midiButtonId) noexcept {
+	_midiKeyIdx = midiButtonId;
 }
 
 std::uint8_t MidiComponent::midiKeyIdx() const noexcept {

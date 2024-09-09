@@ -20,8 +20,7 @@ ManagementTextableButton::ManagementTextableButton(QWidget *parent) noexcept
 	std::ignore = connect(_button,
 						  &QPushButton::pressed,
 						  [this]() {
-							  std::ignore = Components::CommandComponent::command()->execute(
-									  Components::CommandComponent::sessionName());
+							  std::ignore = Components::CommandComponent::execute();
 						  });
 	_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	layout->addWidget(_button);

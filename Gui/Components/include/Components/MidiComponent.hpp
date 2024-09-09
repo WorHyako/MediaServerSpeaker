@@ -4,9 +4,20 @@
 
 namespace Mss::Gui::Components {
 	/**
-	 * @brief
+	 * @brief	Object separates all operations with midi launchpad events.
+	 *			<p>
+	 *			Orients just for inheritance existing.
 	 *
-	 * @author WorHyako
+	 * @usage
+	 * @code
+	 *			std::uint8_t midiKeyId = ...;
+	 *			MidiComponent::midiKeyId(midiKeyIdx);
+	 *			MidiComponent::goRoad();
+	 * @endcode
+	 *
+	 * @author	WorHyako
+	 *
+	 * @see		@code MidiRoad @endcode
 	 */
 	class MidiComponent {
 	public:
@@ -21,7 +32,8 @@ namespace Mss::Gui::Components {
 		virtual ~MidiComponent() = default;
 
 		/**
-		 * @brief
+		 * @brief	Try to go midi road with current midi button id
+		 *			if it exists in road map.
 		 */
 		void goMidiRoad() noexcept;
 
@@ -32,16 +44,16 @@ namespace Mss::Gui::Components {
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief	Midi button id mutator.
 		 *
-		 * @param midiKeyIdx
+		 * @param	midiButtonId	Midi button id.
 		 */
-		void midiKeyIdx(std::uint8_t midiKeyIdx) noexcept;
+		void midiKeyIdx(std::uint8_t midiButtonId) noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Midi button id accessor.
 		 *
-		 * @return
+		 * @return	Midi button id.
 		 */
 		[[nodiscard]]
 		std::uint8_t midiKeyIdx() const noexcept;

@@ -18,8 +18,7 @@ ManagementButton::ManagementButton(QWidget *parent) noexcept
 	std::ignore = connect(_button,
 						  &QPushButton::pressed,
 						  [this]() {
-							  std::ignore = Components::CommandComponent::command()->execute(
-									  Components::CommandComponent::sessionName());
+							  std::ignore = Components::CommandComponent::execute();
 						  });
 
 	auto layout = new QVBoxLayout;

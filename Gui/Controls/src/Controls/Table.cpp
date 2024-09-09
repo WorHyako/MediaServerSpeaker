@@ -47,8 +47,7 @@ Table::Table(QWidget *parent) noexcept
 	std::ignore = connect(_button,
 						  &QPushButton::pressed,
 						  [this]() {
-							  std::ignore = Components::CommandComponent::command()->execute(
-									  Components::CommandComponent::sessionName());
+							  std::ignore = Components::CommandComponent::execute();
 						  });
 	layout->addWidget(_button);
 	layout->itemAt(2)->setAlignment(Qt::AlignmentFlag::AlignCenter);

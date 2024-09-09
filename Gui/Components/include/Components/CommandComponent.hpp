@@ -6,9 +6,21 @@
 
 namespace Mss::Gui::Components {
 	/**
-	 * @brief
+	 * @brief	Object separates all operations with server command.
+	 *			<p>
+	 *			Orients just for inheritance existing.
 	 *
-	 * @author WorHyako
+	 * @usage
+	 * @code
+	 *			CommandComponent::sessionName("session name");
+	 *			CommandItem item(...);
+	 *			CommandComponent::command()->addItem(commandItem);
+	 *			CommandComponent::execute();
+	 * @endcode
+	 *
+	 * @author	WorHyako
+	 *
+	 * @see		@code BaseCommand @endcode
 	 */
 	class CommandComponent {
 	public:
@@ -23,9 +35,10 @@ namespace Mss::Gui::Components {
 		virtual ~CommandComponent() noexcept = default;
 
 		/**
-		 * @brief
+		 * @brief	Try to execute command with current session name
 		 *
-		 * @return
+		 * @return	@code true @endcode		Successful command executing.
+		 *			@code false @endcode	Fail in command executing.
 		 */
 		[[nodiscard]]
 		bool execute() const noexcept;
@@ -39,31 +52,31 @@ namespace Mss::Gui::Components {
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief	Command mutator.
 		 *
-		 * @param command
+		 * @param	command		New command. Pointer will be modify to std::shared_pat
 		 */
 		void command(Backend::Command::ICommand* command) noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Command accessor.
 		 *
-		 * @return
+		 * @return	Command,
 		 */
 		[[nodiscard]]
 		std::shared_ptr<Backend::Command::ICommand> command() const noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Session name mutator.
 		 *
-		 * @param sessionName
+		 * @param	sessionName New session name.
 		 */
 		void sessionName(std::string sessionName) noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Session name accessor.
 		 *
-		 * @return
+		 * @return	Session name.
 		 */
 		[[nodiscard]]
 		std::string sessionName() const noexcept;
