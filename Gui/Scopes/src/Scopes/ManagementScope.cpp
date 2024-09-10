@@ -8,37 +8,41 @@ using namespace Mss::Gui::Scopes;
 using namespace Mss::Gui::Controls;
 
 ManagementScope::ManagementScope(QWidget *parent) noexcept
-        : IScope(parent) {
-    IScope::_controlsType = ControlType::ManagementButton
-                            | ControlType::ManagementTextableButton
-                            | ControlType::Table;
+	: IScope(parent) {
+	IScope::_controlsType = ControlType::ManagementButton
+			| ControlType::ManagementTextableButton
+			| ControlType::Table;
 }
 
 void ManagementScope::addControl(QWidget *control) noexcept {
-    auto worControl = dynamic_cast<IMovableControl *>(control);
-    if (!worControl) {
-        return;
-    }
+	auto worControl = dynamic_cast<IMovableControl *>(control);
+	if (!worControl) {
+		return;
+	}
 
-    worControl->editMode(_editMode);
-    worControl->setParent(this);
-    worControl->show();
+	worControl->editMode(_editMode);
+	worControl->setParent(this);
+	worControl->show();
 }
 
 void ManagementScope::removeControl(QWidget *control) noexcept {
+	if (!control) {
+		return;
+	}
 	control->setParent(nullptr);
 	control->deleteLater();
 }
 
 void ManagementScope::removeAllControls() noexcept {
-    auto children = QWidget::children();
-    std::for_each(std::begin(children), std::end(children), [this](QObject *each) {
-        auto control = dynamic_cast<IMovableControl *>(each);
-        if (!control) {
-            return;
-        }
-        removeControl(control);
-    });
+	auto children = QWidget::children();
+	std::ranges::for_each(children,
+						  [this](QObject *each) {
+							  auto control = dynamic_cast<IMovableControl *>(each);
+							  if (!control) {
+								  return;
+							  }
+							  removeControl(control);
+						  });
 }
 
 void ManagementScope::loadControls() noexcept {
@@ -98,14 +102,9 @@ void ManagementScope::saveControls() noexcept {
 #pragma region Callbacks
 
 void ManagementScope::editModeChange(bool toggled) {
-    auto children = QWidget::children();
+	auto children = QWidget::children();
 
-    IScope::editModeChange(toggled, children);
-}
-
-void ManagementScope::mousePressEvent(QMouseEvent *e) noexcept {
-
-    IScope::mousePressEvent(e);
+	IScope::editModeChange(toggled, children);
 }
 
 #pragma endregion Callbacks

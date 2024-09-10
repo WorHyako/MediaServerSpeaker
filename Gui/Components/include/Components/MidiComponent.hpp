@@ -22,12 +22,12 @@ namespace Mss::Gui::Components {
 	class MidiComponent {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 */
 		MidiComponent() noexcept;
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		virtual ~MidiComponent() = default;
 

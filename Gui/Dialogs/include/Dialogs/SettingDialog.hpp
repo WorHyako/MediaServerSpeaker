@@ -17,9 +17,9 @@ namespace Mss::Gui::Dialogs {
 			: public QDialog {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit SettingDialog(QWidget *parent = nullptr) noexcept;
 	};

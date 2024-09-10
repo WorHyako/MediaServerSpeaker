@@ -151,11 +151,7 @@ ControlProperty::ControlProperty(QWidget *parent) noexcept
 		 */
 		auto layout = new QHBoxLayout;
 		auto okButton = new QPushButton("Ok");
-		std::ignore = connect(okButton,
-							  &QPushButton::pressed,
-							  [this]() {
-								  applyChanged();
-							  });
+		std::ignore = connect(okButton,&QPushButton::pressed, this, &ControlProperty::applyChanged);
 		layout->addWidget(okButton);
 
 		auto cancelButton = new QPushButton("Cancel");
@@ -233,6 +229,8 @@ void ControlProperty::removeCommandItemHLayout(QHBoxLayout *hLayout) noexcept {
 	emit fullCommandChanged(_testCommand->str().c_str());
 }
 
+#pragma region Callbacks
+
 void ControlProperty::applyChanged() noexcept {
 	_control->command(_testCommand.release());
 	emit _control->commandChanged();
@@ -245,8 +243,6 @@ void ControlProperty::applyChanged() noexcept {
 
 	QDialog::close();
 }
-
-#pragma region Callbacks
 
 void ControlProperty::refreshCommand(std::uint16_t idx, const CommandItem &item) {
 	_testCommand->changeItem(idx, item);

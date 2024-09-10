@@ -31,7 +31,7 @@ namespace Mss::Gui::Scopes::Menus {
 		explicit ScopeContextMenu(ControlType controlType, QWidget *parent = nullptr) noexcept;
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		~ScopeContextMenu() override = default;
 	};

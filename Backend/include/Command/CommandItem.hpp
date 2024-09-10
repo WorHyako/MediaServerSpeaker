@@ -14,7 +14,7 @@ namespace Mss::Backend::Command {
 	class CommandItem final {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 */
 		CommandItem() noexcept = default;
 
@@ -28,7 +28,7 @@ namespace Mss::Backend::Command {
 		CommandItem(std::string key, std::string value) noexcept;
 
 		/**
-		 * @brief Copy ctor.
+		 * @brief	Copy ctor.
 		 */
 		CommandItem(const CommandItem &) noexcept = default;
 

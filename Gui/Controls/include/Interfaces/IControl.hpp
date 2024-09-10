@@ -8,9 +8,11 @@
 namespace Mss::Gui::Controls {
 
 	/**
-	 * @brief
+	 * @brief	Abstract object for all wor controls. Names all control with "WorControl" name.
+	 *			<p>
+	 *			Adds @code CommandComponent @endcode and @code MidiComponent @endcode.
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
 	 */
 	class IControl
 			: public QWidget,
@@ -20,41 +22,46 @@ namespace Mss::Gui::Controls {
 
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 */
 		explicit IControl(QWidget *parent) noexcept;
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		~IControl() override = default;
 
 		/**
-		 * @brief
+		 * @brief	Creates server road.
+		 *			<p>
+		 *			Takes data from @code MidiComponent @endcode, @code CommandComponent @endcode
+		 *			and registrar new road in @code MidiRoadMap @endcode if it possible.
 		 */
 		void createServerRoad() const noexcept;
-
-		/**
-		 * @brief
-		 *
-		 * @param enable
-		 */
-		virtual void editMode(bool enable) noexcept;
 
 	public:
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief	Edit mode mutator.
+		 *			<p>
+		 *			Orient to calling only from wor scope objects.
 		 *
-		 * @param text
+		 * @param	enable	New edit mode value.
+		 */
+		virtual void editMode(bool enable) noexcept;
+
+		/**
+		 * @brief	Control's text mutator.
+		 *
+		 * @param	text New control's text.
 		 */
 		virtual void text(std::string text) noexcept = 0;
 
 		/**
-		 * @brief
+		 * @brief	Control's text accessor.
 		 *
-		 * @return
+		 * @return	Control's text.
 		 */
 		[[nodiscard]]
 		virtual std::string text() const noexcept = 0;
@@ -64,15 +71,21 @@ namespace Mss::Gui::Controls {
 #pragma region Callbacks
 
 		/**
-		 * @brief
+		 * @brief	Mouse press event.
+		 *			<p>
+		 *			Left mouse uses for road going.
+		 *			<p>
+		 *			Right mouse uses for context menu calling.
 		 *
-		 * @param e
+		 * @param	e	Mouse event info.
 		 */
 		void mousePressEvent(QMouseEvent *e) override;
 
 	public slots:
 		/**
-		 * @brief
+		 * @brief	Slot to handle event of command changing.
+		 *			<p>
+		 *			All children should to process event themselves to modify text fields.
 		 */
 		virtual void commandChanged() noexcept = 0;
 

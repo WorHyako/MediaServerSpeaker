@@ -23,7 +23,7 @@ namespace Mss::Backend::Command {
 	class CommandBuilder final {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 */
 		CommandBuilder() noexcept = delete;
 
@@ -40,7 +40,7 @@ namespace Mss::Backend::Command {
 		static std::unique_ptr<TCommandType> build(std::vector<CommandItem> items = {}) noexcept;
 
 		/**
-		 * @warning Not ready yet.
+		 * @warning	Not ready yet.
 		 *
 		 * @brief
 		 */

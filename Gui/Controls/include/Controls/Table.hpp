@@ -23,9 +23,9 @@ namespace Mss::Gui::Controls {
 
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit Table(QWidget *parent = nullptr) noexcept;
 

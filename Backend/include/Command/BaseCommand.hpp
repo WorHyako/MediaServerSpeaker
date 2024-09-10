@@ -29,7 +29,7 @@ namespace Mss::Backend::Command {
 			: public ICommand {
 	public:
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		~BaseCommand() override = default;
 

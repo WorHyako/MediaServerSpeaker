@@ -10,24 +10,25 @@ using namespace Mss::Gui::Controls;
 
 namespace {
 	/**
-	 * @brief
+	 * @brief	Grid's row count.
 	 */
 	constexpr std::uint8_t rowMax = 5;
 
 	/**
-	 * @brief
+	 * @brief	Grid's colum count.
 	 */
 	constexpr std::uint8_t columnMax = 6;
 
 	/**
-	 * @brief
+	 * @brief	Calculate grid position of control by current index.
 	 *
-	 * @param idx
+	 * @param	idx	Control index.
 	 *
-	 * @return
+	 * @return	Grid coordinates.
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
 	 */
+	[[nodiscard]]
 	QPoint calculateButtonPosition(std::size_t idx) {
 		std::uint8_t row = idx / (::columnMax - 1);
 		std::uint8_t column = idx % ::rowMax;
@@ -150,10 +151,6 @@ void QuickButtonScope::moveAllLeftSince(std::uint8_t idx) noexcept {
 
 void QuickButtonScope::editModeChange(bool toggled) {
 
-}
-
-void QuickButtonScope::mousePressEvent(QMouseEvent *e) noexcept {
-	IScope::mousePressEvent(e);
 }
 
 #pragma endregion Callbacks

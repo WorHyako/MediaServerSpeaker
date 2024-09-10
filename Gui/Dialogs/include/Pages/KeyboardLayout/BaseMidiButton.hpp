@@ -17,9 +17,9 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 		/**
 		 * @brief
 		 *
-		 * @param buttonText
+		 * @param	buttonText
 		 *
-		 * @param parent
+		 * @param	parent		Parent widget.
 		 */
 		explicit BaseMidiButton(const QString &buttonText = "", QWidget *parent = nullptr) noexcept;
 

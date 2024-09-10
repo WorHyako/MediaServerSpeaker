@@ -3,11 +3,12 @@
 #include <QTabWidget>
 
 namespace Mss::Gui::Scopes {
-
 	/**
-	 * @brief
+	 * @brief	Widget to manage working space's tabs.
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
+	 *
+	 * @see		@code TabPage @endcode
 	 */
 	class ControlTab final
 			: public QTabWidget {
@@ -15,9 +16,9 @@ namespace Mss::Gui::Scopes {
 
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit ControlTab(QWidget *parent = nullptr) noexcept;
 
@@ -27,6 +28,11 @@ namespace Mss::Gui::Scopes {
 		~ControlTab() override = default;
 
 	signals:
+		/**
+		 * @brief	Signal to notify all scopes about edit mode changing.
+		 *
+		 * @param	toggled	New edit mode value.
+		 */
 		void editModeChanged(bool toggled);
 	};
 }

@@ -16,7 +16,7 @@ namespace Mss::Backend::Command {
 	class ICommand {
 	public:
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		virtual ~ICommand() = default;
 

@@ -20,7 +20,7 @@ ManagementTextableButton::ManagementTextableButton(QWidget *parent) noexcept
 	std::ignore = connect(_button,
 						  &QPushButton::pressed,
 						  [this]() {
-							  std::ignore = Components::CommandComponent::execute();
+							  std::ignore = CommandComponent::execute();
 						  });
 	_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	layout->addWidget(_button);
@@ -47,7 +47,7 @@ std::string ManagementTextableButton::text() const noexcept {
 #pragma region Callbacks
 
 void ManagementTextableButton::commandChanged() noexcept {
-	auto commandItems = Components::CommandComponent::command()->items();
+	const auto commandItems = CommandComponent::command()->items();
 	_textEdit->setText(commandItems.empty()
 			? ""
 			: commandItems[0].value().c_str());

@@ -12,9 +12,9 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 			: public BaseMidiLayout {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit ApcMini(QWidget *parent = nullptr) noexcept;
 

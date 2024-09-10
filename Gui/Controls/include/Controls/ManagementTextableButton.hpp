@@ -19,9 +19,9 @@ namespace Mss::Gui::Controls {
 
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit ManagementTextableButton(QWidget *parent = nullptr) noexcept;
 

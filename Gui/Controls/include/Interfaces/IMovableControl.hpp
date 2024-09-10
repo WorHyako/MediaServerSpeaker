@@ -7,7 +7,9 @@
 namespace Mss::Gui::Controls {
 
 	/**
-	 * @brief
+	 * @brief	Abstract object for all movable wor control.
+	 *			<p>
+	 *			Adds @code WidgetTransfromComponent @endcode.
 	 *
 	 * @author WorHyako
 	 */
@@ -16,23 +18,29 @@ namespace Mss::Gui::Controls {
 			  public Components::WidgetTransformComponent {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 */
 		explicit IMovableControl(QWidget *parent) noexcept;
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		~IMovableControl() override = default;
 
+	public:
+#pragma region Accessors/Mutators
+
 		/**
-		 * @brief
+		 * @brief	Edit mode mutator.
+		 *			<p>
+		 *			Orient to calling only from wor scope objects.
 		 *
-		 * @param enable
+		 * @param	enable	New edit mode value.
 		 */
 		void editMode(bool enable) noexcept override;
 
-	public:
+#pragma endregion Accessors/Mutators
+
 #pragma region Callbacks
 
 		/**

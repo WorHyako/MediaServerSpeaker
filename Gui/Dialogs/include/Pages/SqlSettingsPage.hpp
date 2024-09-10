@@ -14,9 +14,9 @@ namespace Mss::Gui::Dialogs::Pages {
 			: public QWidget {
 	public:
 		/**
-		 * @brief Ctor
+		 * @brief	Ctor
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit SqlSettingsPage(QWidget *parent = nullptr) noexcept;
 

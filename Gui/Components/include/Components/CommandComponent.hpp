@@ -25,12 +25,12 @@ namespace Mss::Gui::Components {
 	class CommandComponent {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 */
 		CommandComponent() noexcept;
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		virtual ~CommandComponent() noexcept = default;
 

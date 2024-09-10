@@ -13,11 +13,11 @@ namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 			: public BaseMidiButton {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param buttonText
+		 * @param	buttonText
 		 *
-		 * @param parent
+		 * @param	parent		Parent widget.
 		 */
 		explicit ApcMiniButton(const QString &buttonText = "", QWidget *parent = nullptr) noexcept;
 

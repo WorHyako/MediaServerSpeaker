@@ -17,7 +17,7 @@ namespace Mss::Gui::Dialogs {
 		/**
 		 * @brief
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit MainWindow(QWidget *parent = nullptr) noexcept;
 

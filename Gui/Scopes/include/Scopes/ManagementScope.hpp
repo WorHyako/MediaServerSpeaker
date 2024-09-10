@@ -5,21 +5,24 @@
 #include <QWidget>
 
 namespace Mss::Gui::Scopes {
-
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class ManagementScope final
-            : public IScope {
-    Q_OBJECT
+	/**
+	 * @brief	Central scope for movable controls.
+	 *			<p>
+	 *			Has methods to load/save controls.
+	 *			<p>
+	 *			Orients for @code IMovementControl @endcode only.
+	 *
+	 * @author	WorHyako
+	 */
+	class ManagementScope final
+			: public IScope {
+		Q_OBJECT
 
 	public:
 		/**
-		 * @brief Dtor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit ManagementScope(QWidget *parent = nullptr) noexcept;
 
@@ -28,53 +31,45 @@ namespace Mss::Gui::Scopes {
 		 */
 		~ManagementScope() override = default;
 
-        /**
-         * @brief
-         *
-         * @param control
-         */
-        void addControl(QWidget *control) noexcept override;
+		/**
+		 * @brief	Adds control to scope, if cast to @code IMovableControl @endcode is positive.
+		 *
+		 * @param	control New control.
+		 */
+		void addControl(QWidget *control) noexcept override;
 
 		/**
-		 * @brief
+		 * @brief	Removes control from scope.
 		 *
-		 * @param control
+		 * @param	control Control.
 		 */
 		void removeControl(QWidget *control) noexcept override;
 
 		/**
-		 * @brief
+		 * @brief	Removes all controls from scope.
 		 */
 		void removeAllControls() noexcept override;
 
 		/**
-		 * @brief
+		 * @brief	Loads controls data from config and generate it in scope.
 		 */
 		void loadControls() noexcept override;
 
 		/**
-		 * @brief
+		 * @brief	Save controls data to config.
 		 */
 		void saveControls() noexcept override;
 
 #pragma region Callbacks
-    public slots:
 
-        /**
-         * @brief
-         *
-         * @param toggled
-         */
-        void editModeChange(bool toggled);
-
-    public:
-        /**
-         * @brief
-         *
-         * @param e
-         */
-        void mousePressEvent(QMouseEvent *e) noexcept override;
+	public slots:
+		/**
+		 * @brief	Slot to handle tab signal, that edit mode was changed.
+		 *
+		 * @param	toggled	New edit mode value.
+		 */
+		void editModeChange(bool toggled);
 
 #pragma endregion Callbacks
-    };
+	};
 }

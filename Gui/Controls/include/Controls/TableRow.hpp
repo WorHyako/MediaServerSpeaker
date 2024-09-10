@@ -15,16 +15,16 @@ namespace Mss::Gui::Controls {
 
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param keyValue
+		 * @param	keyValue
 		 *
-		 * @param parent
+		 * @param	parent		Parent widget.
 		 */
 		explicit TableRow(const QPair<QString, QString> &keyValue = {}, QWidget *parent = nullptr);
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		~TableRow() override = default;
 

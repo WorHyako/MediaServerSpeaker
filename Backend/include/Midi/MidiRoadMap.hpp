@@ -25,12 +25,12 @@ namespace Mss::Backend::Midi {
 	class MidiRoadMap {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 */
 		MidiRoadMap() noexcept;
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		virtual ~MidiRoadMap() noexcept = default;
 

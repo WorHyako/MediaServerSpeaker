@@ -26,10 +26,6 @@ std::string QuickButton::text() const noexcept {
 
 #pragma region Callbacks
 
-void QuickButton::mouseMoveEvent(QMouseEvent *e) {
-    IControl::mouseMoveEvent(e);
-}
-
 void QuickButton::commandChanged() noexcept {
 
 }

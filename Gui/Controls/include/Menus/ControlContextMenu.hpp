@@ -4,40 +4,44 @@
 
 namespace Mss::Gui::Controls::Menus {
 
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class ControlContextMenu
-            : public QMenu {
-    Q_OBJECT
+	/**
+	 * @brief
+	 *
+	 * TODO: fill doc for this objects
+	 *
+	 * @author WorHyako
+	 */
+	class ControlContextMenu
+			: public QMenu {
+		Q_OBJECT
 
-    public:
-        /**
-         * @brief Ctor.
-         *
-         * @param controlType
-         *
-         * @param parent
-         */
-        explicit ControlContextMenu(QWidget *parent = nullptr) noexcept;
+	public:
+		/**
+		 * @brief	Ctor.
+		 *
+		 * @param	parent Parent widget.
+		 */
+		explicit ControlContextMenu(QWidget *parent = nullptr) noexcept;
 
-        /**
-         * @brief Dtor.
-         */
-        ~ControlContextMenu() override = default;
+		/**
+		 * @brief Dtor.
+		 */
+		~ControlContextMenu() override = default;
 
-    private slots:
+#pragma region Callbacks
 
-        /**
-         * @brief
-         */
-        void configure();
+	private slots:
+		/**
+		 * @brief
+		 */
+		void configure();
 
-        /**
-         * @brief
-         */
-        void reset();
-    };
+		/**
+		 * @brief
+		 */
+		void reset();
+
+#pragma endregion Callbakcs
+
+	};
 }

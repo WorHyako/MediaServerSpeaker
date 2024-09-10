@@ -40,22 +40,22 @@ namespace Mss::Backend::Midi {
 
 	private:
 		/**
-		 * @brief Midi button's id.
+		 * @brief	Midi button's id.
 		 */
 		std::uint8_t _buttonId;
 
 		/**
-		 * @brief Current state of midi button.
+		 * @brief	Current state of midi button.
 		 */
 		bool _isActive;
 
 		/**
-		 * @brief Led when button is active.
+		 * @brief	Led when button is active.
 		 */
 		Wor::Midi::CallbackInfo::MidiLed _activeLed;
 
 		/**
-		 * @brief Led when button is passive.
+		 * @brief	Led when button is passive.
 		 */
 		Wor::Midi::CallbackInfo::MidiLed _defaultLed;
 

@@ -5,9 +5,10 @@
 class QPushButton;
 
 namespace Mss::Gui::Controls {
-
 	/**
-	 * @brief
+	 * @brief	Movable control to management tasks.
+	 *			<p>
+	 *			By default, has midi and server road.
 	 *
 	 * @author	WorHyako
 	 */
@@ -15,34 +16,37 @@ namespace Mss::Gui::Controls {
 			: public IMovableControl {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit ManagementButton(QWidget *parent = nullptr) noexcept;
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		~ManagementButton() override = default;
 
 	private:
+		/**
+		 * @brief	Control's @code QPushButton @endcode.
+		 */
 		QPushButton *_button;
 
 	public:
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief	Central control's text mutator.
 		 *
-		 * @param text
+		 * @param	text New text.
 		 */
 		void text(std::string text) noexcept override;
 
 		/**
-		 * @brief
+		 * @brief	Control's text accessor.
 		 *
-		 * @return
+		 * @return	Control's text.
 		 */
 		[[nodiscard]]
 		std::string text() const noexcept override;
@@ -52,6 +56,8 @@ namespace Mss::Gui::Controls {
 #pragma region Callbacks
 
 		/**
+		 * TODO: is it useless??
+		 *
 		 * @brief
 		 */
 		void commandChanged() noexcept override;

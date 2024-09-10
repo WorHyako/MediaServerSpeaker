@@ -20,9 +20,9 @@ namespace Mss::Gui::Dialogs::Pages {
 			: public QWidget {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit MidiSettingsPage(QWidget *parent = nullptr) noexcept;
 

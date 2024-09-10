@@ -51,7 +51,7 @@ namespace Mss::Gui::Components {
 		explicit WidgetTransformComponent(QWidget* parent) noexcept;
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		virtual ~WidgetTransformComponent() noexcept = default;
 

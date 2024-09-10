@@ -16,9 +16,9 @@ namespace Mss::Gui::Dialogs::Pages {
 			: public QWidget {
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit NetworkSettingPage(QWidget *parent = nullptr) noexcept;
 

@@ -3,21 +3,23 @@
 #include <QWidget>
 
 namespace Mss::Gui::Scopes {
-
 	/**
-	 * @brief
+	 * @brief	Tab page for working space. Contains @code QuickTitlesScope @endcode,
+	 *			@code QuickButtonScope @endcode, @code ManagementScope @endcode
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
+	 *
+	 * @see		@code ControlTab @endcode
 	 */
-	class TabPage
+	class TabPage final
 			: public QWidget {
 		Q_OBJECT
 
 	public:
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param parent
+		 * @param	parent Parent widget.
 		 */
 		explicit TabPage(QWidget *parent = nullptr) noexcept;
 
@@ -28,17 +30,17 @@ namespace Mss::Gui::Scopes {
 
 	public slots:
 		/**
-		 * @brief
+		 * @brief	Slot to handle tab signal, that edit mode was changed.
 		 *
-		 * @param toggled
+		 * @param	toggled	New edit mode value.
 		 */
 		void editModeChange(bool toggled);
 
 	signals:
 		/**
-		 * @brief
+		 * @brief	Signal to notify all scopes about edit mode changing.
 		 *
-		 * @param toggled
+		 * @param	toggled	New edit mode value.
 		 */
 		void editModeChanged(bool toggled);
 	};

@@ -27,9 +27,9 @@ namespace Mss::Backend::Midi {
 		using WorCommandPtr = std::shared_ptr<Command::ICommand>;
 
 		/**
-		 * @brief Ctor.
+		 * @brief	Ctor.
 		 *
-		 * @param sessionName Session name to send command.
+		 * @param	sessionName Session name to send command.
 		 */
 		explicit ServerRoad(std::string sessionName = {}) noexcept;
 
@@ -42,22 +42,22 @@ namespace Mss::Backend::Midi {
 
 	private:
 		/**
-		 * @brief Command in midi button active state.
+		 * @brief	Command in midi button active state.
 		 */
 		WorCommandPtr _activeCommand;
 
 		/**
-		 * @brief Command in midi button passive state.
+		 * @brief	Command in midi button passive state.
 		 */
 		WorCommandPtr _deactiveCommand;
 
 		/**
-		 * @brief Session name to send message.
+		 * @brief	Session name to send message.
 		 */
 		std::string _sessionName;
 
 		/**
-		 * @brief Midi button state.
+		 * @brief	Midi button state.
 		 */
 		bool _isActive;
 

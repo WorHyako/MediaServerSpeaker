@@ -106,7 +106,7 @@ namespace Mss::Gui::Scopes {
 		/**
 		 * @brief	Loads controls from current config.
 		 *			<p>
-		 *			Requires loaded config via @code loadConfig() @endcode method.
+		 *			Requires pre-loaded config via @code loadConfig() @endcode method.
 		 *
 		 * @tparam  TControlType	Wor control type to load from config.
 		 *
