@@ -11,11 +11,12 @@ namespace Mss::Gui::Controls {
 }
 
 namespace Mss::Gui::Controls {
-
 	/**
-	 * @brief
+	 * @brief	Movable control to management tasks.
+	 *			<p>
+	 *			By default, has midi and server road.
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
 	 */
 	class Table final
 			: public IMovableControl {
@@ -30,44 +31,50 @@ namespace Mss::Gui::Controls {
 		explicit Table(QWidget *parent = nullptr) noexcept;
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		~Table() override = default;
 
 		/**
-		 * @brief
+		 * @brief	Adds row to the end.
 		 */
 		void addRow(const QPair<QString, QString> &pair = {}) noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Remove the last row.
 		 */
 		void removeRow() noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Clear all rows.
 		 */
 		void clear() noexcept;
 
 	private:
+		/**
+		 * @brief	Control's @code QPushButton @endcode.
+		 */
 		QPushButton *_button;
 
+		/**
+		 * @brief	Layout with @code TableRow @endcode.
+		 */
 		QVBoxLayout *_rowsLayout;
 
 	public:
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief	Control's text mutator for @code QPushButton @endcode.
 		 *
-		 * @param text
+		 * @param	text New text.
 		 */
 		void text(std::string text) noexcept override;
 
 		/**
-		 * @brief
+		 * @brief	Control's text accessor for @code QPushButton @endcode.
 		 *
-		 * @return
+		 * @return	Control's text.
 		 */
 		[[nodiscard]]
 		std::string text() const noexcept override;
@@ -83,9 +90,11 @@ namespace Mss::Gui::Controls {
 
 	public slots:
 		/**
-		 * @brief
+		 * @brief	Slot to handle signals from @code TableRow @endcode.
 		 *
-		 * @param keyValue
+		 * @param	keyValue	Modified key-value. TODO: useless, i guess.
+		 *
+		 * @param	sender		Modified row pointer.
 		 */
 		void keyValueChange(const QPair<QString, QString> &keyValue, Mss::Gui::Controls::TableRow *sender);
 

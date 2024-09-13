@@ -11,7 +11,6 @@ ManagementButton::ManagementButton(QWidget *parent) noexcept
 	  _button(nullptr) {
 	QWidget::resize(200, 200);
 
-
 	_button = new QPushButton("Event name", this);
 	_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 

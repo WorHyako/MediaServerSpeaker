@@ -7,7 +7,6 @@ class QLineEdit;
 class QPushButton;
 
 namespace Mss::Gui::Controls {
-
     /**
      * @brief
      *
@@ -26,29 +25,35 @@ namespace Mss::Gui::Controls {
 		explicit ManagementTextableButton(QWidget *parent = nullptr) noexcept;
 
 		/**
-		 * @brief Dtor.
+		 * @brief	Dtor.
 		 */
 		~ManagementTextableButton() override = default;
 
-	private:
+    private:
+    	/**
+		 * @brief	Control's @code QLineEdit @endcode.
+		 */
 		QLineEdit *_textEdit;
 
+    	/**
+		 * @brief	Control's @code QPushButton @endcode.
+		 */
 		QPushButton *_button;
 
 	public:
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief	Control's text mutator for @code QLineEdit @endcode.
 		 *
-		 * @param text
+		 * @param	text
 		 */
 		void text(std::string text) noexcept override;
 
 		/**
-		 * @brief
+		 * @brief	Control's text accessor for @code QLineEdit @endcode.
 		 *
-		 * @return
+		 * @return	Control's text.
 		 */
 		[[nodiscard]]
 		std::string text() const noexcept override;

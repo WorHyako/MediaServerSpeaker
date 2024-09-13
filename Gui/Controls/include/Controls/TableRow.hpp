@@ -5,9 +5,11 @@
 namespace Mss::Gui::Controls {
 
 	/**
-	 * @brief
+	 * @brief	Object represent row item for @code Table @endcode.
+	 *			<p>
+	 *			Row repeat @code CommandItem @endcode view.
 	 *
-	 * @author WorHyako
+	 * @author	WorHyako
 	 */
 	class TableRow final
 			: public QWidget {
@@ -17,7 +19,7 @@ namespace Mss::Gui::Controls {
 		/**
 		 * @brief	Ctor.
 		 *
-		 * @param	keyValue
+		 * @param	keyValue	Key-value.
 		 *
 		 * @param	parent		Parent widget.
 		 */
@@ -32,17 +34,17 @@ namespace Mss::Gui::Controls {
 #pragma region Accessors/Mutators
 
 		/**
-		 * @brief
+		 * @brief	Key-value accessor.
 		 *
-		 * @return
+		 * @return	Key-value.
 		 */
 		[[nodiscard]]
 		QPair<QString, QString> keyValue() const noexcept;
 
 		/**
-		 * @brief
+		 * @brief	Key-value mutator.
 		 *
-		 * @param keyValue
+		 * @param	keyValue New key-value.
 		 */
 		void keyValue(const QPair<QString, QString> &keyValue) noexcept;
 
@@ -52,9 +54,11 @@ namespace Mss::Gui::Controls {
 
 	signals:
 		/**
-		 * @brief
+		 * @brief	Signal to @code Table @endcode with data of modified kay-value
 		 *
-		 * @param keyValue
+		 * @param	keyValue	Modified key-value.
+		 *
+		 * @param	sender		Self-pointer to identify modified row.
 		 */
 		void keyValueChanged(QPair<QString, QString> keyValue, Mss::Gui::Controls::TableRow *sender);
 
