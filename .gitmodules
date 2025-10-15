@@ -1,18 +1,6 @@
-[submodule "ThirdParty/soci"]
-	path = ThirdParty/soci
-	url = https://github.com/SOCI/soci.git
-
 [submodule "ThirdParty/WorLibrary"]
 	path = ThirdParty/WorLibrary
 	url = https://github.com/WorHyako/WorLibrary.git
-
-[submodule "ThirdParty/nlohmann-json"]
-	path = ThirdParty/nlohmann-json
-	url = https://github.com/nlohmann/json.git
-
-[submodule "ThirdParty/pugixml"]
-	path = ThirdParty/pugixml
-	url = https://github.com/zeux/pugixml.git
 
 [submodule "ThirdParty/MediaServerSpeaker_ConfData"]
 	path = ThirdParty/MediaServerSpeaker_ConfData
