@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "media-server-manager",
+  "dependencies": [
+    {
+      "name": "soci",
+      "features": [
+        "boost",
+        "mysql"
+      ]
+    },
+    "nlohmann-json",
+    "boost-date-time",
+    "boost-thread",
+    "boost-asio",
+    "pugixml",
+    "rtmidi",
+    "fmt",
+    "spdlog",
+    {
+      "name": "qtbase",
+      "features": [
+        "widgets",
+        "gui"
+      ]
+    }
+  ],
+  "overrides": [
+    {
+      "name": "fmt",
+      "version": "11.2.0"
+    }
+  ],
+  "builtin-baseline": "dfee76170f5647b62e071bf03eed25104713d7b1"
+}

@@ -5,3 +5,7 @@ add_library(Mss::Creators ALIAS Mss_Creators)
 
 target_include_directories(Mss_Creators
         INTERFACE include)
+
+target_link_libraries(Mss_Creators
+        INTERFACE
+        spdlog::spdlog)

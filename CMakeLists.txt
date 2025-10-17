@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.23)
 
+if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+    set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+            CACHE STRING "")
+endif()
+
 project(MediaServerSpeaker
         LANGUAGES CXX)
 
@@ -16,9 +21,9 @@ if (LOG_TO_FILE)
     add_compile_definitions(LOG_TO_FILE)
 endif ()
 
-##################
+# -------------- #
 #   Mss System   #
-##################
+# -------------- #
 add_library(Mss_System)
 add_library(Mss::System ALIAS Mss_System)
 
@@ -30,24 +35,24 @@ target_sources(Mss_System
 target_include_directories(Mss_System
         PUBLIC Project)
 
-##################
+# -------------- #
 #   ThirdParty   #
-##################
+# -------------- #
 add_subdirectory(ThirdParty)
 
-####################
+# ---------------- #
 #   Mss::Backend   #
-####################
+# ---------------- #
 add_subdirectory(Backend)
 
-################
+# ------------ #
 #   Mss::Gui   #
-################
+# ------------ #
 add_subdirectory(Gui)
 
-##########################
+# ---------------------- #
 #   MediaServerSpeaker   #
-##########################
+# ---------------------- #
 add_executable(MediaServerSpeaker)
 
 target_sources(MediaServerSpeaker
@@ -61,9 +66,9 @@ target_link_libraries(MediaServerSpeaker
 file(GLOB Resources Resources/*)
 file(COPY ${Resources} DESTINATION ${CMAKE_BINARY_DIR}/Resources)
 
-##############
+# ---------- #
 #   Bridge   #
-##############
+# ---------- #
 add_executable(bridge)
 target_sources(bridge
         PRIVATE bridge/main.cpp)
