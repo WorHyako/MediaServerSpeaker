@@ -7,83 +7,83 @@ class QWidget;
 class QMouseEvent;
 
 namespace Mss::Gui::Components {
-	/**
-	 * @brief	Object to transform (move and resize) Qt Widgets.
-	 *			<p>
-	 *			Orients just for inheritance existing.
-	 *			<p>
-	 *			Does resize with Alt modifier.
-	 *			<p>
-	 *			Does move with Ctrl modifier.
-	 *
-	 * @usage
-	 * @code
-	 *			class Foo
-	 *				: public QWidget,
-	 *				  public Components::WidgetTransformComponent {
-	 *			...
-	 *
-	 *			void Foo::mouseMoveEvent(QMouseEvent *e) {
-	 *				Components::WidgetTransformComponent::doTransform(e);
-	 *				...
-	 *			}
-	 *
-	 *			void Foo::mouseReleaseEvent(QMouseEvent *e) {
-	 *				Components::WidgetTransformComponent::stopTransform(e);
-	 *				...
-	 *			}
-	 *
-	 *			void Foo::enableTransforming(bool enable) noexcept {
-	 *				Components::WidgetTransformComponent::canTransform(enable);
-	 *				...
-	 *		    }
-	 * @endcode
-	 *
-	 * @author	WorHyako
-	 */
-	class WidgetTransformComponent {
-	public:
-		/**
-		 * @brief	Ctor.
-		 *
-		 * @param	parent	Object to transform.
-		 */
-		explicit WidgetTransformComponent(QWidget* parent) noexcept;
+/**
+ * @brief Object to transform (move and resize) Qt Widgets.
+ *
+ * Designed for inheritance to add transformation functionality to other classes.
+ *
+ * Resizes widget with Alt modifier.
+ *
+ * Moves widget with Ctrl modifier.
+ *
+ * @usage
+ * @code
+ *     class Foo
+ *         : public QWidget,
+ *           public Components::WidgetTransformComponent {
+ *     ...
+ *
+ *     void Foo::mouseMoveEvent(QMouseEvent *e) {
+ *         Components::WidgetTransformComponent::doTransform(e);
+ *         ...
+ *     }
+ *
+ *     void Foo::mouseReleaseEvent(QMouseEvent *e) {
+ *         Components::WidgetTransformComponent::stopTransform(e);
+ *         ...
+ *     }
+ *
+ *     void Foo::enableTransforming(bool enable) noexcept {
+ *         Components::WidgetTransformComponent::canTransform(enable);
+ *         ...
+ *     }
+ * @endcode
+ *
+ * @author WorHyako
+ */
+class WidgetTransformComponent {
+  public:
+    /**
+     * @brief Constructor.
+     *
+     * @param parent Object to transform.
+     */
+    explicit WidgetTransformComponent(QWidget *parent) noexcept;
 
-		/**
-		 * @brief	Dtor.
-		 */
-		virtual ~WidgetTransformComponent() noexcept = default;
+    /**
+     * @brief Destructor.
+     */
+    virtual ~WidgetTransformComponent() noexcept = default;
 
-		/**
-		 * @brief	Does transform in case of pressed modifier (See class description).
-		 *
-		 * @param	e	Mouse event to take ket modifiers and position.
-		 */
-		void doTransform(QMouseEvent* e) noexcept;
+    /**
+     * @brief Performs transformation if modifier key is pressed (see class description).
+     *
+     * @param e Mouse event to get key modifiers and position.
+     */
+    void do_transform(QMouseEvent *e) noexcept;
 
-		/**
-		 * @brief	Resets last mouse position.
-		 */
-		void stopTransform() noexcept;
+    /**
+     * @brief Resets the last mouse position.
+     */
+    void stop_transform() noexcept;
 
-	private:
-		QWidget* _parent;
+  private:
+    QWidget *parent_;
 
-		QPoint _lastMousePressPosition;
+    QPoint last_mouse_press_position_;
 
-		bool _canTransform;
+    bool can_transform_;
 
-	public:
-#pragma region Accessors/Mutators
+  public:
+#pragma region Accessors / Mutators
 
-		/**
-		 * @brief	Accessor for transforming flag.
-		 *
-		 * @param	canTransform	New Value
-		 */
-		void canTransform(bool canTransform) noexcept;
+    /**
+     * @brief Sets the transforming flag.
+     *
+     * @param can_transform New value.
+     */
+    void can_transform(bool can_transform) noexcept;
 
-#pragma endregion Accessors/Mutators
-	};
+#pragma endregion Accessors / Mutators
+};
 }

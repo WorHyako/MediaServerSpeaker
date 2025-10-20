@@ -10,10 +10,9 @@
 #include "Wor/Network/TcpServer.hpp"
 #include "Wor/Network/Utils/IoService.hpp"
 #include "Wor/Sql/MySqlManager.hpp"
+#include "Wor/Log/Log.hpp"
 
 #include "ConfData/AuthData.hpp"
-
-#include <spdlog/spdlog.h>
 
 #ifdef LOG_TO_FILE
 
@@ -25,6 +24,8 @@ using namespace Mss::Gui;
 using namespace Wor;
 
 int main(int argc, char **argv) {
+	Log::configureLogger();
+
 #ifdef LOG_TO_FILE
 
 	auto localLogger = spdlog::basic_logger_mt("local_logger", "log/log.txt", true);
@@ -46,9 +47,9 @@ int main(int argc, char **argv) {
 	/**
 	 * Tcp Server
 	 */
-	boost::asio::ip::tcp::endpoint localEndPoint;
+	Network::TcpServer::Endpoint localEndPoint;
 	localEndPoint.port(33000);
-	auto address = boost::asio::ip::address(boost::asio::ip::make_address_v4("127.0.0.1"));
+	boost::asio::ip::address address{boost::asio::ip::make_address_v4("127.0.0.1")};
 	localEndPoint.address(address);
 
 	auto &server = Wrappers::Singleton<Network::TcpServer>::get();
@@ -57,7 +58,7 @@ int main(int argc, char **argv) {
 		server.stop();
 		return 9;
 	}
-	if (server.start(); !server.isRunning()) {
+	if (server.start(); !server.bound()) {
 		return 9;
 	}
 	Network::Utils::IoService::run();
@@ -69,7 +70,7 @@ int main(int argc, char **argv) {
 	midi.open();
 	midi.inCallback([](const Midi::CallbackInfo::BaseCallbackInfo &callbackInfo) {
 		auto &server = Wrappers::Singleton<Network::TcpServer>::get();
-		if (!server.isRunning()) {
+		if (!server.bound()) {
 			return;
 		}
 		server.sendToAll("Hello");
@@ -83,7 +84,7 @@ int main(int argc, char **argv) {
 	auto window = new Dialogs::MainWindow();
 	window->show();
 
-	app.setStyleSheet(Style::getWorStyle().c_str());
+	app.setStyleSheet(Style::get_wor_style().c_str());
 
 	return QApplication::exec();
 }

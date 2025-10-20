@@ -3,84 +3,84 @@
 #include <string_view>
 
 namespace Mss::System {
-	/**
-	 * @brief
-	 *
-	 * @tparam TControlType
-	 *
-	 * @return
-	 */
-	template <class TControlType>
-	[[nodiscard]]
-	std::string_view jsonControlKey() noexcept;
+/**
+ * @brief
+ *
+ * @tparam TControlType
+ *
+ * @return
+ */
+template <class TControlType>
+[[nodiscard]]
+constexpr std::string_view json_control_key() noexcept;
 
-	/**
-	 * @brief
-	 *
-	 * @return
-	 *
-	 * @author  WorHyako
-	 */
-	[[nodiscard]]
-	std::string_view jsonHeadKey() noexcept;
+/**
+ * @brief
+ *
+ * @return
+ *
+ * @author  WorHyako
+ */
+[[nodiscard]]
+constexpr std::string_view json_head_key() noexcept;
 
-	/**
-	 * @brief
-	 *
-	 * @return
-	 *
-	 * @author  WorHyako
-	 */
-	[[nodiscard]]
-	std::string_view jsonTextKey() noexcept;
+/**
+ * @brief
+ *
+ * @return
+ *
+ * @author  WorHyako
+ */
+[[nodiscard]]
+constexpr std::string_view json_text_key() noexcept;
 
-	/**
-	 * @brief
-	 *
-	 * @return
-	 *
-	 * @author  WorHyako
-	 */
-	[[nodiscard]]
-	std::string_view jsonMidiButtonIdKey() noexcept;
+/**
+ * @brief
+ *
+ * @return
+ *
+ * @author  WorHyako
+ */
+[[nodiscard]]
+constexpr std::string_view json_midi_button_id_key() noexcept;
 
-	/**
-	 * @brief
-	 *
-	 * @return
-	 *
-	 * @author  WorHyako
-	 */
-	[[nodiscard]]
-	std::string_view jsonCommandKey() noexcept;
+/**
+ * @brief
+ *
+ * @return
+ *
+ * @author  WorHyako
+ */
+[[nodiscard]]
+constexpr std::string_view json_command_key() noexcept;
 
-	/**
-	 * @brief
-	 *
-	 * @return
-	 *
-	 * @author  WorHyako
-	 */
-	[[nodiscard]]
-	std::string_view jsonPositionKey() noexcept;
+/**
+ * @brief
+ *
+ * @return
+ *
+ * @author  WorHyako
+ */
+[[nodiscard]]
+constexpr std::string_view json_position_key() noexcept;
 
-	/**
-	 * @brief
-	 *
-	 * @return
-	 *
-	 * @author  WorHyako
-	 */
-	[[nodiscard]]
-	std::string_view jsonSizeKey() noexcept;
+/**
+ * @brief
+ *
+ * @return
+ *
+ * @author  WorHyako
+ */
+[[nodiscard]]
+constexpr std::string_view json_size_key() noexcept;
 
-	/**
-	 * @brief
-	 *
-	 * @return
-	 *
-	 * @author WorHyako
-	 */
-	[[nodiscard]]
-	std::string_view jsonSessionNameKey() noexcept;
+/**
+ * @brief
+ *
+ * @return
+ *
+ * @author WorHyako
+ */
+[[nodiscard]]
+constexpr std::string_view json_session_name_key() noexcept;
 }

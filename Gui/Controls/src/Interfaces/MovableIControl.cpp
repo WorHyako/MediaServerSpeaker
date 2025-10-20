@@ -3,32 +3,32 @@
 using namespace Mss::Gui::Controls;
 
 IMovableControl::IMovableControl(QWidget *parent) noexcept
-	: IControl(parent),
-	  WidgetTransformComponent(this) {
+    : IControl{ parent },
+      WidgetTransformComponent{ this } {
 }
 
-#pragma region Accessors/Mutators
+#pragma region Accessors / Mutators
 
-void IMovableControl::editMode(bool enable) noexcept {
-	Components::WidgetTransformComponent::canTransform(enable);
+void IMovableControl::edit_mode(bool enable) noexcept {
+    Components::WidgetTransformComponent::can_transform(enable);
 
-	IControl::editMode(enable);
+    IControl::edit_mode(enable);
 }
 
-#pragma endregion Accessors/Mutators
+#pragma endregion Accessors / Mutators
 
 #pragma region Callbacks
 
 void IMovableControl::mouseMoveEvent(QMouseEvent *e) {
-	Components::WidgetTransformComponent::doTransform(e);
+    Components::WidgetTransformComponent::do_transform(e);
 
-	IControl::mouseMoveEvent(e);
+    IControl::mouseMoveEvent(e);
 }
 
 void IMovableControl::mouseReleaseEvent(QMouseEvent *e) {
-	Components::WidgetTransformComponent::stopTransform();
+    Components::WidgetTransformComponent::stop_transform();
 
-	IControl::mouseReleaseEvent(e);
+    IControl::mouseReleaseEvent(e);
 }
 
 #pragma endregion Callbacks

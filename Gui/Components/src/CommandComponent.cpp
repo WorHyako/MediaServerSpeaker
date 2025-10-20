@@ -1,36 +1,36 @@
 #include "CommandComponent.hpp"
 
-#include "Command/CommandBuilder.hpp"
 #include "Command/BaseCommand.hpp"
+#include "Command/CommandBuilder.hpp"
 
 using namespace Mss::Gui::Components;
 using namespace Mss::Backend::Command;
 
 CommandComponent::CommandComponent() noexcept
-	: _sessionName("session_x") {
-	_command = CommandBuilder<BaseCommand>::build();
+    : session_name_{ "session_x" } {
+    command_ = CommandBuilder<BaseCommand>::build();
 }
 
 bool CommandComponent::execute() const noexcept {
-	return _command->execute(_sessionName);
+    return command_->execute(session_name_);
 }
 
-#pragma region Accessors/Mutators
+#pragma region Accessors / Mutators
 
 std::shared_ptr<ICommand> CommandComponent::command() const noexcept {
-	return _command;
+    return command_;
 }
 
 void CommandComponent::command(ICommand *command) noexcept {
-	_command.reset(command);
+    command_.reset(command);
 }
 
-void CommandComponent::sessionName(std::string sessionName) noexcept {
-	_sessionName = std::move(sessionName);
+void CommandComponent::set_session_name(std::string session_name) noexcept {
+    session_name_ = std::move(session_name);
 }
 
-std::string CommandComponent::sessionName() const noexcept {
-	return _sessionName;
+std::string CommandComponent::get_session_name() const noexcept {
+    return session_name_;
 }
 
-#pragma endregion Accessors/Mutators
+#pragma endregion Accessors / Mutators

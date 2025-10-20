@@ -1,11 +1,11 @@
 #include "Pages/MidiProperty.hpp"
 
-#include <QVBoxLayout>
-#include <QTextEdit>
-#include <QLabel>
-#include <QComboBox>
-
 #include "Midi/MidiRoadMap.hpp"
+
+#include <QComboBox>
+#include <QLabel>
+#include <QTextEdit>
+#include <QVBoxLayout>
 
 #include "Wor/Midi/CallbackInfo/ApcMiniLed.hpp"
 #include "Wor/Wrappers/Singleton.hpp"
@@ -13,101 +13,107 @@
 using namespace Mss::Gui::Dialogs::Pages;
 
 MidiProperty::MidiProperty(QWidget *parent) noexcept
-	: QWidget(parent) {
-	auto propertiesLayout = new QVBoxLayout;
-	QWidget::setLayout(propertiesLayout);
+    : QWidget{ parent } {
+    auto properties_layout{ new QVBoxLayout };
+    QWidget::setLayout(properties_layout);
 
-	auto titleLabel = new QLabel("Properties");
-	propertiesLayout->addWidget(titleLabel);
-	{
-		auto layout = new QHBoxLayout;
-		auto label = new QLabel("Id:");
-		layout->addWidget(label);
-		_idText = new QTextEdit;
-		_idText->setFixedHeight(30);
-		_idText->setEnabled(false);
-		layout->addWidget(_idText);
-		propertiesLayout->addLayout(layout);
-	}
-	{
-		auto layout = new QHBoxLayout;
-		auto label = new QLabel("Active color:");
-		layout->addWidget(label);
-		_activeColorComboBox = new QComboBox;
-		layout->addWidget(_activeColorComboBox);
-		propertiesLayout->addLayout(layout);
-	}
-	{
-		auto layout = new QHBoxLayout;
-		auto label = new QLabel("Default color:");
-		layout->addWidget(label);
-		_defaultColorComboBox = new QComboBox;
-		layout->addWidget(_defaultColorComboBox);
-		propertiesLayout->addLayout(layout);
-	}
+    auto title_label{ new QLabel("Properties") };
+    properties_layout->addWidget(title_label);
+    {
+        auto layout{ new QHBoxLayout };
+        const auto label{ new QLabel("Id:") };
+        layout->addWidget(label);
+        id_text_ = new QTextEdit;
+        id_text_->setFixedHeight(30);
+        id_text_->setEnabled(false);
+        layout->addWidget(id_text_);
+        properties_layout->addLayout(layout);
+    }
+    {
+        auto layout{ new QHBoxLayout };
+        const auto label{ new QLabel("Active color:") };
+        layout->addWidget(label);
+        active_color_combo_box_ = new QComboBox;
+        layout->addWidget(active_color_combo_box_);
+        properties_layout->addLayout(layout);
+    }
+    {
+        auto layout{ new QHBoxLayout };
+        const auto label{ new QLabel("Default color:") };
+        layout->addWidget(label);
+        default_color_combo_box_ = new QComboBox;
+        layout->addWidget(default_color_combo_box_);
+        properties_layout->addLayout(layout);
+    }
 }
 
-#pragma region Accessors/Mutators
+#pragma region Accessors / Mutators
 
-void MidiProperty::targetMidiIdx(std::uint8_t buttonIdx) noexcept {
-	_idText->setText(QString::number(buttonIdx));
+void MidiProperty::target_midi_idx(std::uint8_t button_idx) noexcept {
+    id_text_->setText(QString::number(button_idx));
 
-	auto &roadMap = Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get();
-	auto road = roadMap.midiRoad(buttonIdx).value();
+    auto &roadMap{ Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get() };
+    auto road{ roadMap.midi_road(button_idx).value() };
 
-	_activeColorComboBox->clear();
-	std::ignore = _activeColorComboBox->disconnect();
+    active_color_combo_box_->clear();
+    std::ignore = active_color_combo_box_->disconnect();
 
-	_defaultColorComboBox->clear();
-	std::ignore = _defaultColorComboBox->disconnect();
+    default_color_combo_box_->clear();
+    std::ignore = default_color_combo_box_->disconnect();
 
-	auto colors = Wor::Midi::CallbackInfo::ApcMini::ApcMiniLed::availableLeds();
+    const auto colors{ Wor::Midi::CallbackInfo::ApcMini::ApcMiniLed::availableLeds() };
 
-	std::ranges::for_each(colors,
-						  [&colorCombobox = _activeColorComboBox](
-						  const Wor::Midi::CallbackInfo::MidiLed &color) {
-							  auto itemText = std::format("{} {}", color.colorName(), color.modeName());
-							  colorCombobox->addItem(itemText.c_str());
-						  });
-	auto currentActiveColorIt = std::ranges::find_if(colors,
-													 [road](const Wor::Midi::CallbackInfo::MidiLed &each) {
-														 return each == road.activeLed();
-													 });
-	std::uint8_t activeColorIdx = std::distance(std::begin(colors), currentActiveColorIt);
-	_activeColorComboBox->setCurrentIndex(activeColorIdx);
+    std::ranges::for_each(
+        colors,
+        [&color_combobox{ active_color_combo_box_ }](const Wor::Midi::CallbackInfo::MidiLed &color) {
+            const auto item_text{ std::format("{} {}", color.colorName(), color.modeName()) };
+            color_combobox->addItem(item_text.c_str());
+        }
+    );
+    const auto current_active_color_it{ std::ranges::find_if(colors,
+                                                             [road](const Wor::Midi::CallbackInfo::MidiLed &each) {
+                                                                 return each == road.get_active_led();
+                                                             }) };
+    const auto activeColorIdx{ std::distance(std::begin(colors), current_active_color_it) };
+    active_color_combo_box_->setCurrentIndex(activeColorIdx);
 
-	std::ranges::for_each(colors,
-						  [&colorCombobox = _defaultColorComboBox](
-						  const Wor::Midi::CallbackInfo::MidiLed &color) {
-							  auto itemText = std::format("{} {}", color.colorName(), color.modeName());
-							  colorCombobox->addItem(itemText.c_str());
-						  });
-	auto currentDefaultColorIt = std::ranges::find_if(colors,
-													  [road](const Wor::Midi::CallbackInfo::MidiLed &each) {
-														  return each == road.defaultLed();
-													  });
-	std::uint8_t defaultColorIdx = std::distance(std::begin(colors), currentDefaultColorIt);
-	_defaultColorComboBox->setCurrentIndex(defaultColorIdx);
+    std::ranges::for_each(
+        colors,
+        [&color_combobox{ default_color_combo_box_ }](const Wor::Midi::CallbackInfo::MidiLed &color) {
+            const auto item_text{ std::format("{} {}", color.colorName(), color.modeName()) };
+            color_combobox->addItem(item_text.c_str());
+        }
+    );
+    const auto current_default_color_it{ std::ranges::find_if(colors,
+                                                              [road](const Wor::Midi::CallbackInfo::MidiLed &each) {
+                                                                  return each == road.get_default_led();
+                                                              }) };
+    const auto defaultColorIdx{ std::distance(std::begin(colors), current_default_color_it) };
+    default_color_combo_box_->setCurrentIndex(defaultColorIdx);
 
-	std::ignore = connect(_activeColorComboBox,
-						  &QComboBox::currentIndexChanged,
-						  [roadMap, roadIdx = buttonIdx, colors](int idx) {
-							  if (idx == -1) {
-								  return;
-							  }
-							  auto currentRoad = roadMap.midiRoad(roadIdx).value();
-							  currentRoad.activeLed(static_cast<Wor::Midi::CallbackInfo::MidiLed>(colors[idx]));
-						  });
+    std::ignore = connect(
+        active_color_combo_box_,
+        &QComboBox::currentIndexChanged,
+        [roadMap, roadIdx{ button_idx }, colors](int idx) {
+            if (idx == -1) {
+                return;
+            }
+            auto current_road{ roadMap.midi_road(roadIdx).value() };
+            current_road.set_active_led(static_cast<Wor::Midi::CallbackInfo::MidiLed>(colors[idx]));
+        }
+    );
 
-	std::ignore = connect(_defaultColorComboBox,
-						  &QComboBox::currentIndexChanged,
-						  [roadMap, roadIdx = buttonIdx, colors](int idx) {
-							  if (idx == -1) {
-								  return;
-							  }
-							  auto currentRoad = roadMap.midiRoad(roadIdx).value();
-							  currentRoad.defaultLed(static_cast<Wor::Midi::CallbackInfo::MidiLed>(colors[idx]));
-						  });
+    std::ignore = connect(
+        default_color_combo_box_,
+        &QComboBox::currentIndexChanged,
+        [roadMap, road_idx{ button_idx }, colors](int idx) {
+            if (idx == -1) {
+                return;
+            }
+            auto current_road{ roadMap.midi_road(road_idx).value() };
+            current_road.set_default_led(static_cast<Wor::Midi::CallbackInfo::MidiLed>(colors[idx]));
+        }
+    );
 }
 
-#pragma endregion Accessors/Mutators
+#pragma endregion Accessors / Mutators

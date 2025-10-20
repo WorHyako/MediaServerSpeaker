@@ -3,54 +3,53 @@
 #include <QWidget>
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
-	class BaseMidiLayout;
+class BaseMidiLayout;
 }
 
 namespace Mss::Gui::Dialogs::Pages {
-	class MidiProperty;
+class MidiProperty;
 }
 
 namespace Mss::Gui::Dialogs::Pages {
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class MidiSettingsPage
-			: public QWidget {
-	public:
-		/**
-		 * @brief	Ctor.
-		 *
-		 * @param	parent Parent widget.
-		 */
-		explicit MidiSettingsPage(QWidget *parent = nullptr) noexcept;
+/**
+ * @brief MIDI settings page widget.
+ *
+ * @author WorHyako
+ */
+class MidiSettingsPage : public QWidget {
+  public:
+    /**
+     * @brief Constructor.
+     *
+     * @param parent Parent widget.
+     */
+    explicit MidiSettingsPage(QWidget *parent = nullptr) noexcept;
 
-	private:
-		/**
-		 * @brief
-		 */
-		void save() const noexcept;
+  private:
+    /**
+     * @brief Saves the current MIDI settings.
+     */
+    void save() const noexcept;
 
-		/**
-		 * @brief
-		 */
-		void load() noexcept;
+    /**
+     * @brief Loads the MIDI settings from storage.
+     */
+    void load() noexcept;
 
-		KeyboardLayout::BaseMidiLayout *_keyboardLayoutWidget;
+    KeyboardLayout::BaseMidiLayout *keyboard_layout_widget_;
 
-		MidiProperty *_propertyWidget;
+    MidiProperty *property_widget_;
 
-		bool _editMode;
+    bool edit_mode_;
 
 #pragma region Callbacks
 
-	public slots:
-		/**
-		 * @brief
-		 */
-		void midiKeyPressed();
+  public slots:
+    /**
+     * @brief Slot called when a MIDI key is pressed.
+     */
+    void midi_key_pressed();
 
 #pragma endregion Callbacks
-	};
+};
 }

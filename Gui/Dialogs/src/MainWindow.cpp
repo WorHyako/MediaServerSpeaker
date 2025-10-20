@@ -1,8 +1,8 @@
 #include "MainWindow.hpp"
 
 #include "Creators/ControlCreator.hpp"
-#include "Tabs/ControlTab.hpp"
 #include "SettingDialog.hpp"
+#include "Tabs/ControlTab.hpp"
 
 #include <QMenuBar>
 
@@ -11,35 +11,30 @@
 using namespace Mss::Gui::Dialogs;
 
 MainWindow::MainWindow(QWidget *parent) noexcept
-	: QMainWindow(parent) {
-	QMainWindow::setWindowTitle("Media Server Speaker");
-	QMainWindow::resize(500, 400);
-	QMainWindow::setMinimumSize(500, 400);
+    : QMainWindow{ parent } {
+    QMainWindow::setWindowTitle("Media Server Speaker");
+    QMainWindow::resize(500, 400);
+    QMainWindow::setMinimumSize(500, 400);
 
-	auto tabs = new Scopes::ControlTab(this);
-	QMainWindow::setCentralWidget(tabs);
+    auto tabs{ new Scopes::ControlTab(this) };
+    QMainWindow::setCentralWidget(tabs);
 
-	auto menuBar = QMainWindow::menuBar();
+    auto menuBar{ QMainWindow::menuBar() };
 
-	auto settingsMenu = menuBar->addMenu(tr("Preference"));
+    auto settings_menu{ menuBar->addMenu(tr("Preference")) };
 
-	auto settings = settingsMenu->addAction("Edit...");
-	std::ignore = connect(settings,
-						  &QAction::triggered,
-						  [this](bool) {
-							  auto settingsDialog = Controls::ControlCreator<SettingDialog>::create(this);
-							  settingsDialog->show();
-							  std::ignore = settingsDialog.release();
-						  });
+    auto settings{ settings_menu->addAction("Edit...") };
+    std::ignore = connect(settings, &QAction::triggered, [this](bool) {
+        auto setting_dialog{ Controls::ControlCreator<SettingDialog>::create(this) };
+        setting_dialog->show();
+        std::ignore = setting_dialog.release();
+    });
 
-	settingsMenu->addSeparator();
+    settings_menu->addSeparator();
 
-	auto editMode = settingsMenu->addAction("Edit mode");
-	editMode->setCheckable(true);
-	std::ignore = connect(editMode,
-						  &QAction::toggled,
-						  [tabs](bool toggled) {
-							  emit
-							  tabs->editModeChanged(toggled);
-						  });
+    auto edit_mode{ settings_menu->addAction("Edit mode") };
+    edit_mode->setCheckable(true);
+    std::ignore = connect(edit_mode, &QAction::toggled, [tabs](bool toggled) {
+        emit tabs->edit_mode_changed(toggled);
+    });
 }

@@ -5,35 +5,34 @@
 class QLineEdit;
 
 namespace Mss::Gui::Dialogs::Pages {
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class SqlSettingsPage
-			: public QWidget {
-	public:
-		/**
-		 * @brief	Ctor
-		 *
-		 * @param	parent Parent widget.
-		 */
-		explicit SqlSettingsPage(QWidget *parent = nullptr) noexcept;
+/**
+ * @brief SQL settings page widget.
+ *
+ * @author WorHyako
+ */
+class SqlSettingsPage : public QWidget {
+  public:
+    /**
+     * @brief Constructor.
+     *
+     * @param parent Parent widget.
+     */
+    explicit SqlSettingsPage(QWidget *parent = nullptr) noexcept;
 
-	private:
-		/**
-		 * @brief
-		 */
-		void refreshSqlStatus() noexcept;
+  private:
+    /**
+     * @brief Refreshes the SQL connection status.
+     */
+    void refresh_sql_status() noexcept;
 
-		QLineEdit* _userNameText;
+    QLineEdit *user_name_text_;
 
-		QLineEdit* _userPasswordText;
+    QLineEdit *user_password_text_;
 
-		QLineEdit* _hostText;
+    QLineEdit *host_text_;
 
-		QLineEdit* _portText;
+    QLineEdit *port_text_;
 
-		QLineEdit* _dbNameText;
-	};
+    QLineEdit *db_name_text_;
+};
 }

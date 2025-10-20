@@ -3,17 +3,17 @@
 #include <string_view>
 
 namespace Mss::Gui::Style {
-	/**
-	 * @brief	Returns style sheet fpr QWidget object named "WorControl".
-	 *			<p>
-	 *			It will paint background with rounded corners.
-	 *
-	 * @return	Style sheet.
-	 *
-	 * @author	WorHyako
-	 */
-	constexpr std::string_view getWidgetControlStyle() noexcept {
-		return R"(
+/**
+ * @brief Returns style sheet fpr QWidget object named "WorControl".
+ *
+ * It will paint background with rounded corners.
+ *
+ * @return Style sheet.
+ *
+ * @author WorHyako
+ */
+constexpr std::string_view get_widget_control_style() noexcept {
+    return R"(
 QWidget#WorControl {
     background-color: "#30949494";
     border-radius: 7px;
@@ -21,5 +21,5 @@ QWidget#WorControl {
     border-color: "#939393";
 }
 )";
-	}
+}
 }

@@ -3,15 +3,15 @@
 #include <string_view>
 
 namespace Mss::Gui::Style {
-	/**
-	 * @brief	Returns style sheet for QPushButton object.
-	 *
-	 * @return	Style sheet.
-	 *
-	 * @author	WorHyako
-	 */
-	constexpr std::string_view getButtonStyle() noexcept {
-		return R"(
+/**
+ * @brief Returns style sheet for QPushButton object.
+ *
+ * @return Style sheet.
+ *
+ * @author WorHyako
+ */
+constexpr std::string_view get_button_style() noexcept {
+    return R"(
 QPushButton {
     border: 2px solid #939393;
     border-radius: 7px;
@@ -28,5 +28,5 @@ QPushButton:pressed {
     background-color: "#A4A4A4";
 }
 )";
-	}
+}
 }

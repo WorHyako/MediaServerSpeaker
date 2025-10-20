@@ -4,8 +4,5 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ThirdParty/MediaServerSpeaker_ConfData" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ThirdParty/WorLibrary" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ThirdParty/nlohmann-json" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ThirdParty/pugixml" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/ThirdParty/soci" vcs="Git" />
   </component>
 </project>

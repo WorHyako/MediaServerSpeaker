@@ -1,13 +1,11 @@
 #include "Menus/ScopeContextMenu.hpp"
 
 #include "Controls/ManagementButton.hpp"
+#include "Controls/ManagementTextableButton.hpp"
 #include "Controls/QuickButton.hpp"
 #include "Controls/QuickTitle.hpp"
 #include "Controls/Table.hpp"
-#include "Controls/ManagementTextableButton.hpp"
-
 #include "Creators/ControlCreator.hpp"
-
 #include "Interfaces/IScope.hpp"
 
 using namespace Mss::Gui::Scopes::Menus;
@@ -15,109 +13,93 @@ using namespace Mss::Gui::Controls;
 
 namespace {
 
-	/**
-	 * @brief
-	 *
-	 * @tparam  TControlType
-	 *
-	 * @param   scope
-	 *
-	 * @author  WorHyako
-	 */
-	template <class TControlType>
-	void addToScope(Mss::Gui::Scopes::IScope *scope) {
-		auto control = ControlCreator<TControlType>::create();
-		scope->addControl(control.release());
-	}
+/**
+ * @brief
+ *
+ * @tparam  TControlType
+ *
+ * @param   scope
+ *
+ * @author  WorHyako
+ */
+template <class TControlType>
+void addToScope(Mss::Gui::Scopes::IScope *scope) {
+    auto control{ ControlCreator<TControlType>::create() };
+    scope->add_control(control.release());
+}
 }
 
-ScopeContextMenu::ScopeContextMenu(Scopes::ControlType controlType, QWidget *parent) noexcept
-	: QMenu(parent) {
-	auto addNewMenu = new QMenu("Add new...");
+ScopeContextMenu::ScopeContextMenu(Scopes::ControlType control_type, QWidget *parent) noexcept
+    : QMenu{ parent } {
+    auto add_new_menu{ new QMenu("Add new...") };
 
-	auto scope = dynamic_cast<Scopes::IScope *>(QMenu::parent());
-	if (!scope) {
-		return;
-	}
+    auto scope { dynamic_cast<Scopes::IScope *>(QMenu::parent())};
+    if (!scope) {
+        return;
+    }
 
-	/**
-	 * TODO: change to template parameters pack
-	 */
-	QList<QAction *> addActionList;
-	if (controlType & Scopes::ControlType::ManagementTextableButton) {
-		auto addButton = new QAction("Management Textable Button");
-		std::ignore = connect(addButton,
-							  &QAction::triggered,
-							  [scope]() {
-								  ::addToScope<ManagementTextableButton>(scope);
-							  });
+    /**
+     * TODO: change to template parameters pack
+     */
+    QList<QAction *> add_action_list;
+    if (control_type & Scopes::ControlType::ManagementTextableButton) {
+        auto add_button{ new QAction("Management Textable Button") };
+        std::ignore = connect(add_button, &QAction::triggered, [scope]() {
+            ::addToScope<ManagementTextableButton>(scope);
+        });
 
-		addActionList.emplace_back(addButton);
-	}
+        add_action_list.emplace_back(add_button);
+    }
 
-	if (controlType & Scopes::ControlType::ManagementButton) {
-		auto addMButton = new QAction("Management button");
-		std::ignore = connect(addMButton,
-							  &QAction::triggered,
-							  [scope]() {
-								  ::addToScope<ManagementButton>(scope);
-							  });
-		addActionList.emplace_back(addMButton);
-	}
+    if (control_type & Scopes::ControlType::ManagementButton) {
+        auto add_m_button{ new QAction("Management button") };
+        std::ignore = connect(add_m_button, &QAction::triggered, [scope]() {
+            ::addToScope<ManagementButton>(scope);
+        });
+        add_action_list.emplace_back(add_m_button);
+    }
 
-	if (controlType & Scopes::ControlType::QuickButton) {
-		auto addMButton = new QAction("Quick button");
-		std::ignore = connect(addMButton,
-							  &QAction::triggered,
-							  [scope]() {
-								  ::addToScope<QuickButton>(scope);
-							  });
-		addActionList.emplace_back(addMButton);
-	}
+    if (control_type & Scopes::ControlType::QuickButton) {
+        auto add_m_button{ new QAction("Quick button") };
+        std::ignore = connect(add_m_button, &QAction::triggered, [scope]() {
+            ::addToScope<QuickButton>(scope);
+        });
+        add_action_list.emplace_back(add_m_button);
+    }
 
-	if (controlType & Scopes::ControlType::QuickTitle) {
-		auto addMButton = new QAction("Quick title");
-		std::ignore = connect(addMButton,
-							  &QAction::triggered,
-							  [scope]() {
-								  ::addToScope<QuickTitle>(scope);
-							  });
-		addActionList.emplace_back(addMButton);
-	}
+    if (control_type & Scopes::ControlType::QuickTitle) {
+        auto add_m_button{ new QAction("Quick title") };
+        std::ignore = connect(add_m_button, &QAction::triggered, [scope]() {
+            ::addToScope<QuickTitle>(scope);
+        });
+        add_action_list.emplace_back(add_m_button);
+    }
 
-	if (controlType & Scopes::ControlType::Table) {
-		auto addMButton = new QAction("Table");
-		std::ignore = connect(addMButton,
-							  &QAction::triggered,
-							  [scope]() {
-								  ::addToScope<Table>(scope);
-							  });
-		addActionList.emplace_back(addMButton);
-	}
+    if (control_type & Scopes::ControlType::Table) {
+        auto add_m_button{ new QAction("Table") };
+        std::ignore = connect(add_m_button, &QAction::triggered, [scope]() {
+            ::addToScope<Table>(scope);
+        });
+        add_action_list.emplace_back(add_m_button);
+    }
 
-	addNewMenu->addActions(addActionList);
-	QMenu::addMenu(addNewMenu);
+    add_new_menu->addActions(add_action_list);
+    QMenu::addMenu(add_new_menu);
 
-	auto loadAction = new QAction("Load");
-	std::ignore = connect(loadAction,
-						  &QAction::triggered,
-						  [scope]() {
-							  scope->loadControls();
-						  });
+    auto load_action{ new QAction("Load") };
+    std::ignore = connect(load_action, &QAction::triggered, [scope]() {
+        scope->load_controls();
+    });
 
-	auto saveAction = new QAction("Save");
-	std::ignore = connect(saveAction,
-						  &QAction::triggered,
-						  [scope]() {
-							  scope->saveControls();
-						  });
+    const auto save_action{ new QAction("Save") };
+    std::ignore = connect(save_action, &QAction::triggered, [scope]() {
+        scope->save_controls();
+    });
 
-	auto clearAction = new QAction("Clear");
-	std::ignore = connect(clearAction,
-						  &QAction::triggered,
-						  [scope]() {
-							  scope->removeAllControls();
-						  });
+    const auto clear_action{ new QAction("Clear") };
+    std::ignore = connect(clear_action, &QAction::triggered, [scope]() {
+        scope->remove_all_controls();
+    });
 
-	QMenu::addActions({loadAction, saveAction, clearAction});
+    QMenu::addActions({ load_action, save_action, clear_action });
 }

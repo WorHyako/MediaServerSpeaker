@@ -2,38 +2,38 @@
 
 using namespace Mss::Gui::Dialogs::Pages::KeyboardLayout;
 
-BaseMidiButton::BaseMidiButton(const QString &buttonText, QWidget *parent) noexcept
-	: QPushButton(buttonText, parent),
-	  _midiKeyIdx(0),
-	  _isActive(false) {
-	QPushButton::setAutoFillBackground(true);
-	QPushButton::setStyleSheet("background-color: rgb(100, 100, 100);");
+BaseMidiButton::BaseMidiButton(const QString &button_text, QWidget *parent) noexcept
+    : QPushButton{ button_text, parent },
+      midi_key_idx_{ 0 },
+      is_active_{ false } {
+    QPushButton::setAutoFillBackground(true);
+    QPushButton::setStyleSheet("background-color: rgb(100, 100, 100);");
 }
 
-#pragma region Accessors/Mutators
+#pragma region Accessors / Mutators
 
-void BaseMidiButton::midiKeyIdx(std::uint8_t midiKeyIdx) noexcept {
-	_midiKeyIdx = midiKeyIdx;
+void BaseMidiButton::set_midi_key_idx(std::uint8_t midi_key_idx) noexcept {
+    midi_key_idx_ = midi_key_idx;
 }
 
-std::uint8_t BaseMidiButton::midiKeyIdx() const noexcept {
-	return _midiKeyIdx;
+std::uint8_t BaseMidiButton::get_midi_key_idx() const noexcept {
+    return midi_key_idx_;
 }
 
-void BaseMidiButton::activeColor(MidiLed color) noexcept {
-	_activeColor = color;
+void BaseMidiButton::set_active_color(MidiLed color) noexcept {
+    active_color_ = color;
 }
 
-BaseMidiButton::MidiLed BaseMidiButton::activeColor() const noexcept {
-	return _activeColor;
+BaseMidiButton::MidiLed BaseMidiButton::get_active_color() const noexcept {
+    return active_color_;
 }
 
-void BaseMidiButton::defaultColor(MidiLed color) noexcept {
-	_defaultColor = color;
+void BaseMidiButton::set_default_color(MidiLed color) noexcept {
+    default_color_ = color;
 }
 
-BaseMidiButton::MidiLed BaseMidiButton::defaultColor() const noexcept {
-	return _defaultColor;
+BaseMidiButton::MidiLed BaseMidiButton::get_default_color() const noexcept {
+    return default_color_;
 }
 
-#pragma endregion Accessors/Mutators
+#pragma endregion Accessors / Mutators

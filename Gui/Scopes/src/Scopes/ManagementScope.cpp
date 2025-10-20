@@ -1,110 +1,110 @@
 #include "Scopes/ManagementScope.hpp"
 
+#include "Config/Config.hpp"
 #include "Controls/ManagementButton.hpp"
 #include "Controls/ManagementTextableButton.hpp"
-#include "Config/Config.hpp"
 
 using namespace Mss::Gui::Scopes;
 using namespace Mss::Gui::Controls;
 
 ManagementScope::ManagementScope(QWidget *parent) noexcept
-	: IScope(parent) {
-	IScope::_controlsType = ControlType::ManagementButton
-			| ControlType::ManagementTextableButton
-			| ControlType::Table;
+    : IScope{ parent } {
+    IScope::controls_type_ = ControlType::ManagementButton | ControlType::ManagementTextableButton | ControlType::Table;
 }
 
-void ManagementScope::addControl(QWidget *control) noexcept {
-	auto worControl = dynamic_cast<IMovableControl *>(control);
-	if (!worControl) {
-		return;
-	}
+void ManagementScope::add_control(QWidget *control) noexcept {
+    auto mv_control{ dynamic_cast<IMovableControl *>(control) };
+    if (!mv_control) {
+        return;
+    }
 
-	worControl->editMode(_editMode);
-	worControl->setParent(this);
-	worControl->show();
+    mv_control->edit_mode(edit_mode_);
+    mv_control->setParent(this);
+    mv_control->show();
 }
 
-void ManagementScope::removeControl(QWidget *control) noexcept {
-	if (!control) {
-		return;
-	}
-	control->setParent(nullptr);
-	control->deleteLater();
+void ManagementScope::remove_control(QWidget *control) noexcept {
+    if (!control) {
+        return;
+    }
+    control->setParent(nullptr);
+    control->deleteLater();
 }
 
-void ManagementScope::removeAllControls() noexcept {
-	auto children = QWidget::children();
-	std::ranges::for_each(children,
-						  [this](QObject *each) {
-							  auto control = dynamic_cast<IMovableControl *>(each);
-							  if (!control) {
-								  return;
-							  }
-							  removeControl(control);
-						  });
+void ManagementScope::remove_all_controls() noexcept {
+    auto children{ QWidget::children() };
+    std::ranges::for_each(children, [this](QObject *each) {
+        const auto control{ dynamic_cast<IMovableControl *>(each) };
+        if (!control) {
+            return;
+        }
+        remove_control(control);
+    });
 }
 
-void ManagementScope::loadControls() noexcept {
-	const auto &parentTab = dynamic_cast<QWidget *>(QWidget::parent());
-	if (!parentTab) {
-		return;
-	}
-	/**
-	 * TODO: first thread
-	 */
-	removeAllControls();
+void ManagementScope::load_controls() noexcept {
+    const auto &parent_tab{ dynamic_cast<QWidget *>(QWidget::parent()) };
+    if (!parent_tab) {
+        return;
+    }
+    /**
+     * TODO: first thread
+     */
+    remove_all_controls();
 
-	/**
-	 * TODO: second thread
-	 */
-	std::string tabName(parentTab->accessibleName().toUtf8().constData());
+    /**
+     * TODO: second thread
+     */
+    const std::string tab_name{parent_tab->accessibleName().toUtf8().constData()};
 
-	Config<ManagementScope> config(tabName);
-	if (!config.loadConfig()) {
-		return;
-	}
+    Config<ManagementScope> config{tab_name};
+    if (!config.load_config()) {
+        return;
+    }
 
-	auto mbControls = config.loadFromConfig<ManagementButton>();
-	auto mtbControls = config.loadFromConfig<ManagementTextableButton>();
+    auto mb_controls{ config.load_from_config<ManagementButton>() };
+    auto mtb_controls{ config.load_from_config<ManagementTextableButton>() };
 
-	WorQWidgetPtrVec controls;
+    WorQWidgetPtrVec controls;
 
-	controls.reserve(std::size(mbControls) + std::size(mtbControls));
-	controls.insert(std::cend(controls),
-					std::make_move_iterator(std::begin(mbControls)),
-					std::make_move_iterator(std::end(mbControls)));
-	controls.insert(std::cend(controls),
-					std::make_move_iterator(std::begin(mtbControls)),
-					std::make_move_iterator(std::end(mtbControls)));
+    controls.reserve(std::size(mb_controls) + std::size(mtb_controls));
+    controls.insert(
+        std::cend(controls),
+        std::make_move_iterator(std::begin(mb_controls)),
+        std::make_move_iterator(std::end(mb_controls))
+    );
+    controls.insert(
+        std::cend(controls),
+        std::make_move_iterator(std::begin(mtb_controls)),
+        std::make_move_iterator(std::end(mtb_controls))
+    );
 
-	/**
-	 * TODO: finish
-	 */
-	std::ranges::for_each(controls,
-						  [this](auto &each) {
-							  addControl(each.release());
-						  });
+    /**
+     * TODO: finish
+     */
+    std::ranges::for_each(controls, [this](auto &each) {
+        add_control(each.release());
+    });
 }
 
-void ManagementScope::saveControls() noexcept {
-	const auto &parentTab = dynamic_cast<QWidget *>(QWidget::parent());
-	if (!parentTab) {
-		return;
-	}
-	std::string tabName(parentTab->accessibleName().toUtf8().constData());
-	Config<ManagementScope> config(tabName);
-	config.addToConfig<ManagementButton>(this);
-	config.addToConfig<ManagementTextableButton>(this);
-	std::ignore = config.saveConfig();
+void ManagementScope::save_controls() noexcept {
+    const auto &parent_tab{ dynamic_cast<QWidget *>(QWidget::parent()) };
+    if (!parent_tab) {
+        return;
+    }
+    const std::string tabName{parent_tab->accessibleName().toUtf8().constData()};
+    Config<ManagementScope> config{tabName};
+    config.add_to_config<ManagementButton>(this);
+    config.add_to_config<ManagementTextableButton>(this);
+    std::ignore = config.save_config();
 }
 
 #pragma region Callbacks
 
-void ManagementScope::editModeChange(bool toggled) {
-	auto children = QWidget::children();
+void ManagementScope::edit_mode_change(bool toggled) {
+    auto children{ QWidget::children() };
 
-	IScope::editModeChange(toggled, children);
+    IScope::edit_mode_change(toggled, children);
 }
 
 #pragma endregion Callbacks

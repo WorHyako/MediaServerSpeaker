@@ -3,32 +3,37 @@
 #include <string_view>
 
 namespace Mss::Gui::Scopes {
-	class QuickTitlesScope;
+class QuickTitlesScope;
 
-	class QuickButtonScope;
+class QuickButtonScope;
 
-	class ManagementScope;
+class ManagementScope;
 }
 
 namespace Mss::System {
-	/**
-	 * @brief
-	 *
-	 * @return
-	 *
-	 * @author WorHyako
-	 */
-	[[nodiscard]]
-	std::string_view getResourcePath() noexcept;
+/**
+ * @brief
+ *
+ * @return
+ *
+ * @author WorHyako
+ */
+[[nodiscard]]
+constexpr std::string_view get_resource_path() noexcept;
 
-	/**
-	 * @brief
-	 *
-	 * @tparam TScopeType
-	 *
-	 * @return
-	 */
-	template <class TScopeType>
-	[[nodiscard]]
-	std::string_view getConfigName() noexcept;
+/**
+ * @brief
+ *
+ * @tparam TScopeType
+ *
+ * @return
+ *
+ * @author WorHyako
+ */
+template <class TScopeType>
+    requires std::same_as<TScopeType, Gui::Scopes::QuickTitlesScope>
+             || std::same_as<TScopeType, Gui::Scopes::QuickButtonScope>
+             || std::same_as<TScopeType, Gui::Scopes::ManagementScope>
+[[nodiscard]]
+constexpr std::string_view get_config_name() noexcept;
 }

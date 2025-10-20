@@ -3,13 +3,13 @@
 using namespace Mss::Gui::Dialogs::Pages::KeyboardLayout;
 
 BaseMidiLayout::BaseMidiLayout(QWidget *parent) noexcept
-	: QWidget(parent) {
+    : QWidget{ parent } {
 }
 
-#pragma region Accessors/Mutators
+#pragma region Accessors / Mutators
 
-const std::vector<BaseMidiButton *> &BaseMidiLayout::midiButtons() const noexcept {
-	return _midiButtons;
+const std::vector<BaseMidiButton *> &BaseMidiLayout::midi_buttons() const noexcept {
+    return midi_buttons_;
 }
 
-#pragma endregion Accessors/Mutators
+#pragma endregion Accessors / Mutators

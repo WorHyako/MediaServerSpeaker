@@ -3,128 +3,122 @@
 #include "Wor/Network/TcpServer.hpp"
 #include "Wor/Wrappers/Singleton.hpp"
 
-#include <QVBoxLayout>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QLabel>
+#include "Config/Config.hpp"
+
 #include <QGraphicsEllipseItem>
 #include <QGraphicsWidget>
-
-#include "Config/Config.hpp"
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 using namespace Mss::Gui::Dialogs::Pages;
 
 NetworkSettingPage::NetworkSettingPage(QWidget *parent) noexcept
-	: QWidget(parent),
-	  _serverConnectButton(nullptr) {
-	auto vLayout = new QVBoxLayout(this);
-	QWidget::setLayout(vLayout);
+    : QWidget{ parent },
+      server_connect_button_{ nullptr } {
+    auto v_layout{ new QVBoxLayout(this) };
+    QWidget::setLayout(v_layout);
 
-	{
-		/**
-		 * End point Layout
-		 */
-		auto hLayout = new QHBoxLayout;
+    {
+        /**
+         * End point Layout
+         */
+        auto h_layout{ new QHBoxLayout };
 
-		auto addressLabel = new QLabel("Host:");
-		hLayout->addWidget(addressLabel);
+        const auto address_label{ new QLabel("Host:") };
+        h_layout->addWidget(address_label);
 
-		auto addressText = new QLineEdit("127.0.0.1");
-		addressText->setMaximumHeight(30);
-		hLayout->addWidget(addressText);
+        auto addressText{ new QLineEdit("127.0.0.1") };
+        addressText->setMaximumHeight(30);
+        h_layout->addWidget(addressText);
 
-		auto portLabel = new QLabel("Port:");
-		hLayout->addWidget(portLabel);
+        const auto port_label{ new QLabel("Port:") };
+        h_layout->addWidget(port_label);
 
-		auto portText = new QLineEdit("33000");
-		portText->setMaximumHeight(30);
-		hLayout->addWidget(portText);
+        auto port_text { new QLineEdit("33000")};
+        port_text->setMaximumHeight(30);
+        h_layout->addWidget(port_text);
 
-		auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
-		_serverConnectButton = new QPushButton("Apply");
-		std::string buttonStyle("QPushButton {background-color: \"#%s\"; }",
-								server.isRunning() ? "00ff00" : "ff0000");
+        const auto &server { Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get()};
+        server_connect_button_ = new QPushButton("Apply");
+        std::string buttonStyle("QPushButton {background-color: \"#%s\"; }", server.bound() ? "00ff00" : "ff0000");
 
-		std::ignore = connect(_serverConnectButton,
-							  &QPushButton::pressed,
-							  [addressText, portText]() {
-								  auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
-								  std::string address = addressText->text().toUtf8().constData();
-								  bool portConversation(false);
-								  auto port = portText->text().toInt(&portConversation);
-								  if (!portConversation) {
-									  return;
-								  }
-								  boost::asio::ip::tcp::endpoint endpoint;
-								  endpoint.port(port);
-								  endpoint.address(boost::asio::ip::make_address_v4(address));
-								  std::ignore = server.bindTo(endpoint);
-							  });
-		hLayout->addWidget(_serverConnectButton);
+        std::ignore = connect(server_connect_button_, &QPushButton::pressed, [addressText, port_text]() {
+            auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
+            const std::string_view address { addressText->text().toUtf8().constData()};
+            bool portConversation(false);
+            const auto port { port_text->text().toInt(&portConversation)};
+            if (!portConversation) {
+                return;
+            }
+            boost::asio::ip::tcp::endpoint endpoint;
+            endpoint.port(port);
+            endpoint.address(boost::asio::ip::make_address_v4(address));
+            std::ignore = server.bindTo(endpoint);
+        });
+        h_layout->addWidget(server_connect_button_);
 
-		vLayout->addLayout(hLayout);
-	}
+        v_layout->addLayout(h_layout);
+    }
 
-	/**
-	 * Session list Layout
-	 */
-	_sessionListLayout = new QVBoxLayout;
-	vLayout->addLayout(_sessionListLayout);
+    /**
+     * Session list Layout
+     */
+    session_list_layout_ = new QVBoxLayout;
+    v_layout->addLayout(session_list_layout_);
 
-	auto refreshButton = new QPushButton("Refresh sessions");
-	std::ignore = connect(refreshButton,
-						  &QPushButton::pressed,
-						  [this]() {
-							  this->refreshServerStatus();
-						  });
-	vLayout->addWidget(refreshButton);
+    const auto refreshButton{ new QPushButton("Refresh sessions") };
+    std::ignore = connect(refreshButton, &QPushButton::pressed, [this]() {
+        this->refresh_server_status();
+    });
+    v_layout->addWidget(refreshButton);
 }
 
-void NetworkSettingPage::refreshServerStatus() noexcept {
-	auto &server = Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get();
-	auto sessionList = server.sessionList();
+void NetworkSettingPage::refresh_server_status() noexcept {
+    auto &server{ Wor::Wrappers::Singleton<Wor::Network::TcpServer>::get() };
 
-	std::string buttonStyle("QPushButton {background-color: \"#%s\"; }",
-							server.isRunning() ? "00ff00" : "ff0000");
+    // std::string buttonStyle("QPushButton {background-color: \"#%s\"; }", server.bound() ? "00ff00" : "ff0000");
 
-	while (_sessionListLayout->count() > 0) {
-		auto idx = _sessionListLayout->count() - 1;
-		auto item = _sessionListLayout->itemAt(idx);
-		_sessionListLayout->removeItem(item);
-		auto itemChildren = item->layout()->children();
-		while (item->layout()->count() > 0) {
-			auto itemChild = item->layout()->itemAt(0);
-			item->layout()->removeItem(itemChild);
-			itemChild->widget()->deleteLater();
-		}
-		std::ranges::for_each(itemChildren,
-							  [layout = item->layout()](QObject *each) {
-								  layout->removeWidget(dynamic_cast<QWidget *>(each));
-								  each->deleteLater();
-							  });
-		item->layout()->deleteLater();
-	}
+    while (session_list_layout_->count() > 0) {
+        const auto idx{ session_list_layout_->count() - 1 };
+        auto item{ session_list_layout_->itemAt(idx) };
+        session_list_layout_->removeItem(item);
+        auto itemChildren{ item->layout()->children() };
+        while (item->layout()->count() > 0) {
+            auto itemChild{ item->layout()->itemAt(0) };
+            item->layout()->removeItem(itemChild);
+            itemChild->widget()->deleteLater();
+        }
+        std::ranges::for_each(itemChildren, [layout = item->layout()](QObject *each) {
+            layout->removeWidget(dynamic_cast<QWidget *>(each));
+            each->deleteLater();
+        });
+        item->layout()->deleteLater();
+    }
 
-	std::ranges::for_each(sessionList,
-						  [&sessionLayout = _sessionListLayout](Wor::Network::TcpSession::ptr &session) {
-							  auto hLayout = new QHBoxLayout;
+    auto session_list{ server.sessionList() };
+    std::ranges::for_each(
+        session_list,
+        [&session_layout{ session_list_layout_ }](Wor::Network::TcpSession::ptr &session) {
+            auto h_layout{ new QHBoxLayout };
 
-							  QString endpointStr(session->endpoint().address().to_string().c_str()
-									  + QString(":")
-									  + QString::number(session->endpoint().port()));
+            QString endpointStr(
+                session->endpoint().address().to_string().c_str() + QString(":") +
+                QString::number(session->endpoint().port())
+            );
 
-							  auto endPointText = new QLabel;
-							  endPointText->setText(endpointStr);
-							  hLayout->addWidget(endPointText);
+            auto end_point_text{ new QLabel };
+            end_point_text->setText(endpointStr);
+            h_layout->addWidget(end_point_text);
 
-							  auto sessionName = new QLineEdit(session->name().c_str());
-							  std::ignore = connect(sessionName,
-													&QLineEdit::textChanged,
-													[sessionName, session]() {
-														session->name(sessionName->text().toUtf8().constData());
-													});
-							  hLayout->addWidget(sessionName);
+            auto session_name{ new QLineEdit(session->alias().c_str()) };
+            std::ignore = connect(session_name, &QLineEdit::textChanged, [session_name, session]() {
+                session->alias(session_name->text().toUtf8().constData());
+            });
+            h_layout->addWidget(session_name);
 
-							  sessionLayout->addLayout(hLayout);
-						  });
+            session_layout->addLayout(h_layout);
+        }
+    );
 }

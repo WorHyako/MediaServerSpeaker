@@ -45,7 +45,7 @@ add_subdirectory(MediaServerSpeaker_ConfData)
 # ------ #
 #   Qt   #
 # ------ #
-find_package(Qt6)
+#find_package(Qt6)
 find_package(Qt6Gui CONFIG REQUIRED GLOBAL)
 find_package(Qt6Widgets CONFIG REQUIRED GLOBAL)
 find_package(Qt6Core CONFIG REQUIRED GLOBAL)

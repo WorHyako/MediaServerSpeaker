@@ -9,8 +9,8 @@
 using namespace Mss::Gui::Scopes;
 
 TabPage::TabPage(QWidget *parent) noexcept
-	: QWidget(parent) {
-	auto *layout = new QGridLayout(this);
+	: QWidget{parent} {
+	auto *layout { new QGridLayout(this)};
 	QWidget::setLayout(layout);
 	layout->setColumnStretch(0, 1);
 	layout->setColumnStretch(1, 2);
@@ -18,25 +18,25 @@ TabPage::TabPage(QWidget *parent) noexcept
 	/**
 	 * QuickTitles Scope
 	 */
-	auto quickTitlesScope = new Scopes::QuickTitlesScope(this);
-	std::ignore = connect(this, SIGNAL(editModeChanged(bool)), quickTitlesScope, SLOT(editModeChange(bool)));
-	layout->addWidget(quickTitlesScope, 0, 0, 6, 1);
+	auto quick_titles_scope { new Scopes::QuickTitlesScope(this)};
+	std::ignore = connect(this, SIGNAL(edit_mode_changed(bool)), quick_titles_scope, SLOT(edit_mode_changed(bool)));
+	layout->addWidget(quick_titles_scope, 0, 0, 6, 1);
 
 	/**
 	 * QuickButtons Scope
 	 */
-	auto quickButtonScope = new Scopes::QuickButtonScope(this);
-	std::ignore = connect(this, SIGNAL(editModeChanged(bool)), quickButtonScope, SLOT(editModeChange(bool)));
-	layout->addWidget(quickButtonScope, 6, 0, 4, 1);
+	auto quick_button_scope { new Scopes::QuickButtonScope(this)};
+	std::ignore = connect(this, SIGNAL(edit_mode_changed(bool)), quick_button_scope, SLOT(edit_mode_changed(bool)));
+	layout->addWidget(quick_button_scope, 6, 0, 4, 1);
 
 	/**
 	 * Management scope
 	 */
-	auto managementScope = new ManagementScope(this);
-	std::ignore = connect(this, SIGNAL(editModeChanged(bool)), managementScope, SLOT(editModeChange(bool)));
-	layout->addWidget(managementScope, 0, 1, 10, 2);
+	auto management_scope { new ManagementScope(this)};
+	std::ignore = connect(this, SIGNAL(edit_mode_changed(bool)), management_scope, SLOT(edit_mode_changed(bool)));
+	layout->addWidget(management_scope, 0, 1, 10, 2);
 }
 
-void TabPage::editModeChange(bool toggled) {
-	emit editModeChanged(toggled);
+void TabPage::edit_mode_change(bool toggled) {
+	emit edit_mode_changed(toggled);
 }

@@ -7,30 +7,30 @@
 using namespace Mss::Gui::Controls::Menus;
 
 ControlContextMenu::ControlContextMenu(QWidget *parent) noexcept
-	: QMenu(parent) {
-	std::ignore = connect(this, SIGNAL(aboutToShow()), this, SLOT(configure()));
-	std::ignore = connect(this, SIGNAL(aboutToHide()), this, SLOT(reset()));
+    : QMenu{ parent } {
+    std::ignore = connect(this, SIGNAL(aboutToShow()), this, SLOT(configure()));
+    std::ignore = connect(this, SIGNAL(aboutToHide()), this, SLOT(reset()));
 }
 
 void ControlContextMenu::configure() {
-	auto parent = dynamic_cast<QWidget *>(QMenu::parent());
-	if (!parent) {
-		return;
-	}
-	auto propertyDialog = Controls::ControlCreator<Dialogs::ControlProperty>::create(parent);
-	std::ignore = connect(propertyDialog.get(), SIGNAL(finished(int)), propertyDialog.get(), SLOT(deleteLater()));
+    const auto parent{ dynamic_cast<QWidget *>(QMenu::parent()) };
+    if (!parent) {
+        return;
+    }
+    auto property_dialog{ Controls::ControlCreator<Dialogs::ControlProperty>::create(parent) };
+    std::ignore = connect(property_dialog.get(), SIGNAL(finished(int)), property_dialog.get(), SLOT(deleteLater()));
 
-	auto propertyAction = new QAction("Property");
-	std::ignore = connect(propertyAction, SIGNAL(triggered(bool)), propertyDialog.get(), SLOT(show()));
+    auto property_action{ new QAction("Property") };
+    std::ignore = connect(property_action, SIGNAL(triggered(bool)), property_dialog.get(), SLOT(show()));
 
-	auto deleteAction = new QAction("Delete");
-	std::ignore = connect(deleteAction, SIGNAL(triggered(bool)), parent, SLOT(deleteLater()));
+    auto delete_action{ new QAction("Delete") };
+    std::ignore = connect(delete_action, SIGNAL(triggered(bool)), parent, SLOT(deleteLater()));
 
-	QMenu::addActions({propertyAction, deleteAction});
+    QMenu::addActions({ property_action, delete_action });
 
-	std::ignore = propertyDialog.release();
+    std::ignore = property_dialog.release();
 }
 
 void ControlContextMenu::reset() {
-	QMenu::clear();
+    QMenu::clear();
 }

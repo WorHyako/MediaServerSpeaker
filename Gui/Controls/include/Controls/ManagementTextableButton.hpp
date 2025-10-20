@@ -7,64 +7,63 @@ class QLineEdit;
 class QPushButton;
 
 namespace Mss::Gui::Controls {
-    /**
-     * @brief
-     *
-     * @author WorHyako
-     */
-    class ManagementTextableButton final
-            : public IMovableControl {
+/**
+ * @brief
+ *
+ * @author WorHyako
+ */
+class ManagementTextableButton final : public IMovableControl {
     Q_OBJECT
 
-	public:
-		/**
-		 * @brief	Ctor.
-		 *
-		 * @param	parent Parent widget.
-		 */
-		explicit ManagementTextableButton(QWidget *parent = nullptr) noexcept;
+  public:
+    /**
+     * @brief Constructor.
+     *
+     * @param parent Parent widget.
+     */
+    explicit ManagementTextableButton(QWidget *parent = nullptr) noexcept;
 
-		/**
-		 * @brief	Dtor.
-		 */
-		~ManagementTextableButton() override = default;
+    /**
+     * @brief Destructor.
+     */
+    ~ManagementTextableButton() override = default;
 
-    private:
-    	/**
-		 * @brief	Control's @code QLineEdit @endcode.
-		 */
-		QLineEdit *_textEdit;
+  private:
+    /**
+     * @brief Control's QLineEdit.
+     */
+    QLineEdit *text_edit_;
 
-    	/**
-		 * @brief	Control's @code QPushButton @endcode.
-		 */
-		QPushButton *_button;
+    /**
+     * @brief Control's QPushButton.
+     */
+    QPushButton *button_;
 
-	public:
-#pragma region Accessors/Mutators
+  public:
+#pragma region Accessors / Mutators
 
-		/**
-		 * @brief	Control's text mutator for @code QLineEdit @endcode.
-		 *
-		 * @param	text
-		 */
-		void text(std::string text) noexcept override;
+    /**
+     * @brief Control's text mutator for QLineEdit.
+     *
+     * @param text
+     */
+    void set_text(std::string text) noexcept override;
 
-		/**
-		 * @brief	Control's text accessor for @code QLineEdit @endcode.
-		 *
-		 * @return	Control's text.
-		 */
-		[[nodiscard]]
-		std::string text() const noexcept override;
+    /**
+     * @brief Control's text accessor for QLineEdit.
+     *
+     * @return Control's text.
+     */
+    [[nodiscard]]
+    std::string get_text() const noexcept override;
 
-#pragma endregion Accessors/Mutators
+#pragma endregion Accessors / Mutators
 
 #pragma region Callbacks
 
-	public slots:
-		void commandChanged() noexcept override;
+  public slots:
+    void command_changed() noexcept override;
 
 #pragma endregion Callbacks
-	};
+};
 }

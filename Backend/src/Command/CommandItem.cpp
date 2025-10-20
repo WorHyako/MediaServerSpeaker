@@ -3,22 +3,22 @@
 using namespace Mss::Backend::Command;
 
 CommandItem::CommandItem(std::string key, std::string value) noexcept
-	: _key(std::move(key)),
-	  _value(std::move(value)) {
+	: key_{std::move(key)},
+	  value_{std::move(value)} {
 }
 
-#pragma region Accessors/Mutators
+#pragma region Accessors / Mutators
 
 std::string CommandItem::key() const noexcept {
-	return _key;
+	return key_;
 }
 
 std::string CommandItem::value() const noexcept {
-	return _value;
+	return value_;
 }
 
 bool CommandItem::empty() const noexcept {
-	return _value.empty();
+	return value_.empty();
 }
 
-#pragma endregion Accessors/Mutators
+#pragma endregion Accessors / Mutators

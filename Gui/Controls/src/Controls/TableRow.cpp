@@ -5,58 +5,54 @@
 
 using namespace Mss::Gui::Controls;
 
-TableRow::TableRow(const QPair<QString, QString> &keyValue, QWidget *parent)
-	: QWidget(parent) {
-	auto layout = new QHBoxLayout;
-	QWidget::setLayout(layout);
+TableRow::TableRow(const QPair<QString, QString> &key_value, QWidget *parent)
+    : QWidget{parent} {
+    auto layout{ new QHBoxLayout };
+    QWidget::setLayout(layout);
 
-	auto keyText = new QLineEdit(keyValue.first.isEmpty() ? tr("key") : keyValue.first);
-	layout->addWidget(keyText);
+    auto key_text{ new QLineEdit(key_value.first.isEmpty() ? tr("key") : key_value.first) };
+    layout->addWidget(key_text);
 
-	auto valueText = new QLineEdit(keyValue.second.isEmpty() ? tr("value") : keyValue.second);
-	layout->addWidget(valueText);
+    auto value_text{ new QLineEdit(key_value.second.isEmpty() ? tr("value") : key_value.second) };
+    layout->addWidget(value_text);
 
-	std::ignore = connect(keyText,
-						  &QLineEdit::textChanged,
-						  [keyText, valueText, this]() {
-							  auto key = keyText->text();
-							  auto value = valueText->text();
+    std::ignore = connect(key_text, &QLineEdit::textChanged, [key_text, value_text, this]() {
+        auto key{ key_text->text() };
+        auto value{ value_text->text() };
 
-							  emit keyValueChanged({key, value}, this);
-						  });
+        emit keyValueChanged({ key, value }, this);
+    });
 
-	std::ignore = connect(valueText,
-						  &QLineEdit::textChanged,
-						  [keyText, valueText, this]() {
-							  auto key = keyText->text();
-							  auto value = valueText->text();
+    std::ignore = connect(value_text, &QLineEdit::textChanged, [key_text, value_text, this]() {
+        auto key{ key_text->text() };
+        auto value{ value_text->text() };
 
-							  emit keyValueChanged({key, value}, this);
-						  });
+        emit keyValueChanged({ key, value }, this);
+    });
 }
 
-#pragma region Accessors/Mutators
+#pragma region Accessors / Mutators
 
-QPair<QString, QString> TableRow::keyValue() const noexcept {
-	auto layout = QWidget::layout();
+QPair<QString, QString> TableRow::key_value() const noexcept {
+    const auto layout{ QWidget::layout() };
 
-	auto keyWidget = layout->itemAt(0)->widget();
-	auto key = dynamic_cast<QLineEdit *>(keyWidget)->text();
+    const auto key_widget{ layout->itemAt(0)->widget() };
+    const auto key{ dynamic_cast<QLineEdit *>(key_widget)->text() };
 
-	auto valueWidget = layout->itemAt(1)->widget();
-	auto value = dynamic_cast<QLineEdit *>(valueWidget)->text();
+    const auto value_widget{ layout->itemAt(1)->widget() };
+    const auto value{ dynamic_cast<QLineEdit *>(value_widget)->text() };
 
-	return {key, value};
+    return { key, value };
 }
 
-void TableRow::keyValue(const QPair<QString, QString> &keyValue) noexcept {
-	auto layout = QWidget::layout();
+void TableRow::key_value(const QPair<QString, QString> &key_value) noexcept {
+    const auto layout{ QWidget::layout() };
 
-	auto keyWidget = layout->itemAt(0)->widget();
-	dynamic_cast<QLineEdit *>(keyWidget)->setText(keyValue.first);
+    auto key_widget{ layout->itemAt(0)->widget() };
+    dynamic_cast<QLineEdit *>(key_widget)->setText(key_value.first);
 
-	auto valueWidget = layout->itemAt(1)->widget();
-	dynamic_cast<QLineEdit *>(valueWidget)->setText(keyValue.second);
+    auto value_widget = layout->itemAt(1)->widget();
+    dynamic_cast<QLineEdit *>(value_widget)->setText(key_value.second);
 }
 
-#pragma endregion Accessors/Mutators
+#pragma endregion Accessors / Mutators

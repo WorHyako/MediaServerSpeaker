@@ -1,43 +1,42 @@
 #pragma once
 
-#include <QTextEdit>
 #include <QComboBox>
+#include <QTextEdit>
 
 #include "KeyboardLayout/ApcMiniButton.hpp"
 
 namespace Mss::Gui::Dialogs::Pages {
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class MidiProperty
-			: public QWidget {
-	public:
-		/**
-		 * @brief	Ctor.
-		 *
-		 * @param	parent Parent widget.
-		 */
-		explicit MidiProperty(QWidget *parent = nullptr) noexcept;
+/**
+ * @brief Widget for displaying and editing MIDI button properties.
+ *
+ * @author WorHyako
+ */
+class MidiProperty : public QWidget {
+  public:
+    /**
+     * @brief Constructor.
+     *
+     * @param parent Parent widget.
+     */
+    explicit MidiProperty(QWidget *parent = nullptr) noexcept;
 
-	private:
-		QComboBox *_activeColorComboBox;
+  private:
+    QComboBox *active_color_combo_box_;
 
-		QComboBox *_defaultColorComboBox;
+    QComboBox *default_color_combo_box_;
 
-		QTextEdit *_idText;
+    QTextEdit *id_text_;
 
-	public:
-#pragma region Accessors/Mutators
+  public:
+#pragma region Accessors / Mutators
 
-		/**
-		 * @brief
-		 *
-		 * @param idx
-		 */
-		void targetMidiIdx(std::uint8_t idx) noexcept;
+    /**
+     * @brief Sets the target MIDI button index.
+     *
+     * @param idx MIDI button index.
+     */
+    void target_midi_idx(std::uint8_t idx) noexcept;
 
-#pragma endregion Accessors/Mutators
-	};
+#pragma endregion Accessors / Mutators
+};
 }

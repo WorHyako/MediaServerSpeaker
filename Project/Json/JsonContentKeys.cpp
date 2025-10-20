@@ -1,85 +1,85 @@
 #include "JsonContentKeys.hpp"
 
 namespace {
-	constexpr std::string_view jsonHeadKey = "objects";
+constexpr std::string_view json_head_key = "objects";
 
-	constexpr std::string_view jsonTextKey = "text";
+constexpr std::string_view json_text_key = "text";
 
-	constexpr std::string_view jsonCommandKey = "command";
+constexpr std::string_view json_command_key = "command";
 
-	constexpr std::string_view jsonPositionKey = "position";
+constexpr std::string_view json_position_key = "position";
 
-	constexpr std::string_view jsonSizeKey = "size";
+constexpr std::string_view json_size_key = "size";
 
-	constexpr std::string_view jsonSessionNameKey = "sessionName";
+constexpr std::string_view json_session_name_key = "sessionName";
 
-	constexpr std::string_view jsonMidiKeyIdxKey = "midiButtonId";
+constexpr std::string_view json_midi_key_idx_key = "midiButtonId";
 
-	constexpr std::string_view jsonManagementButtonKey = "Management Button";
+constexpr std::string_view json_management_button_key = "Management Button";
 
-	constexpr std::string_view jsonManagementTextableButtonKey = "Management Textable Button";
+constexpr std::string_view json_management_textable_button_key = "Management Textable Button";
 
-	constexpr std::string_view jsonQuickButtonKey = "Quick Button";
+constexpr std::string_view json_quick_button_key = "Quick Button";
 
-	constexpr std::string_view jsonQuickTitleKey = "Quick Title";
+constexpr std::string_view json_quick_title_key = "Quick Title";
 }
 
 using namespace Mss;
 
 namespace Mss::Gui::Controls {
-	class ManagementButton;
+class ManagementButton;
 
-	class ManagementTextableButton;
+class ManagementTextableButton;
 
-	class QuickTitle;
+class QuickTitle;
 
-	class QuickButton;
+class QuickButton;
 }
 
-std::string_view System::jsonHeadKey() noexcept {
-	return ::jsonHeadKey;
+constexpr std::string_view System::json_head_key() noexcept {
+    return ::json_head_key;
 }
 
-std::string_view System::jsonTextKey() noexcept {
-	return ::jsonTextKey;
+constexpr std::string_view System::json_text_key() noexcept {
+    return ::json_text_key;
 }
 
-std::string_view System::jsonCommandKey() noexcept {
-	return ::jsonCommandKey;
+constexpr std::string_view System::json_command_key() noexcept {
+    return ::json_command_key;
 }
 
-std::string_view System::jsonPositionKey() noexcept {
-	return ::jsonPositionKey;
+constexpr std::string_view System::json_position_key() noexcept {
+    return ::json_position_key;
 }
 
-std::string_view System::jsonSizeKey() noexcept {
-	return ::jsonSizeKey;
+constexpr std::string_view System::json_size_key() noexcept {
+    return ::json_size_key;
 }
 
-std::string_view System::jsonSessionNameKey() noexcept {
-	return ::jsonSessionNameKey;
+constexpr std::string_view System::json_session_name_key() noexcept {
+    return ::json_session_name_key;
 }
 
-std::string_view System::jsonMidiButtonIdKey() noexcept {
-	return ::jsonMidiKeyIdxKey;
-}
-
-template <>
-std::string_view System::jsonControlKey<Gui::Controls::ManagementButton>() noexcept {
-	return ::jsonManagementButtonKey;
+constexpr std::string_view System::json_midi_button_id_key() noexcept {
+    return ::json_midi_key_idx_key;
 }
 
 template <>
-std::string_view System::jsonControlKey<Gui::Controls::ManagementTextableButton>() noexcept {
-	return ::jsonManagementTextableButtonKey;
+constexpr std::string_view System::json_control_key<Gui::Controls::ManagementButton>() noexcept {
+    return ::json_management_button_key;
 }
 
 template <>
-std::string_view System::jsonControlKey<Gui::Controls::QuickButton>() noexcept {
-	return ::jsonQuickButtonKey;
+constexpr std::string_view System::json_control_key<Gui::Controls::ManagementTextableButton>() noexcept {
+    return ::json_management_textable_button_key;
 }
 
 template <>
-std::string_view System::jsonControlKey<Gui::Controls::QuickTitle>() noexcept {
-	return ::jsonQuickTitleKey;
+constexpr std::string_view System::json_control_key<Gui::Controls::QuickButton>() noexcept {
+    return ::json_quick_button_key;
+}
+
+template <>
+constexpr std::string_view System::json_control_key<Gui::Controls::QuickTitle>() noexcept {
+    return ::json_quick_title_key;
 }

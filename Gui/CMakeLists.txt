@@ -17,7 +17,6 @@ add_library(Mss::Gui ALIAS Mss_Gui)
 
 target_link_libraries(Mss_Gui
         INTERFACE
-        Qt6::Widgets
         Mss::Controls
         Mss::Backend
         Mss::Creators

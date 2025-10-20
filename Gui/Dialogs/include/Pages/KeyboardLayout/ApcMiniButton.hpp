@@ -4,26 +4,24 @@
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class ApcMiniButton
-			: public BaseMidiButton {
-	public:
-		/**
-		 * @brief	Ctor.
-		 *
-		 * @param	buttonText
-		 *
-		 * @param	parent		Parent widget.
-		 */
-		explicit ApcMiniButton(const QString &buttonText = "", QWidget *parent = nullptr) noexcept;
+/**
+ * @brief Button widget for APC Mini MIDI controller.
+ *
+ * @author WorHyako
+ */
+class ApcMiniButton : public BaseMidiButton {
+  public:
+    /**
+     * @brief Constructor.
+     *
+     * @param button_text Text displayed on the button.
+     * @param parent Parent widget.
+     */
+    explicit ApcMiniButton(const QString &button_text = "", QWidget *parent = nullptr) noexcept;
 
-		/**
-		 * @brief Dtor.
-		 */
-		~ApcMiniButton() noexcept override = default;
-	};
+    /**
+     * @brief Destructor.
+     */
+    ~ApcMiniButton() noexcept override = default;
+};
 }

@@ -5,11 +5,14 @@ add_library(Mss::Components ALIAS Mss_Components)
 
 file(GLOB Sources src/*.cpp)
 target_sources(Mss_Components
-        PRIVATE ${Sources})
+        PRIVATE
+        ${Sources})
 
 target_include_directories(Mss_Components
-        PRIVATE include/Components
-        PUBLIC include)
+        PRIVATE
+        include/Components
+        PUBLIC
+        include)
 
 target_link_libraries(Mss_Components
         PUBLIC

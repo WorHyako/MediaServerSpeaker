@@ -7,6 +7,6 @@ using namespace Wor::Midi;
 
 using ApcMiniLed = CallbackInfo::ApcMini::ApcMiniLed;
 
-ApcMiniButton::ApcMiniButton(const QString &buttonText, QWidget *parent) noexcept
-	: BaseMidiButton(buttonText, parent) {
+ApcMiniButton::ApcMiniButton(const QString &button_text, QWidget *parent) noexcept
+	: BaseMidiButton(button_text, parent) {
 }

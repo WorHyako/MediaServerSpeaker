@@ -5,87 +5,85 @@
 #include "Wor/Midi/CallbackInfo/MidiLed.hpp"
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class BaseMidiButton
-			: public QPushButton {
-		using MidiLed = Wor::Midi::CallbackInfo::MidiLed;
-	public:
-		/**
-		 * @brief
-		 *
-		 * @param	buttonText
-		 *
-		 * @param	parent		Parent widget.
-		 */
-		explicit BaseMidiButton(const QString &buttonText = "", QWidget *parent = nullptr) noexcept;
+/**
+ * @brief Base class for MIDI button widgets.
+ *
+ * @author WorHyako
+ */
+class BaseMidiButton : public QPushButton {
+    using MidiLed = Wor::Midi::CallbackInfo::MidiLed;
 
-		/**
-		 * @brief Dtor.
-		 */
-		~BaseMidiButton() noexcept override = default;
+  public:
+    /**
+     * @brief Constructor.
+     *
+     * @param button_text Text displayed on the button.
+     * @param parent Parent widget.
+     */
+    explicit BaseMidiButton(const QString &button_text = "", QWidget *parent = nullptr) noexcept;
 
-	protected:
-		std::uint8_t _midiKeyIdx;
+    /**
+     * @brief Destructor.
+     */
+    ~BaseMidiButton() noexcept override = default;
 
-		MidiLed _activeColor;
+  protected:
+    std::uint8_t midi_key_idx_;
 
-		MidiLed _defaultColor;
+    MidiLed active_color_;
 
-		bool _isActive;
+    MidiLed default_color_;
 
-#pragma region Accessors/Mutators
+    bool is_active_;
 
-	public:
-		/**
-		 * @brief
-		 *
-		 * @param midiKeyIdx
-		 */
-		virtual void midiKeyIdx(std::uint8_t midiKeyIdx) noexcept;
+#pragma region Accessors / Mutators
 
-		/**
-		 * @brief
-		 *
-		 * @param color
-		 */
-		virtual void activeColor(MidiLed color) noexcept;
+  public:
+    /**
+     * @brief Sets the MIDI key index.
+     *
+     * @param midi_key_idx MIDI key index.
+     */
+    virtual void set_midi_key_idx(std::uint8_t midi_key_idx) noexcept;
 
-		/**
-		 * @brief
-		 *
-		 * @param color
-		 */
-		virtual void defaultColor(MidiLed color) noexcept;
+    /**
+     * @brief Sets the active color for the button.
+     *
+     * @param color Active color.
+     */
+    virtual void set_active_color(MidiLed color) noexcept;
 
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		virtual MidiLed activeColor() const noexcept;
+    /**
+     * @brief Sets the default color for the button.
+     *
+     * @param color Default color.
+     */
+    virtual void set_default_color(MidiLed color) noexcept;
 
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		virtual MidiLed defaultColor() const noexcept;
+    /**
+     * @brief Returns the active color.
+     *
+     * @return Active color.
+     */
+    [[nodiscard]]
+    virtual MidiLed get_active_color() const noexcept;
 
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		virtual std::uint8_t midiKeyIdx() const noexcept;
+    /**
+     * @brief Returns the default color.
+     *
+     * @return Default color.
+     */
+    [[nodiscard]]
+    virtual MidiLed get_default_color() const noexcept;
 
-#pragma endregion Accessors/Mutators
+    /**
+     * @brief Returns the MIDI key index.
+     *
+     * @return MIDI key index.
+     */
+    [[nodiscard]]
+    virtual std::uint8_t get_midi_key_idx() const noexcept;
 
-	};
+#pragma endregion Accessors / Mutators
+};
 }

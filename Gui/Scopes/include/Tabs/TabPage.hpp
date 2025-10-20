@@ -3,45 +3,43 @@
 #include <QWidget>
 
 namespace Mss::Gui::Scopes {
-	/**
-	 * @brief	Tab page for working space. Contains @code QuickTitlesScope @endcode,
-	 *			@code QuickButtonScope @endcode, @code ManagementScope @endcode
-	 *
-	 * @author	WorHyako
-	 *
-	 * @see		@code ControlTab @endcode
-	 */
-	class TabPage final
-			: public QWidget {
-		Q_OBJECT
+/**
+ * @brief Tab page for working space. Contains QuickTitlesScope, QuickButtonScope, ManagementScope.
+ *
+ * @author WorHyako
+ *
+ * @see ControlTab.
+ */
+class TabPage final : public QWidget {
+    Q_OBJECT
 
-	public:
-		/**
-		 * @brief	Ctor.
-		 *
-		 * @param	parent Parent widget.
-		 */
-		explicit TabPage(QWidget *parent = nullptr) noexcept;
+  public:
+    /**
+     * @brief Constructor.
+     *
+     * @param parent Parent widget.
+     */
+    explicit TabPage(QWidget *parent = nullptr) noexcept;
 
-		/**
-		 * @brief Dtor.
-		 */
-		~TabPage() override = default;
+    /**
+     * @brief Destructor.
+     */
+    ~TabPage() override = default;
 
-	public slots:
-		/**
-		 * @brief	Slot to handle tab signal, that edit mode was changed.
-		 *
-		 * @param	toggled	New edit mode value.
-		 */
-		void editModeChange(bool toggled);
+  public slots:
+    /**
+     * @brief Slot to handle tab signal, that edit mode was changed.
+     *
+     * @param toggled New edit mode value.
+     */
+    void edit_mode_change(bool toggled);
 
-	signals:
-		/**
-		 * @brief	Signal to notify all scopes about edit mode changing.
-		 *
-		 * @param	toggled	New edit mode value.
-		 */
-		void editModeChanged(bool toggled);
-	};
+  signals:
+    /**
+     * @brief Signal to notify all scopes about edit mode changing.
+     *
+     * @param toggled New edit mode value.
+     */
+    void edit_mode_changed(bool toggled);
+};
 }

@@ -1,39 +1,39 @@
 #include "SettingDialog.hpp"
 
+#include "Pages/MidiSettingsPage.hpp"
+#include "Pages/NetworkSettingPage.hpp"
+#include "Pages/SqlSettingsPage.hpp"
+
 #include <QPushButton>
 #include <QTabWidget>
 #include <QVBoxLayout>
 
-#include "Pages/NetworkSettingPage.hpp"
-#include "Pages/MidiSettingsPage.hpp"
-#include "Pages/SqlSettingsPage.hpp"
-
 using namespace Mss::Gui::Dialogs;
 
 SettingDialog::SettingDialog(QWidget *parent) noexcept
-	: QDialog(parent) {
-	QDialog::setMinimumSize(400, 400);
+    : QDialog{ parent } {
+    QDialog::setMinimumSize(400, 400);
 
-	auto vLayout = new QVBoxLayout;
-	QDialog::setLayout(vLayout);
-	QDialog::setWindowTitle("Settings");
+    auto v_layout{ new QVBoxLayout };
+    QDialog::setLayout(v_layout);
+    QDialog::setWindowTitle("Settings");
 
-	auto tabWidget = new QTabWidget;
-	tabWidget->setTabPosition(QTabWidget::West);
-	vLayout->addWidget(tabWidget);
+    auto tab_widget{ new QTabWidget };
+    tab_widget->setTabPosition(QTabWidget::West);
+    v_layout->addWidget(tab_widget);
 
-	auto commonLayout = new QHBoxLayout;
+    auto common_layout{ new QHBoxLayout };
 
-	auto okButton = new QPushButton("Ok");
-	commonLayout->addWidget(okButton);
-	vLayout->addLayout(commonLayout);
+    auto ok_button{ new QPushButton("Ok") };
+    common_layout->addWidget(ok_button);
+    v_layout->addLayout(common_layout);
 
-	auto networkPage = new Pages::NetworkSettingPage;
-	tabWidget->addTab(networkPage, "Network");
+    const auto network_page{ new Pages::NetworkSettingPage };
+    tab_widget->addTab(network_page, "Network");
 
-	auto midiPage = new Pages::MidiSettingsPage;
-	tabWidget->addTab(midiPage, "Midi");
+    const auto midi_page{ new Pages::MidiSettingsPage };
+    tab_widget->addTab(midi_page, "Midi");
 
-	auto sqlPage = new Pages::SqlSettingsPage;
-	tabWidget->addTab(sqlPage, "Sql");
+    const auto sql_page{ new Pages::SqlSettingsPage };
+    tab_widget->addTab(sql_page, "Sql");
 }

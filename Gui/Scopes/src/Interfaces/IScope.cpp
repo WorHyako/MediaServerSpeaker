@@ -12,23 +12,23 @@ using namespace Mss::Gui::Controls;
 
 IScope::IScope(QWidget *parent) noexcept
 	: QWidget(parent),
-	  _editMode(false),
-	  _controlsType(ControlType::None) {
+	  edit_mode_(false),
+	  controls_type_(ControlType::None) {
 }
 
-void IScope::editModeChange(bool editMode, QObjectList children) noexcept {
-	_editMode = editMode;
+void IScope::edit_mode_change(bool edit_mode, QObjectList children) noexcept {
+	edit_mode_ = edit_mode;
 	std::ranges::for_each(children,
-						  [&editMode](QObject *each) {
+						  [&edit_mode](QObject *each) {
 							  auto child = dynamic_cast<IControl *>(each);
 							  if (!child) {
 								  return;
 							  }
-							  child->editMode(editMode);
+							  child->edit_mode(edit_mode);
 						  });
 }
 
-void IScope::openMenu(QMouseEvent *e, ControlType controlsType) noexcept {
+void IScope::open_menu(QMouseEvent *e, ControlType controls_type) noexcept {
 	auto menu = new Menus::ScopeContextMenu(ControlType::ManagementButton
 											| ControlType::ManagementTextableButton
 											| ControlType::Table,
@@ -40,7 +40,7 @@ void IScope::openMenu(QMouseEvent *e, ControlType controlsType) noexcept {
 
 void IScope::mousePressEvent(QMouseEvent *e) noexcept {
 	if (e->button() == Qt::MouseButton::RightButton) {
-		auto menu = new Menus::ScopeContextMenu(_controlsType, this);
+		auto menu = new Menus::ScopeContextMenu(controls_type_, this);
 		menu->popup(QWidget::mapToGlobal(e->pos()));
 	}
 

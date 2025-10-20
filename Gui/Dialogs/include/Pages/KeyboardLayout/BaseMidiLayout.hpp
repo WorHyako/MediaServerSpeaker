@@ -3,60 +3,59 @@
 #include <QWidget>
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
-	class BaseMidiButton;
+class BaseMidiButton;
 }
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 
-	/**
-	 * @brief
-	 *
-	 * @author WorHyako
-	 */
-	class BaseMidiLayout
-			: public QWidget {
-		Q_OBJECT
+/**
+ * @brief Base class for MIDI controller layout widgets.
+ *
+ * @author WorHyako
+ */
+class BaseMidiLayout : public QWidget {
+    Q_OBJECT
 
-	public:
-		/**
-		 * @brief	Ctor.
-		 *
-		 * @param	parent Parent widget.
-		 */
-		explicit BaseMidiLayout(QWidget *parent = nullptr) noexcept;
+  public:
+    /**
+     * @brief Constructor.
+     *
+     * @param parent Parent widget.
+     */
+    explicit BaseMidiLayout(QWidget *parent = nullptr) noexcept;
 
-		/**
-		 * @brief Dtor.
-		 */
-		~BaseMidiLayout() noexcept override = default;
+    /**
+     * @brief Destructor.
+     */
+    ~BaseMidiLayout() noexcept override = default;
 
-	protected:
-		std::vector<BaseMidiButton *> _midiButtons;
+  protected:
+    std::vector<BaseMidiButton *> midi_buttons_;
 
-	public:
-#pragma region Accessors/Mutators
+  public:
+#pragma region Accessors / Mutators
 
-		/**
-		 * @brief
-		 *
-		 * @return
-		 */
-		[[nodiscard]]
-		const std::vector<BaseMidiButton *> &midiButtons() const noexcept;
+    /**
+     * @brief Returns the list of MIDI buttons.
+     *
+     * @return Vector of MIDI buttons.
+     */
+    [[nodiscard]]
+    const std::vector<BaseMidiButton *> &midi_buttons() const noexcept;
 
-#pragma endregion Accessors/Mutators
+#pragma endregion Accessors / Mutators
 
 #pragma region Callbacks
 
-	signals:
-		/**
-		 * @brief
-		 *
-		 * @param idx
-		 */
-		void midiKeyPressed(std::uint8_t idx);
+  signals:
+    /**
+     * @brief Signal emitted when a MIDI key is pressed.
+     *
+     * @param idx MIDI key index.
+     */
+    void midi_key_pressed(std::uint8_t idx);
 
 #pragma endregion Callbacks
-	};
+};
 
 }
