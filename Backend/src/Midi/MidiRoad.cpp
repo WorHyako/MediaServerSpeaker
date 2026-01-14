@@ -1,25 +1,28 @@
-#include "Midi/MidiRoad.hpp"
+module;
 
 #include "Wor/Midi/CallbackInfo/ApcMiniOutCallbackInfo.hpp"
 #include "Wor/Midi/MidiKeyboard.hpp"
 #include "Wor/Wrappers/Singleton.hpp"
 
+module mss.backend:midi.MidiRoad_impl;
+import :midi.MidiRoad;
+
 using namespace Mss::Backend::Midi;
 
 MidiRoad::MidiRoad(std::uint8_t button_id) noexcept
-    : button_id_{button_id},
-      is_active_{false} {
+    : button_id_{ button_id },
+      is_active_{ false } {
 }
 
 void MidiRoad::go() noexcept {
     using WorOutCallback = Wor::Midi::CallbackInfo::ApcMiniOutCallbackInfo;
 
-    auto &midi_in { Wor::Wrappers::Singleton<Wor::Midi::MidiKeyboard>::get()};
+    auto &midi_in{ Wor::Wrappers::Singleton<Wor::Midi::MidiKeyboard>::get() };
     if (!midi_in.isOpen()) {
         return;
     }
 
-    const WorOutCallback out{button_id_, is_active_ ? active_led_ : default_led_};
+    const WorOutCallback out{ button_id_, is_active_ ? active_led_ : default_led_ };
     midi_in.send(out);
 
     is_active_ = !is_active_;

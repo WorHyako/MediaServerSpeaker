@@ -1,6 +1,8 @@
-#pragma once
+module;
 
 #include "Wor/Midi/CallbackInfo/ApcMiniLed.hpp"
+
+export module mss.backend:midi.MidiRoad;
 
 namespace Mss::Backend::Midi {
 /**
@@ -21,7 +23,7 @@ namespace Mss::Backend::Midi {
  *
  * @author WorHyako
  */
-class MidiRoad final {
+export class MidiRoad final {
   public:
     /**
      * @brief Constructor.

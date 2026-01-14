@@ -28,6 +28,6 @@ target_link_libraries(Mss_Controls
         Qt6::Widgets
         Qt6::Core
         Mss::Components
-        Mss::Style
-        Mss::Backend
+        mss::style
+        mss::backend
         Mss::Creators)

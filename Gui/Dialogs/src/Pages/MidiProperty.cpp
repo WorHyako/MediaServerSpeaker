@@ -1,7 +1,5 @@
 #include "Pages/MidiProperty.hpp"
 
-#include "Midi/MidiRoadMap.hpp"
-
 #include <QComboBox>
 #include <QLabel>
 #include <QTextEdit>
@@ -9,6 +7,8 @@
 
 #include "Wor/Midi/CallbackInfo/ApcMiniLed.hpp"
 #include "Wor/Wrappers/Singleton.hpp"
+
+import mss.backend;
 
 using namespace Mss::Gui::Dialogs::Pages;
 

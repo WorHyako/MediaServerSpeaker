@@ -1,19 +1,18 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.30)
 
-if(DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
+if (DEFINED ENV{VCPKG_ROOT} AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
             CACHE STRING "")
-endif()
+endif ()
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+include(cxx_modules_flags)
 
 project(MediaServerSpeaker
         LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_EXTENSIONS ON)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
+include(cxx_modules_deps)
 
 option(LOG_TO_FILE "" OFF)
 
@@ -41,7 +40,7 @@ target_include_directories(Mss_System
 add_subdirectory(ThirdParty)
 
 # ---------------- #
-#   Mss::Backend   #
+#   mss::backend   #
 # ---------------- #
 add_subdirectory(Backend)
 
@@ -61,6 +60,7 @@ target_sources(MediaServerSpeaker
 target_link_libraries(MediaServerSpeaker
         PRIVATE
         Mss::Gui
+        Tracy::TracyClient
         Mss::ConfData)
 
 file(GLOB Resources Resources/*)

@@ -1,4 +1,7 @@
-cmake_minimum_required(VERSION 3.23)
+# ----------- #
+#   openssl   #
+# ----------- #
+find_package(OpenSSL CONFIG REQUIRED GLOBAL)
 
 # ------- #
 #   fmt   #
@@ -45,10 +48,13 @@ add_subdirectory(MediaServerSpeaker_ConfData)
 # ------ #
 #   Qt   #
 # ------ #
-#find_package(Qt6)
-find_package(Qt6Gui CONFIG REQUIRED GLOBAL)
-find_package(Qt6Widgets CONFIG REQUIRED GLOBAL)
-find_package(Qt6Core CONFIG REQUIRED GLOBAL)
+find_package(Qt6 COMPONENTS
+        Widgets Gui GLOBAL REQUIRED)
+
+# --------- #
+#   Tracy   #
+# --------- #
+find_package(Tracy CONFIG REQUIRED GLOBAL)
 
 # -------------- #
 #   WorLibrary   #

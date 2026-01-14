@@ -1,9 +1,12 @@
-#include "Midi/ServerRoad.hpp"
+module;
 
 #include "Wor/Network/TcpServer.hpp"
 #include "Wor/Wrappers/Singleton.hpp"
 
 #include <spdlog/spdlog.h>
+
+module mss.backend:midi.ServerRoad_impl;
+import :midi.ServerRoad;
 
 using namespace Mss::Backend::Midi;
 

@@ -1,12 +1,12 @@
-#pragma once
+module;
 
 #include "CommandItem.hpp"
 
-#include <algorithm>
-#include <vector>
+export module mss.backend:command.CommandBuilder;
+
+import std;
 
 namespace Mss::Backend::Command {
-
 /**
  * @brief Object to create commands and log process.
  *
@@ -19,7 +19,7 @@ namespace Mss::Backend::Command {
  *
  * @author WorHyako
  */
-template <class TCommandType>
+export template <class TCommandType>
 class CommandBuilder final {
   public:
     /**

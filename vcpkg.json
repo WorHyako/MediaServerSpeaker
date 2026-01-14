@@ -6,30 +6,19 @@
       "name": "soci",
       "features": [
         "boost",
-        "mysql"
+        "postgresql"
       ]
     },
+    "openssl",
     "nlohmann-json",
     "boost-date-time",
     "boost-thread",
+    "tracy",
     "boost-asio",
     "pugixml",
     "rtmidi",
     "fmt",
-    "spdlog",
-    {
-      "name": "qtbase",
-      "features": [
-        "widgets",
-        "gui"
-      ]
-    }
-  ],
-  "overrides": [
-    {
-      "name": "fmt",
-      "version": "11.2.0"
-    }
+    "spdlog"
   ],
   "builtin-baseline": "dfee76170f5647b62e071bf03eed25104713d7b1"
 }

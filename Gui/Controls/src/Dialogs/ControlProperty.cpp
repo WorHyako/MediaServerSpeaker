@@ -2,12 +2,12 @@
 
 #include "Interfaces/IMovableControl.hpp"
 
-#include "Style/WorStyle.hpp"
-
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
+
+import mss.gui;
 
 using namespace Mss::Gui::Controls::Dialogs;
 using namespace Mss::Backend::Command;

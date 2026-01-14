@@ -1,8 +1,8 @@
-#pragma once
+export module mss.gui:style.WidgetControlStyle;
 
-#include <string_view>
+import std;
 
-namespace Mss::Gui::Style {
+export namespace Mss::Gui::Style {
 /**
  * @brief Returns style sheet fpr QWidget object named "WorControl".
  *

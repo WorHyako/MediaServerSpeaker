@@ -1,7 +1,8 @@
 #include "CommandComponent.hpp"
 
 #include "Command/BaseCommand.hpp"
-#include "Command/CommandBuilder.hpp"
+
+import mss.backend;
 
 using namespace Mss::Gui::Components;
 using namespace Mss::Backend::Command;

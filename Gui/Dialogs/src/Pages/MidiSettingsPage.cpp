@@ -9,10 +9,10 @@
 #include "Wor/Wrappers/Singleton.hpp"
 
 #include "Config/Config.hpp"
-#include "Midi/MidiRoad.hpp"
-#include "Midi/MidiRoadMap.hpp"
 #include "Pages/KeyboardLayout/ApcMini.hpp"
 #include "Pages/MidiProperty.hpp"
+
+import mss.backend;
 
 using namespace Mss::Gui::Dialogs::Pages;
 
@@ -79,7 +79,7 @@ MidiSettingsPage::MidiSettingsPage(QWidget *parent) noexcept
     property_widget_->setVisible(false);
 
     auto edit_mode{ new QCheckBox("Edit mode") };
-    std::ignore = connect(edit_mode, &QCheckBox::stateChanged, [this](bool state) {
+    std::ignore = connect(edit_mode, &QCheckBox::checkStateChanged, [this](bool state) {
         edit_mode_ = state;
         property_widget_->setVisible(edit_mode_);
     });
@@ -113,10 +113,10 @@ void MidiSettingsPage::save() const noexcept {
     auto midi_buttons{ keyboard_layout_widget_->midi_buttons() };
     auto &road_map{ Wor::Wrappers::Singleton<Backend::Midi::MidiRoadMap>::get() };
     std::ranges::for_each(midi_buttons, [&road_map](auto &button) {
-        Backend::Midi::MidiRoad road(button->midiKeyIdx());
-        road.set_active_led(button->activeColor());
-        road.set_default_led(button->defaultColor());
-        road_map.add_road(button->midiKeyIdx(), road);
+        Backend::Midi::MidiRoad road(button->get_midi_key_idx());
+        road.set_active_led(button->get_active_color());
+        road.set_default_led(button->get_default_color());
+        road_map.add_road(button->get_midi_key_idx(), road);
     });
     road_map.save();
 }

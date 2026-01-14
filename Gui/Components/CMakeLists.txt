@@ -18,4 +18,4 @@ target_link_libraries(Mss_Components
         PUBLIC
         Qt6::Widgets
         Qt6::Core
-        Mss::Backend)
+        mss::backend)

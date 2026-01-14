@@ -1,9 +1,13 @@
-#include "Midi/MidiRoadMap.hpp"
+module;
 
 #include "Hierarchy/Files.hpp"
 #include "Wor/Json/JsonManager.hpp"
+#include "Wor/Midi/CallbackInfo/BaseCallbackInfo.hpp"
 
 #include <nlohmann/json.hpp>
+
+module mss.backend:midi.MidiRoadMap_impl;
+import :midi.MidiRoadMap;
 
 using namespace Mss::Backend::Midi;
 

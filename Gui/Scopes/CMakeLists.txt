@@ -1,6 +1,4 @@
-cmake_minimum_required(VERSION 3.23)
-
-add_library(Mss_Scopes SHARED)
+add_library(Mss_Scopes)
 add_library(Mss::Scopes ALIAS Mss_Scopes)
 
 file(GLOB_RECURSE Sources src/*.cpp)

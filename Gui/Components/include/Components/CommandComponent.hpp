@@ -3,6 +3,7 @@
 #include "Command/ICommand.hpp"
 
 #include <memory>
+#include <string>
 
 namespace Mss::Gui::Components {
 /**

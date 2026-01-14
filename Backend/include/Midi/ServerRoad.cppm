@@ -1,8 +1,10 @@
-#pragma once
+module;
 
 #include "Command/ICommand.hpp"
 
-#include <memory>
+export module mss.backend:midi.ServerRoad;
+
+import std;
 
 namespace Mss::Backend::Midi {
 /**
@@ -21,7 +23,7 @@ namespace Mss::Backend::Midi {
  *
  * @author WorHyako
  */
-class ServerRoad final {
+export class ServerRoad final {
   public:
     using WorCommandPtr = std::shared_ptr<Command::ICommand>;
 

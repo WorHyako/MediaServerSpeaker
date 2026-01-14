@@ -18,8 +18,8 @@ add_library(Mss::Gui ALIAS Mss_Gui)
 target_link_libraries(Mss_Gui
         INTERFACE
         Mss::Controls
-        Mss::Backend
+        mss::backend
         Mss::Creators
         Mss::Scopes
         Mss::Dialogs
-        Mss::Style)
+        mss::style)

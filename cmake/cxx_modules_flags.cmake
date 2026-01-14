@@ -1,0 +1,8 @@
+set(CMAKE_CXX_STDLIB_MODULES_JSON "/opt/homebrew/Cellar/llvm/21.1.8/lib/c++/libc++.modules.json")
+set(CMAKE_EXPERIMENTAL_CXX_IMPORT_STD "d0edc3af-4c50-42ea-a356-e2862fe7a444")
+set(CMAKE_OSX_SYSROOT "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk" CACHE PATH "" FORCE)
+
+set(CMAKE_CXX_COMPILER_IMPORT_STD ON)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_EXTENSIONS ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)

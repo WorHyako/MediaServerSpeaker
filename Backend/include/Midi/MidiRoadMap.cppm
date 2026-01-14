@@ -1,11 +1,12 @@
-#pragma once
-
-#include "MidiRoad.hpp"
-#include "ServerRoad.hpp"
+module;
 
 #include "Wor/Midi/CallbackInfo/BaseCallbackInfo.hpp"
 
-#include <unordered_map>
+export module mss.backend:midi.MidiRoadMap;
+import :midi.MidiRoad;
+import :midi.ServerRoad;
+
+import std;
 
 namespace Mss::Backend::Midi {
 /**
@@ -22,7 +23,7 @@ namespace Mss::Backend::Midi {
  *
  * @author WorHyako
  */
-class MidiRoadMap {
+export class MidiRoadMap {
   public:
     /**
      * @brief Constructor.
