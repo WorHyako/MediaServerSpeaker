@@ -2,7 +2,7 @@
 
 #include <QPushButton>
 
-#include "Wor/Midi/CallbackInfo/MidiLed.hpp"
+import worlib.midi;
 
 namespace Mss::Gui::Dialogs::Pages::KeyboardLayout {
 /**

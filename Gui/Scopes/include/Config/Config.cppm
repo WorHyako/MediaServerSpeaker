@@ -1,16 +1,10 @@
-#pragma once
+module;
 
 #include "Command/BaseCommand.hpp"
 #include "Creators/ControlCreator.hpp"
-#include "Hierarchy/Files.hpp"
 #include "Interfaces/IMovableControl.hpp"
-#include "Json/JsonContentKeys.hpp"
 
 #include "Wor/Json/JsonManager.hpp"
-
-#include <memory>
-#include <string>
-#include <vector>
 
 #include <QWidget>
 
@@ -18,7 +12,12 @@
 
 #include <spdlog/spdlog.h>
 
-namespace Mss::Gui::Scopes {
+export module mss.gui.scopes:Config;
+
+import mss.project;
+import std;
+
+export namespace Mss::Gui::Scopes {
 
 /**
  * @brief Unique pointer to QWidget.
@@ -73,7 +72,7 @@ using WorMovableBaseControl = Controls::IMovableControl;
  */
 template <class TScopeType>
 class Config final {
-public:
+  public:
     /**
      * @brief Short Creator name for current control type.
      *
@@ -158,7 +157,7 @@ public:
     [[nodiscard]]
     bool save_config() const noexcept;
 
-private:
+  private:
     /**
      * @brief Generates config object from selected control.
      *
@@ -241,27 +240,25 @@ Config<TScopeType>::Config(std::string tab_name) noexcept
 template <class TScopeType>
 template <class TControlType>
 WorQWidgetPtrVec Config<TScopeType>::load_from_config() const noexcept {
-    auto it{ std::ranges::find_if(config_,
-                                  [](const nlohmann::json &each) {
-                                      return each.contains(System::json_control_key<TControlType>());
-                                  }) };
+    auto it{ std::ranges::find_if(config_, [](const nlohmann::json &each) {
+        return each.contains(System::json_control_key<TControlType>());
+    }) };
     if (it == std::end(config_)) {
         return {};
     }
 
     auto type_config{ (*it).at(System::json_control_key<TControlType>()) };
     WorQWidgetPtrVec controls;
-    std::ranges::for_each(type_config,
-                          [this, &controls](const nlohmann::json &each) {
-                              auto control{ Creator<TControlType>::create() };
-                              accept_base_parameters(each, control.get());
+    std::ranges::for_each(type_config, [this, &controls](const nlohmann::json &each) {
+        auto control{ Creator<TControlType>::create() };
+        accept_base_parameters(each, control.get());
 
-                              if (dynamic_cast<WorMovableBaseControl *>(control.get())) {
-                                  accept_movable_parameters(each, control.get());
-                              }
+        if (dynamic_cast<WorMovableBaseControl *>(control.get())) {
+            accept_movable_parameters(each, control.get());
+        }
 
-                              controls.push_back(std::move(control));
-                          });
+        controls.push_back(std::move(control));
+    });
     return controls;
 }
 
@@ -278,17 +275,15 @@ void Config<TScopeType>::add_to_config(const QWidget *owner) noexcept {
     WorQWidgetPtrVec controls;
     controls.reserve(std::size(all_controls));
 
-    std::ranges::for_each(all_controls,
-                          [&controls](QObject *each) {
-                              auto control{ dynamic_cast<QWidget *>(each) };
-                              if (dynamic_cast<const TControlType *>(each)) {
-                                  std::stringstream ss;
-                                  ss << "Config generation: " << System::json_control_key<TControlType>().data() <<
-                                      "was tracked.";
-                                  spdlog::info(ss.str());
-                                  controls.emplace_back(control);
-                              }
-                          });
+    std::ranges::for_each(all_controls, [&controls](QObject *each) {
+        auto control{ dynamic_cast<QWidget *>(each) };
+        if (dynamic_cast<const TControlType *>(each)) {
+            std::stringstream ss;
+            ss << "Config generation: " << System::json_control_key<TControlType>().data() << "was tracked.";
+            spdlog::info(ss.str());
+            controls.emplace_back(control);
+        }
+    });
 
     nlohmann::json config{ make_config<TControlType>(std::move(controls)) };
 
@@ -299,20 +294,19 @@ template <class TScopeType>
 template <class TControlType>
 nlohmann::json Config<TScopeType>::make_config(WorQWidgetPtrVec controls) noexcept {
     nlohmann::json full_config;
-    std::ranges::for_each(controls,
-                          [this, &full_config](std::unique_ptr<QWidget> &each) {
-                              auto control{ dynamic_cast<TControlType *>(each.release()) };
-                              if (!control) {
-                                  return;
-                              }
-                              nlohmann::json config;
-                              make_base_parameters(config, control);
+    std::ranges::for_each(controls, [this, &full_config](std::unique_ptr<QWidget> &each) {
+        auto control{ dynamic_cast<TControlType *>(each.release()) };
+        if (!control) {
+            return;
+        }
+        nlohmann::json config;
+        make_base_parameters(config, control);
 
-                              if (dynamic_cast<WorMovableBaseControl *>(control)) {
-                                  make_movable_parameters(config, control);
-                              }
-                              full_config[System::json_control_key<TControlType>()].push_back(std::move(config));
-                          });
+        if (dynamic_cast<WorMovableBaseControl *>(control)) {
+            make_movable_parameters(config, control);
+        }
+        full_config[System::json_control_key<TControlType>()].push_back(std::move(config));
+    });
     return full_config;
 }
 
@@ -399,7 +393,7 @@ void Config<TScopeType>::make_movable_parameters(nlohmann::json &json, WorBaseCo
         { "y", control->pos().y() }
     };
     json[System::json_size_key()] = {
-        { "x", control->size().width() },
+        { "x",  control->size().width() },
         { "y", control->size().height() }
     };
 }

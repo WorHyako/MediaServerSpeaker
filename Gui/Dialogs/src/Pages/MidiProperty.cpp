@@ -5,10 +5,10 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 
-#include "Wor/Midi/CallbackInfo/ApcMiniLed.hpp"
 #include "Wor/Wrappers/Singleton.hpp"
 
 import mss.backend;
+import worlib.midi;
 
 using namespace Mss::Gui::Dialogs::Pages;
 

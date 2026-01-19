@@ -1,7 +1,6 @@
 #include <QApplication>
 
 #include "Wor/Wrappers/Singleton.hpp"
-#include "Wor/Midi/MidiKeyboard.hpp"
 #include "Wor/Network/TcpServer.hpp"
 #include "Wor/Network/Utils/IoService.hpp"
 #include "Wor/Sql/MySqlManager.hpp"
@@ -18,6 +17,7 @@
 
 import mss.backend;
 import mss.gui;
+import worlib.midi;
 
 using namespace Mss::Gui;
 using namespace Wor;

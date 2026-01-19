@@ -1,9 +1,10 @@
 #include "QuickButtonScope.hpp"
 
-#include "Config.hpp"
 #include "Controls/QuickButton.hpp"
 
 #include <QGridLayout>
+
+import mss.gui.scopes;
 
 using namespace Mss::Gui::Scopes;
 using namespace Mss::Gui::Controls;

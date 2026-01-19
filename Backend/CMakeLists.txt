@@ -1,7 +1,6 @@
 add_library(mss.backend)
 add_library(mss::backend ALIAS mss.backend)
 
-file(GLOB_RECURSE Sources src/*.cpp)
 file(GLOB_RECURSE Headers include/*.hpp)
 
 target_sources(mss.backend
@@ -25,7 +24,9 @@ target_sources(mss.backend
         src/Midi/MidiRoad.cpp
         src/Midi/ServerRoad.cpp
 
-        PRIVATE ${Sources}
+        PRIVATE
+        src/Command/BaseCommand.cpp
+        src/Command/CommandItem.cpp
         PRIVATE
         FILE_SET headers
         TYPE HEADERS
@@ -34,7 +35,7 @@ target_sources(mss.backend
 target_link_libraries(mss.backend
         PUBLIC
         __cmake_cxx23
-        Mss::System
+        mss::system
         pugixml::pugixml
         Wor::Lib
         Wor::Sql

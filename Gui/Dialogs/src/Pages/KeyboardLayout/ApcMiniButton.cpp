@@ -1,6 +1,6 @@
 #include "Pages/KeyboardLayout/ApcMiniButton.hpp"
 
-#include "Wor/Midi/CallbackInfo/ApcMiniLed.hpp"
+import worlib.midi;
 
 using namespace Mss::Gui::Dialogs::Pages::KeyboardLayout;
 using namespace Wor::Midi;

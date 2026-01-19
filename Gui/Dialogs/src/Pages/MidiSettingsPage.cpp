@@ -5,14 +5,14 @@
 #include <QLabel>
 #include <QMouseEvent>
 
-#include "Wor/Midi/MidiDeviceList.hpp"
 #include "Wor/Wrappers/Singleton.hpp"
 
-#include "Config/Config.hpp"
 #include "Pages/KeyboardLayout/ApcMini.hpp"
 #include "Pages/MidiProperty.hpp"
 
+import mss.gui.scopes;
 import mss.backend;
+import worlib.midi;
 
 using namespace Mss::Gui::Dialogs::Pages;
 

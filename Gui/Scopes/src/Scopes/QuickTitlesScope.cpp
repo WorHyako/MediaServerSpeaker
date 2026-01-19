@@ -1,9 +1,10 @@
 #include "QuickTitlesScope.hpp"
 
-#include "Config.hpp"
 #include "Controls/QuickTitle.hpp"
 
 #include <QVBoxLayout>
+
+import mss.gui.scopes;
 
 using namespace Mss::Gui::Scopes;
 using namespace Mss::Gui::Controls;

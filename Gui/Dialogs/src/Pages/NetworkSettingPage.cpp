@@ -3,14 +3,13 @@
 #include "Wor/Network/TcpServer.hpp"
 #include "Wor/Wrappers/Singleton.hpp"
 
-#include "Config/Config.hpp"
-
-#include <QGraphicsEllipseItem>
 #include <QGraphicsWidget>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QVBoxLayout>
+
+import mss.gui.scopes;
 
 using namespace Mss::Gui::Dialogs::Pages;
 

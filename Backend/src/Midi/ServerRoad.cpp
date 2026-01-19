@@ -5,7 +5,7 @@ module;
 
 #include <spdlog/spdlog.h>
 
-module mss.backend:midi.ServerRoad_impl;
+module mss.backend:midi.ServerRoad.impl;
 import :midi.ServerRoad;
 
 using namespace Mss::Backend::Midi;

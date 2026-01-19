@@ -1,8 +1,9 @@
 #include "Scopes/ManagementScope.hpp"
 
-#include "Config/Config.hpp"
 #include "Controls/ManagementButton.hpp"
 #include "Controls/ManagementTextableButton.hpp"
+
+import mss.gui.scopes;
 
 using namespace Mss::Gui::Scopes;
 using namespace Mss::Gui::Controls;

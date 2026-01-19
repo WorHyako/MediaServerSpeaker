@@ -4,6 +4,14 @@ add_library(Mss::Scopes ALIAS Mss_Scopes)
 file(GLOB_RECURSE Sources src/*.cpp)
 file(GLOB_RECURSE Headers include/*.hpp)
 target_sources(Mss_Scopes
+        PUBLIC
+        FILE_SET cxx_modules
+        TYPE CXX_MODULES
+        BASE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}
+        FILES
+        Scopes.ixx
+        include/Config/Config.cppm
+
         PRIVATE ${Sources}
         PRIVATE FILE_SET headers
         TYPE HEADERS
